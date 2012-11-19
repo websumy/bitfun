@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :followed_users, through: :user_relationships, source: :followed
   has_many :followers, through: :reverse_user_relationships, source: :follower
 
+  validates :login, presence: true, uniqueness: true
 
   # Callbacks
   before_create :set_default_role
