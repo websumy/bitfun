@@ -6,8 +6,13 @@ Bitfun::Application.routes.draw do
   match "/funs/tag/:tag" => "funs#index"
 
   devise_for :users
-  resources :users
-
+  resources :users do
+    member do
+      get :following, :followers
+      delete :unfollow
+      put :follow
+    end
+  end
 
 
   # The priority is based upon order of creation:

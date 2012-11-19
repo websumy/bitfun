@@ -4,9 +4,41 @@
       <h2>Show <%= @user[:info].login %></h2>
       <%= @user[:info].email %><br />
       <%= @user[:info].created_at %><br />
+
+      <div class="stats">
+        <a href="<%= following_user_path(@user[:info]) %>">
+          <strong id="following" class="stat">
+            <%= @user[:info].followed_users.count %>
+          </strong>
+          following
+        </a>
+        <a href="<%= followers_user_path(@user[:info]) %>">
+          <strong id="followers" class="stat">
+            <%= @user[:info].followers.count %>
+          </strong>
+          followers
+        </a>
+      </div>
+
     </div>
     <div class="span6">
       <%= render "funs/list", funs: @user[:funs] %>
+
+        <% unless current_user == @user[:info] %>
+          <div id="follow_form">
+            <% if current_user.following?(@user[:info]) %>
+                <%= form_tag unfollow_user_path, method: :delete do %>
+                    <%= submit_tag "Unfollow", class: "btn btn-large" %>
+                <% end %>
+            <% else %>
+                <%= form_tag follow_user_path, method: :put do %>
+                    <%= hidden_field :user_relationship, :followed_id, value: @user[:info].id %>
+                    <%= submit_tag "Follow", class: "btn btn-large btn-primary" %>
+                <% end %>
+            <% end %>
+          </div>
+        <% end %>
+
     </div>
   </div>
 </div>
