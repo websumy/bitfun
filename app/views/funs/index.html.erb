@@ -1,0 +1,7 @@
+<h3>Listing funs</h3>
+
+<%= render "list", funs: @funs %>
+
+<% if can? :create, Fun %>
+    <%= link_to 'New Fun', new_fun_path %>
+<% end %>

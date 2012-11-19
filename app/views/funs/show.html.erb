@@ -1,0 +1,18 @@
+<p>
+  <b>Name:</b>
+  <%= @fun.name %>
+</p>
+
+<p>
+  <b>String:</b>
+  <%= @fun.string %>
+</p>
+
+<p>
+  <b>Tags:</b>
+  <%= @fun.tag_names %>
+</p>
+
+
+<%= link_to 'Edit', edit_fun_path(@fun) %> |
+<%= link_to 'Back', funs_path %>
