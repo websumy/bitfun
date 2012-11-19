@@ -10,7 +10,14 @@ class User < ActiveRecord::Base
 
   # Associations
   has_and_belongs_to_many :roles
-  has_many :funs #, :dependent => :destroy
+  has_many :funs
+  has_many :user_relationships, foreign_key: "follower_id", dependent: :destroy
+  has_many :reverse_relationships, foreign_key: "followed_id", class_name: "UserRelationship", dependent: :destroy
+
+
+  has_many :followed_users, through: :user_relationships, source: :followed
+  has_many :followers, through: :reverse_user_relationships, source: :follower
+
 
   # Callbacks
   before_create :set_default_role
