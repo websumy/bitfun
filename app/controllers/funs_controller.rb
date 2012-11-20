@@ -11,7 +11,11 @@ class FunsController < ApplicationController
         redirect_to funs_path, notice: "No results for tag \"#{params[:tag]}\""
       end
     else
-      @funs = Fun.paginate(page: params[:page], per_page: 5)
+      if current_user
+        @funs = current_user.feed.paginate(page: params[:page], per_page: 5)
+      else
+        @funs = Fun.paginate(page: params[:page], per_page: 5)
+      end
     end
   end
 

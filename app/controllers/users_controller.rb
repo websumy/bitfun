@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def show
     user = User.find_by_login(params[:id])
     if user.present?
-      funs = user.funs.paginate(page: params[:page], per_page: 1)
+      funs = user.funs.paginate(page: params[:page], per_page: 5)
       @user = {info: user, funs: funs}
     else
       redirect_to users_path, :alert => "Can't find this user!"
