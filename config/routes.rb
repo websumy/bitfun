@@ -5,7 +5,7 @@ Bitfun::Application.routes.draw do
 
   match "/funs/tag/:tag" => "funs#index"
 
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
   resources :users do
     member do
       get :following, :followers
