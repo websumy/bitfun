@@ -3,7 +3,7 @@ Bitfun::Application.routes.draw do
   root :to => 'funs#index'
   resources :funs
 
-  match "/funs/tag/:tag" => "funs#index"
+  match "/funs/tag/:tag" => "funs#index", :as => :funs_by_tag
 
   devise_for :users, :controllers => {:registrations => "registrations"}
   resources :users do

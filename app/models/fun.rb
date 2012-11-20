@@ -18,6 +18,10 @@ class Fun < ActiveRecord::Base
     @tag_names ||= tags.pluck(:name).join(", ")
   end
 
+  def array_tag_names
+    tags.pluck(:name)
+  end
+
   def save_tag_names
     if @tag_names
       self.tags = @tag_names.split(",").map {|name| Tag.where(name: name.strip).first_or_create if name.present?}.compact

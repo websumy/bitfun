@@ -1,26 +1,17 @@
-<table class="table table-condensed">
+<table class="table table-hover">
   <thead>
   <tr>
     <th>Name</th>
-    <th>String</th>
-    <th>Show</th>
-    <th>Edit</th>
-    <th>Destroy</th>
+    <th>Posted</th>
+    <th>By</th>
   </tr>
   </thead>
   <tbody>
   <% funs.each do |fun| %>
       <tr>
-        <td><%= fun.name %></td>
-        <td><%= fun.string %></td>
-
-        <td><%= link_to 'Show', fun, class: 'btn btn-mini' %></td>
-        <% if can? :update, fun %>
-            <td><%= link_to 'Edit', edit_fun_path(fun), class: 'btn btn-mini' %></td>
-        <% end %>
-        <% if can? :destroy, fun %>
-            <td><%= link_to 'Destroy', fun, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-mini' %></td>
-        <% end %>
+        <td><%= link_to fun.name, fun %></td>
+        <td><%= time_ago_in_words fun.created_at %> ago</td>
+        <td><%= link_to fun.user.login, fun.user %></td>
       </tr>
   <% end %>
   </tbody>

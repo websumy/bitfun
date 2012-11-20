@@ -10,9 +10,26 @@
 
 <p>
   <b>Tags:</b>
-  <%= @fun.tag_names %>
+  <% @fun.array_tag_names.map do |name| %>
+    <%= link_to name, funs_by_tag_path(name) %><%=", " unless @fun.array_tag_names.last == name %>
+  <% end %>
 </p>
 
+<p>
+  <b>Posted:</b>
+  <%= time_ago_in_words @fun.created_at %> ago
+</p>
 
-<%= link_to 'Edit', edit_fun_path(@fun) %> |
+<p>
+  <b>By:</b>
+  <%= link_to @fun.user.login, @fun.user %>
+</p>
+
+<% if can? :update, @fun %>
+    <%= link_to 'Edit', edit_fun_path(@fun), class: 'btn btn-small btn-primary' %>
+<% end %>
+<% if can? :destroy, @fun %>
+    <%= link_to 'Destroy', @fun, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small btn-danger' %>
+<% end %>
+<br /><br />
 <%= link_to 'Back', funs_path %>
