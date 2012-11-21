@@ -6,82 +6,57 @@ class UsersController < ApplicationController
   end
 
   def show
-    user = User.find_by_login(params[:id])
-    if user.present?
-      funs = user.funs.paginate(page: params[:page], per_page: 5)
-      @user = {info: user, funs: funs}
-    else
-      redirect_to users_path, :alert => "Can't find this user!"
-    end
+    user = User.find_by_login!(params[:id])
+    funs = user.funs.paginate(page: params[:page], per_page: 5)
+    @user = {info: user, funs: funs}
   end
 
   def update
     authorize! :update, @user, :message => 'Not authorized as an administrator.'
-    @user = User.find_by_login(params[:id])
-    if user.present?
-      if @user.update_attributes(params[:user], :as => :admin)
-        redirect_to users_path, :notice => "User updated."
-      else
-        redirect_to users_path, :alert => "Unable to update user."
-      end
+    @user = User.find_by_login!(params[:id])
+    if @user.update_attributes(params[:user], :as => :admin)
+      redirect_to users_path, :notice => "User updated."
     else
-      redirect_to users_path, :alert => "Can't find this user!"
+      redirect_to users_path, :alert => "Unable to update user."
     end
   end
 
   def destroy
     authorize! :destroy, @user, :message => 'Not authorized as an administrator.'
-    user = User.find_by_login(params[:id])
-    unless user == current_user
+    user = User.find_by_login!(params[:id])
+    if user == current_user
+      redirect_to users_path, :notice => "Can't delete yourself."
+    else
       user.destroy
       redirect_to users_path, :notice => "User deleted."
-    else
-      redirect_to users_path, :notice => "Can't delete yourself."
     end
   end
 
   def following
-    user = User.find_by_login(params[:id])
-    if user.present?
-      @users = user.followed_users.paginate(page: params[:page])
-      render 'index'
-    else
-      redirect_to users_path, :alert => "Can't find this user!"
-    end
+    user = User.find_by_login!(params[:id])
+    @users = user.followed_users.paginate(page: params[:page])
+    render 'index'
   end
 
   def followers
     user = User.find_by_login(params[:id])
-    if user.present?
-      @users = user.followers.paginate(page: params[:page])
-      render 'index'
-    else
-      redirect_to users_path, :alert => "Can't find this user!"
-    end
+    @users = user.followers.paginate(page: params[:page])
+    render 'index'
   end
 
   def follow
     @user = User.find(params[:user_relationship][:followed_id])
-    if @user.present?
-      if @user == current_user
-        redirect_to users_path, :alert => "Can't follow yourself!"
-      else
-        current_user.follow!(@user)
-        redirect_to @user
-      end
+    if @user == current_user
+      redirect_to users_path, :alert => "Can't follow yourself!"
     else
-      redirect_to users_path, :alert => "Can't find this user!"
+      current_user.follow!(@user)
+      redirect_to @user
     end
   end
 
   def unfollow
     @user = User.find_by_login(params[:id])
-    if @user.present?
-      current_user.unfollow!(@user)
-      redirect_to @user
-    else
-      redirect_to users_path, :alert => "Can't find this user!"
-    end
+    current_user.unfollow!(@user)
+    redirect_to @user
   end
-
 end

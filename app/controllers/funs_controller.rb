@@ -21,6 +21,7 @@ class FunsController < ApplicationController
 
   # GET /funs/1
   def show
+    @fun = Fun.find(params[:id])
   end
 
   # GET /funs/new

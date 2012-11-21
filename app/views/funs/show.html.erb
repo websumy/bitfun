@@ -10,9 +10,7 @@
 
 <p>
   <b>Tags:</b>
-  <% @fun.array_tag_names.map do |name| %>
-    <%= link_to name, funs_by_tag_path(name) %><%=", " unless @fun.array_tag_names.last == name %>
-  <% end %>
+  <%= show_tags_links @fun.array_tag_names %>
 </p>
 
 <p>
