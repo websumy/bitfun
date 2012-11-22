@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def show
     user = User.find_by_login!(params[:id])
-    funs = user.funs.paginate(page: params[:page], per_page: 5)
+    funs = user.funs.page params[:page]
     @user = {info: user, funs: funs}
   end
 

@@ -1,6 +1,6 @@
 class Fun < ActiveRecord::Base
   attr_accessible :name, :string, :tag_names
-
+  paginates_per 1
   attr_writer :tag_names
 
   # Associations

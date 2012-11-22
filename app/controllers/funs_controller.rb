@@ -6,15 +6,15 @@ class FunsController < ApplicationController
     if params[:tag]
       tag = Tag.find_by_name(params[:tag])
       if tag.present?
-        @funs = tag.funs.includes(:user).paginate(page: params[:page], per_page: 5)
+        @funs = tag.funs.includes(:user).page params[:page]
       else
         redirect_to funs_path, notice: "No results for tag \"#{params[:tag]}\""
       end
     else
       if current_user
-        @funs = current_user.feed.includes(:user).paginate(page: params[:page], per_page: 5)
+        @funs = current_user.feed.includes(:user).page params[:page]
       else
-        @funs = Fun.includes(:user).paginate(page: params[:page], per_page: 5)
+        @funs = Fun.includes(:user).page params[:page]
       end
     end
   end

@@ -1,7 +1,9 @@
 Bitfun::Application.routes.draw do
 
   root :to => 'funs#index'
-  resources :funs
+  resources :funs do
+    get 'p/:page', :action => :index, :on => :collection
+  end
 
   match "/funs/tag/:tag" => "funs#index", :as => :funs_by_tag
 
