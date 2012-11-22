@@ -10,7 +10,7 @@
 
 <p>
   <b>Tags:</b>
-  <%= show_tags_links @fun.array_tag_names %>
+  <%= raw @fun.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
 </p>
 
 <p>

@@ -9,6 +9,7 @@ gem 'mysql2'
 gem 'devise'
 gem 'cancan'
 gem 'kaminari'
+gem 'acts-as-taggable-on'
 
 gem "bootstrap-sass"
 

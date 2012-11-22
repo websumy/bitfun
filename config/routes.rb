@@ -1,13 +1,15 @@
 Bitfun::Application.routes.draw do
 
   root :to => 'funs#index'
+
   resources :funs do
     get 'p/:page', :action => :index, :on => :collection
   end
 
-  match "/funs/tag/:tag" => "funs#index", :as => :funs_by_tag
+  get '/funs/tag/:tag', to: 'funs#index', as: :tag
 
   devise_for :users, :controllers => {:registrations => "registrations"}
+
   resources :users do
     member do
       get :following, :followers
