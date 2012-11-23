@@ -11,6 +11,9 @@ gem 'cancan'
 gem 'kaminari'
 gem 'acts-as-taggable-on'
 
+gem "rmagick"
+gem 'carrierwave'
+
 gem "bootstrap-sass"
 
 gem "simple_form"

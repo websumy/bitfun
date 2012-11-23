@@ -35,6 +35,9 @@ GEM
     bootstrap-sass (2.1.1.0)
     builder (3.0.4)
     cancan (1.6.8)
+    carrierwave (0.7.1)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -96,6 +99,7 @@ GEM
     rake (10.0.0)
     rdoc (3.12)
       json (~> 1.4)
+    rmagick (2.13.1)
     sass (3.2.3)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -131,12 +135,14 @@ DEPENDENCIES
   acts-as-taggable-on
   bootstrap-sass
   cancan
+  carrierwave
   coffee-rails (~> 3.2.1)
   devise
   jquery-rails
   kaminari
   mysql2
   rails (= 3.2.8)
+  rmagick
   sass-rails (~> 3.2.3)
   simple_form
   thin

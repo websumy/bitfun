@@ -3,6 +3,7 @@
     <%= f.error_notification %>
     <%= f.input :email, :required => true %>
     <%= f.input :login, :required => true %>
+    <%= f.file_field :avatar, :required => false%>
     <%= f.input :password, :required => true %>
     <%= f.input :password_confirmation, :required => true %>
     <%= f.button :submit, 'Sign up', :class => 'btn-primary' %>

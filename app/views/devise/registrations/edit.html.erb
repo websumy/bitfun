@@ -3,6 +3,10 @@
     <%= f.error_notification %>
     <%= f.input :email, :required => true %>
     <%= f.input :login, :required => true %>
+    <%= image_tag(resource.avatar_url :thumb) if resource.avatar? %><br/>
+    <%= f.file_field :avatar%>
+    <%= f.hidden_field :avatar_cache %>
+    <label><%= f.check_box :remove_avatar %> Remove avatar</label>
     <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
     <%= f.input :password_confirmation, :required => false %>
     <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
