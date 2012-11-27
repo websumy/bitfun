@@ -13,13 +13,43 @@
     <%= f.label :title %>
     <%= f.text_field :title, class: "input-xxlarge" %>
 
-    <%= f.label :content_type %>
-    <%= f.select :content_type, %w(Post Image) %>
+    <ul class="nav nav-tabs" id="type">
+      <li><a href="#text" data-toggle="tab">Text</a></li>
+      <li><a href="#image" data-toggle="tab">Image</a></li>
+      <li><a href="#video" data-toggle="tab">Video</a></li>
+    </ul>
 
-    <%= f.fields_for :content_attributes do |f| %>
-        <%= f.label :body %>
-        <%= f.text_area :body, class: "input-xxlarge", rows: 5%>
-    <% end %>
+    <div class="tab-content">
+      <div class="tab-pane active" id="text">
+        <%= f.hidden_field :content_type, value: 'Post' %>
+        <%= f.fields_for :content_attributes do |f| %>
+            <%= f.label :body %>
+            <%= f.text_area :body, class: "input-xxlarge", rows: 5%>
+        <% end %>
+
+      </div>
+      <div class="tab-pane" id="image">
+        <%= f.hidden_field :content_type, value: 'Image' %>
+        <%= f.fields_for :content_attributes do |f| %>
+            <%= f.label :image %>
+            <%= f.file_field :image%>
+            <br> OR
+            <%= f.label :url %>
+            <%= f.text_field :url%>
+        <% end %>
+      </div>
+      <div class="tab-pane" id="video">
+        <%= f.hidden_field :content_type, value: 'Video' %>
+        <%= f.fields_for :content_attributes do |f| %>
+            <%= f.label :video %>
+            <%= f.file_field :video%>
+            <br> OR
+            <%= f.label :video_url %>
+            <%= f.text_field :video_url%>
+        <% end %>
+      </div>
+    </div>
+
 
     <%= f.label :tag_list, "Tags (separated by commas)" %>
     <%= f.text_field :tag_list, class: "input-xxlarge" %><br />

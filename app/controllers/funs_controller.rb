@@ -1,6 +1,8 @@
 class FunsController < ApplicationController
   load_and_authorize_resource
 
+  respond_to :html
+
   # GET /funs
   def index
       if current_user
