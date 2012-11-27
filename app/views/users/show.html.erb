@@ -1,46 +1,46 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span3">
-      <h2>Show <%= @user[:info].login %></h2>
-      <%= @user[:info].email %><br />
-      <%= @user[:info].created_at %><br />
-
-      <div class="stats">
-        <a href="<%= following_user_path(@user[:info]) %>">
-          <strong id="following" class="stat">
-            <%= @user[:info].followed_users.count %>
-          </strong>
-          following
-        </a>
-        <a href="<%= followers_user_path(@user[:info]) %>">
-          <strong id="followers" class="stat">
-            <%= @user[:info].followers.count %>
-          </strong>
-          followers
-        </a>
-      </div>
-
+      <h2>User info</h2>
+      <dl>
+        <dt>Login:</dt>
+        <dd><%= @user[:info].login %></dd>
+        <dt>Email:</dt>
+        <dd><%= @user[:info].email %></dd>
+        <dt>Registered:</dt>
+        <dd><%= @user[:info].created_at %></dd>
+      </dl>
+      <a href="<%= following_user_path(@user[:info]) %>">
+        <strong id="following" class="stat">
+          <%= @user[:info].followed_users.count %>
+        </strong>
+        following
+      </a>
+      <a href="<%= followers_user_path(@user[:info]) %>">
+        <strong id="followers" class="stat">
+          <%= @user[:info].followers.count %>
+        </strong>
+        followers
+      </a>
     </div>
-    <div class="span6">
+    <div class="span9">
+      <h2>Funs</h2>
       <%= render "funs/list", funs: @user[:funs] %>
-
         <% unless current_user == @user[:info] %>
           <div id="follow_form">
             <% if current_user.following?(@user[:info]) %>
                 <%= form_tag unfollow_user_path, method: :delete do %>
-                    <%= submit_tag "Unfollow", class: "btn btn-large" %>
+                    <%= submit_tag "Unfollow", class: "btn" %>
                 <% end %>
             <% else %>
                 <%= form_tag follow_user_path, method: :put do %>
                     <%= hidden_field :user_relationship, :followed_id, value: @user[:info].id %>
-                    <%= submit_tag "Follow", class: "btn btn-large btn-primary" %>
+                    <%= submit_tag "Follow", class: "btn btn-primary" %>
                 <% end %>
             <% end %>
           </div>
         <% end %>
-
     </div>
   </div>
+  <%= link_to "Back", :back %><br />
 </div>
-
-<%= link_to "Back", :back %>

@@ -1,7 +1,7 @@
-<h3>Listing funs</h3>
-
+<div class="span11">
+<h2>Feed</h2>
 <%= render "list", funs: @funs %>
-
-<% if can? :create, Fun %>
-    <%= link_to 'New fun', new_fun_path, class: 'btn btn-primary' %>
-<% end %>
+  <% if can? :create, Fun %>
+      <%= link_to 'New fun', new_fun_path, class: 'btn btn-primary' %>
+  <% end %>
+</div>
