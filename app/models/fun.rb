@@ -1,16 +1,36 @@
 class Fun < ActiveRecord::Base
-  attr_accessible :name, :string, :tag_list
+  attr_accessible :title, :tag_list, :content_attributes, :content_type
+
+  # Tags
   acts_as_taggable
 
-  paginates_per 1
-  attr_writer :tag_names
+  # Kaminari pagination config
+  paginates_per 5
 
   # Associations
   belongs_to :user
+  belongs_to :content, :polymorphic => true, :dependent => :destroy
+  accepts_nested_attributes_for :content, :allow_destroy => true
+
+
+  def attributes=(attributes = {})
+    self.content_type = attributes[:content_type]
+    super
+  end
+
+  def content_attributes=(attributes)
+    content = self.content_type.constantize.find_or_initialize_by_id(self.content_id)
+    content.attributes = attributes
+    self.content = content
+  end
 
   # Validation
   validates :user_id, :presence => true
-  validates :name, :presence => true
+  validates :title, :presence => true
+
+  # Scopes
+  scope :images, where(content_type: "Image")
+  scope :posts, where(content_type: "Post")
 
   def self.from_users_followed_by(user)
     followed_user_ids = "SELECT followed_id FROM #{:user_relationships} WHERE follower_id = :user_id"

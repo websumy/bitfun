@@ -11,17 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121123091355) do
+ActiveRecord::Schema.define(:version => 20121126084711) do
 
   create_table "funs", :force => true do |t|
-    t.string   "name"
-    t.string   "string"
+    t.string   "title"
+    t.boolean  "published"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "content_id"
+    t.string   "content_type"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   add_index "funs", ["user_id"], :name => "index_funs_on_user_id"
+
+  create_table "images", :force => true do |t|
+    t.string "image"
+    t.string "url"
+  end
+
+  create_table "posts", :force => true do |t|
+    t.text "body"
+  end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -68,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20121123091355) do
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "login",                  :default => "", :null => false
+    t.string   "avatar",                 :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -79,7 +91,6 @@ ActiveRecord::Schema.define(:version => 20121123091355) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.string   "avatar"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
