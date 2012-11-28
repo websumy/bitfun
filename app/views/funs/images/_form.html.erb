@@ -1,11 +1,11 @@
 <%= fun.hidden_field :content_type, value: 'Image' %>
 <%= fun.fields_for :content_attributes do |f| %>
 
-    <%= f.label :image %>
-    <%= f.file_field :image%>
+    <%= f.label :file %>
+    <%= f.file_field :file%>
 
-    <%= f.label :url %>
-    <%= f.text_field :url%>
+    <%= f.label :remote_file_url %>
+    <%= f.text_field :remote_file_url %>
 
     <%= f.label :tag_list, "Tags (separated by commas)" %>
     <%= f.text_field :tag_list, class: "input-xxlarge" %><br />

@@ -1,7 +1,7 @@
 class Image < ActiveRecord::Base
-  attr_accessible :image, :url, :tag_list
+  attr_accessible :file, :remote_file_url, :url, :tag_list
 
-      # Tags
+  # Tags
   acts_as_taggable
 
   has_one :fun, :as => :content, :dependent => :destroy

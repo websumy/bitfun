@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20121126084912) do
   add_index "funs", ["user_id"], :name => "index_funs_on_user_id"
 
   create_table "images", :force => true do |t|
-    t.string "image"
+    t.string "file"
     t.string "url"
   end
 

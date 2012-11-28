@@ -1,7 +1,9 @@
+<% if image.file? %>
 <p>
   <b>Image:</b>
-  <%= image.url %>
+  <%= image_tag image.file_url %>
 </p>
+<% end %>
 <p>
   <b>Tags:</b>
   <%= raw image.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
