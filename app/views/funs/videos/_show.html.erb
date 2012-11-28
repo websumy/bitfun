@@ -1,8 +1,8 @@
 <p>
   <b>Video:</b>
-  <%= video.url %>
+  <%= fun.content.url %>
 </p>
 <p>
   <b>Tags:</b>
-  <%= raw video.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
+  <%= raw fun.content.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
 </p>

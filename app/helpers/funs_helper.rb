@@ -1,8 +1,7 @@
 module FunsHelper
 
-  def show_fields fun
-    type = fun.content_type.downcase
-    render "funs/#{type.pluralize}/show", type.to_sym => fun.content
+  def render_fun_partial(fun, partial)
+    render "funs/#{fun.content_type.downcase.pluralize}/#{partial}", fun: fun
   end
 
 end

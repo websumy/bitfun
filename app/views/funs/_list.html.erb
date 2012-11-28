@@ -1,24 +1,8 @@
 <% if funs.any?%>
-<table class="table table-hover">
-  <thead>
-  <tr>
-    <th>Title</th>
-    <th>Posted</th>
-    <th>By</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% funs.each do |fun| %>
-      <tr>
-        <td><%= link_to fun.title, fun %></td>
-        <td><%= time_ago_in_words fun.created_at %> ago</td>
-        <td><%= link_to fun.user.login, fun.user %></td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
+    <% funs.each do |fun| %>
+        <%= render_fun_partial fun, fun_partial %>
+    <% end %>
+    <%= paginate funs %>
 <% else %>
     <p class="text-error">There aren't any funs in this folder.</p>
 <% end %>
-
-<%= paginate funs %>

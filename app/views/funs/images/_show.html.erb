@@ -1,10 +1,11 @@
-<% if image.file? %>
+<%= fun.title %>
+<% if fun.content.file? %>
 <p>
   <b>Image:</b>
-  <%= image_tag image.file_url %>
+  <%= image_tag fun.content.file_url %>
 </p>
 <% end %>
 <p>
   <b>Tags:</b>
-  <%= raw image.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
+  <%= raw fun.content.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
 </p>

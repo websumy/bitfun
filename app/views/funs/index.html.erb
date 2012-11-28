@@ -1,6 +1,6 @@
 <div class="span11">
 <h2>Feed</h2>
-<%= render "list", funs: @funs %>
+  <%= render "list", funs: @funs, fun_partial: :list_item %>
   <% if can? :create, Fun %>
       <%= link_to 'New fun', new_fun_path, class: 'btn btn-primary' %>
   <% end %>

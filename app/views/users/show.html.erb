@@ -25,7 +25,7 @@
     </div>
     <div class="span9">
       <h2>Funs</h2>
-      <%= render "funs/list", funs: @user[:funs] %>
+      <%= render "funs/list", funs: @user[:funs], fun_partial: :list_item %>
         <% unless current_user == @user[:info] %>
           <div id="follow_form">
             <% if current_user.following?(@user[:info]) %>
