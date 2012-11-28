@@ -1,0 +1,12 @@
+<%= fun.hidden_field :content_type, value: 'Video' %>
+<%= fun.fields_for :content_attributes do |f| %>
+
+    <%= f.label :video %>
+    <%= f.file_field :video%>
+
+    <%= f.label :url %>
+    <%= f.text_field :url%>
+
+    <%= f.label :tag_list, "Tags (separated by commas)" %>
+    <%= f.text_field :tag_list, class: "input-xxlarge" %><br />
+<% end %>
