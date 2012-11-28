@@ -1,8 +1,5 @@
 class Fun < ActiveRecord::Base
-  attr_accessible :title, :tag_list, :content_attributes, :content_type
-
-  # Tags
-  acts_as_taggable
+  attr_accessible :title, :content_attributes, :content_type
 
   # Kaminari pagination config
   paginates_per 5

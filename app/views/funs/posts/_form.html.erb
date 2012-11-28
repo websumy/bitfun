@@ -1,32 +1,9 @@
-<%= form_for(@post) do |f| %>
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this fun from being saved:</h2>
+<%= fun.hidden_field :content_type, value: 'Post' %>
+<%= fun.fields_for :content_attributes do |f| %>
 
-      <ul>
-      <% @post.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <%= f.label :body %>
+    <%= f.text_area :body, class: "input-xxlarge", rows: 5%>
 
-    <%= f.fields_for :fun do |f| %>
-        <div class="field">
-          <%= f.label :title %><br />
-          <%= f.text_field :title %>
-        </div>
-    <div class="field">
-      <%= f.label :tag_list, "Tags (separated by commas)" %><br />
-      <%= f.text_field :tag_list %>
-    </div>
-    <% end %>
-  <div class="field">
-  <%= f.label :body %><br />
-  <%= f.text_area :body %>
-</div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.label :tag_list, "Tags (separated by commas)" %>
+    <%= f.text_field :tag_list, class: "input-xxlarge" %><br />
 <% end %>
