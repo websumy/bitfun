@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def show
     user = User.find_by_login!(params[:id])
-    funs = user.funs.page params[:page]
+    funs = user.funs.includes(:content).page params[:page]
     @user = {info: user, funs: funs}
   end
 

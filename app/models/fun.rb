@@ -4,6 +4,8 @@ class Fun < ActiveRecord::Base
   # Kaminari pagination config
   paginates_per 5
 
+  default_scope {order("created_at DESC")}
+
   # Associations
   belongs_to :user
   belongs_to :content, :polymorphic => true, :dependent => :destroy
