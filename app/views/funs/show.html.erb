@@ -3,10 +3,7 @@
   <%= @fun.title %>
 </p>
 
-<p>
-  <b>Tags:</b>
-  <%= raw @fun.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
-</p>
+<%= show_fields @fun%>
 
 <p>
   <b>Posted:</b>

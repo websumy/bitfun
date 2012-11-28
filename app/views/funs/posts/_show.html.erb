@@ -1,0 +1,8 @@
+<p>
+  <b>Body:</b>
+  <%= post.body %>
+</p>
+<p>
+  <b>Tags:</b>
+  <%= raw post.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
+</p>

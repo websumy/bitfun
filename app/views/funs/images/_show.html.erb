@@ -1,0 +1,8 @@
+<p>
+  <b>Image:</b>
+  <%= image.url %>
+</p>
+<p>
+  <b>Tags:</b>
+  <%= raw image.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
+</p>
