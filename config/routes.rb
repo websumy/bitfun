@@ -8,6 +8,8 @@ Bitfun::Application.routes.draw do
 
   get '/funs/tag/:tag', to: 'funs#index', as: :tag
 
+  get 'feed' => 'funs#feed'
+
   devise_for :users, :controllers => {:registrations => "registrations"}
 
   resources :users do

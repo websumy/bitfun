@@ -61,7 +61,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # version :thumb, if: :pre_limit do
   version :thumb do
     process :only_first_frame
-    process :resize_to_limit => [150, 150]
+    process :resize_to_fill => [150, 150]
     process :convert => 'jpg'
   end
 

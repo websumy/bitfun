@@ -4,8 +4,6 @@ class Fun < ActiveRecord::Base
   # Kaminari pagination config
   paginates_per 5
 
-  default_scope {order("created_at DESC")}
-
   # Associations
   belongs_to :user
   belongs_to :content, :polymorphic => true, :dependent => :destroy
@@ -28,7 +26,9 @@ class Fun < ActiveRecord::Base
   validates :title, :presence => true
 
   # Scopes
+  default_scope {order("created_at DESC")}
   scope :images, where(content_type: "Image")
+  scope :videos, where(content_type: "Video")
   scope :posts, where(content_type: "Post")
 
   def self.from_users_followed_by(user)

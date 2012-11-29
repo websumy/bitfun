@@ -34,13 +34,13 @@ class UsersController < ApplicationController
 
   def following
     user = User.find_by_login!(params[:id])
-    @users = user.followed_users.paginate(page: params[:page])
+    @users = user.followed_users.page params[:page]
     render 'index'
   end
 
   def followers
     user = User.find_by_login(params[:id])
-    @users = user.followers.paginate(page: params[:page])
+    @users = user.followers.page params[:page]
     render 'index'
   end
 

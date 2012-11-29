@@ -5,11 +5,12 @@ class FunsController < ApplicationController
 
   # GET /funs
   def index
-      if current_user
-        @funs = current_user.feed.includes(:user, :content).page params[:page]
-      else
-        @funs = Fun.includes(:user, :content).page params[:page]
-      end
+    @funs = Fun.includes(:user, :content).page params[:page]
+  end
+
+  def feed
+    @funs = current_user.feed.includes(:user, :content).page params[:page]
+    render 'index'
   end
 
   # GET /funs/1
