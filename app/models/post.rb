@@ -5,5 +5,5 @@ class Post < ActiveRecord::Base
   # Tags
   acts_as_taggable
 
-  has_one :fun, :as => :content, :dependent => :destroy
+  has_many :fun, :as => :content, :dependent => :destroy
 end

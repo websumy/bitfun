@@ -11,5 +11,5 @@ class Image < ActiveRecord::Base
     super
   end
 
-  has_one :fun, :as => :content, :dependent => :destroy
+  has_many :fun, :as => :content, :dependent => :destroy
 end
