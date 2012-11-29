@@ -9,6 +9,7 @@ class Fun < ActiveRecord::Base
   belongs_to :content, :polymorphic => true, :dependent => :destroy
   accepts_nested_attributes_for :content, :allow_destroy => true
 
+  acts_as_votable
 
   def attributes=(attributes = {})
     self.content_type = attributes[:content_type]

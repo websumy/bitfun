@@ -19,6 +19,8 @@ gem "bootstrap-sass"
 gem "simple_form"
 gem 'thin'
 
+gem 'acts_as_votable' #voting
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

@@ -60,4 +60,13 @@ class FunsController < ApplicationController
       redirect_to funs_url, notice: "Can't do repost!"
     end
   end
+
+  def like
+    if current_user.voted_up_on? @fun
+        @fun.unliked_by current_user
+    else
+      @fun.liked_by current_user
+    end
+    redirect_to @fun, notice: 'Thanks for voting!'
+  end
 end
