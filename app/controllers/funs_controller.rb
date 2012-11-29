@@ -15,7 +15,6 @@ class FunsController < ApplicationController
 
   # GET /funs/1
   def show
-    @fun = Fun.find(params[:id])
   end
 
   # GET /funs/new
@@ -49,5 +48,16 @@ class FunsController < ApplicationController
   def destroy
     @fun.destroy
     redirect_to funs_url
+  end
+
+  def repost
+    current_fun = Fun.find(params[:id])
+    if current_fun.user != current_user
+      @fun = current_fun.dup
+      @fun.user = current_user
+      redirect_to @fun, notice: 'Fun was successfully created.' if @fun.save
+    else
+      redirect_to funs_url, notice: "Can't do repost!"
+    end
   end
 end

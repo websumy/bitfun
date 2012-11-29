@@ -8,6 +8,7 @@ class Ability
     elsif user.role? :user
       can :create, Fun
       can :feed, Fun
+      can :repost, Fun
       can :update, Fun, user_id: user.id
       can :read, :all
     else
