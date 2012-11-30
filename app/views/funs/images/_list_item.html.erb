@@ -16,4 +16,4 @@
 </dl>
 
 <%= link_to 'Repost fun', repost_fun_path(fun), class: 'btn btn-primary' %>
-<%= link_to 'Like fun', like_fun_path(fun), class: 'btn btn-success' %>
+<%= render "funs/like_link", fun: fun %>

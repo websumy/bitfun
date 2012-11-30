@@ -14,3 +14,21 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+
+$(function(){
+    $('.span11').on('click', 'a.btn-success, a.btn-warning', function(e){
+        e.preventDefault();
+
+        $.ajaxSetup({
+            'beforeSend': function(xhr) {
+                xhr.setRequestHeader("Accept", "text/javascript", "*/*");
+            }
+        });
+        var link = $(this);
+        $.get(link.attr("href"), {}, function(data){
+            link.after(data);
+            link.remove();
+        }, 'html');
+
+    });
+});

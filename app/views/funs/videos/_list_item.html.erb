@@ -12,6 +12,6 @@
       <dd><%= link_to fun.user.login, fun.user %></dd>
   <% end %>
 </dl>
-<% if current_user != fun.user && can?(:repost, fun) %>
-    <%= link_to 'Repost fun', repost_fun_path(fun), class: 'btn btn-primary' %>
-<% end %>
+
+<%= link_to 'Repost fun', repost_fun_path(fun), class: 'btn btn-primary' %>
+<%= render "funs/like_link", fun: fun %>

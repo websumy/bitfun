@@ -63,10 +63,14 @@ class FunsController < ApplicationController
 
   def like
     if current_user.voted_up_on? @fun
-        @fun.unliked_by current_user
+      @fun.unliked_by voter: current_user
     else
       @fun.liked_by current_user
     end
-    redirect_to @fun, notice: 'Thanks for voting!'
+    respond_to do |format|
+      format.html {redirect_to @fun, notice: 'Thanks for voting!'}
+      format.js
+    end
+
   end
 end

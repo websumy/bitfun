@@ -1,0 +1,5 @@
+<% if current_user.voted_up_on? fun%>
+    <%= link_to "Unlike fun - #{fun.likes.size}", like_fun_path(fun), class: 'btn btn-warning' %>
+<% else %>
+    <%= link_to "Like fun - #{fun.likes.size}", like_fun_path(fun), class: 'btn btn-success' %>
+<% end %>
