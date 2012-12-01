@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121129151804) do
+ActiveRecord::Schema.define(:version => 20121201081905) do
 
   create_table "funs", :force => true do |t|
     t.string   "title"
@@ -19,10 +19,14 @@ ActiveRecord::Schema.define(:version => 20121129151804) do
     t.integer  "user_id"
     t.integer  "content_id"
     t.string   "content_type"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "cached_votes", :default => 0
+    t.integer  "cached_shows", :default => 0
   end
 
+  add_index "funs", ["cached_shows"], :name => "index_funs_on_cached_shows"
+  add_index "funs", ["cached_votes"], :name => "index_funs_on_cached_votes"
   add_index "funs", ["user_id"], :name => "index_funs_on_user_id"
 
   create_table "images", :force => true do |t|
