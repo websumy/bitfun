@@ -1,4 +1,8 @@
 <% if funs.any?%>
+    <%= link_to "Новое", "?" %> |
+    <%= link_to "Популярное", "?sort=cached_shows" %> |
+    <%= link_to "Обсуждаемое", "?sort=cached_votes_total" %> |
+    <%= select_tag :interval, options_for_select(%w(week month year)) %>
     <% funs.each do |fun| %>
         <%= render_fun_partial fun, fun_partial %>
     <% end %>

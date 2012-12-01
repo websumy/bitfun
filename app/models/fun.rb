@@ -2,7 +2,7 @@ class Fun < ActiveRecord::Base
   attr_accessible :title, :content_attributes, :content_type
 
   # Kaminari pagination config
-  paginates_per 5
+  paginates_per 1
 
   # Associations
   belongs_to :user
@@ -27,7 +27,6 @@ class Fun < ActiveRecord::Base
   validates :title, :presence => true
 
   # Scopes
-  default_scope {order("created_at DESC")}
   scope :images, where(content_type: "Image")
   scope :videos, where(content_type: "Video")
   scope :posts, where(content_type: "Post")
@@ -43,6 +42,12 @@ class Fun < ActiveRecord::Base
   def self.from_users_followed_by(user)
     followed_user_ids = "SELECT followed_id FROM #{:user_relationships} WHERE follower_id = :user_id"
     where("user_id IN (#{followed_user_ids})", user_id: user.id)
+  end
+
+  def self.sorting (order_column, interval)
+    order_column = Fun.column_names.include?(order_column) ? order_column : "created_at"
+    interval = %w(week month year).include?(interval) ? interval: "year"
+    where(:created_at => Time.now - 1.send(interval) .. Time.now).order(order_column + " DESC")
   end
 
 end
