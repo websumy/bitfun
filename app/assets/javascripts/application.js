@@ -16,19 +16,23 @@
 //= require_tree .
 
 $(function(){
-    $('.span11').on('click', 'a.btn-success, a.btn-warning', function(e){
+    $.ajaxSetup({
+        'beforeSend': function(xhr) {
+            xhr.setRequestHeader("Accept", "text/javascript", "*/*");
+        }
+    });
+
+    $('.like_button').on('click', 'a', function(e){
         e.preventDefault();
 
-        $.ajaxSetup({
-            'beforeSend': function(xhr) {
-                xhr.setRequestHeader("Accept", "text/javascript", "*/*");
-            }
-        });
         var link = $(this);
         $.get(link.attr("href"), {}, function(data){
             link.after(data);
             link.remove();
         }, 'html');
 
+    });
+    $("#funs_list").on("change", "select#interval", function(){
+        $(this).parent("form").submit();
     });
 });
