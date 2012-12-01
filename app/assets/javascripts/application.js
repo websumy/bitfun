@@ -22,7 +22,7 @@ $(function(){
         }
     });
 
-    $('.like_button').on('click', 'a', function(e){
+    $('.like_button a').live("click", function(e){
         e.preventDefault();
 
         var link = $(this);
