@@ -6,6 +6,14 @@
 </p>
 <% end %>
 <p>
+  <b>Likes:</b>
+  <%= fun.total_likes %>
+</p>
+<p>
+  <b>Shows:</b>
+  <%= fun.total_shows %>
+</p>
+<p>
   <b>Tags:</b>
   <%= raw fun.content.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
 </p>

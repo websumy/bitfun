@@ -32,6 +32,14 @@ class Fun < ActiveRecord::Base
   scope :videos, where(content_type: "Video")
   scope :posts, where(content_type: "Post")
 
+  def total_shows
+    self.cached_shows
+  end
+
+  def total_likes
+    self.cached_votes_total
+  end
+
   def self.from_users_followed_by(user)
     followed_user_ids = "SELECT followed_id FROM #{:user_relationships} WHERE follower_id = :user_id"
     where("user_id IN (#{followed_user_ids})", user_id: user.id)
