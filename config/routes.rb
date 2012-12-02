@@ -3,9 +3,9 @@ Bitfun::Application.routes.draw do
   root :to => 'funs#index'
 
   resources :funs do
-    get 'p/:page', :action => :index, :on => :collection
-    get 'repost', :on => :member
-    get 'like', :on => :member
+    member do
+      get :repost, :like
+    end
   end
 
   get '/funs/tag/:tag', to: 'funs#index', as: :tag

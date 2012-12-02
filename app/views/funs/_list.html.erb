@@ -1,13 +1,4 @@
 <div id="funs_list">
-    <div id="sort">
-        <%= link_to "Новое", {:action => :index, :controller => :funs, :sort => nil, :interval => params[:interval]}, remote: true %> |
-        <%= link_to "Популярное", {:action => :index, :controller => :funs, :sort =>  "cached_shows", :interval => params[:interval]}, remote: true %> |
-        <%= link_to "Обсуждаемое",{:action => :index, :controller => :funs, :sort => "cached_votes_total", :interval => params[:interval]}, remote: true %>
-    </div>
-  <%= form_tag funs_path, :method => 'get', :remote => true do %>
-    <%= hidden_field_tag :sort, params[:sort] %>
-    Период: <%= select_tag :interval, options_for_select(%w(year month week), params[:interval]) %>
-  <% end %>
   <% if funs.any?%>
     <% funs.each do |fun| %>
         <%= render_fun_partial fun, fun_partial %>

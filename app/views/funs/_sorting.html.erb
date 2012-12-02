@@ -1,0 +1,9 @@
+<div id="sort">
+  <%= link_to "Новое", {:action => :index, :controller => :funs, :sort => nil, :interval => params[:interval]}%> |
+  <%= link_to "Популярное", {:action => :index, :controller => :funs, :sort =>  "cached_shows", :interval => params[:interval]}%> |
+  <%= link_to "Обсуждаемое",{:action => :index, :controller => :funs, :sort => "cached_votes_total", :interval => params[:interval]}%>
+  <%= form_tag funs_path, :method => 'get', :remote => true do %>
+      <%= hidden_field_tag :sort, params[:sort] %>
+      Период: <%= select_tag :interval, options_for_select(%w(year month week), params[:interval]) %>
+  <% end %>
+</div>
