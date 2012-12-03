@@ -50,4 +50,14 @@ class Fun < ActiveRecord::Base
     where(created_at: Time.now - 1.send(interval) .. Time.now).order(order_column + " DESC")
   end
 
+  def self.sort_by_type (types=[])
+    def_types = %w(image post video)
+    types = if types.nil?
+              def_types
+            else
+              types.map { |type| type if def_types.include? type }.compact
+            end
+    where(content_type: types)
+  end
+
 end

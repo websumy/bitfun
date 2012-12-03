@@ -7,7 +7,7 @@ class FunsController < ApplicationController
 
   # GET /funs
   def index
-    @funs = Fun.includes(:user, :content).sorting(params[:sort], params[:interval]).page params[:page]
+    @funs = Fun.includes(:user, :content).sort_by_type(params[:type]).sorting(params[:sort], params[:interval]).page params[:page]
   end
 
   def feed

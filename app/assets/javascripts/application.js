@@ -32,7 +32,7 @@ $(function(){
         }, 'html');
 
     });
-    $("#sort").on("change", "select#interval", function(){
-        $(this).parent("form").submit();
+    $("#sort").on("change", "select#interval, input:checkbox", function(){
+        $(this).parents("form:first").submit();
     });
 });

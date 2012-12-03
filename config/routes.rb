@@ -12,6 +12,10 @@ Bitfun::Application.routes.draw do
 
   get 'feed' => 'funs#feed'
 
+  get 'new' => 'funs#index', as: :new
+  get 'hot' => 'funs#index', defaults: {sort: 'cached_shows'}, as: :hot
+  get 'discuss' => 'funs#index', defaults: {sort: 'cached_votes_total'}, as: :discuss
+
   devise_for :users, :controllers => {:registrations => "registrations"}
 
   resources :users do
