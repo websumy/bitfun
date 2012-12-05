@@ -56,6 +56,7 @@ class FunsController < ApplicationController
     current_fun = Fun.find(params[:id])
     if current_fun.user != current_user
       @fun = current_fun.dup
+      @fun.author_id = current_fun.user_id
       @fun.user = current_user
       redirect_to @fun, notice: 'Fun was successfully created.' if @fun.save
     else

@@ -1,5 +1,5 @@
 class Fun < ActiveRecord::Base
-  attr_accessible :title, :content_attributes, :content_type
+  attr_accessible :title, :content_attributes, :content_type, :author_id
 
   # Kaminari pagination config
   paginates_per 5
@@ -8,6 +8,8 @@ class Fun < ActiveRecord::Base
   belongs_to :user
   belongs_to :content, :polymorphic => true, :dependent => :destroy
   accepts_nested_attributes_for :content, :allow_destroy => true
+
+  before_save :set_author
 
   acts_as_votable
 
@@ -58,6 +60,10 @@ class Fun < ActiveRecord::Base
               types.map { |type| type if def_types.include? type }.compact
             end
     where(content_type: types)
+  end
+
+  def set_author
+    self.author_id = self.author_id.zero? ? self.user_id : self.author_id
   end
 
 end
