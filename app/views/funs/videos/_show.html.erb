@@ -2,10 +2,10 @@
   <b>Video:</b>
   <%= fun.content.url %>
 </p>
-<p>
+<div id="show_likes">
   <b>Likes:</b>
-  <%= fun.total_likes %>
-</p>
+  <%= link_to fun.total_likes, likes_fun_path, remote: true %>
+</div>
 <p>
   <b>Shows:</b>
   <%= fun.total_shows %>

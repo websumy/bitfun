@@ -4,7 +4,7 @@ Bitfun::Application.routes.draw do
 
   resources :funs do
     member do
-      get :repost, :like
+      get :repost, :like, :likes
     end
   end
 

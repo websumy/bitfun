@@ -35,4 +35,16 @@ $(function(){
     $("#sort").on("change", "select#interval, input:checkbox", function(){
         $(this).parents("form:first").submit();
     });
+
+    $('#show_likes a').on('ajax:success',  function(evt, data, status, xhr){
+        var $link = $(this);
+        $.each(data, function(k, v){
+            $link.after($("<img>").attr({
+                "src": v.avatar.thumb.url,
+                "class": "img-circle",
+                "width": "50px"
+            }));
+        });
+        $link.hide();
+    })
 });

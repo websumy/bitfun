@@ -77,6 +77,13 @@ class FunsController < ApplicationController
     end
   end
 
+  def likes
+    @fun = Fun.find(params[:id]).likes.voters
+    respond_to do |format|
+      format.json {render json: @fun.as_json(:only => [:login, :avatar])}
+    end
+  end
+
   private
   def increment_shows
     @fun.increment! :cached_shows

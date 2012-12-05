@@ -10,6 +10,7 @@ class Ability
       can :feed, Fun
       can :repost, Fun
       can :like, Fun
+      can :likes, Fun
       can :update, Fun, user_id: user.id
       can :read, :all
     else
