@@ -62,6 +62,7 @@ class Fun < ActiveRecord::Base
     where(content_type: types)
   end
 
+  private
   def set_author
     self.author_id = self.author_id.zero? ? self.user_id : self.author_id
   end
