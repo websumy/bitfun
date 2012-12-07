@@ -29,17 +29,25 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
 
-  # Process files as they are uploaded:
-  # process :scale => [200, 300]
-  #
-  # def scale(width, height)
-  #   # do something
-  # end
+  process :convert => 'png'
+  process :strip
 
   # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process :scale => [50, 50]
-  # end
+
+  version :large do
+    process :resize_to_limit => [700, nil]
+     process :quality => 90
+  end
+
+  version :thumb do
+     process :resize_to_limit => [500, nil]
+     process :quality => 80
+  end
+
+  version :small do
+    process :quality => 50
+    process :resize_to_limit => [300, nil]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
@@ -50,10 +58,31 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    if super.present?
-      @name ||= Digest::MD5.hexdigest(File.dirname(current_path))
-      "#{@name}.#{file.extension.downcase}"
+    "#{secure_token(10)}.png" if original_filename.present?
+  end
+
+  # Strips out all embedded information from the image
+  def strip
+    manipulate! do |img|
+      img.strip!
+      img = yield(img) if block_given?
+      img
     end
+  end
+
+  # Reduces the quality of the image to the percentage given
+  def quality(percentage)
+    manipulate! do |img|
+      img.write(current_path){ self.quality = percentage }
+      img = yield(img) if block_given?
+      img
+    end
+  end
+
+  protected
+  def secure_token(length=16)
+    var = :"@#{mounted_as}_secure_token"
+    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.hex(length/2))
   end
 
 end
