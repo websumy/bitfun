@@ -1,9 +1,6 @@
 <%= fun.hidden_field :content_type, value: 'Video' %>
 <%= fun.fields_for :content_attributes do |f| %>
 
-    <%= f.label :video %>
-    <%= f.file_field :video%>
-
     <%= f.label :url %>
     <%= f.text_field :url%>
 
