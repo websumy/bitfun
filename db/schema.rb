@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121205095423) do
+ActiveRecord::Schema.define(:version => 20121210131653) do
 
   create_table "funs", :force => true do |t|
     t.string   "title"
@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(:version => 20121205095423) do
   create_table "videos", :force => true do |t|
     t.string "video"
     t.string "url"
+    t.string "video_id",   :limit => 20
+    t.string "video_type", :limit => 20
   end
 
   create_table "votes", :force => true do |t|
