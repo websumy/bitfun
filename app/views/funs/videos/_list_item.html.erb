@@ -1,8 +1,10 @@
 <h4><%= link_to fun.title, fun %></h4>
 
 <dl>
-  <dt>Video</dt>
-  <dd><%= fun.content.url %></dd>
+  <% if fun.content.image? %>
+      <dt>Video</dt>
+      <dd><%= image_tag fun.content.image_url(:thumb), class: "img-polaroid" %></dd>
+  <% end %>
   <dt>Posted</dt>
   <dd><%= time_ago_in_words fun.created_at %> ago</dd>
   <dt>Posted by</dt>

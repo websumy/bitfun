@@ -1,5 +1,8 @@
 class Video < ActiveRecord::Base
-  attr_accessible :video, :url, :tag_list
+  require 'net/http'
+
+  attr_accessible :video, :url, :remote_image_url, :tag_list
+  mount_uploader :image, ImageUploader
 
   validate :check_video_url
 
@@ -14,8 +17,12 @@ class Video < ActiveRecord::Base
   has_many :fun, :as => :content, :dependent => :destroy
 
   def url= url
+    url.strip!
     ALIASES.each { |k, v| v.each { |i| self.video_type = k if i.in? url } }
-    self.video_id = send "parse_#{self.video_type}", url if self.video_type.present?
+    if self.video_type.present?
+      self.video_id = send "parse_#{self.video_type}", url
+      self.remote_image_url = send "thumb_url_#{self.video_type}"
+    end
     super
   end
 
@@ -38,6 +45,19 @@ class Video < ActiveRecord::Base
     regex = /^(?:http:\/\/)?(?:www\.)?vimeo\.com\/(\d+)/
     matches = url.match(regex)
     matches[1] unless matches.nil?
+  end
+
+  public
+  def thumb_url_youtube
+    return "http://img.youtube.com/vi/#{self.video_id}/hqdefault.jpg"
+
+    # must find best quality fromm xml
+    url = "http://gdata.youtube.com/feeds/api/videos/#{self.video_id}?v=2"
+    response = Net::HTTP.get_response(URI.parse(url))
+    result = Hash.from_xml(response.body)
+    thumb = result["entry"]["group"]["thumbnail"]
+    keys = %w(sddefault hqdefault mqdefault default)
+    keys.each {|key| return thumb[key] if thumb.has_key? key }
   end
 
 end
