@@ -17,6 +17,7 @@ class FunsController < ApplicationController
 
   # GET /funs/1
   def show
+    respond_to :html, :js
   end
 
   # GET /funs/new

@@ -1,0 +1,3 @@
+<% if @fun.content_type == "Video" %>
+    $("#preview_<%= @fun.id %>").html("<%= j show_video @fun.content %>");
+<% end %>
