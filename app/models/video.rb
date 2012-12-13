@@ -47,17 +47,20 @@ class Video < ActiveRecord::Base
     matches[1] unless matches.nil?
   end
 
-  public
   def thumb_url_youtube
-    return "http://img.youtube.com/vi/#{self.video_id}/hqdefault.jpg"
-
-    # must find best quality fromm xml
     url = "http://gdata.youtube.com/feeds/api/videos/#{self.video_id}?v=2"
+    urls, keys  = {}, %w(sddefault hqdefault mqdefault default)
     response = Net::HTTP.get_response(URI.parse(url))
     result = Hash.from_xml(response.body)
-    thumb = result["entry"]["group"]["thumbnail"]
-    keys = %w(sddefault hqdefault mqdefault default)
-    keys.each {|key| return thumb[key] if thumb.has_key? key }
+    result["entry"]["group"]["thumbnail"].each {|item| urls[item["yt:name"]] = item["url"]}
+    keys.each {|key| return urls[key] if urls.has_key? key }
+  end
+
+  def thumb_url_vimeo
+    url = "http://vimeo.com/api/v2/video/#{self.video_id}.xml"
+    response = Net::HTTP.get_response(URI.parse(url))
+    result = Hash.from_xml(response.body)
+    result["videos"]["video"]["thumbnail_large"]
   end
 
 end
