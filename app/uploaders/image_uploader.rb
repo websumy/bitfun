@@ -4,6 +4,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   include CarrierWave::RMagick
+  include CarrierWave::SomeProcesses
   # include CarrierWave::MiniMagick
 
   # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
@@ -71,38 +72,6 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
     "#{secure_token(10)}.png" if original_filename.present?
-  end
-
-  # Strips out all embedded information from the image
-  def strip
-    manipulate! do |img|
-      img.strip!
-      img = yield(img) if block_given?
-      img
-    end
-  end
-
-  # get only first frame from gif images
-  def only_first_frame
-    manipulate! do |img|
-      if img.mime_type.match /gif/
-        if img.scene == 0
-          img = img.cur_image #Magick::ImageList.new( img.base_filename )[0]
-        else
-          img = nil # avoid concat all frames
-        end
-      end
-      img
-    end
-  end
-
-  # Reduces the quality of the image to the percentage given
-  def quality(percentage)
-    manipulate! do |img|
-      img.write(current_path){ self.quality = percentage }
-      img = yield(img) if block_given?
-      img
-    end
   end
 
   def gif?(new_file)

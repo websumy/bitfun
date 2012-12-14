@@ -4,6 +4,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   include CarrierWave::RMagick
+  include CarrierWave::SomeProcesses
   # include CarrierWave::MiniMagick
 
   # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
@@ -42,20 +43,6 @@ class AvatarUploader < CarrierWave::Uploader::Base
   #  end
   #  true
   #end
-
-  # get only first frame from gif images
-  def only_first_frame
-    manipulate! do |img|
-      if img.mime_type.match /gif/
-        if img.scene == 0
-          img = img.cur_image #Magick::ImageList.new( img.base_filename )[0]
-          else
-            img = nil # avoid concat all frames
-        end
-      end
-      img
-    end
-  end
 
   # Create different versions of your uploaded files:
   # version :thumb, if: :pre_limit do
