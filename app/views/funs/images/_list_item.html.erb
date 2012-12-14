@@ -3,7 +3,7 @@
 <dl>
     <% if fun.content.file? %>
       <dt>Image</dt>
-      <dd><%= image_tag fun.content.file_url(:thumb), class: "img-polaroid" %></dd>
+      <dd><%= image_tag(fun.content.file_url(:img, :thumb), class: "img-polaroid") %></dd>
     <% end %>
     <dt>Posted</dt>
     <dd><%= time_ago_in_words fun.created_at %> ago</dd>

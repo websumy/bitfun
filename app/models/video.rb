@@ -21,7 +21,7 @@ class Video < ActiveRecord::Base
     ALIASES.each { |k, v| v.each { |i| self.video_type = k if i.in? url } }
     if self.video_type.present?
       self.video_id = send "parse_#{self.video_type}", url
-      self.remote_image_url = send "thumb_url_#{self.video_type}"
+      self.remote_image_url = send "thumb_url_#{self.video_type}" if self.video_id.present?
     end
     super
   end

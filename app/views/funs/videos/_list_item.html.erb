@@ -3,7 +3,7 @@
 <dl>
   <% if fun.content.image? %>
       <dt>Video</dt>
-      <dd><div id="preview_<%= fun.id %>"><%= link_to image_tag(fun.content.image_url(:thumb), class: "img-polaroid"), fun, remote: true %></div></dd>
+      <dd><div id="preview_<%= fun.id %>"><%= link_to image_tag(fun.content.image_url(:img, :thumb), class: "img-polaroid"), fun, remote: true %></div></dd>
   <% end %>
   <dt>Posted</dt>
   <dd><%= time_ago_in_words fun.created_at %> ago</dd>

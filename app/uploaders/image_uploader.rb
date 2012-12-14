@@ -29,24 +29,36 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
 
-  process :convert => 'png'
-  process :strip
-
   # Create different versions of your uploaded files:
 
-  version :large do
+  version :img do
+    process :only_first_frame
+    process :convert => 'png'
+    process :strip
     process :resize_to_limit => [700, nil]
-     process :quality => 90
+    process :quality => 90
+
+    version :thumb do
+      process :resize_to_limit => [500, nil]
+    end
+
+    version :small do
+      process :resize_to_limit => [300, nil]
+    end
   end
 
-  version :thumb do
-     process :resize_to_limit => [500, nil]
-     process :quality => 80
-  end
+  version :gif, if: :gif? do
+    process :resize_to_limit => [500, nil]
+    process :quality => 80
 
-  version :small do
-    process :quality => 50
-    process :resize_to_limit => [300, nil]
+    def filename
+      "#{secure_token(10)}.gif" if original_filename.present?
+    end
+
+    def full_filename(for_file)
+      ext = File.extname(for_file)
+      [version_name, for_file.chomp(ext)].compact.join('_') + '.gif'
+    end
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -70,6 +82,20 @@ class ImageUploader < CarrierWave::Uploader::Base
     end
   end
 
+  # get only first frame from gif images
+  def only_first_frame
+    manipulate! do |img|
+      if img.mime_type.match /gif/
+        if img.scene == 0
+          img = img.cur_image #Magick::ImageList.new( img.base_filename )[0]
+        else
+          img = nil # avoid concat all frames
+        end
+      end
+      img
+    end
+  end
+
   # Reduces the quality of the image to the percentage given
   def quality(percentage)
     manipulate! do |img|
@@ -77,6 +103,10 @@ class ImageUploader < CarrierWave::Uploader::Base
       img = yield(img) if block_given?
       img
     end
+  end
+
+  def gif?(new_file)
+    new_file.content_type =~ /gif/
   end
 
   protected
