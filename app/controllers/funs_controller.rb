@@ -54,15 +54,10 @@ class FunsController < ApplicationController
   end
 
   def repost
-    current_fun = Fun.find(params[:id])
-    if current_fun.user != current_user
-      @fun = current_fun.dup
-      @fun.author_id = current_fun.user_id
-      @fun.user = current_user
-      current_fun.increment! :repost_counter
-      redirect_to @fun, notice: 'Fun was successfully created.' if @fun.save
-    else
-      redirect_to funs_url, notice: "Can't do repost!"
+    flash[:notice] = @fun.repost_by current_user
+    respond_to do |format|
+      format.html {redirect_to @fun}
+      format.js
     end
   end
 

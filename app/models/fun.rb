@@ -56,6 +56,18 @@ class Fun < ActiveRecord::Base
     where(content_type: types)
   end
 
+  def repost_by(reposter)
+    if self.user == reposter
+      "Can't repost own fun"
+    else
+      new_fun = self.dup
+      new_fun.user = reposter
+      new_fun.save
+      #self.increment! :repost_counter
+      "Succesfully reposted"
+    end
+  end
+
   private
   def set_author
     self.author_id = self.author_id.zero? ? self.user_id : self.author_id
