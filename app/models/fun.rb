@@ -9,8 +9,6 @@ class Fun < ActiveRecord::Base
   belongs_to :content, :polymorphic => true, :dependent => :destroy
   accepts_nested_attributes_for :content, :allow_destroy => true
 
-  before_save :set_author
-
   acts_as_votable
 
   def attributes=(attributes = {})
@@ -19,7 +17,7 @@ class Fun < ActiveRecord::Base
   end
 
   def content_attributes=(attributes)
-    content = self.content_type.constantize.find_or_initialize_by_id(self.content_id)
+    content = content_type.constantize.find_or_initialize_by_id(content_id)
     content.attributes = attributes
     self.content = content
   end
@@ -34,15 +32,15 @@ class Fun < ActiveRecord::Base
   scope :posts, where(content_type: "Post")
 
   def total_shows
-    self.cached_shows
+    cached_shows
   end
 
   def total_likes
-    self.cached_votes_total
+    cached_votes_total
   end
 
   def self.from_users_followed_by(user)
-    followed_user_ids = "SELECT followed_id FROM #{:user_relationships} WHERE follower_id = :user_id"
+    followed_user_ids = "SELECT followed_id FROM user_relationships WHERE follower_id = :user_id"
     where("user_id IN (#{followed_user_ids})", user_id: user.id)
   end
 
@@ -52,13 +50,9 @@ class Fun < ActiveRecord::Base
     where(created_at: Time.now - 1.send(interval) .. Time.now).order(order_column + " DESC")
   end
 
-  def self.sort_by_type (types=[])
+  def self.filter_by_type (types=[])
     def_types = %w(image post video)
-    types = if types.nil?
-              def_types
-            else
-              types.map { |type| type if def_types.include? type }.compact
-            end
+    types = types.nil? ? def_types : types.select { |type| type if type.in? def_types }
     where(content_type: types)
   end
 

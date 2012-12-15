@@ -7,7 +7,7 @@ class FunsController < ApplicationController
 
   # GET /funs
   def index
-    @funs = Fun.includes(:user, :content).sort_by_type(params[:type]).sorting(params[:sort], params[:interval]).page params[:page]
+    @funs = Fun.includes(:user, :content).filter_by_type(params[:type]).sorting(params[:sort], params[:interval]).page params[:page]
   end
 
   def feed
@@ -34,7 +34,7 @@ class FunsController < ApplicationController
     if @fun.save
       redirect_to @fun, notice: 'Fun was successfully created.'
     else
-      render action: "new"
+      render "new"
     end
   end
 

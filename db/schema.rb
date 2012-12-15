@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210131653) do
+ActiveRecord::Schema.define(:version => 20121212104643) do
 
   create_table "funs", :force => true do |t|
     t.string   "title"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(:version => 20121210131653) do
     t.string   "content_type"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
-    t.integer  "repost_counter",     :default => 0
     t.integer  "cached_votes_total", :default => 0
     t.integer  "cached_shows",       :default => 0
     t.integer  "author_id",          :default => 0
@@ -109,6 +108,7 @@ ActiveRecord::Schema.define(:version => 20121210131653) do
     t.string "url"
     t.string "video_id",   :limit => 20
     t.string "video_type", :limit => 20
+    t.string "image"
   end
 
   create_table "votes", :force => true do |t|
