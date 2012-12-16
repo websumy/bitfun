@@ -9,6 +9,10 @@ class UsersController < ApplicationController
     user = User.find_by_login!(params[:id])
     funs = user.funs.includes(:content).page params[:page]
     @user = {info: user, funs: funs}
+    respond_to do |format|
+      format.html
+      format.js {render 'likes'}
+    end
   end
 
   def update
@@ -48,7 +52,10 @@ class UsersController < ApplicationController
     user = User.find_by_login(params[:id])
     funs = user.get_up_voted(Fun).includes(:content).page params[:page]
     @user = {info: user, funs: funs}
-    render 'show'
+    respond_to do |format|
+      format.html {render 'show'}
+      format.js
+    end
   end
 
   def follow

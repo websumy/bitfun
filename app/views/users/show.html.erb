@@ -24,24 +24,21 @@
         followers
       </a>
     </div>
+
     <div class="span9">
-      <h2>Funs</h2>
-      <%= render "funs/list", funs: @user[:funs], fun_partial: :list_item %>
-        <% unless current_user == @user[:info] %>
-          <div id="follow_form">
-            <% if current_user.following?(@user[:info]) %>
-                <%= form_tag unfollow_user_path, method: :delete do %>
-                    <%= submit_tag "Unfollow", class: "btn" %>
-                <% end %>
-            <% else %>
-                <%= form_tag follow_user_path, method: :put do %>
-                    <%= hidden_field :user_relationship, :followed_id, value: @user[:info].id %>
-                    <%= submit_tag "Follow", class: "btn btn-primary" %>
-                <% end %>
-            <% end %>
-          </div>
-        <% end %>
+      <ul class="nav nav-tabs" id="user_tabs">
+        <li class="active"><%= link_to "Funs", user_path(@user[:info]), remote: true %></li>
+        <li><%= link_to "Likes", likes_user_path(@user[:info]), remote: true %></li>
+      </ul>
+
+      <div class="list_item">
+        <%= render "funs/list", funs: @user[:funs], fun_partial: :list_item %>
+      </div>
+
+      <%= follow_button @user[:info] %>
+
     </div>
+
   </div>
   <%= link_to "Back", :back %><br />
 </div>
