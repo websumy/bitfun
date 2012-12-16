@@ -44,6 +44,13 @@ class UsersController < ApplicationController
     render 'index'
   end
 
+  def likes
+    user = User.find_by_login(params[:id])
+    funs = user.get_up_voted(Fun).includes(:content).page params[:page]
+    @user = {info: user, funs: funs}
+    render 'show'
+  end
+
   def follow
     @user = User.find(params[:user_relationship][:followed_id])
     if @user == current_user

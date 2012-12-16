@@ -20,7 +20,7 @@ Bitfun::Application.routes.draw do
 
   resources :users do
     member do
-      get :following, :followers
+      get :following, :followers, :likes
       delete :unfollow
       put :follow
     end
