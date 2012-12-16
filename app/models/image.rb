@@ -23,4 +23,8 @@ class Image < ActiveRecord::Base
   end
 
   has_many :fun, :as => :content, :dependent => :destroy
+
+  def exist_gif_thumb?
+    self.file.gif.file.exists?
+  end
 end

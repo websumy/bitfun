@@ -26,6 +26,10 @@ class Video < ActiveRecord::Base
     super
   end
 
+  def exist_gif_thumb?
+    self.image.gif.file.exists?
+  end
+
   private
   def check_video_url
     if self.video_type.present?

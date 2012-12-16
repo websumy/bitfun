@@ -3,7 +3,7 @@
 <dl>
     <% if fun.content.file? %>
       <dt>Image</dt>
-      <% if fun.content.file.gif.file.exists?%>
+      <% if fun.content.exist_gif_thumb?%>
         <dd><div id="preview_<%= fun.id %>"><%= link_to image_tag(fun.content.file_url(:img, :thumb), class: "img-polaroid"), fun, remote: true %></div></dd>
       <% else %>
         <dd><%= image_tag(fun.content.file_url(:img, :thumb), class: "img-polaroid") %></dd>
