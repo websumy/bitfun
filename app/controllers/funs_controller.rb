@@ -1,8 +1,6 @@
 class FunsController < ApplicationController
   load_and_authorize_resource
 
-  before_filter :increment_shows, :only => [:show]
-
   respond_to :html
 
   # GET /funs
@@ -78,10 +76,5 @@ class FunsController < ApplicationController
     respond_to do |format|
       format.json {render json: @fun.as_json(:only => [:login, :avatar])}
     end
-  end
-
-  private
-  def increment_shows
-    @fun.increment! :cached_shows
   end
 end

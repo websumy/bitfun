@@ -31,10 +31,6 @@ class Fun < ActiveRecord::Base
   scope :videos, where(content_type: "Video")
   scope :posts, where(content_type: "Post")
 
-  def total_shows
-    cached_shows
-  end
-
   def total_likes
     cached_votes_total
   end
@@ -63,7 +59,7 @@ class Fun < ActiveRecord::Base
       new_fun = self.dup
       new_fun.user = reposter
       new_fun.save
-      #self.increment! :repost_counter
+      self.increment! :repost_count
       "Succesfully reposted"
     end
   end
