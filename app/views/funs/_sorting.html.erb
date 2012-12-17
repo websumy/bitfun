@@ -1,7 +1,8 @@
 <div id="sort">
   <%= link_to "Новое", new_path %> |
   <%= link_to "Популярное", hot_path %> |
-  <%= link_to "Обсуждаемое", discuss_path %>
+  <%= link_to "Обсуждаемое", discuss_path %> |
+  <%= link_to "Песочница", sandbox_path %>
   <%= form_tag request.path, :method => 'get', :remote => true do %>
       Период: <%= select_tag :interval, options_for_select(%w(week month year), params[:interval]) %><br />
       Типы материала:

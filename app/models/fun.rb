@@ -40,11 +40,16 @@ class Fun < ActiveRecord::Base
     where("user_id IN (#{followed_user_ids})", user_id: user.id)
   end
 
-  def self.sorting (order_column, interval)
+  def self.sorting(order_column, options)
+    interval = options[:interval]
+    sandbox = options[:sandbox]
     order_column = Fun.column_names.include?(order_column) ? order_column : "created_at"
     interval = %w(week month year).include?(interval) ? interval: "year"
-    where(created_at: Time.now - 1.send(interval) .. Time.now).order(order_column + " DESC")
+    scope = where("cached_votes_total >= 0")
+    scope = where(created_at: Time.now - 1.send(interval) .. Time.now).where("cached_votes_total >= 1") unless sandbox
+    scope.order(order_column + " DESC")
   end
+
 
   def self.filter_by_type (types=[])
     def_types = %w(image post video)

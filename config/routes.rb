@@ -13,8 +13,9 @@ Bitfun::Application.routes.draw do
   get 'feed' => 'funs#feed'
 
   get 'new' => 'funs#index', as: :new
-  get 'hot' => 'funs#index', defaults: {sort: 'cached_shows'}, as: :hot
-  get 'discuss' => 'funs#index', defaults: {sort: 'cached_votes_total'}, as: :discuss
+  get 'hot' => 'funs#index', defaults: {sort: 'cached_votes_total'}, as: :hot
+  get 'discuss' => 'funs#index', defaults: {sort: 'comments_count'}, as: :discuss
+  get 'sandbox' => 'funs#index', defaults: {sandbox: true}, as: :sandbox
 
   devise_for :users, :controllers => {:registrations => "registrations"}
 
