@@ -1,14 +1,13 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :load_user, except: [:index, :follow, :update, :destroy]
 
   def index
     @users = User.all
   end
 
   def show
-    user = User.find_by_login!(params[:id])
-    funs = user.funs.includes(:content).order('created_at DESC').page params[:page]
-    @user = {info: user, funs: funs}
+    @funs = @user.funs.includes(:content).order('created_at DESC').page params[:page]
     respond_to do |format|
       format.html
       format.js {render 'likes'}
@@ -17,7 +16,6 @@ class UsersController < ApplicationController
 
   def update
     authorize! :update, @user, :message => 'Not authorized as an administrator.'
-    @user = User.find_by_login!(params[:id])
     if @user.update_attributes(params[:user], :as => :admin)
       redirect_to users_path, :notice => "User updated."
     else
@@ -37,21 +35,17 @@ class UsersController < ApplicationController
   end
 
   def following
-    user = User.find_by_login!(params[:id])
-    @users = user.followed_users.page params[:page]
+    @users = @user.followed_users.page params[:page]
     render 'index'
   end
 
   def followers
-    user = User.find_by_login(params[:id])
-    @users = user.followers.page params[:page]
+    @users = @user.followers.page params[:page]
     render 'index'
   end
 
   def likes
-    user = User.find_by_login(params[:id])
-    funs = user.get_up_voted(Fun).includes(:content).order('votes.created_at DESC').page params[:page]
-    @user = {info: user, funs: funs}
+    @funs = @user.get_up_voted(Fun).includes(:content).order('votes.created_at DESC').page params[:page]
     respond_to do |format|
       format.html {render 'show'}
       format.js
@@ -69,8 +63,12 @@ class UsersController < ApplicationController
   end
 
   def unfollow
-    @user = User.find_by_login(params[:id])
     current_user.unfollow!(@user)
     redirect_to @user
+  end
+
+  private
+  def load_user
+    @user = User.find_by_login!(params[:id])
   end
 end

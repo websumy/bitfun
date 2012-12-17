@@ -2,24 +2,24 @@
   <div class="row-fluid">
     <div class="span3">
       <h2>User info</h2>
-      <%= image_tag(@user[:info].avatar_url(:thumb), class: "img-circle") %>
+      <%= image_tag(@user.avatar_url(:thumb), class: "img-circle") %>
       <dl>
         <dt>Login:</dt>
-        <dd><%= @user[:info].login %></dd>
+        <dd><%= @user.login %></dd>
         <dt>Email:</dt>
-        <dd><%= @user[:info].email %></dd>
+        <dd><%= @user.email %></dd>
         <dt>Registered:</dt>
-        <dd><%= @user[:info].created_at %></dd>
+        <dd><%= @user.created_at %></dd>
       </dl>
-      <a href="<%= following_user_path(@user[:info]) %>">
+      <a href="<%= following_user_path(@user) %>">
         <strong id="following" class="stat">
-          <%= @user[:info].followed_users.count %>
+          <%= @user.followed_users.count %>
         </strong>
         following
       </a>
-      <a href="<%= followers_user_path(@user[:info]) %>">
+      <a href="<%= followers_user_path(@user) %>">
         <strong id="followers" class="stat">
-          <%= @user[:info].followers.count %>
+          <%= @user.followers.count %>
         </strong>
         followers
       </a>
@@ -27,15 +27,15 @@
 
     <div class="span9">
       <ul class="nav nav-tabs" id="user_tabs">
-        <li class="active"><%= link_to "Funs", user_path(@user[:info]), remote: true %></li>
-        <li><%= link_to "Likes", likes_user_path(@user[:info]), remote: true %></li>
+        <li class="active"><%= link_to "Funs", user_path(@user), remote: true %></li>
+        <li><%= link_to "Likes", likes_user_path(@user), remote: true %></li>
       </ul>
 
       <div class="list_item">
-        <%= render "funs/list", funs: @user[:funs], fun_partial: :list_item %>
+        <%= render "funs/list", funs: @funs, fun_partial: :list_item %>
       </div>
 
-      <%= follow_button @user[:info] %>
+      <%= follow_button @user %>
 
     </div>
 
