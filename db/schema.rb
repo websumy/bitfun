@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20121216140443) do
     t.string   "content_type"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
+    t.integer  "repost_counter",     :default => 0
     t.integer  "cached_votes_total", :default => 0
     t.integer  "repost_count",       :default => 0
     t.integer  "author_id",          :default => 0

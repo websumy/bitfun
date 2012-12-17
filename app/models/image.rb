@@ -5,7 +5,7 @@ class Image < ActiveRecord::Base
   # Validation
   require 'file_size_validator'
   require 'uri_validator'
-  validates :file, presence: true, file_size: {maximum: 1.megabytes.to_i}
+  validates :file, presence: true, file_size: {maximum: 5.megabytes.to_i}
   validates :remote_file_url,
             uri: {
                 format: /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix,

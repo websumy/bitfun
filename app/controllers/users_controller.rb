@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def show
     user = User.find_by_login!(params[:id])
-    funs = user.funs.includes(:content).page params[:page]
+    funs = user.funs.includes(:content).order('created_at DESC').page params[:page]
     @user = {info: user, funs: funs}
     respond_to do |format|
       format.html
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 
   def likes
     user = User.find_by_login(params[:id])
-    funs = user.get_up_voted(Fun).includes(:content).page params[:page]
+    funs = user.get_up_voted(Fun).includes(:content).order('votes.created_at DESC').page params[:page]
     @user = {info: user, funs: funs}
     respond_to do |format|
       format.html {render 'show'}
