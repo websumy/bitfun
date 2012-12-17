@@ -45,7 +45,7 @@ class Fun < ActiveRecord::Base
     sandbox = options[:sandbox]
     order_column = Fun.column_names.include?(order_column) ? order_column : "created_at"
     interval = %w(week month year).include?(interval) ? interval: "year"
-    scope = where("cached_votes_total >= 0")
+    scope = scoped
     scope = where(created_at: Time.now - 1.send(interval) .. Time.now).where("cached_votes_total >= 1") unless sandbox
     scope.order(order_column + " DESC")
   end
