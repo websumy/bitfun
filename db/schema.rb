@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121216140443) do
+ActiveRecord::Schema.define(:version => 20121218090823) do
 
   create_table "funs", :force => true do |t|
     t.string   "title"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(:version => 20121216140443) do
     t.string   "content_type"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
-    t.integer  "repost_counter",     :default => 0
     t.integer  "cached_votes_total", :default => 0
     t.integer  "repost_count",       :default => 0
     t.integer  "author_id",          :default => 0
@@ -46,14 +45,6 @@ ActiveRecord::Schema.define(:version => 20121216140443) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "roles_users", :id => false, :force => true do |t|
-    t.integer "user_id"
-    t.integer "role_id"
-  end
-
-  add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
-  add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
@@ -98,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20121216140443) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.integer  "role_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

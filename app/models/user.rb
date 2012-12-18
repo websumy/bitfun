@@ -8,13 +8,12 @@ class User < ActiveRecord::Base
   acts_as_voter
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :login, :password, :password_confirmation, :remember_me, :roles, :avatar, :avatar_cache, :remove_avatar
+  attr_accessible :email, :login, :password, :password_confirmation, :remember_me, :role_id, :avatar, :avatar_cache, :remove_avatar
 
   mount_uploader :avatar, AvatarUploader
-  validates_presence_of :avatar
 
   # Associations
-  has_and_belongs_to_many :roles
+  belongs_to :role
   has_many :funs
 
   has_many :user_relationships, foreign_key: "follower_id", dependent: :destroy
@@ -30,7 +29,7 @@ class User < ActiveRecord::Base
 
   # Some helpers
   def role?(role)
-    self.roles.exists?(:name => role.to_s)
+    self.role.try(:name) == role.to_s
   end
 
   def following?(other_user)
@@ -95,6 +94,6 @@ class User < ActiveRecord::Base
 
   private
   def set_default_role
-    self.roles << Role.find_by_name(:user)
+    self.role ||= Role.find_by_name(:user)
   end
 end
