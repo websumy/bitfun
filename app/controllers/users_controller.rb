@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
+  authorize_resource
+  skip_authorize_resource only: [:following, :followers, :likes]
   before_filter :load_user, except: [:index, :follow]
 
   def index
@@ -15,8 +16,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    authorize! :update, @user, :message => 'Not authorized as an administrator.'
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(params[:user], :as => :admin)
       redirect_to users_path, :notice => "User updated."
     else
       redirect_to users_path, :alert => "Unable to update user."
@@ -24,7 +24,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    authorize! :destroy, @user, :message => 'Not authorized as an administrator.'
     user = User.find_by_login!(params[:id])
     if user == current_user
       redirect_to users_path, :notice => "Can't delete yourself."

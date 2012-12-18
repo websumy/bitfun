@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
   acts_as_voter
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :login, :password, :password_confirmation, :remember_me, :role_id, :avatar, :avatar_cache, :remove_avatar
+  attr_accessible :email, :login, :password, :password_confirmation, :remember_me, :avatar, :avatar_cache, :remove_avatar
+  attr_protected :role, as: :admin
 
   mount_uploader :avatar, AvatarUploader
 
