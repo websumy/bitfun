@@ -19,6 +19,9 @@ gem "bootstrap-sass"
 gem "simple_form"
 gem 'thin'
 
+# Mutes assets pipeline log messages
+gem 'quiet_assets'
+
 gem 'acts_as_votable' #voting
 
 # Gems used only for assets and not required
