@@ -1,9 +1,5 @@
-<%= fun.hidden_field :content_type, value: 'Post' %>
-<%= fun.fields_for :content_attributes do |f| %>
-
-    <%= f.label :body %>
-    <%= f.text_area :body, class: "input-xxlarge", rows: 5%>
-
-    <%= f.label :tag_list, "Tags (separated by commas)" %>
-    <%= f.text_field :tag_list, class: "input-xxlarge" %><br />
+<%= fun.input :content_type, :as => :hidden, :input_html => {value: 'Post'} %>
+<%= fun.simple_fields_for :content_attributes do |f| %>
+    <%= f.input :body, :input_html => {class: "input-xxlarge", rows: 5}, :as => :text %>
+    <%= f.input :tag_list, :input_html => {class: "input-xxlarge"} %>
 <% end %>
