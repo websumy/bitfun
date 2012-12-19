@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(params[:user], :as => :admin)
+    if @user.update_attributes(params[:user], :as => current_user.role.name.to_sym)
       redirect_to users_path, :notice => "User updated."
     else
       redirect_to users_path, :alert => "Unable to update user."
