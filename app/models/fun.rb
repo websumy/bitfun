@@ -69,9 +69,16 @@ class Fun < ActiveRecord::Base
     end
   end
 
+  # Thinking Sphinx index
+  define_index do
+    indexes title, sortable: true
+    indexes content.cached_tag_list, :as => :tags
+
+    has content_type, :as => :type
+  end
+
   private
   def set_author
     self.author_id = self.author_id.zero? ? self.user_id : self.author_id
   end
-
 end
