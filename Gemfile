@@ -19,6 +19,8 @@ gem "bootstrap-sass"
 gem "simple_form"
 gem 'thin'
 
+gem 'thinking-sphinx'
+
 # Mutes assets pipeline log messages
 gem 'quiet_assets'
 
