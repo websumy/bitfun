@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218090823) do
+ActiveRecord::Schema.define(:version => 20121219145859) do
 
   create_table "funs", :force => true do |t|
     t.string   "title"
@@ -34,10 +34,12 @@ ActiveRecord::Schema.define(:version => 20121218090823) do
   create_table "images", :force => true do |t|
     t.string "file"
     t.string "url"
+    t.string "cached_tag_list"
   end
 
   create_table "posts", :force => true do |t|
-    t.text "body"
+    t.text   "body"
+    t.string "cached_tag_list"
   end
 
   create_table "roles", :force => true do |t|
@@ -99,9 +101,10 @@ ActiveRecord::Schema.define(:version => 20121218090823) do
   create_table "videos", :force => true do |t|
     t.string "video"
     t.string "url"
-    t.string "video_id",   :limit => 20
-    t.string "video_type", :limit => 20
+    t.string "video_id",        :limit => 20
+    t.string "video_type",      :limit => 20
     t.string "image"
+    t.string "cached_tag_list"
   end
 
   create_table "votes", :force => true do |t|
