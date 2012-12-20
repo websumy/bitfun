@@ -4,12 +4,13 @@
   <li><%= link_to 'Users', users_path %></li>
   <li><%= link_to 'New fun', new_fun_path %></li>
 </ul>
-<form class="nav form-search">
-  <div class="input-append">
-    <input type="text" class="span3 search-query">
+
+
+<div class="search_tag">
+    <ul id="tags" name="tags"></ul>
     <button type="submit" class="btn">Search</button>
-  </div>
-</form>
+</div>
+
 <ul class="nav pull-right">
   <% if user_signed_in? %>
     <li class="dropdown">

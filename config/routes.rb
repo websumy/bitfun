@@ -9,6 +9,7 @@ Bitfun::Application.routes.draw do
   end
 
   get '/funs/tag/:tag', to: 'funs#tags', as: :tag
+  post '/get_tags', to: 'funs#autocomplete_tags', as: :tag_autocomplete
 
   get 'feed' => 'funs#feed'
 
