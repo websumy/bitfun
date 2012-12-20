@@ -14,6 +14,15 @@ class FunsController < ApplicationController
     render 'index'
   end
 
+  def autocomplete_tags
+    unless params[:tag].nil?
+      tags = Fun.find_tags_by_name params[:tag]
+      respond_to do |format|
+        format.json { render :json => tags.collect { |tag| tag.name.to_s } }
+      end
+    end
+  end
+
   def feed
     @funs = current_user.feed.includes(:user, :content).page params[:page]
     render 'index'

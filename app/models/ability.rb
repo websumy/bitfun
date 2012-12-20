@@ -6,7 +6,7 @@ class Ability
     if user.role? :admin
       can :manage, :all
     elsif user.role? :user
-      can [:create, :feed, :repost, :like, :likes, :tags], Fun
+      can [:create, :feed, :repost, :like, :likes, :tags, :autocomplete_tags], Fun
       can :update, Fun, user_id: user.id
       can :read, :all
     else

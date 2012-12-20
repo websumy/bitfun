@@ -69,6 +69,10 @@ class Fun < ActiveRecord::Base
     end
   end
 
+  def self.find_tags_by_name(tag)
+    ActsAsTaggableOn::Tag.includes(:taggings).where("taggings.context = 'tags'").order("name ASC").named_like(tag).limit(10) unless tag.blank?
+  end
+
   # Thinking Sphinx index
   define_index do
     indexes title, sortable: true
