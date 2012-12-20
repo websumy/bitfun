@@ -8,6 +8,12 @@ class FunsController < ApplicationController
     @funs = Fun.includes(:user, :content).filter_by_type(params[:type]).sorting(params[:sort], interval: params[:interval], sandbox: params[:sandbox]).page params[:page]
   end
 
+  def tags
+    funs_ids = ThinkingSphinx.search_for_ids(params[:tag], classes: [Fun])
+    @funs = Fun.includes(:user, :content).where(id: funs_ids).filter_by_type(params[:type]).page params[:page]
+    render 'index'
+  end
+
   def feed
     @funs = current_user.feed.includes(:user, :content).page params[:page]
     render 'index'

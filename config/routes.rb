@@ -8,7 +8,7 @@ Bitfun::Application.routes.draw do
     end
   end
 
-  get '/funs/tag/:tag', to: 'funs#index', as: :tag
+  get '/funs/tag/:tag', to: 'funs#tags', as: :tag
 
   get 'feed' => 'funs#feed'
 
