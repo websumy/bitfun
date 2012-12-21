@@ -53,10 +53,18 @@ $(function(){
         $link.hide();
     });
 
+    var cache = {};
     var get_tags = function( request, response ) {
-        $.post("/get_tags", {tag: request.term}, function(data){
-            response(data);
-        }, "json");
+        if (request.term in cache){
+            console.log(cache);
+            response(cache[request.term]);
+        } else {
+            console.log(cache);
+            $.post("/get_tags", {tag: request.term}, function(data){
+                cache[request.term] = data;
+                response(data);
+            }, "json");
+        }
     };
 
     $('#tags').tagit({tagSource:get_tags, triggerKeys:['enter', 'comma', 'tab'], maxTags:5, select: true});
