@@ -56,10 +56,8 @@ $(function(){
     var cache = {};
     var get_tags = function( request, response ) {
         if (request.term in cache){
-            console.log(cache);
             response(cache[request.term]);
         } else {
-            console.log(cache);
             $.post("/get_tags", {tag: request.term}, function(data){
                 cache[request.term] = data;
                 response(data);
@@ -67,6 +65,13 @@ $(function(){
         }
     };
 
-    $('#tags').tagit({tagSource:get_tags, triggerKeys:['enter', 'comma', 'tab'], maxTags:5, select: true});
+    $('#tags').tagit({tagSource: get_tags, minLength: 2, allowNewTags: false, maxTags: 5});
 
+    $('.search_tag button').click(function(e){
+        var tags = $('#tags').tagit("tags");
+        if (tags.length){
+            var data =  $.map(tags, function(tag){ return tag.value; });
+            if (data.length) window.location.href = "/search?" + $.param({query:data});
+        }
+    });
 });

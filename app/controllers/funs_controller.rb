@@ -9,9 +9,14 @@ class FunsController < ApplicationController
   end
 
   def tags
-    funs_ids = ThinkingSphinx.search_for_ids(params[:tag], classes: [Fun])
-    @funs = Fun.includes(:user, :content).where(id: funs_ids).filter_by_type(params[:type]).page params[:page]
-    render 'index'
+    query = prepare_query params[:query]
+    if query.nil?
+      redirect_to funs_path
+    else
+      funs_ids = ThinkingSphinx.search_for_ids(query, classes: [Fun], :match_mode => :any)
+      @funs = Fun.includes(:user, :content).where(id: funs_ids).filter_by_type(params[:type]).page params[:page]
+      render 'index'
+    end
   end
 
   def autocomplete_tags
@@ -92,4 +97,17 @@ class FunsController < ApplicationController
       format.json {render json: @fun.as_json(:only => [:login, :avatar])}
     end
   end
+
+  private
+
+  def prepare_query query
+    if query.is_a? Array
+      query.join(",")
+    elsif query.is_a? String
+      query
+    else
+      query.to_s
+    end
+  end
+
 end

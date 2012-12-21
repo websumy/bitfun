@@ -6,3 +6,10 @@
       <%= link_to 'New fun', new_fun_path, class: 'btn btn-primary' %>
   <% end %>
 </div>
+<% unless params[:query].nil? %>
+    <script type="text/javascript">
+      $(function(){
+        $('#tags').tagit("add", "<%= get_string_from_query params[:query]%>");
+      });
+    </script>
+<% end %>
