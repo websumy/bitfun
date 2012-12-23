@@ -2,13 +2,13 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
 
   acts_as_voter
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :login, :password, :password_confirmation, :remember_me, :avatar, :avatar_cache, :remove_avatar
+  attr_accessible :email, :login, :password, :password_confirmation, :remember_me, :avatar, :avatar_cache, :remove_avatar, :provider, :uid
   attr_accessible :role_id, as: :admin
 
   mount_uploader :avatar, AvatarUploader
@@ -91,6 +91,14 @@ class User < ActiveRecord::Base
 
     clean_up_passwords
     result
+  end
+
+  def self.find_for_facebook_oauth access_token
+    if (user = User.where(:provider => access_token.provider, :uid => access_token.uid).first)
+      user
+    else
+      User.create!(:provider => access_token.provider, :login => access_token.extra.raw_info.username, :email => access_token.extra.raw_info.email, :password => Devise.friendly_token[0,20])
+    end
   end
 
   private

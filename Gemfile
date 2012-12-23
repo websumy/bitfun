@@ -7,6 +7,8 @@ gem 'rails', '3.2.8'
 
 gem 'mysql2'
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
 gem 'cancan'
 gem 'kaminari'
 gem 'acts-as-taggable-on'
