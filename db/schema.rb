@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121222154459) do
+ActiveRecord::Schema.define(:version => 20121224092612) do
 
   create_table "funs", :force => true do |t|
     t.string   "title"
@@ -30,6 +30,14 @@ ActiveRecord::Schema.define(:version => 20121222154459) do
   add_index "funs", ["cached_votes_total"], :name => "index_funs_on_cached_votes_total"
   add_index "funs", ["repost_count"], :name => "index_funs_on_cached_shows"
   add_index "funs", ["user_id"], :name => "index_funs_on_user_id"
+
+  create_table "identities", :force => true do |t|
+    t.string  "uid"
+    t.string  "provider"
+    t.integer "user_id"
+  end
+
+  add_index "identities", ["user_id"], :name => "index_identities_on_user_id"
 
   create_table "images", :force => true do |t|
     t.string "file"
@@ -92,8 +100,6 @@ ActiveRecord::Schema.define(:version => 20121222154459) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.integer  "role_id"
-    t.string   "provider"
-    t.string   "uid"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -233,6 +233,6 @@ Devise.setup do |config|
   OM_CONF = YAML.load_file("#{Rails.root}/config/omniauth.yml")[Rails.env]
 
   config.omniauth :facebook, OM_CONF[:facebook][:app_id], OM_CONF[:facebook][:secret_key],
-                  :scope => 'email,user_birthday,read_stream', :display => 'popup'
+                  :scope => 'email,user_birthday,read_stream', :display => 'popup', :image_size => 'large'
 
 end

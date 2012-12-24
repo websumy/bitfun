@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   acts_as_voter
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :login, :password, :password_confirmation, :remember_me, :avatar, :avatar_cache, :remove_avatar, :provider, :uid
+  attr_accessible :email, :login, :password, :password_confirmation, :remember_me, :avatar, :remote_avatar_url, :avatar_cache, :remove_avatar
   attr_accessible :role_id, as: :admin
 
   mount_uploader :avatar, AvatarUploader
@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
 
   has_many :followed_users, through: :user_relationships, source: :followed
   has_many :followers, through: :reverse_user_relationships, source: :follower
+
+  has_many :identities
 
   validates :login, presence: true, uniqueness: true
 
@@ -93,11 +95,12 @@ class User < ActiveRecord::Base
     result
   end
 
-  def self.find_for_facebook_oauth access_token
-    if (user = User.where(:provider => access_token.provider, :uid => access_token.uid).first)
-      user
-    else
-      User.create!(:provider => access_token.provider, :login => access_token.extra.raw_info.username, :email => access_token.extra.raw_info.email, :password => Devise.friendly_token[0,20])
+  def self.create_with_omniauth auth
+    case auth.provider
+      when :facebook
+        create(email: auth.info.email, login: auth.info.nickname, remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
+      else
+        nil
     end
   end
 
