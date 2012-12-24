@@ -230,6 +230,9 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 
-  config.omniauth :facebook, "111", "222"
+  OM_CONF = YAML.load_file("#{Rails.root}/config/omniauth.yml")[Rails.env]
+
+  config.omniauth :facebook, OM_CONF[:facebook][:app_id], OM_CONF[:facebook][:secret_key],
+                  :scope => 'email,user_birthday,read_stream', :display => 'popup'
 
 end
