@@ -99,6 +99,8 @@ class User < ActiveRecord::Base
     case auth.provider
       when :facebook
         create(email: auth.info.email, login: auth.info.nickname, remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
+      when :vkontakte
+        create(email: auth.info.email, login: auth.info.nickname, remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
       else
         nil
     end
