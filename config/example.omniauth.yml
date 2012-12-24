@@ -1,0 +1,7 @@
+development: &defaults
+  :facebook:
+    :app_id: 111
+    :secret_key: 222
+
+production:
+  <<: *defaults

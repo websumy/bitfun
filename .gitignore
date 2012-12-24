@@ -14,3 +14,14 @@
 /log/*.log
 /tmp
 .idea
+
+# Ignore config files
+/config/database.yml
+/config/omniauth.yml
+
+# Ignore uploads directories
+/public/uploads
+
+# Ignore sphinx files
+/db/sphinx
+/config/development.sphinx.conf
