@@ -1,6 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
-  def bind_or_create_identity
+  def default_callback
     auth = request.env['omniauth.auth']
 
     # Find an identity here
@@ -35,11 +35,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           flash[:notice] = "Signed in!"
           sign_in_and_redirect @identity.user, :event => :authentication
         else
-          redirect_to new_user_url, notice: "Continue registration"
+          redirect_to new_user_registration_url, notice: "Continue registration"
         end
       end
     end
   end
 
-  Devise.omniauth_providers.each { |provider| alias_method provider, :bind_or_create_identity }
+  Devise.omniauth_providers.each { |provider| alias_method provider, :default_callback }
 end

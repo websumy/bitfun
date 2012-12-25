@@ -25,7 +25,8 @@ class User < ActiveRecord::Base
 
   has_many :identities
 
-  validates :login, presence: true, uniqueness: true
+  validates :login, :email, presence: true, uniqueness: true
+
 
   # Callbacks
   before_create :set_default_role
@@ -97,9 +98,11 @@ class User < ActiveRecord::Base
 
   def self.create_with_omniauth auth
     case auth.provider
-      when :facebook
+      when "facebook"
         create(email: auth.info.email, login: auth.info.nickname, remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
-      when :vkontakte
+      when "vkontakte"
+        create(email: auth.info.email, login: auth.info.nickname, remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
+      when "twitter"
         create(email: auth.info.email, login: auth.info.nickname, remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
       else
         nil

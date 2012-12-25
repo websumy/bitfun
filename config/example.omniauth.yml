@@ -1,7 +1,7 @@
 development: &defaults
   :facebook:
     :app_id: 111
-    :secret_key: 222
+    :app_secret: 222
     :scope: "email,user_birthday,read_stream"
     :display: "popup"
     :image_size: "large"
@@ -9,7 +9,12 @@ development: &defaults
   :vkontakte:
     :app_id: 111
     :app_secret: 222
-    :scope: "notify,wall,offline"
+    :scope: "notify,offline"
+    :display: "popup"
+
+  :twitter:
+    :app_key: 111
+    :app_secret: 222
 
 production:
   <<: *defaults

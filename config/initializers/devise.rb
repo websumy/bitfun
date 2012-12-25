@@ -232,10 +232,12 @@ Devise.setup do |config|
 
   OM_CONF = YAML.load_file("#{Rails.root}/config/omniauth.yml")[Rails.env]
 
-  config.omniauth :facebook, OM_CONF[:facebook][:app_id], OM_CONF[:facebook][:secret_key],
+  config.omniauth :facebook, OM_CONF[:facebook][:app_id], OM_CONF[:facebook][:app_secret],
                   :scope => OM_CONF[:facebook][:scope], :display => OM_CONF[:facebook][:display], :image_size => OM_CONF[:facebook][:image_size]
 
-  config.omniauth :vkontakte, OM_CONF[:vkontakte][:app_id], OM_CONF[:vkontakte][:secret_key],
+  config.omniauth :vkontakte, OM_CONF[:vkontakte][:app_id], OM_CONF[:vkontakte][:app_secret],
                   :scope => OM_CONF[:vkontakte][:scope], :display => OM_CONF[:vkontakte][:display]
+
+  config.omniauth :twitter, OM_CONF[:twitter][:app_key], OM_CONF[:twitter][:app_secret]
 
 end
