@@ -5,33 +5,40 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  # Can vote for Funs
   acts_as_voter
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :login, :password, :password_confirmation, :remember_me, :avatar, :remote_avatar_url, :avatar_cache, :remove_avatar
+  attr_accessible :email, :login, :name, :location, :info,
+                  :site, :vk_link, :fb_link, :tw_link,
+                  :password, :password_confirmation, :remember_me,
+                  :avatar, :remote_avatar_url, :avatar_cache, :remove_avatar
   attr_accessible :role_id, as: :admin
 
+  # Avatar uploader
   mount_uploader :avatar, AvatarUploader
 
   # Associations
   belongs_to :role
   has_many :funs
 
+  # Followers and followed
   has_many :user_relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :reverse_user_relationships, foreign_key: "followed_id", class_name: "UserRelationship", dependent: :destroy
 
   has_many :followed_users, through: :user_relationships, source: :followed
   has_many :followers, through: :reverse_user_relationships, source: :follower
 
+  # Authorization services (FB, VK, TW)
   has_many :identities
 
+  # Validation rules
   validates :login, :email, presence: true, uniqueness: true
 
-
-  # Callbacks
+  # Set default role
   before_create :set_default_role
 
-  # Some helpers
+  # Compare user role
   def role?(role)
     self.role.try(:name) == role.to_s
   end
@@ -48,10 +55,12 @@ class User < ActiveRecord::Base
     user_relationships.find_by_followed_id(other_user.id).destroy
   end
 
+  # User feeds
   def feed
     Fun.from_users_followed_by(self)
   end
 
+  # Insert login param in to URL
   def to_param
     login
   end
@@ -96,6 +105,7 @@ class User < ActiveRecord::Base
     result
   end
 
+  # Create user from oAuth data
   def self.create_with_omniauth auth
     case auth.provider
       when "facebook"
