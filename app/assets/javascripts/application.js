@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
-//= require source/tagit
 //= require bootstrap
 //= require_tree .
 
@@ -74,4 +73,7 @@ $(function(){
             if (data.length) window.location.href = "/search?" + $.param({query:data});
         }
     });
+
+    $("input.date_picker").datepicker({format:"yyyy-mm-dd"});
+
 });
