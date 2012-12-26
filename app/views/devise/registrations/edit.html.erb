@@ -7,6 +7,12 @@
     <%= f.file_field :avatar%>
     <%= f.hidden_field :avatar_cache %>
     <label><%= f.check_box :remove_avatar %> Remove avatar</label>
+
+    <% @user.build_user_setting if @user.user_setting.nil? %>
+    <%= f.simple_fields_for :user_setting do |settings| %>
+        <%= render "settings_form", s: settings %>
+    <% end %>
+
     <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
     <%= f.input :password_confirmation, :required => false %>
     <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>

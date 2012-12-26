@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :login, :name,
                   :password, :password_confirmation, :remember_me,
-                  :avatar, :remote_avatar_url, :avatar_cache, :remove_avatar
+                  :avatar, :remote_avatar_url, :avatar_cache, :remove_avatar,
+                  :user_setting_attributes
   attr_accessible :role_id, as: :admin
 
   # Avatar uploader
@@ -23,6 +24,7 @@ class User < ActiveRecord::Base
 
   # User settings
   has_one :user_setting
+  accepts_nested_attributes_for :user_setting, :allow_destroy => true
 
   # Followers and followed
   has_many :user_relationships, foreign_key: "follower_id", dependent: :destroy
