@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121226080625) do
+ActiveRecord::Schema.define(:version => 20121226160545) do
 
   create_table "funs", :force => true do |t|
     t.string   "title"
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(:version => 20121226080625) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
+    t.string   "email",                  :default => ""
     t.string   "login",                  :default => "", :null => false
     t.string   "avatar",                 :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false

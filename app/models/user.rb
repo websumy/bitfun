@@ -12,8 +12,9 @@ class User < ActiveRecord::Base
   attr_accessible :email, :login, :name,
                   :password, :password_confirmation, :remember_me,
                   :avatar, :remote_avatar_url, :avatar_cache, :remove_avatar,
-                  :user_setting_attributes
+                  :user_setting_attributes, :require_valid_email
   attr_accessible :role_id, as: :admin
+  attr_accessor :require_valid_email
 
   # Avatar uploader
   mount_uploader :avatar, AvatarUploader
@@ -115,12 +116,19 @@ class User < ActiveRecord::Base
       when "facebook"
         create(email: auth.info.email, login: auth.info.nickname, remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
       when "vkontakte"
-        create(email: auth.info.email, login: auth.info.nickname, remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
+        create(login: auth.info.nickname, remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
       when "twitter"
-        create(email: auth.info.email, login: auth.info.nickname, remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
+        create(login: auth.info.nickname, remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
       else
         nil
     end
+  end
+
+  protected
+  # override method from Devise::Models::Validatable
+  # if recipe added from vkontakte application return false, else return true
+  def email_required?
+    !require_valid_email.nil?
   end
 
   private

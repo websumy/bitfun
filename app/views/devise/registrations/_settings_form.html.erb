@@ -1,7 +1,7 @@
-<%= s.input :sex %>
-<%= s.input :birthday, as: :date_picker%>
+<%= s.input :sex, as: :radio_buttons, collection: {Undecided:0, Male:1, Female:2}%>
+<%= s.input :birthday, as: :date_picker, wrapper_html: { class: 'input-append' } %>
 <%= s.input :location %>
-<%= s.input :info %>
+<%= s.input :info, input_html: {class: "input-xxlarge", rows: 5} %>
 <%= s.input :site %>
 <%= s.input :fb_link %>
 <%= s.input :tw_link %>
