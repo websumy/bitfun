@@ -9,8 +9,7 @@ class User < ActiveRecord::Base
   acts_as_voter
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :login, :name, :location, :info,
-                  :site, :vk_link, :fb_link, :tw_link,
+  attr_accessible :email, :login, :name,
                   :password, :password_confirmation, :remember_me,
                   :avatar, :remote_avatar_url, :avatar_cache, :remove_avatar
   attr_accessible :role_id, as: :admin
@@ -21,6 +20,9 @@ class User < ActiveRecord::Base
   # Associations
   belongs_to :role
   has_many :funs
+
+  # User settings
+  has_one :user_setting
 
   # Followers and followed
   has_many :user_relationships, foreign_key: "follower_id", dependent: :destroy
