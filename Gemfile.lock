@@ -54,6 +54,7 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    devise-i18n (0.5.12)
     erubis (2.7.0)
     eventmachine (1.0.0)
     execjs (1.4.0)
@@ -129,6 +130,8 @@ GEM
       activesupport (= 3.2.8)
       bundler (~> 1.0)
       railties (= 3.2.8)
+    rails-i18n (0.7.1)
+      i18n (~> 0.5)
     railties (3.2.8)
       actionpack (= 3.2.8)
       activesupport (= 3.2.8)
@@ -184,6 +187,7 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 3.2.1)
   devise
+  devise-i18n
   jquery-rails
   jquery-ui-rails
   kaminari
@@ -194,6 +198,7 @@ DEPENDENCIES
   omniauth-vkontakte
   quiet_assets
   rails (= 3.2.8)
+  rails-i18n
   rmagick
   sass-rails (~> 3.2.3)
   simple_form
