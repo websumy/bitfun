@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   has_many :identities
 
   # Validation rules
-  validates :login, :email, presence: true, uniqueness: true
+  validates :login, presence: true, uniqueness: true
 
   # Set default role
   before_create :set_default_role
@@ -110,15 +110,47 @@ class User < ActiveRecord::Base
     result
   end
 
+  # Create available login from auth data
+  def self.get_available_login(auth)
+    case auth.provider
+      when "facebook"
+        args = [auth.info.nickname, auth.info.email.split("@").first, auth.info.first_name, auth.info.last_name, auth.info.name]
+      when "vkontakte"
+        args = [auth.info.nickname, auth.extra.raw_info.screen_name, auth.info.first_name, auth.info.last_name, auth.info.name]
+      when "twitter"
+        args = [auth.info.nickname, auth.info.name]
+      else
+        args = []
+    end
+    login = auth.provider.first + auth.uid.to_s
+    options = args.map { |i| i.to_s.parameterize if i.to_s.parameterize.present? }.compact
+     options = options + options.map { |i| i + rand(9999).to_s } if options.any?
+    if options.any?
+      check = User.select(:login).where(:login => options).map(&:login)
+      available = options - check
+      login = available.first unless available.first.nil?
+    end
+    login
+  end
+
   # Create user from oAuth data
   def self.create_with_omniauth auth
     case auth.provider
       when "facebook"
-        create(email: auth.info.email, login: auth.info.nickname, remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
+        user = User.find_all_by_email(auth.info.email)
+        unless user.present?
+          user = create(email: auth.info.email, login: get_available_login(auth), remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
+          user.create_user_setting(fb_link: auth.info.urls.Facebook) # todo get sex from gender and birthday
+          user
+        end
       when "vkontakte"
-        create(login: auth.info.nickname, remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
+        user = User.create(login: get_available_login(auth), remote_avatar_url: auth.extra.raw_info.photo_big, password: Devise.friendly_token[0,10], require_valid_email: true)
+        user.create_user_setting(sex: auth.extra.raw_info.sex, vk_link: auth.info.urls.Vkontakte) # todo get valid sex and birthday
+        user
       when "twitter"
-        create(login: auth.info.nickname, remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10])
+        user = User.create(login: get_available_login(auth), remote_avatar_url: auth.info.image, password: Devise.friendly_token[0,10], require_valid_email: true)
+        user.create_user_setting(location: auth.info.location, tw_link: auth.info.urls.Twitter, info: auth.info.description)
+        user
       else
         nil
     end
@@ -128,7 +160,7 @@ class User < ActiveRecord::Base
   # override method from Devise::Models::Validatable
   # if recipe added from vkontakte application return false, else return true
   def email_required?
-    !require_valid_email.nil?
+    require_valid_email.nil?
   end
 
   private

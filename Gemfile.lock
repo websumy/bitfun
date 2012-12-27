@@ -130,8 +130,6 @@ GEM
       activesupport (= 3.2.8)
       bundler (~> 1.0)
       railties (= 3.2.8)
-    rails-i18n (0.7.1)
-      i18n (~> 0.5)
     railties (3.2.8)
       actionpack (= 3.2.8)
       activesupport (= 3.2.8)
@@ -144,6 +142,8 @@ GEM
       json (~> 1.4)
     riddle (1.5.3)
     rmagick (2.13.1)
+    russian (0.6.0)
+      i18n (>= 0.5.0)
     sass (3.2.4)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -198,8 +198,8 @@ DEPENDENCIES
   omniauth-vkontakte
   quiet_assets
   rails (= 3.2.8)
-  rails-i18n
   rmagick
+  russian
   sass-rails (~> 3.2.3)
   simple_form
   thin
