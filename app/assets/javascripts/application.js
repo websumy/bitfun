@@ -25,7 +25,7 @@ $(function(){
         $.ajax({
             url: link.attr("href"),
             beforeSend: function(xhr) {
-                xhr.setRequestHeader("Accept", "text/javascript", "*/*");
+                xhr.setRequestHeader("Accept", "text/javascript");
             },
             success:function(data){
                 link.after(data);
