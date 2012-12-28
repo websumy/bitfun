@@ -42,4 +42,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   Devise.omniauth_providers.each { |provider| alias_method provider, :default_callback }
+
+  def passthru
+    render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
+  end
 end

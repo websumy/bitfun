@@ -20,7 +20,10 @@ Bitfun::Application.routes.draw do
   get 'sandbox' => 'funs#index', defaults: {sandbox: true}, as: :sandbox
 
   devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks"}
-  get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+
+  devise_scope :user do
+    get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+  end
 
   resources :users do
     member do
