@@ -1,6 +1,6 @@
 class AddAuthorId < ActiveRecord::Migration
   def self.up
-    add_column :funs, :author_id, :integer, :default => 0
+    add_column :funs, :author_id, :integer
     add_index  :funs, :author_id
   end
 

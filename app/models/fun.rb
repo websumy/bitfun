@@ -1,5 +1,5 @@
 class Fun < ActiveRecord::Base
-  attr_accessible :title, :content_attributes, :content_type, :author_id
+  attr_accessible :title, :content_attributes, :content_type
 
   # Kaminari pagination config
   paginates_per 5
@@ -35,42 +35,49 @@ class Fun < ActiveRecord::Base
     cached_votes_total
   end
 
-  def self.from_users_followed_by(user)
-    followed_user_ids = "SELECT followed_id FROM user_relationships WHERE follower_id = :user_id"
-    where("user_id IN (#{followed_user_ids})", user_id: user.id)
-  end
-
-  def self.sorting(order_column, options)
-    interval = options[:interval]
-    sandbox = options[:sandbox]
-    order_column = Fun.column_names.include?(order_column) ? order_column : "created_at"
-    interval = %w(week month year).include?(interval) ? interval: "year"
-    scope = scoped
-    scope = where(created_at: Time.now - 1.send(interval) .. Time.now).where("cached_votes_total >= 1") unless sandbox
-    scope.order(order_column + " DESC")
-  end
-
-
-  def self.filter_by_type (types=[])
-    def_types = %w(image post video)
-    types = types.nil? ? def_types : types.select { |type| type if type.in? def_types }
-    where(content_type: types)
-  end
-
+  # Do repost fun
   def repost_by(reposter)
     if self.user == reposter
       "Can't repost own fun"
     else
       new_fun = self.dup
       new_fun.user = reposter
+      new_fun.author_id = reposter.id
       new_fun.save
       self.increment! :repost_count
       "Succesfully reposted"
     end
   end
 
-  def self.find_tags_by_name(tag)
-    ActsAsTaggableOn::Tag.includes(:taggings).where("taggings.context = 'tags'").order("name ASC").named_like(tag).limit(10) unless tag.blank?
+  class << self
+
+    def from_users_followed_by(user)
+      followed_user_ids = "SELECT followed_id FROM user_relationships WHERE follower_id = :user_id"
+      where("user_id IN (#{followed_user_ids})", user_id: user.id)
+    end
+
+    # Sorting funs by allowed fields including interval and sandbox options
+    def sorting(order_column, options)
+      interval = options[:interval]
+      sandbox = options[:sandbox]
+      order_column = Fun.column_names.include?(order_column) ? order_column : "created_at"
+      interval = %w(week month year).include?(interval) ? interval: "year"
+      scope = scoped
+      scope = where(created_at: Time.now - 1.send(interval) .. Time.now).where("cached_votes_total >= 1") unless sandbox
+      scope.order(order_column + " DESC")
+    end
+
+    # Filter fun by type
+    def filter_by_type (types=[])
+      def_types = %w(image post video)
+      types = types.nil? ? def_types : types.select { |type| type if type.in? def_types }
+      where(content_type: types)
+    end
+
+    # Find tags for autocomplete
+    def find_tags_by_name(tag)
+      ActsAsTaggableOn::Tag.includes(:taggings).where("taggings.context = 'tags'").order("name ASC").named_like(tag).limit(10) unless tag.blank?
+    end
   end
 
   # Thinking Sphinx index
@@ -79,10 +86,5 @@ class Fun < ActiveRecord::Base
     indexes content.cached_tag_list, :as => :tags
 
     has content_type, :as => :type
-  end
-
-  private
-  def set_author
-    self.author_id = self.author_id.zero? ? self.user_id : self.author_id
   end
 end

@@ -125,8 +125,10 @@ class User < ActiveRecord::Base
     private
 
     def create_facebook_user(data)
-      user = User.find_all_by_email(data.info.email)
-      unless user.present?
+      user = User.find_by_email(data.info.email)
+      if user.present?
+        user
+      else
         user = create(email: data.info.email, login: get_available_login(data), remote_avatar_url: data.info.image, password: Devise.friendly_token[0,10])
         user.create_user_setting(fb_link: data.info.urls.Facebook) # todo get sex from gender and birthday
         user

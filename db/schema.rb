@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(:version => 20121226160545) do
     t.datetime "updated_at",                        :null => false
     t.integer  "cached_votes_total", :default => 0
     t.integer  "repost_count",       :default => 0
-    t.integer  "author_id",          :default => 0
+    t.integer  "author_id"
   end
 
   add_index "funs", ["author_id"], :name => "index_funs_on_author_id"
@@ -114,7 +114,6 @@ ActiveRecord::Schema.define(:version => 20121226160545) do
     t.integer  "role_id"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
