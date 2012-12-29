@@ -27,7 +27,10 @@ class User < ActiveRecord::Base
   has_one :setting
   accepts_nested_attributes_for :setting, :allow_destroy => true
 
-  # Followers and followed
+  # Reposts
+  has_many :reposts
+
+    # Followers and followed
   has_many :user_relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :reverse_user_relationships, foreign_key: "followed_id", class_name: "UserRelationship", dependent: :destroy
 

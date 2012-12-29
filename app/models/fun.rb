@@ -9,6 +9,9 @@ class Fun < ActiveRecord::Base
   belongs_to :content, :polymorphic => true, :dependent => :destroy
   accepts_nested_attributes_for :content, :allow_destroy => true
 
+  # Reposts
+  has_many :reposts
+
   acts_as_votable
 
   def attributes=(attributes = {})
@@ -37,15 +40,12 @@ class Fun < ActiveRecord::Base
 
   # Do repost fun
   def repost_by(reposter)
-    if self.user == reposter
-      "Can't repost own fun"
-    else
-      new_fun = self.dup
-      new_fun.user = reposter
-      new_fun.author_id = reposter.id
-      new_fun.save
+    if self.user != reposter
+      fun = self.dup
+      fun.update_attributes({user: reposter, author_id: reposter.id, cached_votes_total: 0, repost_count: 0}, without_protection: true)
       self.increment! :repost_count
-      "Succesfully reposted"
+      self.reposts.create(user_id: reposter.id)
+      fun
     end
   end
 

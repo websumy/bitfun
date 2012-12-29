@@ -72,10 +72,15 @@ class FunsController < ApplicationController
   end
 
   def repost
-    flash[:notice] = @fun.repost_by current_user
+    new_fun = @fun.repost_by current_user
+
     respond_to do |format|
-      format.html {redirect_to @fun}
-      format.js
+      if new_fun.present?
+        format.html {redirect_to new_fun, notice: "Successfully reposted! "}
+        format.js
+      else
+        format.html {redirect_to @fun, alert: "You cant repost this Fun"}
+      end
     end
   end
 

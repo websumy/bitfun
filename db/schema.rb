@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121226160545) do
+ActiveRecord::Schema.define(:version => 20121229093710) do
 
   create_table "funs", :force => true do |t|
     t.string   "title"
@@ -48,6 +48,13 @@ ActiveRecord::Schema.define(:version => 20121226160545) do
   create_table "posts", :force => true do |t|
     t.text   "body"
     t.string "cached_tag_list"
+  end
+
+  create_table "reposts", :force => true do |t|
+    t.integer  "fun_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "roles", :force => true do |t|
