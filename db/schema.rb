@@ -56,6 +56,18 @@ ActiveRecord::Schema.define(:version => 20121226160545) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "settings", :force => true do |t|
+    t.text    "info"
+    t.string  "location"
+    t.string  "site"
+    t.string  "vk_link"
+    t.string  "fb_link"
+    t.string  "tw_link"
+    t.integer "sex"
+    t.date    "birthday"
+    t.integer "user_id"
+  end
+
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -83,18 +95,6 @@ ActiveRecord::Schema.define(:version => 20121226160545) do
   add_index "user_relationships", ["followed_id"], :name => "index_user_relationships_on_followed_id"
   add_index "user_relationships", ["follower_id", "followed_id"], :name => "index_user_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "user_relationships", ["follower_id"], :name => "index_user_relationships_on_follower_id"
-
-  create_table "user_settings", :force => true do |t|
-    t.text    "info"
-    t.string  "location"
-    t.string  "site"
-    t.string  "vk_link"
-    t.string  "fb_link"
-    t.string  "tw_link"
-    t.integer "sex"
-    t.date    "birthday"
-    t.integer "user_id"
-  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => ""

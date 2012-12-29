@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :login, :name,
                   :password, :password_confirmation, :remember_me,
                   :avatar, :remote_avatar_url, :avatar_cache, :remove_avatar,
-                  :user_setting_attributes, :require_valid_email
+                  :setting_attributes, :require_valid_email
   attr_accessible :role_id, as: :admin
   attr_accessor :require_valid_email
 
@@ -24,8 +24,8 @@ class User < ActiveRecord::Base
   has_many :funs
 
   # User settings
-  has_one :user_setting
-  accepts_nested_attributes_for :user_setting, :allow_destroy => true
+  has_one :setting
+  accepts_nested_attributes_for :setting, :allow_destroy => true
 
   # Followers and followed
   has_many :user_relationships, foreign_key: "follower_id", dependent: :destroy
@@ -130,20 +130,20 @@ class User < ActiveRecord::Base
         user
       else
         user = create(email: data.info.email, login: get_available_login(data), remote_avatar_url: data.info.image, password: Devise.friendly_token[0,10])
-        user.create_user_setting(fb_link: data.info.urls.Facebook) # todo get sex from gender and birthday
+        user.create_setting(fb_link: data.info.urls.Facebook) # todo get sex from gender and birthday
         user
       end
     end
 
     def create_vkontakte_user(data)
       user = User.create(login: get_available_login(data), remote_avatar_url: data.extra.raw_info.photo_big, password: Devise.friendly_token[0,10], require_valid_email: true)
-      user.create_user_setting(sex: data.extra.raw_info.sex, vk_link: data.info.urls.Vkontakte) # todo get valid sex and birthday
+      user.create_setting(sex: data.extra.raw_info.sex, vk_link: data.info.urls.Vkontakte) # todo get valid sex and birthday
       user
     end
 
     def create_twitter_user(data)
       user = User.create(login: get_available_login(data), remote_avatar_url: data.info.image, password: Devise.friendly_token[0,10], require_valid_email: true)
-      user.create_user_setting(location: data.info.location, tw_link: data.info.urls.Twitter, info: data.info.description)
+      user.create_setting(location: data.info.location, tw_link: data.info.urls.Twitter, info: data.info.description)
       user
     end
 

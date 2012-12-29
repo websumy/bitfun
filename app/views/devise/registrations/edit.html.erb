@@ -8,8 +8,8 @@
     <%= f.hidden_field :avatar_cache %>
     <label><%= f.check_box :remove_avatar %> Remove avatar</label>
 
-    <% @user.build_user_setting if @user.user_setting.nil? %>
-    <%= f.simple_fields_for :user_setting do |settings| %>
+    <% @user.build_setting if @user.setting.nil? %>
+    <%= f.simple_fields_for :setting do |settings| %>
         <%= render "settings_form", s: settings %>
     <% end %>
 

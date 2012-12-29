@@ -1,6 +1,6 @@
-class CreateUserSettings < ActiveRecord::Migration
+class CreateSettings < ActiveRecord::Migration
   def change
-    create_table :user_settings do |t|
+    create_table :settings do |t|
       t.text :info
       t.string :location
       t.string :site
