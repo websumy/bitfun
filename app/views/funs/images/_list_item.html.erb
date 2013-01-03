@@ -1,5 +1,5 @@
 <h4><%= link_to fun.title, fun %></h4>
-
+<%= show_cached_tags fun %>
 <dl>
     <% if fun.content.file? %>
       <dt>Image</dt>
