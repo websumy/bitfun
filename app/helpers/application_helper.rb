@@ -11,6 +11,10 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  def resource_class
+    @devise_mapping.to
+  end
+
   def get_string_from_query query
     if query.is_a? Array
       query.join(",")
