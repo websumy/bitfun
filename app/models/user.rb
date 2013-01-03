@@ -41,7 +41,9 @@ class User < ActiveRecord::Base
   has_many :identities
 
   # Validation rules
-  validates :login, presence: true, uniqueness: true
+
+  validates :email, uniqueness: true, format: { with: email_regexp }, if: :email_required?
+  validates :login, presence: true, uniqueness: true, format: { with: /\A[A-Za-z0-9_-]*\Z/i }, length: { minimum: 2 }
 
   # Set default role
   before_create :set_default_role
