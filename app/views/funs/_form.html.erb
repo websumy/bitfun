@@ -1,4 +1,4 @@
-<%= simple_form_for @fun do |f| %>
+<%= simple_form_for @fun, validate: true do |f| %>
 
   <% if @fun.errors.any? %>
     <div class="alert alert-error">
