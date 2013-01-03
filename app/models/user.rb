@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   # Validation rules
 
   validates :email, uniqueness: true, format: { with: email_regexp }, if: :email_required?
-  validates :login, presence: true, uniqueness: true, format: { with: /\A[A-Za-z0-9_-]*\Z/i }, length: { minimum: 2 }
+  validates :login, presence: true, uniqueness: true, format: { with: /\A[A-Za-z0-9_-]*\Z/i }, length: { minimum: 3 }
 
   # Set default role
   before_create :set_default_role
