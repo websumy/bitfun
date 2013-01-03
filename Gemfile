@@ -2,40 +2,64 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+# A modern, simple and very fast Mysql library for Ruby - binding to libmysql.
 gem 'mysql2'
+
+# Flexible authentication solution for Rails with Warden.
 gem 'devise'
+
+# Authorization Gem for Ruby on Rails
+gem 'cancan'
+
+# Standardized Multi-Provider Authentication
 gem 'omniauth'
+
+# Omniauth providers
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
-gem 'cancan'
+
+# A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Rails 3
 gem 'kaminari'
+
+# A tagging plugin for Rails applications that allows for custom tagging along dynamic contexts
 gem 'acts-as-taggable-on'
 
+# Votable ActiveRecord for Rails.
+gem 'acts_as_votable'
+
+# Classier solution for file uploads for Rails, Sinatra and other Ruby web frameworks.
+gem 'carrierwave'
+
+# RMagick is an interface between the Ruby programming language and ImageMagick/GraphicsMagick.
+gem "rmagick"
+
+# Forms made easy for Rails! It's tied to a simple DSL, with no opinion on markup
+gem "simple_form"
+
+# ClientSideValidations made easy for your Rails v3.1+ applications!
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
+
+# Russian language support for Ruby and Rails
 gem 'russian'
 gem 'devise-i18n'
 
-gem "rmagick"
-gem 'carrierwave'
-
-gem "bootstrap-sass"
-
-gem "simple_form"
+# Thin is a Ruby web server
 gem 'thin'
 
+# Rails plugin for Sphinx.
 gem 'thinking-sphinx'
 
 # Mutes assets pipeline log messages
 gem 'quiet_assets'
 
-gem 'acts_as_votable' #voting
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+  # Toolkit from Twitter designed to kickstart development of webapps and sites
+  gem "bootstrap-sass"
+
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
 
