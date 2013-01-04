@@ -7,10 +7,10 @@
   <b>Likes:</b>
   <%= link_to fun.total_likes, likes_fun_path, remote: true %>
 </div>
-<p>
+<div id="show_reposts">
   <b>Reposts:</b>
-  <%= fun.repost_count %>
-</p>
+  <%= link_to fun.repost_count, reposts_fun_path, remote: true %>
+</div>
 <p>
   <b>Tags:</b>
   <%= raw fun.content.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
