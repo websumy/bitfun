@@ -76,6 +76,28 @@ $(function(){
     });
 
     $("input.date_picker").datepicker({format:"yyyy-mm-dd"});
+
+    $('.alert .close').live("click", function(e) {
+        $(this).parent().fadeOut(3000);
+    });
+
+    var show_alert = function(message){
+        $("#js-alert").alert().show().find("div").text(message);
+        $(window).scrollTop(0);
+        $('.alert .close').click();
+    };
+
+    $('a.repost').on('ajax:success',  function(evt, data, status, xhr) {
+        if (data.type == "success") {
+            var $span = $(this).find("span");
+            var value = parseInt($span.text()) || 0;
+            $span.text(value + 1).removeClass("badge-info").addClass("badge-success");
+            $(this).attr('href', '#');
+        } else {
+            show_alert(data.message);
+        }
+    });
+
 });
 
 ClientSideValidations.formBuilders['SimpleForm::FormBuilder'] = {

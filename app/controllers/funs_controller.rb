@@ -76,7 +76,7 @@ class FunsController < ApplicationController
     respond_to do |format|
       if new_fun.present?
         format.html { redirect_to new_fun, notice: t('funs.reposted') }
-        format.json { render json: { message: t('funs.reposted'), type: "notice" } }
+        format.json { render json: { message: t('funs.reposted'), type: "success" } }
       else
         format.html { redirect_to @fun, alert: t('funs.errors.repost') }
         format.json { render json: { message: t('funs.errors.repost'), type: "error" } }
