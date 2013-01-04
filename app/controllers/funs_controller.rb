@@ -85,14 +85,17 @@ class FunsController < ApplicationController
   end
 
   def like
-    if current_user.voted_up_on? @fun
-      @fun.unliked_by voter: current_user
-    else
-      @fun.liked_by current_user
-    end
+    type = if current_user.voted_up_on? @fun
+             @fun.unliked_by voter: current_user
+             "unlike"
+           else
+             @fun.liked_by current_user
+             "like"
+           end
+
     respond_to do |format|
       format.html { redirect_to @fun, notice: t('funs.liked') }
-      format.js
+      format.json { render json: { type: type } }
     end
   end
 

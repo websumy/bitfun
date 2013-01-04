@@ -12,4 +12,12 @@ module FunsHelper
     link_to raw("Share " + content_tag('span', fun.repost_count, class: 'badge badge-info')), repost_fun_path(fun), class: 'repost', 'data-type'.to_sym => 'json', remote: true
   end
 
+  def like_button(fun)
+    if current_user && current_user.voted_up_on?(fun)
+      link_to raw(content_tag('span','Unlike fun ') + content_tag('span', fun.total_likes, class: 'badge badge-success')), like_fun_path(fun), class: 'like', 'data-type'.to_sym => 'json', remote: true
+    else
+      link_to raw(content_tag('span','Like fun ') + content_tag('span', fun.total_likes, class: 'badge badge-info')), like_fun_path(fun), class: 'like', 'data-type'.to_sym => 'json', remote: true
+    end
+  end
+
 end

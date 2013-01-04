@@ -98,6 +98,27 @@ $(function(){
         }
     });
 
+
+    $('a.like').on({
+        click: function(e) {
+            if ($(this).data("disabled"))
+                return false;
+            $(this).data("disabled", true);
+        },
+        'ajax:success':  function(evt, data, status, xhr){
+            $(this).data("disabled", false);
+            var $span = $(this).find("span");
+            var value = parseInt($span.eq(1).text()) || 0;
+            if (data.type == "like") {
+                $span.eq(0).text("Unlike fun");
+                $span.eq(1).text(value + 1).removeClass("badge-info").addClass("badge-success");
+            } else if(data.type == "unlike") {
+                $span.eq(0).text("Like fun");
+                $span.eq(1).text(value - 1).removeClass("badge-success").addClass("badge-info");
+            }
+        }
+    });
+
 });
 
 ClientSideValidations.formBuilders['SimpleForm::FormBuilder'] = {
