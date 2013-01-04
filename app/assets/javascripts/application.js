@@ -41,13 +41,13 @@ $(function(){
         $(this).parents("form:first").submit();
     });
 
-    $('#show_likes a').on('ajax:success',  function(evt, data, status, xhr){
+    $('#show_likes a, #show_reposts a').on('ajax:success',  function(evt, data, status, xhr){
         var $link = $(this);
         $.each(data, function(k, v){
             $link.after($("<img>").attr({
                 "src": v.avatar.thumb.url,
                 "class": "img-circle",
-                "width": "50px"
+                "width": "30px"
             }));
         });
         $link.hide();

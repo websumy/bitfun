@@ -96,17 +96,25 @@ class FunsController < ApplicationController
     end
   end
 
+  # Shows 10 last users who liked this fun
   def likes
-    @fun = Fun.find(params[:id]).likes.voters
+    users = Fun.find(params[:id]).likes.limit(10).voters
     respond_to do |format|
-      format.json { render json: @fun.as_json(:only => [:login, :avatar]) }
+      format.json { render json: users.as_json(:only => [:login, :avatar]) }
+    end
+  end
+
+  # Shows 10 last users who reposted this fun
+  def reposts
+    users = Fun.find(params[:id]).reposts.limit(10).reposters
+    respond_to do |format|
+      format.json { render json: users.as_json(:only => [:login, :avatar]) }
     end
   end
 
   private
 
   # Prepare query for search by tag
-
   def prepare_query query
     if query.is_a? Array
       query.join(",")
