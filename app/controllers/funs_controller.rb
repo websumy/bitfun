@@ -50,7 +50,7 @@ class FunsController < ApplicationController
   def create
     @fun = current_user.funs.new(params[:fun])
     if @fun.save
-      redirect_to @fun, notice: 'Fun was successfully created.'
+      redirect_to @fun, notice: t('funs.created')
     else
       render "new"
     end
@@ -59,27 +59,27 @@ class FunsController < ApplicationController
   # PUT /funs/1
   def update
     if @fun.update_attributes(params[:fun])
-      redirect_to @fun, notice: 'Fun was successfully updated.'
+      redirect_to @fun, notice: t('funs.updated')
     else
-      render action: "edit"
+      render "edit"
     end
   end
 
   # DELETE /funs/1
   def destroy
     @fun.destroy
-    redirect_to funs_url
+    redirect_to funs_url, notice: t('funs.deleted')
   end
 
   def repost
     new_fun = @fun.repost_by current_user
-
     respond_to do |format|
       if new_fun.present?
-        format.html {redirect_to new_fun, notice: "Successfully reposted! "}
-        format.js
+        format.html { redirect_to new_fun, notice: t('funs.reposted') }
+        format.json { render json: { message: t('funs.reposted'), type: "notice" } }
       else
-        format.html {redirect_to @fun, alert: "You cant repost this Fun"}
+        format.html { redirect_to @fun, alert: t('funs.errors.repost') }
+        format.json { render json: { message: t('funs.errors.repost'), type: "error" } }
       end
     end
   end
@@ -91,7 +91,7 @@ class FunsController < ApplicationController
       @fun.liked_by current_user
     end
     respond_to do |format|
-      format.html {redirect_to @fun, notice: 'Thanks for voting!'}
+      format.html { redirect_to @fun, notice: t('funs.liked') }
       format.js
     end
   end
@@ -99,11 +99,13 @@ class FunsController < ApplicationController
   def likes
     @fun = Fun.find(params[:id]).likes.voters
     respond_to do |format|
-      format.json {render json: @fun.as_json(:only => [:login, :avatar])}
+      format.json { render json: @fun.as_json(:only => [:login, :avatar]) }
     end
   end
 
   private
+
+  # Prepare query for search by tag
 
   def prepare_query query
     if query.is_a? Array

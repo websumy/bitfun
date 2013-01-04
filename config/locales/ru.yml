@@ -1,0 +1,9 @@
+ru:
+  funs:
+    created: "Fun was successfully created."
+    updated: "Fun was successfully updated."
+    deleted: "Fun was successfully deleted."
+    reposted: "Successfully reposted!"
+    liked: "Thanks for voting!"
+    errors:
+      repost: "You cant repost this Fun"
