@@ -70,7 +70,13 @@ class Fun < ActiveRecord::Base
     # Filter fun by type
     def filter_by_type (types=[])
       def_types = %w(image post video)
-      types = types.nil? ? def_types : types.select { |type| type if type.in? def_types }
+      if types.nil?
+        types = def_types
+      elsif types.first == "unknown"
+        types = nil
+      else
+        types = types.select { |type| type if type.in? def_types }
+      end
       where(content_type: types)
     end
 

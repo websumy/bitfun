@@ -37,6 +37,8 @@ $(function(){
                     $this.find("button.active").each(function(){
                         data[type].push($(this).data("value"));
                     });
+                    if (!data[type].length)
+                        data[type].push("unknown");
                     break;
                 case "interval":
                     data[type] = $this.find("button").data("value");
