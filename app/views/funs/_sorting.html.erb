@@ -1,13 +1,28 @@
-<div id="sort">
-  <%= link_to "Новое", new_path %> |
-  <%= link_to "Популярное", hot_path %> |
-  <%= link_to "Обсуждаемое", discuss_path %> |
-  <%= link_to "Песочница", sandbox_path %>
-  <%= form_tag request.path, :method => 'get', :remote => true do %>
-      Период: <%= select_tag :interval, options_for_select(%w(week month year), params[:interval]) %><br />
-      Типы материала:
-      <label class="checkbox"><%= check_box_tag "type[]", :image, checked: true %> <%= :image %></label>
-      <label class="checkbox"><%= check_box_tag "type[]", :post, checked: true %> <%= :post %></label>
-      <label class="checkbox"><%= check_box_tag "type[]", :video, checked: true %> <%= :video %></label>
-  <% end %>
+<div class="btn-toolbar" style="margin: 0;">
+  <div class="btn-group" data-type="type" data-toggle="buttons-checkbox">
+    <button type="button" class="btn active" data-value="image"><i class="icon-picture"></i></button>
+    <button type="button" class="btn active" data-value="video"><i class="icon-film"></i></button>
+    <button type="button" class="btn active" data-value="post"><i class="icon-list"></i></button>
+  </div>
+
+  <div class="btn-group">
+    <%= link_to "Новое", new_path, class: "btn" %>
+    <%= link_to "Популярное", hot_path, class: "btn" %>
+    <%= link_to "Обсуждаемое", discuss_path, class: "btn" %>
+    <%= link_to "Песочница", sandbox_path, class: "btn"%>
+  </div>
+
+  <div class="btn-group" data-type="interval">
+    <button class="btn dropdown-toggle" data-toggle="dropdown" data-value="year">Период <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="#" data-value="year">За все время</a></li>
+      <li><a href="#" data-value="month">За месяц</a></li>
+      <li><a href="#" data-value="week">За неделю</a></li>
+    </ul>
+  </div>
+
+  <div class="btn-group" data-type="view" data-toggle="buttons-radio" >
+    <button class="btn active" data-value="list"><i class="icon-align-justify"></i></button>
+    <button class="btn" data-value="box"><i class="icon-th"></i></button>
+  </div>
 </div>
