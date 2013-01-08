@@ -1,7 +1,9 @@
 <div class="span11">
 <h2>Feed</h2>
   <%= render "sorting" %>
+<div id="funs_list">
   <%= render "list", funs: @funs, fun_partial: :list_item %>
+</div>
   <% if can? :create, Fun %>
       <%= link_to 'New fun', new_fun_path, class: 'btn btn-primary' %>
   <% end %>

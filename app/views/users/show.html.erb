@@ -31,7 +31,7 @@
         <li><%= link_to "Likes", likes_user_path(@user), remote: true %></li>
       </ul>
 
-      <div class="list_item">
+      <div id="funs_list" class="list_item">
         <%= render "funs/list", funs: @funs, fun_partial: :list_item %>
       </div>
 

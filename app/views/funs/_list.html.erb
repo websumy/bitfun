@@ -1,5 +1,4 @@
-<div id="funs_list">
-  <% if funs.any?%>
+<% if funs.any?%>
     <% funs.each do |fun| %>
         <%= render_fun_partial fun, fun_partial %>
     <% end %>
@@ -7,4 +6,3 @@
 <% else %>
     <p class="text-error">There aren't any funs in this folder.</p>
 <% end %>
-</div>

@@ -13,32 +13,56 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
-//= require bootstrap
+//= require bootstrap-dropdown
+//= require bootstrap-modal
+//= require bootstrap-tab
+//= require bootstrap-alert
 //= require rails.validations
 //= require_tree .
 
 $(function(){
 
-    $('.like_button a').live("click", function(e){
-        e.preventDefault();
+    var get_sorting_data = function(){
+        var data = {};
 
-        var link = $(this);
-        $.ajax({
-            url: link.attr("href"),
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader("Accept", "text/javascript");
-            },
-            success:function(data){
-                link.after(data);
-                link.remove();
-            },
-            dataType: 'html'
+        $("div.btn-group[data-type]").each(function(e){
+            var $this = $(this);
+            var type = $this.data("type");
+            switch(type) {
+                case "view":
+                    data[type] = $this.find("button.active").data("value");
+                    break;
+                case "type":
+                    data[type] = [];
+                    $this.find("button.active").each(function(){
+                        data[type].push($(this).data("value"));
+                    });
+                    break;
+                case "interval":
+                    data[type] = $this.find("button").data("value");
+                    break;
+            }
         });
 
+        return data;
+    };
+
+    var post_sorting_data = function(data){
+        $.ajax({
+            type: 'POST',
+            url: '/',
+            data: data,
+            dataType: 'script'
+        });
+    };
+
+    $("div.btn-group").on("button-change", "button", function(e){
+        post_sorting_data(get_sorting_data());
     });
 
-    $("#sort").on("change", "select#interval, input:checkbox", function(){
-        $(this).parents("form:first").submit();
+    $("div.btn-group ul.dropdown-menu").on("click", "a", function(e){
+        $("div.btn-group[data-type='interval'] button").text($(this).text() + " ").append($("<span>").addClass("caret")).data("value", $(this).data("value"));
+        post_sorting_data(get_sorting_data());
     });
 
     $('#show_likes a, #show_reposts a').on('ajax:success',  function(evt, data, status, xhr){
@@ -87,19 +111,18 @@ $(function(){
         $('.alert .close').click();
     };
 
-    $('a.repost').on('ajax:success',  function(evt, data, status, xhr) {
+    $("#funs_list").on('ajax:success', 'a.repost',  function(evt, data, status, xhr) {
         if (data.type == "success") {
             var $span = $(this).find("span");
             var value = parseInt($span.text()) || 0;
             $span.text(value + 1).removeClass("badge-info").addClass("badge-success");
-            $(this).attr('href', '#');
+            $(this).attr('href', '#'); // need remove link or disabled
         } else {
             show_alert(data.message);
         }
     });
 
-
-    $('a.like').on({
+    $('#funs_list').on({
         click: function(e) {
             if ($(this).data("disabled"))
                 return false;
@@ -117,7 +140,7 @@ $(function(){
                 $span.eq(1).text(value - 1).removeClass("badge-success").addClass("badge-info");
             }
         }
-    });
+    }, "a.like");
 
 });
 
