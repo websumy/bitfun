@@ -19,7 +19,7 @@ class Funs::LikesController < ApplicationController
              "like"
            end
     respond_to do |format|
-      format.html { redirect_to @fun, notice: t('funs.liked') }
+      format.html { redirect_to @fun, notice: t("likes.created") }
       format.json { render json: { type: type } }
     end
   end

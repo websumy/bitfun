@@ -1,9 +1,14 @@
 ru:
   funs:
-    created: "Fun was successfully created."
-    updated: "Fun was successfully updated."
-    deleted: "Fun was successfully deleted."
-    reposted: "Successfully reposted!"
-    liked: "Thanks for voting!"
+    created: "Фан успешно добавлен вам на стену."
+    updated: "Фан успешно обновлен."
+    deleted: "Фан успешно удален."
+
+  reposts:
+    created: "Фан успешно скопирован вам на стену."
     errors:
-      repost: "You cant repost this Fun"
+      cant_repost: "Вы не можете делать репост этого фана."
+
+  likes:
+    created: "Спасибо, Ваш голос учтен."
+

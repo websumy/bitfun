@@ -3,10 +3,8 @@ Bitfun::Application.routes.draw do
   root :to => 'funs#index'
 
   resources :funs do
-    member do
-      get :repost, :reposts
-    end
     resources :likes, only: [:index, :create], controller: 'funs/likes'
+    resources :reposts, only: [:index, :create], controller: 'funs/reposts'
   end
 
   get   'funs/tag/:query',   to: 'funs#tags',                as: :tag

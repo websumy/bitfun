@@ -71,27 +71,6 @@ class FunsController < ApplicationController
     redirect_to funs_url, notice: t('funs.deleted')
   end
 
-  def repost
-    new_fun = @fun.repost_by current_user
-    respond_to do |format|
-      if new_fun.present?
-        format.html { redirect_to new_fun, notice: t('funs.reposted') }
-        format.json { render json: { message: t('funs.reposted'), type: "success" } }
-      else
-        format.html { redirect_to @fun, alert: t('funs.errors.repost') }
-        format.json { render json: { message: t('funs.errors.repost'), type: "error" } }
-      end
-    end
-  end
-
-  # Shows 10 last users who reposted this fun
-  def reposts
-    users = Fun.find(params[:id]).reposts.limit(10).reposters
-    respond_to do |format|
-      format.json { render json: users.as_json(:only => [:login, :avatar]) }
-    end
-  end
-
   private
 
   # Prepare query for search by tag
