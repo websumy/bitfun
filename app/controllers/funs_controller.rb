@@ -84,29 +84,6 @@ class FunsController < ApplicationController
     end
   end
 
-  def like
-    type = if current_user.voted_up_on? @fun
-             @fun.unliked_by voter: current_user
-             "unlike"
-           else
-             @fun.liked_by current_user
-             "like"
-           end
-
-    respond_to do |format|
-      format.html { redirect_to @fun, notice: t('funs.liked') }
-      format.json { render json: { type: type } }
-    end
-  end
-
-  # Shows 10 last users who liked this fun
-  def likes
-    users = Fun.find(params[:id]).likes.limit(10).voters
-    respond_to do |format|
-      format.json { render json: users.as_json(:only => [:login, :avatar]) }
-    end
-  end
-
   # Shows 10 last users who reposted this fun
   def reposts
     users = Fun.find(params[:id]).reposts.limit(10).reposters
