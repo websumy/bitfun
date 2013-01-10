@@ -67,23 +67,37 @@ class Fun < ActiveRecord::Base
       scope.order(order_column + " DESC")
     end
 
-    # Filter fun by type
-    def filter_by_type (types=[])
+    def clean_types(types=[])
       def_types = %w(image post video)
       if types.nil?
-        types = def_types
+        def_types
       elsif types.first == "unknown"
-        types = nil
+        nil
       else
-        types = types.select { |type| type if type.in? def_types }
+        types.select { |type| type.in? def_types }
       end
-      where(content_type: types)
+    end
+
+    # Filter fun by type
+    def filter_by_type(types=[])
+      where(content_type: clean_types(types))
     end
 
     # Find tags for autocomplete
     def find_tags_by_name(tag)
       ActsAsTaggableOn::Tag.includes(:taggings).where("taggings.context = 'tags'").order("name ASC").named_like(tag).limit(10) unless tag.blank?
     end
+
+    # Content types for searching
+    def search_fun_ids(query, types=[], p)
+      content_type = { image: 1, video: 2, post: 3 }
+      query = [query].flatten.join(',')
+      types = clean_types types
+      types.map!{ |t|t.to_sym }
+      types = content_type.select{| k| k.in? types }.values
+      Fun.search_for_ids(query, with: {type: types}, :match_mode => :any).page(p).per(default_per_page)
+    end
+
   end
 
   # Thinking Sphinx index
@@ -91,6 +105,6 @@ class Fun < ActiveRecord::Base
     indexes title, sortable: true
     indexes content.cached_tag_list, :as => :tags
 
-    has content_type, :as => :type
+    has '(CASE WHEN content_type = "Image" THEN 1 WHEN content_type = "Video" THEN 2 WHEN content_type = "Post" THEN 3 END)', :as => :type, :type => :integer
   end
 end

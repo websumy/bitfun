@@ -5,18 +5,14 @@ class FunsController < ApplicationController
 
   # GET /funs
   def index
-    @funs = Fun.includes(:user, :content).filter_by_type(params[:type]).sorting(params[:sort], interval: params[:interval], sandbox: params[:sandbox]).page params[:page]
-  end
+    @funs = Fun.includes(:user, :content).filter_by_type(params[:type]).sorting(params[:sort], interval: params[:interval], sandbox: params[:sandbox])
 
-  def tags
-    query = prepare_query params[:query]
-    if query.nil?
-      redirect_to funs_path
-    else
-      funs_ids = ThinkingSphinx.search_for_ids(query, classes: [Fun], :match_mode => :any)
-      @funs = Fun.includes(:user, :content).where(id: funs_ids).filter_by_type(params[:type]).page params[:page]
-      render 'index'
+    if params[:query]
+      funs_ids = Fun.search_fun_ids([params[:query]].flatten.join(','), params[:type], params[:page])
+      @funs = @funs.where(id: funs_ids)
     end
+
+    @funs = @funs.page params[:page]
   end
 
   def autocomplete_tags
@@ -69,19 +65,6 @@ class FunsController < ApplicationController
   def destroy
     @fun.destroy
     redirect_to funs_url, notice: t('funs.deleted')
-  end
-
-  private
-
-  # Prepare query for search by tag
-  def prepare_query query
-    if query.is_a? Array
-      query.join(",")
-    elsif query.is_a? String
-      query
-    else
-      query.to_s
-    end
   end
 
 end

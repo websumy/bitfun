@@ -46,6 +46,9 @@ $(function(){
             }
         });
 
+        var tags = get_tags();
+        if (tags) data["query"] = tags;
+
         return data;
     };
 
@@ -80,7 +83,7 @@ $(function(){
     });
 
     var cache = {};
-    var get_tags = function( request, response ) {
+    var autocomplete_tags = function( request, response ) {
         if (request.term in cache){
             response(cache[request.term]);
         } else {
@@ -91,14 +94,16 @@ $(function(){
         }
     };
 
-    $('#tags').tagit({tagSource: get_tags, minLength: 2, allowNewTags: false, maxTags: 5});
+    $('#tags').tagit({tagSource: autocomplete_tags, minLength: 2, allowNewTags: false, maxTags: 5});
+
+    var get_tags = function(){
+        var tags = $('#tags').tagit("tags");
+        return (tags.length) ? $.map(tags, function(tag){ return tag.value; }) : false;
+    };
 
     $('.search_tag button').click(function(e){
-        var tags = $('#tags').tagit("tags");
-        if (tags.length){
-            var data =  $.map(tags, function(tag){ return tag.value; });
-            if (data.length) window.location.href = "/search?" + $.param({query:data});
-        }
+        var data = get_tags();
+        if (data) window.location.href = "/search?" + $.param({query:data});
     });
 
     $("input.date_picker").datepicker({format:"yyyy-mm-dd"});
