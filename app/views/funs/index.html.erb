@@ -1,3 +1,4 @@
+<%= cookies_store %>
 <div class="span11">
 <h2>Feed</h2>
   <%= render "sorting" %>
@@ -11,7 +12,7 @@
 <% unless params[:query].nil? %>
     <script type="text/javascript">
       $(function(){
-        $('#tags').tagit("add", "<%= get_string_from_query params[:query]%>");
+        $('#tags').tagit("add", "<%= [params[:query]].flatten.join(',')%>");
       });
     </script>
 <% end %>

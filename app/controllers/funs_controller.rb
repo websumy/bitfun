@@ -66,5 +66,4 @@ class FunsController < ApplicationController
     @fun.destroy
     redirect_to funs_url, notice: t('funs.deleted')
   end
-
 end
