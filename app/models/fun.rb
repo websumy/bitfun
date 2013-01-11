@@ -71,10 +71,9 @@ class Fun < ActiveRecord::Base
       def_types = %w(image post video)
       if types.nil?
         def_types
-      elsif types.first == "unknown"
-        nil
       else
-        types.select { |type| type.in? def_types }
+        types = [types].flatten
+        types.first == "unknown" ? nil:  types.select { |type| type.in? def_types }
       end
     end
 

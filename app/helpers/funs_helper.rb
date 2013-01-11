@@ -20,4 +20,19 @@ module FunsHelper
     end
   end
 
+  def active_class?(key, value)
+    cookies = cookies_store.get(key)
+    default_value = case key
+                      when :type then %w(image post video)
+                      when :interval then "year"
+                      when :view then "list"
+                      else ""
+                    end
+
+    if value.in? (cookies ? cookies : default_value)
+      " active"
+    end
+  end
+
+
 end

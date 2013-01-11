@@ -12,4 +12,11 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     feed_path || root_path
   end
+
+  def cookies_store
+    @cookies_store ||= CookiesStore.new(cookies)
+  end
+
+  helper_method :cookies_store
+
 end

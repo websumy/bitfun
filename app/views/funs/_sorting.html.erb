@@ -1,8 +1,9 @@
+<%=cookies_store.get(:type)%>
 <div class="btn-toolbar" style="margin: 0;">
   <div class="btn-group" data-type="type" data-toggle="buttons-checkbox">
-    <button type="button" class="btn active" data-value="image"><i class="icon-picture"></i></button>
-    <button type="button" class="btn active" data-value="video"><i class="icon-film"></i></button>
-    <button type="button" class="btn active" data-value="post"><i class="icon-list"></i></button>
+    <button type="button" class="btn<%= active_class? :type, "image" %>" data-value="image"><i class="icon-picture"></i></button>
+    <button type="button" class="btn<%= active_class? :type, "video" %>" data-value="video"><i class="icon-film"></i></button>
+    <button type="button" class="btn<%= active_class? :type, "post" %>" data-value="post"><i class="icon-list"></i></button>
   </div>
 
   <div class="btn-group">
@@ -15,14 +16,14 @@
   <div class="btn-group" data-type="interval">
     <button class="btn dropdown-toggle" data-toggle="dropdown" data-value="year">За все время <span class="caret"></span></button>
     <ul class="dropdown-menu">
-      <li><a href="#" data-value="year">За все время</a></li>
-      <li><a href="#" data-value="month">За месяц</a></li>
-      <li><a href="#" data-value="week">За неделю</a></li>
+      <li><a href="#" data-value="year" class="drop<%= active_class? :interval, "year" %>">За все время</a></li>
+      <li><a href="#" data-value="month" class="drop<%= active_class? :interval, "month" %>">За месяц</a></li>
+      <li><a href="#" data-value="week" class="drop<%= active_class? :interval, "week" %>">За неделю</a></li>
     </ul>
   </div>
 
   <div class="btn-group" data-type="view" data-toggle="buttons-radio" >
-    <button class="btn active" data-value="list"><i class="icon-align-justify"></i></button>
-    <button class="btn" data-value="box"><i class="icon-th"></i></button>
+    <button class="btn<%= active_class? :view, "list" %>" data-value="list"><i class="icon-align-justify"></i></button>
+    <button class="btn<%= active_class? :view, "box" %>" data-value="box"><i class="icon-th"></i></button>
   </div>
 </div>
