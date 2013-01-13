@@ -65,6 +65,10 @@ class User < ActiveRecord::Base
     user_relationships.find_by_followed_id(other_user.id).destroy
   end
 
+  def reposted?(fun)
+    self.reposts.where(:fun_id => fun.id).any?
+  end
+
   # User feeds
   def feed
     Fun.from_users_followed_by(self)
