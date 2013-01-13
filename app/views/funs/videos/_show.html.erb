@@ -5,11 +5,11 @@
 </p>
 <div id="show_likes">
   <b>Likes:</b>
-  <%= link_to fun.total_likes, likes_fun_path, remote: true %>
+  <%= link_to fun.total_likes, fun_likes_path(fun), remote: true %>
 </div>
 <div id="show_reposts">
   <b>Reposts:</b>
-  <%= link_to fun.repost_count, reposts_fun_path, remote: true %>
+  <%= link_to fun.repost_count, fun_reposts_path(fun), remote: true %>
 </div>
 <p>
   <b>Tags:</b>
