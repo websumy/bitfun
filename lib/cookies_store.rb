@@ -34,6 +34,4 @@ class CookiesStore
     end
   end
 
-
-
 end

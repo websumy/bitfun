@@ -1,4 +1,3 @@
-<%=cookies_store[:view]%>
 <div class="btn-toolbar" style="margin: 0;">
   <div class="btn-group" data-type="type" data-toggle="buttons-checkbox">
     <button type="button" class="btn<%= active_class? :type, "image" %>" data-value="image"><i class="icon-picture"></i></button>
@@ -7,10 +6,10 @@
   </div>
 
   <div class="btn-group">
-    <%= link_to "Новое", new_path, class: "btn" %>
-    <%= link_to "Популярное", hot_path, class: "btn" %>
-    <%= link_to "Обсуждаемое", discuss_path, class: "btn" %>
-    <%= link_to "Песочница", sandbox_path, class: "btn"%>
+    <%= link_to_menu "Новое", new_path, class: "btn" %>
+    <%= link_to_menu "Популярное", hot_path, class: "btn" %>
+    <%= link_to_menu "Обсуждаемое", discuss_path, class: "btn" %>
+    <%= link_to_menu "Песочница", sandbox_path, class: "btn"%>
   </div>
 
   <div class="btn-group" data-type="interval">

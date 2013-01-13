@@ -40,5 +40,14 @@ module FunsHelper
     ((partial.in? %w(list box)) ?  partial : default) + "_item"
   end
 
+  def link_to_menu(name, options = {}, html_options = {})
+    if html_options.key? :class
+      html_options[:class] << " active" if current_page?(options)
+    end
+
+    link_to(name, options, html_options)
+  end
+
+
 
 end
