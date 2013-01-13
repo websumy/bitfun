@@ -26,12 +26,8 @@ class CookiesStore
   end
 
   def [](key)
-    @cookies[name.to_s]
-  end
-
-  def get(key)
     if @cookies[key]
-      data = @cookies[key].split("&")
+      data = @cookies[key.to_s].split("&")
       data.length > 1 ? data : data.first
     else
       nil
