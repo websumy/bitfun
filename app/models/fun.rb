@@ -4,6 +4,9 @@ class Fun < ActiveRecord::Base
   # Kaminari pagination config
   paginates_per 5
 
+  # Fun moved from sandbox when total_likes = MIN_LIKES
+  MIN_LIKES = 1
+
   # Associations
   belongs_to :user
   belongs_to :content, :polymorphic => true, :dependent => :destroy
@@ -49,6 +52,19 @@ class Fun < ActiveRecord::Base
     end
   end
 
+  # Like fun, return type
+  def like_by(user)
+    if user.voted_up_on? self
+      self.unliked_by voter: user
+      "unlike"
+    else
+      self.liked_by user
+      # Update created_at, when fun moved from sandbox. Or maybe overwrite method ActsAsVotable::Votable update_cached_votes?
+      self.update_attribute :created_at, Time.now if total_likes == MIN_LIKES
+      "like"
+    end
+  end
+
   class << self
 
     def from_users_followed_by(user)
@@ -63,7 +79,7 @@ class Fun < ActiveRecord::Base
       order_column = Fun.column_names.include?(order_column) ? order_column : "created_at"
       interval = %w(week month year).include?(interval) ? interval: "year"
       scope = scoped
-      scope = where(created_at: Time.now - 1.send(interval) .. Time.now).where("cached_votes_total >= 1") unless sandbox
+      scope = where(created_at: Time.now - 1.send(interval) .. Time.now).where("cached_votes_total >= ?", MIN_LIKES) unless sandbox
       scope.order(order_column + " DESC")
     end
 
