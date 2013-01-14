@@ -10,6 +10,7 @@ class Funs::RepostsController < ApplicationController
 
   # Create new repost by current_user for this fun
   def create
+    authorize! :create, :repost
     @fun = Fun.find(params[:fun_id])
     new_fun = @fun.repost_by current_user
     respond_to do |format|

@@ -10,6 +10,7 @@ class Funs::LikesController < ApplicationController
 
   # Create new like by current_user for this fun
   def create
+    authorize! :create, :like
     @fun = Fun.find(params[:fun_id])
     type = @fun.like_by current_user
     respond_to do |format|
