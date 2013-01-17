@@ -1,14 +1,16 @@
 class CookiesStore
+  attr_accessor :default_expires
 
   def initialize(cookies)
     @cookies = cookies
+    @default_expires = 1.month.from_now
   end
 
   def set(data=[], keys=[])
     if keys.present?
       data.map do |k,v|
         if k.in? keys
-          @cookies[k] = v unless @cookies[k] == v
+          @cookies[k] = { value: v, expires: @default_expires } unless @cookies[k] == v
         end
       end
     end
