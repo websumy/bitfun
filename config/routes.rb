@@ -25,10 +25,11 @@ Bitfun::Application.routes.draw do
   end
 
   resources :users do
+    resources :follows, only: [:create, :destroy], controller: 'users/follows'
     member do
-      get :following, :followers, :likes
-      delete :unfollow
-      put :follow
+      get 'following' => 'users/follows#index', defaults: {type: 'following'}
+      get 'followers' => 'users/follows#index', defaults: {type: 'followers'}
+      get 'likes'
     end
   end
 
