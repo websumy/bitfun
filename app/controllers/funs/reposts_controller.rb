@@ -11,16 +11,11 @@ class Funs::RepostsController < ApplicationController
   # Create new repost by current_user for this fun
   def create
     authorize! :create, :repost
-    @fun = Fun.find(params[:fun_id])
-    new_fun = @fun.repost_by current_user
+    fun = Fun.find(params[:fun_id])
+    new_fun = fun.repost_by current_user
     respond_to do |format|
-      if new_fun.present?
         format.html { redirect_to new_fun, notice: t('reposts.created') }
         format.json { render json: { message: t('reposts.created'), type: "success" } }
-      else
-        format.html { redirect_to @fun, alert: t('reposts.errors.cant_repost') }
-        format.json { render json: { message: t('reposts.errors.cant_repost'), type: "error" } }
-      end
     end
   end
 
