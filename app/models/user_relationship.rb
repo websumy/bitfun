@@ -7,7 +7,7 @@ class UserRelationship < ActiveRecord::Base
   validates_presence_of :follower_id, :followed_id
   validates_uniqueness_of :follower_id, scope: :followed_id
 
-  validate cant_follow_yourself
+  validate :cant_follow_yourself
 
   def cant_follow_yourself
     errors.add(:follower_id, t('follows.cant_follow')) if follower_id == followed_id

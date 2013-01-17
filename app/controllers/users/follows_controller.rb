@@ -1,5 +1,6 @@
 class Users::FollowsController < ApplicationController
   before_filter :load_user, except: :index
+  authorize_resource class: "UserRelationship"
 
   def index
     user = User.find_by_login!(params[:id])
