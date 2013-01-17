@@ -53,16 +53,20 @@ class User < ActiveRecord::Base
     self.role.try(:name) == role.to_s
   end
 
+  # Check if user already followed
   def following?(other_user)
     user_relationships.find_by_followed_id(other_user.id)
   end
 
+  # Follow user
   def follow!(other_user)
     user_relationships.create!(followed_id: other_user.id)
   end
 
+  # Unfollow user
   def unfollow!(other_user)
-    user_relationships.find_by_followed_id(other_user.id).destroy
+    find = user_relationships.find_by_followed_id(other_user.id)
+    find.destroy unless find.nil?
   end
 
   def reposted?(fun)
