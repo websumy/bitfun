@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.11'
 
 # A modern, simple and very fast Mysql library for Ruby - binding to libmysql.
 gem 'mysql2'
@@ -49,7 +49,7 @@ gem 'devise-i18n'
 gem 'thin'
 
 # Rails plugin for Sphinx.
-gem 'thinking-sphinx'
+gem 'thinking-sphinx', '2.0.10'
 
 # Mutes assets pipeline log messages
 gem 'quiet_assets'
