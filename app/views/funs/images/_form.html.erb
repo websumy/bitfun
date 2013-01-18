@@ -1,5 +1,5 @@
 <%= fun.input :content_type, :as => :hidden, :input_html => {value: 'Image'} %>
-<%= fun.simple_fields_for :content_attributes do |f| %>
+<%= fun.simple_fields_for :content_attributes, Image.new do |f| %>
     <%= f.input :file, :as => :file%>
     <%= f.input :remote_file_url %>
     <%= f.input :tag_list, :input_html => {class: "input-xxlarge"} %>

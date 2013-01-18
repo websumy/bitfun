@@ -38,8 +38,8 @@ gem "rmagick"
 gem "simple_form"
 
 # ClientSideValidations made easy for your Rails v3.1+ applications!
-gem 'client_side_validations'
-gem 'client_side_validations-simple_form'
+gem 'client_side_validations', '3.2.0'
+gem 'client_side_validations-simple_form','2.0.0'
 
 # Russian language support for Ruby and Rails
 gem 'russian'
