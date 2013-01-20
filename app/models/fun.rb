@@ -7,6 +7,9 @@ class Fun < ActiveRecord::Base
   # Fun moved from sandbox when total_likes = MIN_LIKES
   MIN_LIKES = 1
 
+  # Default types of Funs
+  DEF_TYPES = %w(image video post)
+
   # Associations
   belongs_to :user
   belongs_to :content, :polymorphic => true, :dependent => :destroy
@@ -64,6 +67,14 @@ class Fun < ActiveRecord::Base
     end
   end
 
+  def in_sandbox?
+    self.total_likes >= MIN_LIKES
+  end
+
+  def get_siblings
+    Fun.where('id > ?', self.id).filter_by_type(cookies_store[:type]).sorting(cookies_store[:sort], sandbox: self.in_sandbox?).limit(1).pluck('id')
+  end
+
   class << self
 
     def from_users_followed_by(user)
@@ -83,12 +94,11 @@ class Fun < ActiveRecord::Base
     end
 
     def clean_types(types=[])
-      def_types = %w(image post video)
       if types.nil?
-        def_types
+        DEF_TYPES
       else
         types = [types].flatten
-        types.first == "unknown" ? nil:  types.select { |type| type.in? def_types }
+        types.first == "unknown" ? nil:  types.select { |type| type.in? DEF_TYPES }
       end
     end
 

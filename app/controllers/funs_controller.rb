@@ -16,7 +16,7 @@ class FunsController < ApplicationController
       @funs = @funs.where(id: funs_ids)
     end
 
-    cookies_store.set params.select { |k,v| k.in? %w(type view interval) }
+    cookies_store.set params.select { |k,v| k.in? %w(type view interval sort) }
 
     @funs = @funs.page params[:page]
   end
