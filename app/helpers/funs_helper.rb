@@ -36,7 +36,7 @@ module FunsHelper
 
   def view_partial
     default = "list"
-    partial = cookies_store.default_or_get :view, params[:view]
+    partial = params[:view] ||= cookies_store[:view]
     ((partial.in? %w(list box)) ?  partial : default) + "_item"
   end
 

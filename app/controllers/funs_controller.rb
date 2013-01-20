@@ -5,14 +5,18 @@ class FunsController < ApplicationController
 
   # GET /funs
   def index
-    @funs = Fun.includes(:user, :content).filter_by_type(cookies_store.default_or_get(:type, params[:type])).sorting(params[:sort], interval: cookies_store.default_or_get(:interval, params[:interval]), sandbox: params[:sandbox])
+
+    type = params[:type] ||= cookies_store[:type]
+    interval = params[:interval] ||= cookies_store[:interval]
+
+    @funs = Fun.includes(:user, :content).filter_by_type(type).sorting(params[:sort], interval: interval, sandbox: params[:sandbox])
 
     if params[:query]
-      funs_ids = Fun.search_fun_ids([params[:query]].flatten.join(','), params[:type], params[:page])
+      funs_ids = Fun.search_fun_ids([params[:query]].flatten.join(','), type, params[:page])
       @funs = @funs.where(id: funs_ids)
     end
 
-    cookies_store.set params, %w(type view interval)
+    cookies_store.set params.select { |k,v| k.in? %w(type view interval) }
 
     @funs = @funs.page params[:page]
   end
