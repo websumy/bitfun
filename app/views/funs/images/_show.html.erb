@@ -1,22 +1,7 @@
 <% if fun.content.file? %>
-<p>
-  <b>Image:</b>
-  <% if fun.content.exist_gif_thumb?%>
-    <%= image_tag fun.content.file_url :gif %>
-  <% else %>
-    <%= image_tag fun.content.file_url :img %>
-  <% end %>
-</p>
+    <% if fun.content.exist_gif_thumb?%>
+        <%= image_tag fun.content.file_url :gif %>
+    <% else %>
+        <%= image_tag fun.content.file_url :img %>
+    <% end %>
 <% end %>
-<div id="show_likes">
-  <b>Likes:</b>
-  <%= link_to fun.total_likes, fun_likes_path(fun), remote: true %>
-</div>
-<div id="show_reposts">
-  <b>Reposts:</b>
-  <%= link_to fun.repost_count, fun_reposts_path(fun), remote: true %>
-</div>
-<p>
-  <b>Tags:</b>
-  <%= raw fun.content.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
-</p>

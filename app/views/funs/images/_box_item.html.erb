@@ -1,23 +1,20 @@
 <h4><%= link_to fun.title, fun %></h4>
-<%= show_cached_tags fun %>
-<dl>
-  <% if fun.content.file? %>
-      <dt>Image</dt>
-      <% if fun.content.exist_gif_thumb?%>
-          <dd><div id="preview_<%= fun.id %>"><%= link_to image_tag(fun.content.file_url(:img, :small), class: "img-polaroid"), fun, remote: true %></div></dd>
-      <% else %>
-          <dd><%= image_tag(fun.content.file_url(:img, :small), class: "img-polaroid") %></dd>
-      <% end %>
-  <% end %>
-  <dt>Posted</dt>
-  <dd><%= time_ago_in_words fun.created_at %> ago</dd>
-  <dt>Posted by</dt>
-  <% if fun.user.avatar? %>
-      <dd><%= link_to image_tag(fun.user.avatar_url(:thumb), class: "img-circle", width: "50px") + ' ' + fun.user.login, fun.user %></dd>
+
+<% if fun.content.file? %>
+    <% if fun.content.exist_gif_thumb?%>
+      <div id="preview_<%= fun.id %>"><%= link_to image_tag(fun.content.file_url(:img, :small), class: "img-polaroid"), fun, remote: true %></div>
   <% else %>
-      <dd><%= link_to fun.user.login, fun.user %></dd>
+      <%= image_tag(fun.content.file_url(:img, :small), class: "img-polaroid") %>
   <% end %>
-</dl>
+<% end %>
+<br />
+Posted by
+<% if fun.user.avatar? %>
+  <%= link_to image_tag(fun.user.avatar_url(:thumb), class: "img-circle", width: "30px") + ' ' + fun.user.login, fun.user %>
+<% else %>
+  <%= link_to fun.user.login, fun.user %>
+<% end %> <%= time_ago_in_words fun.created_at %> назад
+<br />
 
 <%= repost_button fun %>
 <%= like_button fun %>

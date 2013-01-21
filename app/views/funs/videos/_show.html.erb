@@ -1,17 +1,2 @@
-<p>
-  <b>Video:</b>
-  <%= fun.content.url %><br />
-  <%= show_video fun.content %>
-</p>
-<div id="show_likes">
-  <b>Likes:</b>
-  <%= link_to fun.total_likes, fun_likes_path(fun), remote: true %>
-</div>
-<div id="show_reposts">
-  <b>Reposts:</b>
-  <%= link_to fun.repost_count, fun_reposts_path(fun), remote: true %>
-</div>
-<p>
-  <b>Tags:</b>
-  <%= raw fun.content.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
-</p>
+<%= show_video fun.content %>
+<br /><strong>Source:</strong> <%= fun.content.url %><br />

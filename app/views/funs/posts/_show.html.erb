@@ -1,16 +1,1 @@
-<p>
-  <b>Body:</b>
-  <%= fun.content.body %>
-</p>
-<div id="show_likes">
-  <b>Likes:</b>
-  <%= link_to fun.total_likes, fun_likes_path(fun), remote: true %>
-</div>
-<div id="show_reposts">
-  <b>Reposts:</b>
-  <%= link_to fun.repost_count, fun_reposts_path(fun), remote: true %>
-</div>
-<p>
-  <b>Tags:</b>
-  <%= raw fun.content.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
-</p>
+<p> <%= fun.content.body %> </p>

@@ -1,19 +1,15 @@
 <h4><%= link_to fun.title, fun %></h4>
-<%= show_cached_tags fun %>
-<dl>
   <% if fun.content.image? %>
-      <dt>Video</dt>
-      <dd><div id="preview_<%= fun.id %>"><%= link_to image_tag(fun.content.image_url(:img, :small), class: "img-polaroid"), fun, remote: true %></div></dd>
+  <div id="preview_<%= fun.id %>"><%= link_to image_tag(fun.content.image_url(:img, :small), class: "img-polaroid"), fun, remote: true %></div>
   <% end %>
-  <dt>Posted</dt>
-  <dd><%= time_ago_in_words fun.created_at %> ago</dd>
-  <dt>Posted by</dt>
+
+  Posted by
   <% if fun.user.avatar? %>
-      <dd><%= link_to image_tag(fun.user.avatar_url(:thumb), class: "img-circle", width: "50px") + ' ' + fun.user.login, fun.user %></dd>
+      <%= link_to image_tag(fun.user.avatar_url(:thumb), class: "img-circle", width: "30px") + ' ' + fun.user.login, fun.user %>
   <% else %>
-      <dd><%= link_to fun.user.login, fun.user %></dd>
-  <% end %>
-</dl>
+      <%= link_to fun.user.login, fun.user %>
+  <% end %> <%= time_ago_in_words fun.created_at %> назад
+  <br />
 
 <%= repost_button fun %>
 <%= like_button fun %>
