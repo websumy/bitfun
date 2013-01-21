@@ -119,12 +119,11 @@ class Fun < ActiveRecord::Base
 
     # Content types for searching
     def search_fun_ids(query, types=[], p)
-      content_type = { image: 1, video: 2, post: 3 }
       query = [query].flatten.join(',')
       types = clean_types types
-      types.map!{ |t|t.to_sym }
-      types = content_type.select{| k| k.in? types }.values
-      Fun.search_for_ids(query, with: {type: types}, :match_mode => :any).page(p).per(default_per_page)
+      type_index = []
+      DEF_TYPES.each{|t| type_index << DEF_TYPES.index(t) if t.in? types }
+      Fun.search_for_ids(query, with: {type: type_index}, :match_mode => :any).page(p).per(default_per_page)
     end
 
   end
@@ -134,6 +133,6 @@ class Fun < ActiveRecord::Base
     indexes title, sortable: true
     indexes content.cached_tag_list, :as => :tags
 
-    has '(CASE WHEN content_type = "Image" THEN 1 WHEN content_type = "Video" THEN 2 WHEN content_type = "Post" THEN 3 END)', :as => :type, :type => :integer
+    has '(CASE WHEN content_type = "Image" THEN 0 WHEN content_type = "Video" THEN 1 WHEN content_type = "Post" THEN 2 END)', :as => :type, :type => :integer
   end
 end
