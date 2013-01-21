@@ -71,11 +71,16 @@ class Fun < ActiveRecord::Base
     self.total_likes >= MIN_LIKES
   end
 
-  def get_siblings
-    Fun.where('id > ?', self.id).filter_by_type(cookies_store[:type]).sorting(cookies_store[:sort], sandbox: self.in_sandbox?).limit(1).pluck('id')
-  end
-
   class << self
+
+    # get max liked funs of the month without funs liked by user
+    def get_month_trends(user, type)
+      range = 1.month.ago .. Time.now
+      voted_ids = user ? user.get_voted_ids(range) : []
+
+      funs = voted_ids.blank? ? scoped : where('id NOT IN (?)', voted_ids)
+      funs.where(created_at: range).filter_by_type(type).order("cached_votes_total DESC").limit 3
+    end
 
     def from_users_followed_by(user)
       followed_user_ids = "SELECT followed_id FROM user_relationships WHERE follower_id = :user_id"

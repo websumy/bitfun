@@ -83,6 +83,13 @@ class User < ActiveRecord::Base
     login
   end
 
+  # Get funs_id which user voted
+  def get_voted_ids(created_at)
+    funs = votes.where(votable_type: Fun)
+    funs.where(created_at: created_at) unless created_at.blank?
+    funs.pluck(:votable_id)
+  end
+
   def update_with_password(params={})
     if params[:password].blank?
       params.delete(:current_password)

@@ -108,7 +108,7 @@ $(function(){
 
     $("input.date_picker").datepicker({format:"yyyy-mm-dd"});
 
-    $('.alert .close').live("click", function(e) {
+    $('.alert .close').on("click", function(e) {
         $(this).parent().fadeOut(3000);
     });
 

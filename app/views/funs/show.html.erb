@@ -1,29 +1,38 @@
-<p>
-  <b>Name:</b>
-  <%= @fun.title %>
-</p>
+<div class="row">
+  <div class="span7">
+    <h4><%= @fun.title %></h4>
+    <%= link_to @fun.user.login, @fun.user %> posted <%= time_ago_in_words @fun.created_at %> назад
+    <div class="btn-group">
+      <%= link_to content_tag('i', '', class: 'icon-arrow-left'), '/', class: 'btn'%>
+      <%= link_to content_tag('i', '', class: 'icon-arrow-right'), '/', class: 'btn'%>
+    </div>
 
-<%= render_fun_partial @fun, :show%>
+    <%= render_fun_partial @fun, :show%>
 
-<p>
-  <b>Posted:</b>
-  <%= time_ago_in_words @fun.created_at %> ago
-</p>
+    <div id="show_likes">
+      <strong>Likes:</strong> <%= link_to @fun.total_likes, fun_likes_path(@fun), remote: true %>
+    </div>
+    <div id="show_reposts">
+      <strong>Reposts:</strong> <%= link_to @fun.repost_count, fun_reposts_path(@fun), remote: true %>
+    </div>
 
-<p>
-  <b>By:</b>
-  <%= link_to @fun.user.login, @fun.user %>
-</p>
-<div class="btn-group">
-  <%= link_to content_tag('i', '', class: 'icon-arrow-left'), '/', class: 'btn'%>
-  <%= link_to content_tag('i', '', class: 'icon-arrow-right'), '/', class: 'btn'%>
+    <strong>Tags:</strong><%= raw @fun.content.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
+    <br /><br />
+    <% if can? :update, @fun %>
+        <%= link_to 'Edit', edit_fun_path(@fun), class: 'btn btn-small btn-primary' %>
+    <% end %>
+    <% if can? :destroy, @fun %>
+        <%= link_to 'Destroy', @fun, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small btn-danger' %>
+    <% end %>
+    <br /><br />
+    <%= link_to 'Back', funs_path %>
+
+  </div>
+
+  <div class="span4" id="funs_list">
+    <h4>Тренды:</h4>
+    <% @funs.shuffle.each do |fun| %>
+        <%= render_fun_partial fun, 'box_item' %>
+    <% end %>
+  </div>
 </div>
-
-<% if can? :update, @fun %>
-    <%= link_to 'Edit', edit_fun_path(@fun), class: 'btn btn-small btn-primary' %>
-<% end %>
-<% if can? :destroy, @fun %>
-    <%= link_to 'Destroy', @fun, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small btn-danger' %>
-<% end %>
-<br /><br />
-<%= link_to 'Back', funs_path %>
