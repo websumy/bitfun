@@ -2,7 +2,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
   def change
     create_table(:users) do |t|
       ## Database authenticatable
-      t.string :email,              :null => false, :default => ""
+      t.string :email,              :null => true # can be null if registered from Social services
       t.string :login,              :null => false, :default => ""
       t.string :avatar,             :null => false, :default => ""
       t.string :encrypted_password, :null => false, :default => ""
@@ -35,6 +35,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       ## Token authenticatable
       # t.string :authentication_token
 
+      t.integer :role_id
 
       t.timestamps
     end

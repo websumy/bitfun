@@ -11,24 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121229093710) do
+ActiveRecord::Schema.define(:version => 20121226080625) do
 
   create_table "funs", :force => true do |t|
-    t.string   "title"
-    t.boolean  "published"
     t.integer  "user_id"
     t.integer  "content_id"
     t.string   "content_type"
+    t.integer  "repost_counter",     :default => 0
+    t.integer  "cached_votes_total", :default => 0
+    t.datetime "published_at"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
-    t.integer  "cached_votes_total", :default => 0
-    t.integer  "repost_count",       :default => 0
-    t.integer  "author_id"
   end
 
-  add_index "funs", ["author_id"], :name => "index_funs_on_author_id"
   add_index "funs", ["cached_votes_total"], :name => "index_funs_on_cached_votes_total"
-  add_index "funs", ["repost_count"], :name => "index_funs_on_cached_shows"
+  add_index "funs", ["repost_counter"], :name => "index_funs_on_repost_counter"
   add_index "funs", ["user_id"], :name => "index_funs_on_user_id"
 
   create_table "identities", :force => true do |t|
@@ -40,21 +37,16 @@ ActiveRecord::Schema.define(:version => 20121229093710) do
   add_index "identities", ["user_id"], :name => "index_identities_on_user_id"
 
   create_table "images", :force => true do |t|
+    t.string "title"
     t.string "file"
     t.string "url"
     t.string "cached_tag_list"
   end
 
   create_table "posts", :force => true do |t|
+    t.string "title"
     t.text   "body"
     t.string "cached_tag_list"
-  end
-
-  create_table "reposts", :force => true do |t|
-    t.integer  "fun_id"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "roles", :force => true do |t|
@@ -104,7 +96,7 @@ ActiveRecord::Schema.define(:version => 20121229093710) do
   add_index "user_relationships", ["follower_id"], :name => "index_user_relationships_on_follower_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => ""
+    t.string   "email"
     t.string   "login",                  :default => "", :null => false
     t.string   "avatar",                 :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -116,19 +108,20 @@ ActiveRecord::Schema.define(:version => 20121229093710) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.integer  "role_id"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.integer  "role_id"
   end
 
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "videos", :force => true do |t|
-    t.string "video"
-    t.string "url"
+    t.string "title"
     t.string "video_id",        :limit => 20
     t.string "video_type",      :limit => 20
+    t.string "url"
     t.string "image"
     t.string "cached_tag_list"
   end
