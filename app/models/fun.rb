@@ -40,6 +40,7 @@ class Fun < ActiveRecord::Base
   scope :images, where(content_type: "Image")
   scope :videos, where(content_type: "Video")
   scope :posts, where(content_type: "Post")
+  scope :without_reposts, where(author_id: nil)
 
   def total_likes
     cached_votes_total
@@ -71,15 +72,23 @@ class Fun < ActiveRecord::Base
     self.total_likes >= MIN_LIKES
   end
 
+  def get_related(user, type)
+    range = 1.month.ago .. Time.now
+    related_ids = search_fun_ids(self.content.cached_tag_list, type)
+    get_unvoted_funs(user, range).where(:id, related_ids).where(created_at: range).filter_by_type(type).order("cached_votes_total DESC").limit 3
+  end
+
   class << self
+
+    def get_unvoted_funs(user, range)
+      voted_ids = user ? user.get_voted_ids(range) : []
+      voted_ids.blank? ? scoped : where('id NOT IN (?)', voted_ids)
+    end
 
     # get max liked funs of the month without funs liked by user
     def get_month_trends(user, type)
       range = 1.month.ago .. Time.now
-      voted_ids = user ? user.get_voted_ids(range) : []
-
-      funs = voted_ids.blank? ? scoped : where('id NOT IN (?)', voted_ids)
-      funs.where(created_at: range).filter_by_type(type).order("cached_votes_total DESC").limit 3
+      get_unvoted_funs(user, range).where(created_at: range).filter_by_type(type).order("cached_votes_total DESC").limit 3
     end
 
     def from_users_followed_by(user)
@@ -95,7 +104,7 @@ class Fun < ActiveRecord::Base
       interval = %w(week month year).include?(interval) ? interval: "year"
       scope = scoped
       scope = where(created_at: Time.now - 1.send(interval) .. Time.now).where("cached_votes_total >= ?", MIN_LIKES) unless sandbox
-      scope.order(order_column + " DESC")
+      scope.without_reposts.order(order_column + " DESC")
     end
 
     def clean_types(types=[])
