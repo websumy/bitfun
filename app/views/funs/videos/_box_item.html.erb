@@ -1,4 +1,4 @@
-<h4><%= link_to fun.title, fun %></h4>
+<h4><%= link_to fun.content.title, fun %></h4>
   <% if fun.content.image? %>
   <div id="preview_<%= fun.id %>"><%= link_to image_tag(fun.content.image_url(:img, :small), class: "img-polaroid"), fun, remote: true %></div>
   <% end %>

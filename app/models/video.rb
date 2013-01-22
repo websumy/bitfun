@@ -1,7 +1,7 @@
 class Video < ActiveRecord::Base
   require 'net/http'
 
-  attr_accessible :video, :url, :remote_image_url, :tag_list
+  attr_accessible :title, :url, :remote_image_url, :tag_list
   mount_uploader :image, ImageUploader
 
   validate :check_video_url

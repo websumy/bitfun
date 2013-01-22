@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  attr_accessible :body, :tag_list
+  attr_accessible :title, :body, :tag_list
   validates :body, presence: true
 
   # Tags

@@ -1,6 +1,6 @@
 class Image < ActiveRecord::Base
   mount_uploader :file, ImageUploader
-  attr_accessible :file, :remote_file_url, :url, :tag_list
+  attr_accessible :title, :file, :remote_file_url, :url, :tag_list
 
   # Validation
   require 'file_size_validator'

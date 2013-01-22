@@ -1,5 +1,5 @@
 class Fun < ActiveRecord::Base
-  attr_accessible :title, :content_attributes, :content_type
+  attr_accessible :content_attributes, :content_type
 
   # Kaminari pagination config
   paginates_per 5
@@ -34,7 +34,6 @@ class Fun < ActiveRecord::Base
 
   # Validation
   validates :user_id, :presence => true
-  validates :title, :presence => true
 
   # Scopes
   scope :images, where(content_type: "Image")
@@ -139,9 +138,9 @@ class Fun < ActiveRecord::Base
 
   # Thinking Sphinx index
   define_index do
-    indexes title, sortable: true
-    indexes content.cached_tag_list, :as => :tags
+    indexes content.title, as: :title, sortable: true
+    indexes content.cached_tag_list, as: :tags
 
-    has '(CASE WHEN content_type = "Image" THEN 0 WHEN content_type = "Video" THEN 1 WHEN content_type = "Post" THEN 2 END)', :as => :type, :type => :integer
+    has '(CASE WHEN content_type = "Image" THEN 0 WHEN content_type = "Video" THEN 1 WHEN content_type = "Post" THEN 2 END)', as: :type, type: :integer
   end
 end
