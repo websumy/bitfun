@@ -39,7 +39,7 @@ class Fun < ActiveRecord::Base
   scope :images, where(content_type: "Image")
   scope :videos, where(content_type: "Video")
   scope :posts, where(content_type: "Post")
-  scope :without_reposts, where(author_id: nil)
+  scope :without_reposts, where("parent_id IS NOT NULL")
 
   def total_likes
     cached_votes_total

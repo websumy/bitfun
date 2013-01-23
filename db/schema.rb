@@ -15,6 +15,8 @@ ActiveRecord::Schema.define(:version => 20121226080625) do
 
   create_table "funs", :force => true do |t|
     t.integer  "user_id"
+    t.integer  "parent_id"
+    t.integer  "owner_id"
     t.integer  "content_id"
     t.string   "content_type"
     t.integer  "repost_counter",     :default => 0
