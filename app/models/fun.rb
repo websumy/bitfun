@@ -1,5 +1,6 @@
 class Fun < ActiveRecord::Base
   attr_accessible :content_attributes, :content_type
+  attr_accessible :content_id, :content_type, :user_id, :owner_id, as: :admin
 
   # Kaminari pagination config
   paginates_per 5
@@ -12,11 +13,11 @@ class Fun < ActiveRecord::Base
 
   # Associations
   belongs_to :user
-  belongs_to :content, :polymorphic => true, :dependent => :destroy
-  accepts_nested_attributes_for :content, :allow_destroy => true
+  belongs_to :content, polymorphic: true, dependent: :destroy
+  accepts_nested_attributes_for :content, allow_destroy: true
 
   # Reposts
-  has_many :reposts
+  has_many :reposts, class_name: "Fun", foreign_key: "parent_id"
 
   # Initialize "acts_as_votable" gem for "likes"
   acts_as_votable
@@ -33,7 +34,12 @@ class Fun < ActiveRecord::Base
   end
 
   # Validation
-  validates :user_id, :presence => true
+  validates :user_id, :content_id, :content_type, presence: true
+
+  # Can do only one repost for one fun
+  validates :parent_id, uniqueness: { scope: :user_id, message: I18n.t('reposts.errors.already_reposted') }
+  # Can't repost own funs
+  validate :cant_repost_own_fun
 
   # Scopes
   scope :images, where(content_type: "Image")
@@ -45,13 +51,17 @@ class Fun < ActiveRecord::Base
     cached_votes_total
   end
 
+  def id
+    self.parent_id ||= super
+  end
+
   # Do repost fun
   def repost_by(reposter)
-    reposts.create!(user_id: reposter.id, owner_id: user.id)
-    fun = self.dup
-    fun.update_attributes({user: reposter, author_id: reposter.id, cached_votes_total: 0, repost_count: 0}, without_protection: true)
-    increment! :repost_counter
-    fun
+    unless self.parent_id
+      fun = reposts.create!({ user_id: reposter.id, owner_id: user.id, content_id: content_id, content_type: content_type }, as: :admin)
+      increment! :repost_counter
+      fun
+    end
   end
 
   # Like fun, return type
@@ -134,6 +144,10 @@ class Fun < ActiveRecord::Base
       Fun.search_for_ids(query, with: {type: type_index}, :match_mode => :any).page(p).per(default_per_page)
     end
 
+  end
+
+  def cant_repost_own_fun
+    errors.add(:user_id, I18n.t('reposts.errors.cant_repost_own')) if user_id == owner_id
   end
 
   # Thinking Sphinx index
