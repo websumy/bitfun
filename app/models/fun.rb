@@ -39,7 +39,7 @@ class Fun < ActiveRecord::Base
   scope :images, where(content_type: "Image")
   scope :videos, where(content_type: "Video")
   scope :posts, where(content_type: "Post")
-  scope :without_reposts, where("parent_id IS NOT NULL")
+  scope :without_reposts, where("parent_id IS NULL")
 
   def total_likes
     cached_votes_total
@@ -50,7 +50,7 @@ class Fun < ActiveRecord::Base
     reposts.create!(user_id: reposter.id, owner_id: user.id)
     fun = self.dup
     fun.update_attributes({user: reposter, author_id: reposter.id, cached_votes_total: 0, repost_count: 0}, without_protection: true)
-    increment! :repost_count
+    increment! :repost_counter
     fun
   end
 

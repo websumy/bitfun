@@ -13,7 +13,7 @@
       <strong>Likes:</strong> <%= link_to @fun.total_likes, fun_likes_path(@fun), remote: true %>
     </div>
     <div id="show_reposts">
-      <strong>Reposts:</strong> <%= link_to @fun.repost_count, fun_reposts_path(@fun), remote: true %>
+      <strong>Reposts:</strong> <%= link_to @fun.repost_counter, fun_reposts_path(@fun), remote: true %>
     </div>
 
     <strong>Tags:</strong><%= raw @fun.content.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
