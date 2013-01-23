@@ -1,5 +1,6 @@
 class FunsController < ApplicationController
-  load_and_authorize_resource
+  before_filter :load_fun, except: [:index, :autocomplete_tags, :feed, :create]
+  authorize_resource
 
   respond_to :html
 
@@ -37,11 +38,8 @@ class FunsController < ApplicationController
 
   # GET /funs/1
   def show
-
     @funs = Fun.get_month_trends(current_user, cookies_store[:type])
-
     #@funs = @fun.get_related(current_user, cookies_store[:type])
-
     respond_to :html, :js
   end
 
@@ -76,5 +74,9 @@ class FunsController < ApplicationController
   def destroy
     @fun.destroy
     redirect_to funs_url, notice: t('funs.deleted')
+  end
+
+  def load_fun
+    @fun = Fun.without_reposts.find(params[:id])
   end
 end
