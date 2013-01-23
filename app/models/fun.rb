@@ -89,6 +89,10 @@ class Fun < ActiveRecord::Base
 
   class << self
 
+    def reposters
+      includes(:user).map(&:user)
+    end
+
     def get_unvoted_funs(user, range)
       voted_ids = user ? user.get_voted_ids(range) : []
       voted_ids.blank? ? scoped : where('id NOT IN (?)', voted_ids)
