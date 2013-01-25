@@ -1,5 +1,17 @@
 module FunsHelper
 
+  def fun_likes_path(fun)
+    super fun.parent_id.nil? ? fun.id : fun.parent_id
+  end
+
+  def fun_reposts_path(fun)
+    super fun.parent_id.nil? ? fun.id : fun.parent_id
+    end
+
+  def fun_path(fun)
+    super fun.parent_id.nil? ? fun.id : fun.parent_id
+  end
+
   def render_fun_partial(fun, partial)
     render "funs/#{fun.content_type.downcase.pluralize}/#{partial}", fun: fun
   end
