@@ -2,8 +2,8 @@ class CreateFuns < ActiveRecord::Migration
   def change
     create_table :funs do |t|
       t.integer :user_id
-      t.integer :parent_id
-      t.integer :owner_id
+      t.integer :parent_id, :null => true
+      t.integer :owner_id, :null => true
       t.integer :content_id
       t.string :content_type
 

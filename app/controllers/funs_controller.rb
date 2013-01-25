@@ -1,5 +1,5 @@
 class FunsController < ApplicationController
-  before_filter :load_fun, except: [:index, :autocomplete_tags, :feed, :create]
+  before_filter :load_fun, except: [:index, :autocomplete_tags, :feed, :create, :new]
   authorize_resource
 
   respond_to :html
@@ -45,6 +45,7 @@ class FunsController < ApplicationController
 
   # GET /funs/new
   def new
+    @fun = Fun.new
   end
 
   # GET /funs/1/edit
@@ -76,6 +77,7 @@ class FunsController < ApplicationController
     redirect_to funs_url, notice: t('funs.deleted')
   end
 
+  private
   def load_fun
     @fun = Fun.without_reposts.find(params[:id])
   end

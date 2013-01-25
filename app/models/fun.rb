@@ -18,6 +18,7 @@ class Fun < ActiveRecord::Base
 
   # Reposts
   has_many :reposts, class_name: "Fun", foreign_key: "parent_id"
+  belongs_to :parent, class_name: "Fun"
 
   # Initialize "acts_as_votable" gem for "likes"
   acts_as_votable
@@ -34,10 +35,10 @@ class Fun < ActiveRecord::Base
   end
 
   # Validation
-  validates :user_id, :content_id, :content_type, presence: true
+  validates :user_id, presence: true
 
   # Can do only one repost for one fun
-  validates :parent_id, uniqueness: { scope: :user_id, message: I18n.t('reposts.errors.already_reposted') }
+  validates :parent_id, uniqueness: { scope: :user_id, message: I18n.t('reposts.errors.already_reposted'), unless: lambda { |i| i.parent_id.nil? } }
   # Can't repost own funs
   validate :cant_repost_own_fun
 
@@ -49,10 +50,6 @@ class Fun < ActiveRecord::Base
 
   def total_likes
     cached_votes_total
-  end
-
-  def id
-    self.parent_id ||= super
   end
 
   # Do repost fun
