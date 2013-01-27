@@ -48,6 +48,10 @@ gem 'devise-i18n'
 # Thin is a Ruby web server
 gem 'thin'
 
+# Show error in better format
+gem "better_errors"
+gem "binding_of_caller"
+
 # Rails plugin for Sphinx.
 gem 'thinking-sphinx', '2.0.10'
 
