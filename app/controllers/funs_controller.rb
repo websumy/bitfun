@@ -32,7 +32,7 @@ class FunsController < ApplicationController
   end
 
   def feed
-    @funs = current_user.feed.includes(:user, :content).page params[:page]
+    @funs = current_user.feed.includes(:user, :content, :reposts).page params[:page]
     render 'index'
   end
 
