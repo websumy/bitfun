@@ -43,10 +43,10 @@ class Fun < ActiveRecord::Base
   validate :cant_repost_own_fun
 
   # Scopes
+  default_scope where("parent_id IS NULL")
   scope :images, where(content_type: "Image")
   scope :videos, where(content_type: "Video")
   scope :posts, where(content_type: "Post")
-  scope :without_reposts, where("parent_id IS NULL")
   scope :published, where("cached_votes_total >= ?", MIN_LIKES)
   # Filter fun by type
   scope :filter_by_type, lambda { |types| where(content_type: clean_types(types)) }
@@ -101,7 +101,7 @@ class Fun < ActiveRecord::Base
     # get max liked funs of the month without funs liked by user
     def get_month_trends(user, type)
       range = 1.month.ago .. Time.now
-      without_reposts.get_unvoted_funs(user, range).where(created_at: range).filter_by_type(type).order("cached_votes_total DESC").limit 3
+      get_unvoted_funs(user, range).where(created_at: range).filter_by_type(type).order("cached_votes_total DESC").limit 3
     end
 
     def from_users_followed_by(user)
@@ -117,7 +117,7 @@ class Fun < ActiveRecord::Base
       interval = %w(week month year).include?(interval) ? interval: "year"
       scope = scoped
       scope = where(created_at: 1.send(interval).ago .. Time.now).published unless sandbox
-      scope.without_reposts.order(order_column + " DESC")
+      scope.order(order_column + " DESC")
     end
 
     def clean_types(types=[])
