@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
   belongs_to :role
   has_many :funs
 
+  def funs_with_reposts
+    Fun.unscoped.where( user_id: id )
+  end
+
   # User settings
   has_one :setting
   accepts_nested_attributes_for :setting, :allow_destroy => true
@@ -75,7 +79,7 @@ class User < ActiveRecord::Base
 
   # User feeds
   def feed
-    Fun.from_users_followed_by(self)
+    Fun.unscoped.from_users_followed_by(self)
   end
 
   # Insert login param in to URL

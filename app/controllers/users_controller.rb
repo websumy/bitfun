@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @funs = @user.funs.includes(:content).order('created_at DESC').page params[:page]
+    @funs = @user.funs_with_reposts.includes(:content, :reposts).order('created_at DESC').page params[:page]
     respond_to do |format|
       format.html
       format.js {render 'likes'}
