@@ -1,15 +1,7 @@
 module FunsHelper
 
-  def fun_likes_path(fun)
-    super fun.parent_id.nil? ? fun.id : fun.parent_id
-  end
-
-  def fun_reposts_path(fun)
-    super fun.parent_id.nil? ? fun.id : fun.parent_id
-    end
-
   def fun_path(fun)
-    super fun.parent_id.nil? ? fun.id : fun.parent_id
+    super fun.get_id
   end
 
   def render_fun_partial(fun, partial)
@@ -21,7 +13,7 @@ module FunsHelper
   end
 
   def repost_button(fun)
-    link_to raw('Share ' + content_tag('span', fun.repost_counter, class: 'badge badge-info')), fun_reposts_path(fun), class: 'repost', 'data-type'.to_sym => 'json', 'data-method'.to_sym => 'post', remote: true
+    link_to raw('Share ' + content_tag('span', fun.repost_counter, class: 'badge badge-info')), fun_reposts_path(fun.get_id), class: 'repost', 'data-type'.to_sym => 'json', 'data-method'.to_sym => 'post', remote: true
   end
 
   def like_button(fun)

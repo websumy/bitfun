@@ -51,6 +51,14 @@ class Fun < ActiveRecord::Base
   # Filter fun by type
   scope :filter_by_type, lambda { |types| where(content_type: clean_types(types)) }
 
+  def repost?
+    !parent_id.nil?
+  end
+
+  def get_id
+    repost? ? parent_id : id
+  end
+
   def total_likes
     cached_votes_total
   end
