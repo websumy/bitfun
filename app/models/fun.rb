@@ -63,12 +63,20 @@ class Fun < ActiveRecord::Base
     cached_votes_total
   end
 
+  def create_repost(reposter)
+    fun = reposts.create!({ user_id: reposter.id, owner_id: user.id, content_id: content_id, content_type: content_type }, as: :admin)
+    increment! :repost_counter
+    fun
+  end
+
   # Do repost fun
   def repost_by(reposter)
-    unless self.parent_id
-      fun = reposts.create!({ user_id: reposter.id, owner_id: user.id, content_id: content_id, content_type: content_type }, as: :admin)
+    if repost?
+      fun = parent.create_repost reposter
       increment! :repost_counter
       fun
+    else
+      create_repost reposter
     end
   end
 

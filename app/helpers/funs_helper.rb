@@ -13,7 +13,7 @@ module FunsHelper
   end
 
   def repost_button(fun)
-    link_to raw('Share ' + content_tag('span', fun.repost_counter, class: 'badge badge-info')), fun_reposts_path(fun.get_id), class: 'repost', 'data-type'.to_sym => 'json', 'data-method'.to_sym => 'post', remote: true
+    link_to raw('Share ' + content_tag('span', fun.repost_counter, class: 'badge badge-info')), fun_reposts_path(fun), class: 'repost', 'data-type'.to_sym => 'json', method: 'post', remote: true
   end
 
   def like_button(fun)
