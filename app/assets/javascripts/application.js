@@ -136,15 +136,18 @@ $(function(){
             $(this).data("disabled", true);
         },
         'ajax:success':  function(evt, data, status, xhr){
-            $(this).data("disabled", false);
-            var $span = $(this).find("span");
+            $this = $(this);
+            $this.data("disabled", false);
+            var $span = $this.find("span");
             var value = parseInt($span.eq(1).text()) || 0;
             if (data.type == "like") {
                 $span.eq(0).text("Unlike fun");
                 $span.eq(1).text(value + 1).removeClass("badge-info").addClass("badge-success");
+                $this.data('method', 'delete')
             } else if(data.type == "unlike") {
                 $span.eq(0).text("Like fun");
                 $span.eq(1).text(value - 1).removeClass("badge-success").addClass("badge-info");
+                $this.data('method', 'post')
             }
         }
     }, "a.like");

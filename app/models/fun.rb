@@ -72,17 +72,23 @@ class Fun < ActiveRecord::Base
     end
   end
 
-  # Like fun, return type
+  # Update published_at, when fun moved from sandbox. Or maybe overwrite method ActsAsVotable::Votable update_cached_votes?
+  def update_published_at
+    update_attribute :published_at, Time.now if total_likes == MIN_LIKES
+  end
+
+  # Like fun
   def like_by(user)
-    if user.voted_up_on? self
-      self.unliked_by voter: user
-      "unlike"
-    else
-      self.liked_by user
-      # Update created_at, when fun moved from sandbox. Or maybe overwrite method ActsAsVotable::Votable update_cached_votes?
-      self.update_attribute :created_at, Time.now if total_likes == MIN_LIKES
-      "like"
-    end
+      liked_by user
+      parent.liked_by user if repost?
+      update_published_at
+  end
+
+  # Unlike fun
+  def unlike_by(user)
+    unliked_by voter: user
+    parent.unliked_by voter: user if repost?
+    update_published_at
   end
 
   def in_sandbox?
