@@ -47,7 +47,7 @@ class Fun < ActiveRecord::Base
   scope :images, where(content_type: "Image")
   scope :videos, where(content_type: "Video")
   scope :posts, where(content_type: "Post")
-  scope :published, where("cached_votes_total >= ?", MIN_LIKES)
+  scope :published, lambda { |show = true| where("published_at IS #{show ? 'NOT':''} NULL") }
   # Filter fun by type
   scope :filter_by_type, lambda { |types| where(content_type: clean_types(types)) }
 
@@ -100,13 +100,13 @@ class Fun < ActiveRecord::Base
   end
 
   def in_sandbox?
-    self.total_likes >= MIN_LIKES
+    !published_at.nil?
   end
 
   def get_related(user, type)
     range = 1.month.ago .. Time.now
     related_ids = search_fun_ids(self.content.cached_tag_list, type)
-    get_unvoted_funs(user, range).where(:id, related_ids).where(created_at: range).filter_by_type(type).order("cached_votes_total DESC").limit 3
+    get_unvoted_funs(user, range).where(:id, related_ids).where(published_at: range).filter_by_type(type).order("cached_votes_total DESC").limit 3
   end
 
   class << self
@@ -123,7 +123,7 @@ class Fun < ActiveRecord::Base
     # get max liked funs of the month without funs liked by user
     def get_month_trends(user, type)
       range = 1.month.ago .. Time.now
-      get_unvoted_funs(user, range).where(created_at: range).filter_by_type(type).order("cached_votes_total DESC").limit 3
+      get_unvoted_funs(user, range).where(published_at: range).filter_by_type(type).order("cached_votes_total DESC").limit 3
     end
 
     def from_users_followed_by(user)
@@ -131,15 +131,20 @@ class Fun < ActiveRecord::Base
       where("user_id IN (#{followed_user_ids})", user_id: user.id)
     end
 
+    def order_by(order_column)
+      order_column = Fun.column_names.include?(order_column) ? order_column : "published_at"
+      order(order_column + " DESC")
+    end
+
+    def interval(interval, sandbox = false)
+      interval = %w(week month year).include?(interval) ? interval: "year"
+      where(sandbox ? :created_at : :published_at => 1.send(interval).ago .. Time.now)
+    end
+
     # Sorting funs by allowed fields including interval and sandbox options
     def sorting(order_column, options)
-      interval = options[:interval]
       sandbox = options[:sandbox]
-      order_column = Fun.column_names.include?(order_column) ? order_column : "created_at"
-      interval = %w(week month year).include?(interval) ? interval: "year"
-      scope = scoped
-      scope = where(created_at: 1.send(interval).ago .. Time.now).published unless sandbox
-      scope.order(order_column + " DESC")
+      published(sandbox.nil?).interval(options[:interval], sandbox).order_by(order_column)
     end
 
     def clean_types(types=[])

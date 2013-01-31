@@ -11,7 +11,7 @@ class FunsController < ApplicationController
     @funs = Fun.includes(:user, :content).filter_by_type(type).sorting(params[:sort], interval: interval, sandbox: params[:sandbox])
 
     if params[:query]
-      funs_ids = Fun.search_fun_ids([params[:query]].flatten.join(','), type, params[:page])
+      funs_ids = Fun.search_fun_ids(params[:query], type, params[:page])
       @funs = @funs.where(id: funs_ids)
     end
 
@@ -30,7 +30,7 @@ class FunsController < ApplicationController
   end
 
   def feed
-    @funs = current_user.feed.includes(:user, :content, :reposts).page params[:page]
+    @funs = current_user.feed.includes(:user, :content, :reposts).order("created_at DESC").page params[:page]
     render 'index'
   end
 
