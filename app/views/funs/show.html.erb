@@ -16,7 +16,7 @@
       <strong>Reposts:</strong> <%= link_to @fun.repost_counter, fun_reposts_path(@fun), remote: true %>
     </div>
 
-    <strong>Tags:</strong><%= raw @fun.content.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
+    <strong>Tags:</strong><%= show_cached_tags @fun %>
     <br /><br />
     <% if can? :update, @fun %>
         <%= link_to 'Edit', edit_fun_path(@fun), class: 'btn btn-small btn-primary' %>

@@ -11,6 +11,8 @@ class Fun < ActiveRecord::Base
   # Default types of Funs
   DEF_TYPES = %w(image video post)
 
+  MONTH_RANGE = 1.month.ago .. Time.now
+
   # Associations
   belongs_to :user
   belongs_to :content, polymorphic: true, dependent: :destroy
@@ -50,6 +52,7 @@ class Fun < ActiveRecord::Base
   scope :published, lambda { |show = true| where("published_at IS #{show ? 'NOT':''} NULL") }
   # Filter fun by type
   scope :filter_by_type, lambda { |types| where(content_type: clean_types(types)) }
+  scope :exclude_funs, lambda { |ids| where('id NOT IN (?)', ids) }
 
   def repost?
     !parent_id.nil?
@@ -104,26 +107,21 @@ class Fun < ActiveRecord::Base
   end
 
   def get_related(user, type)
-    range = 1.month.ago .. Time.now
-    related_ids = search_fun_ids(self.content.cached_tag_list, type)
-    get_unvoted_funs(user, range).where(:id, related_ids).where(published_at: range).filter_by_type(type).order("cached_votes_total DESC").limit 3
+    exclude = user.get_voted_ids(MONTH_RANGE) << id
+    related_ids = Fun.search_fun_ids(content.cached_tag_list, type)
+    Fun.where(:id, related_ids).exclude_funs(exclude).where(published_at: MONTH_RANGE).filter_by_type(type).order("cached_votes_total DESC").limit 3
+  end
+
+  # get max liked funs of the month without funs liked by user
+  def get_month_trends(user, type)
+    exclude = user.get_voted_ids(MONTH_RANGE) << id
+    Fun.exclude_funs(exclude).where(published_at: MONTH_RANGE).filter_by_type(type).order("cached_votes_total DESC").limit 3
   end
 
   class << self
 
     def reposters
       includes(:user).map(&:user)
-    end
-
-    def get_unvoted_funs(user, range)
-      voted_ids = user ? user.get_voted_ids(range) : []
-      voted_ids.blank? ? scoped : where('id NOT IN (?)', voted_ids)
-    end
-
-    # get max liked funs of the month without funs liked by user
-    def get_month_trends(user, type)
-      range = 1.month.ago .. Time.now
-      get_unvoted_funs(user, range).where(published_at: range).filter_by_type(type).order("cached_votes_total DESC").limit 3
     end
 
     def from_users_followed_by(user)
