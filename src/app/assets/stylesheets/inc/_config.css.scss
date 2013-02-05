@@ -1,0 +1,50 @@
+// Page
+// -------------------------
+$page_width:              964px;
+
+// Typography
+// -------------------------
+$baseFontSize:          13px !default;
+$baseFontFamily:        'Droid Sans', sans-serif  !default;
+$baseLineHeight:        18px !default;
+$altFontFamily:         Georgia, "Times New Roman", Times, serif !default;
+
+
+// Header
+// -------------------------
+$userbar_gr_top:          #81778B; //#61586a
+$userbar_gr_btm:          #262232; //#21242f
+$page_margin_top: 76px;
+
+
+// z-index
+// -------------------------
+$zindexDropdown:          1000 !default;
+$zindexPopover:           1010 !default;
+$zindexTooltip:           1020 !default;
+$zindexFixedNavbar:       1030 !default;
+$zindexModalBackdrop:     1040 !default;
+$zindexModal:             1050 !default;
+
+// Form states, alerts, inputs
+// -------------------------
+$inputBackground:               #ffffff !default;
+$inputBorder:                   #cccccc !default;
+$inputDisabledBackground:       #ededed !default;
+
+$warningText:             #c09853 !default;
+$warningBackground:       #fcf8e3 !default;
+$warningBorder:           darken(adjust-hue($warningBackground, -10), 3%) !default;
+
+$errorText:               #b94a48 !default;
+$errorBackground:         #f2dede !default;
+$errorBorder:             darken(adjust-hue($errorBackground, -10), 3%) !default;
+
+$successText:             #468847 !default;
+$successBackground:       #dff0d8 !default;
+$successBorder:           darken(adjust-hue($successBackground, -10), 5%) !default;
+
+$infoText:                #3a87ad !default;
+$infoBackground:          #d9edf7 !default;
+$infoBorder:              darken(adjust-hue($infoBackground, -10), 7%) !default;
+

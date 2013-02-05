@@ -1,0 +1,94 @@
+.container.feed_layout
+  .sticky_profile
+    .user_info
+      .photo_frame
+        .photo_box
+          img[src="#{asset_path "default-avatar-100.jpg"}" alt="image"]/
+          .circle_follow_status
+            a.follow[href="#" rel="tooltip" title="Настройки"]
+      .info_box
+        .user
+          a[href="#"] Trevor Baum
+          span.user_status.online[rel="tooltip" title="В сети"]
+        .geo: a[href="#"] Украина
+        ul.user_social
+          li.soc1: a[href="#"]
+          li.soc2: a[href="#"]
+          li.soc3: a[href="#"]
+          li.soc4: a[href="#"]
+    .user_follow
+      a.following[href="#"] <strong>120</strong> читаемых
+      a.followers[href="#"] <strong>7</strong> читателей
+
+    .info_block
+      .topic О себе
+      .text Реалист со взглядом романтика...
+
+    .info_block.following_list
+      .topic
+        span.in_rating <strong>90 </strong> в рейтинге
+        a.show_all[href="#"] Посмотреть все
+      .text
+        table
+          tr
+            td.number_cell 1.
+            td.avatar_cell
+              .photo_frame
+                a.photo_box[href="#"]
+                  img[src="#{asset_path "default-avatar-34.jpg"}" alt="image"]/
+            td
+              .user_name: a[href=""] Andrey
+              .user_stats
+                a.downloads[href="#"] 18
+                | &nbsp;&middot;&nbsp;
+                a.subscribers[href="#" ] 22
+            td.follow_cell
+              a.follow.active[href="#"  rel="tooltip" title="Отписаться"]
+          tr
+            td.number_cell 2.
+            td.avatar_cell
+              .photo_frame
+                a.photo_box[href="#"]
+                  img[src="#{asset_path "default-avatar-34.jpg"}" alt="image"]/
+            td
+              .user_name: a[href=""] Тарас Петрович
+              .user_stats
+                a.downloads[href="#"] 18
+                | &nbsp;&middot;&nbsp;
+                a.subscribers[href="#" ] 22
+            td.follow_cell
+              a.follow[href="#" rel="tooltip" title="Читать"]
+
+  section.content[role="main"]
+    .feed_top
+      .tumbler_switch.sort_content
+        .toggle_track
+          a.switch.hold_left.active[href="#"]
+            span.toggle_slider.orange_box_left: span.orange_box_right: span.orange_inner
+            span.toggle_name 7 постов
+          a.switch.hold_right[href="#"]
+            span.toggle_slider.orange_box_right: span.orange_box_left: span.orange_inner
+            span.toggle_name 1 лайк
+
+      .tumbler_switch.toggle_view
+        .toggle_track
+          a.switch.hold_left.active[href="#"]
+            span.toggle_slider.orange_box_left: span.orange_box_right: span.orange_inner
+            span.toggle_name
+          a.switch.hold_right[href="#"]
+            span.toggle_slider.orange_box_right: span.orange_box_left: span.orange_inner
+            span.toggle_name
+
+    .upload_block
+      .photo_frame
+        .photo_box
+          img[src="#{asset_path "default-avatar-62.jpg"}" alt="image"]/
+          .arrow
+      .post_frame
+        .post_box
+          .post_info
+            .upload_intro
+              .intro_title  Загрузить смешной рисунок, видео или текст на bitFun Загрузить смешной рисунок, видео или текст на bitFun Загрузить смешной рисунок, видео или текст на bitFun
+              a.upload_file[href=""]: span Загрузить файл
+
+    section.post_wall.default_wall

@@ -1,0 +1,142 @@
+.container.main_layout
+  section.content[role="main"]
+    section.post_wall
+      article.post_frame
+        .left_side
+          .photo_frame
+            a.photo_box[href="#"]
+              img[src="#{asset_path "default-avatar-62.jpg"}" alt="image"]/
+            .arrow
+            .circle_follow_status
+              a.follow[href="#" rel="tooltip" title="Читать"]
+            .circle_content_obj
+              .picture
+          .post_share
+            .orange_box
+              .orange_inner: a.share_link[href="#"]: span.hide Share
+            ul
+              li: a[href="#"]: img[src="#{asset_path "tmp/share-vk.jpg"}" alt="img"]/
+              li: a[href="#"]: img[src="#{asset_path "tmp/share-fb.jpg"}" alt="img"]/
+              li: a[href="#"]: img[src="#{asset_path "tmp/share-vk.jpg"}" alt="img"]/
+              li: a[href="#"]: img[src="#{asset_path "tmp/share-fb.jpg"}" alt="img"]/
+        .post_box
+          .post_info
+            .poster
+              a[href="#"] Huseyin Eskici
+              span  posted &bull;
+              span.date_block 1ч. 19м. назад
+            .title: a[href="#"] Делать особый акцент
+            .tags_block
+              .tags
+                a[href="#"] музика, видео, дизайн, текст, иллюстрация
+
+          .post_object
+            a[href="#"]: img[src="#{asset_path "tmp/post-image.jpg"}" alt="image"]/
+          .post_nav
+            .item_wrapper.like_box.first_item.active
+              a.item[href="#"]
+                span.icon
+                span.counter 5
+
+            .item_wrapper.repost_box
+              a.item[href="#"]
+                span.icon
+                span.counter 25
+
+            .item_wrapper.comments_box
+              a.item[href="#"]
+                span.icon
+                span.counter 305
+
+            .item_wrapper.more_box.last_item
+              a.item[href="#"]
+                span.icon
+                span.name Подробнее
+
+      article.post_frame
+        .left_side
+          .photo_frame
+            a.photo_box[href="#"]
+              img[src="#{asset_path "default-avatar-34.jpg"}" alt="image"]/
+            .arrow
+            .circle_follow_status
+              a.follow[href="#" title="Читать"]
+            .circle_content_obj
+              .picture
+          .post_share
+            .orange_box
+              .orange_inner: a.share_link[href="#"]: span.hide Share
+            ul
+              li: a[href="#"]: img[src="#{asset_path "tmp/share-vk.jpg"}" alt="img"]/
+              li: a[href="#"]: img[src="#{asset_path "tmp/share-fb.jpg"}" alt="img"]/
+              li: a[href="#"]: img[src="#{asset_path "tmp/share-vk.jpg"}" alt="img"]/
+              li: a[href="#"]: img[src="#{asset_path "tmp/share-fb.jpg"}" alt="img"]/
+        .post_box
+          .post_info
+            .poster
+              a[href="#"] Huseyin Eskici
+              span  posted &bull;
+              time.date_block datetime="2009-10-22" pubdate="pubdate" 1ч. 19м. назад
+            .title: a[href="#"] Делать особый акцент
+            .tags_block
+              a[href="#"] музика
+              ',
+              a[href="#"] музика
+              ',
+              a[href="#"] музика
+              ',
+              a[href="#"] музика
+
+          .post_object
+            a[href="#"]: img[src="#{asset_path "tmp/post-image.jpg"}" alt="image"]/
+          .post_nav
+            .item_wrapper.like_box.first_item
+              a.item[href="#"]
+                span.icon
+                span.counter 5
+
+            .item_wrapper.repost_box.active
+              a.item[href="#"]
+                span.icon
+                span.counter 25
+
+            .item_wrapper.comments_box
+              a.item[href="#"]
+                span.icon
+                span.counter 305
+
+            .item_wrapper.more_box.last_item
+              a.item[href="#"]
+                span.icon
+                span.name Подробнее
+
+
+
+  /* **** sidebar **** */
+  aside.sidebar[role="complementary"]
+    section.social_block
+      header.sidebar_topics Следите за нами
+      article.tabs_box.soc_tabs
+        ul.nav_tabs data-tabs="tabs"
+          li.active: a[class="icon_vk" href="#tab_vk" data-toggle="tab"]: span ВКонтакте
+          li: a[class="icon_fb" href="#tab_fb" data-toggle="tab"]: span Facebook
+          li: a[class="icon_tw" href="#tab_tw" data-toggle="tab"]: span Twitter
+
+        .tab_content
+          .tab_pane.active id="tab_vk": img[src="#{asset_path "tmp/tabs-vk-widget.jpg"}" alt="image"]/
+          .tab_pane id="tab_fb": img[src="#{asset_path "tmp/post-image.jpg"}" alt="image"]/
+          .tab_pane id="tab_tw": img[src="#{asset_path "default-avatar-62.jpg"}" alt="image"]/
+
+  //* ********** FOOTER **************** */
+  /footer.footer[role="contentinfo"]
+  /  .footer_logo: a[href="/" title="bitFun.ru"]
+  /  .footer_box
+  /    .years 2012-2013 BitFun.
+  /    .developers
+  /      | Проект создан компанией &nbsp;
+  /      a[href="//rezonans.ru" target="_blank" ]: strong Резонанс.
+  /    ul
+  /      li: a[href="#"] О проекте
+  /      li: a[href="#"] Реклама
+  /      li: a[href="#"] Правила
+  /      li: a[href="#"] Контакты

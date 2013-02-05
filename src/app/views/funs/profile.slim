@@ -1,0 +1,93 @@
+.container.profile_layout
+  section.content[role="main"]
+    .topics_block
+      .title_page
+        h2 Профиль
+      p.title_help_block Редактировать основные параметры профиля и более.
+
+    .tumbler_switch
+      .toggle_track
+        a.switch.hold_left.active[href="#"]
+          span.toggle_slider.orange_box_left: span.orange_box_right: span.orange_inner
+          span.toggle_name Профиль
+        a.switch.hold_right[href="#"]
+          span.toggle_slider.orange_box_right: span.orange_box_left: span.orange_inner
+          span.toggle_name Уведомления
+
+    form.form-horizontal[action="" method="" accept-charset="utf-8"]
+      .control-group
+        label.control-label for="inputEmail" Фото профиля
+        .controls.photo_settings
+          .photo_frame
+            .photo_box
+              img[src="#{asset_path "default-avatar-100.jpg"}" alt="bitfun_logo"]/
+          .settings
+            .nav
+              a.change_photo[href="#"] Сменить фото
+              a.delete_photo[href="#"] Удалить фото
+            .text
+              |Разрешенные типы файлов JPG, GIF или PNG. <br>Максимальный размер 700 K.
+
+      .control-group
+        label.control-label for="inputEmail" Логин
+        .controls
+          input[type="text" id="inputEmail"]
+      .control-group
+        label.control-label for="inputEmail" Имя пользователя
+        .controls
+          input[type="text" id="inputEmail"]
+      .control-group
+        label.control-label for="inputEmail" Адрес электронной почты
+        .controls
+          input[type="text" id="inputEmail"]
+      .control-group
+        label.control-label for="inputEmail" Пол
+        .controls
+          label.radio.inline: input[type="radio" name="sex" value="" ] Мужчина
+          label.radio.inline: input[type="radio" name="sex" value="" ] Женщина
+          label.radio.inline: input[type="radio" name="sex" value="" ] Еще не определился
+
+      .control-group
+        label.control-label for="inputEmail" Место положение
+        .controls
+          input[type="text" id="inputEmail"]
+      .control-group
+        label.control-label for="inputEmail" Ваш сайт
+        .controls
+          input[type="text" id="inputEmail"]
+      .control-group
+        label.control-label for="inputEmail" Вконтакте
+        .controls
+          input[type="text" id="inputEmail"]
+          .help-block Напишите что-нибудь о себе
+      .control-group
+        label.control-label for="inputEmail" Facebook
+        .controls
+          input[type="text" id="inputEmail"]
+      .control-group
+        label.control-label for="inputEmail" Twitter
+        .controls
+          input[type="text" id="inputEmail"]
+          .help-block Напишите что-нибудь о себе
+      .control-group
+        label.control-label for="inputEmail" Блеснуть о себе
+        .controls
+          textarea[name=""]
+          .help-block Напишите что-нибудь о себе
+      .control-group
+        label.control-label for="inputEmail" Checkbox
+        .controls.top_padding
+          label.checkbox: input[type="checkbox" name="" value=""] Получать уведомления
+          label.checkbox: input[type="checkbox" name="" value=""] Подписаться на рассылку
+      .control-group
+        label.control-label for="inputEmail" Dropdown
+        .controls
+          select.dropdown_select
+            option За все время
+            option За месяц
+            option за неделю
+            option за сегодня
+      .divider
+      .control-group
+        .controls
+          a.save[href="#"] Сохранить профиль

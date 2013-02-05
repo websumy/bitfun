@@ -1,0 +1,48 @@
+@mixin font-face($font-family, $file-path, $weight: normal, $style: normal) {
+	@font-face {
+		font-family: $font-family;
+		font-weight: $weight;
+		font-style: $style;
+		//src: url('#{$file-path}.eot');
+		src: /*url('#{$file-path}.eot?#iefix')               format('embedded-opentype'),
+		url('#{$file-path}.woff')                     format('woff'),*/
+		url('#{$file-path}.ttf')                      format('truetype');
+		//url('#{$file-path}.svg##{$font-family}')      format('svg');
+	}
+}
+
+
+@mixin text-shadow($shadow-1 : false, $shadow-2 : false, $shadow-3 : false, $shadow-4 : false, $shadow-5 : false, $shadow-6 : false, $shadow-7 : false,
+					$shadow-8 : false, $shadow-9 : false, $shadow-10: false) {
+
+	$shadows-without-spread: join((),(),comma);
+	$shadows: join((),(),comma);
+	$has-spread: false;
+	@each $shadow in compact($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10) {
+		@if length($shadow) > 4 {
+			$has-spread: true;
+			$shadows-without-spread: append($shadows-without-spread, nth($shadow,1) nth($shadow,2) nth($shadow,3));
+			$shadows: append($shadows, $shadow);
+		}
+		else{
+			$shadows-without-spread: append($shadows-without-spread, $shadow);
+			$shadows: append($shadows, $shadow);
+		}
+	}
+
+	@if $has-spread {
+		text-shadow: $shadows-without-spread;
+	}
+	@else{
+		text-shadow: $shadows;
+	}
+}
+
+
+@mixin single-text-shadow($hoff: false, $voff: false, $blur: false, $color: false ) {
+	@if $color == none or $hoff == none {
+		@include text-shadow(none);
+	} @else {
+		@include text-shadow(compact($hoff $voff $blur $color));
+	}
+}
