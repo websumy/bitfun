@@ -4,10 +4,9 @@ section.nav_bar
       .orange_box_left
         .orange_box_right
           .orange_inner
-            span: a.picture[href="#"]
-            span: a.video[href="#"]
-            span: a.text[href="#"]
-
+            = link_to_type 'image'
+            = link_to_type 'video'
+            = link_to_type 'post'
     nav.menu[role="navigation"]
       = link_to_menu "Новое", new_path, class: "new_funs"
       = link_to_menu "Популярное", hot_path, class: "popular_funs"
@@ -18,10 +17,10 @@ section.nav_bar
       .orange_box_right
         .orange_inner: span
     select.dropdown_select
-      option За все время
-      option За месяц
-      option за неделю
-      option за сегодня
+      option[value="year"] за все время
+      option[value="month"] За месяц
+      option[value="week"] за неделю
+      option[value="day"] за сегодня
 
   .tumbler_switch
     .toggle_track

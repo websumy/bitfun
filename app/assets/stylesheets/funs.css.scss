@@ -309,7 +309,7 @@ a {
 			height: 17px;
 			width: 17px;
 			margin-right: 5px;
-			&.picture {
+			&.image {
 				background-position: left top;
 				&:hover, &.active {
 					background-position: left -21px;
@@ -323,7 +323,7 @@ a {
 					cursor: pointer;
 				}
 			}
-			&.text {
+			&.post {
 				background-position: -42px top;
 				&:hover, &.active {
 					background-position: -42px -21px;

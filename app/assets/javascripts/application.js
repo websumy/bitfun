@@ -20,28 +20,38 @@
 $(function(){
 
     var get_sorting_data = function(){
-        var data = {};
+        var data = {
+            'type' : [],
+            'view' : 'list',
+            'interval' : 'year'
+        };
 
-        $("div.btn-group[data-type]").each(function(e){
-            var $this = $(this);
-            var type = $this.data("type");
-            switch(type) {
-                case "view":
-                    data[type] = $this.find("button.active").data("value");
-                    break;
-                case "type":
-                    data[type] = [];
-                    $this.find("button.active").each(function(){
-                        data[type].push($(this).data("value"));
-                    });
-                    if (!data[type].length)
-                        data[type].push("unknown");
-                    break;
-                case "interval":
-                    data[type] = $this.find("button").data("value");
-                    break;
-            }
+        $('.filter_obj a.active').each(function(e){
+            data['type'].push($(this).data('value'))
         });
+        if (!data['type'].length)
+            data['type'].push("unknown");
+
+//        $("div.btn-group[data-type]").each(function(e){
+//            var $this = $(this);
+//            var type = $this.data("type");
+//            switch(type) {
+//                case "view":
+//                    data[type] = $this.find("button.active").data("value");
+//                    break;
+//                case "type":
+//                    data[type] = [];
+//                    $this.find("button.active").each(function(){
+//                        data[type].push($(this).data("value"));
+//                    });
+//                    if (!data[type].length)
+//                        data[type].push("unknown");
+//                    break;
+//                case "interval":
+//                    data[type] = $this.find("button").data("value");
+//                    break;
+//            }
+//        });
 
         var tags = get_tags();
         if (tags) data["query"] = tags;
@@ -58,8 +68,11 @@ $(function(){
         });
     };
 
-    $("div.btn-group").on("button-change", "button", function(e){
+    $(".filter_obj a").on("click", function(e){
+        e.preventDefault();
+        $(this).toggleClass('active');
         post_sorting_data(get_sorting_data());
+        console.log(get_sorting_data());
     });
 
     $("div.btn-group ul.dropdown-menu").on("click", "a", function(e){
@@ -180,15 +193,6 @@ $(function(){
         dropdown_profile.fadeToggle('slow');
 
 
-    });
-    // FILTER OBJECT(active)
-    $('.filter_obj a').click(function(){
-        if($(this).hasClass('active')){
-            $(this).removeClass('active');
-        }
-        else{
-            $(this).addClass('active');
-        }
     });
 
     // ddSlick (dropdown select)

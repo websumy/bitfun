@@ -25,16 +25,19 @@ module FunsHelper
   end
 
   def active_class?(key, value)
-    cookies = cookies_store[key]
-    default_value = case key
-                      when :type then %w(image post video)
-                      when :interval then "year"
-                      when :view then "list"
-                      else ""
-                    end
+    default = case key
+                when :type then %w(image post video)
+                when :interval then "year"
+                when :view then "list"
+                else ""
+              end
+    data = cookies_store[key] ? cookies_store[key] : default
+    value.in?(data) ? ' active' : ''
+  end
 
-    if value.in? (cookies ? cookies : default_value)
-      " active"
+  def link_to_type(type)
+    content_tag :span do
+      link_to '', '/', class: type + active_class?(:type, type),  data: { value: type}
     end
   end
 
