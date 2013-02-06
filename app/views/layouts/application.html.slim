@@ -19,52 +19,7 @@ html
     / **********  PAGE  ********** */
     .page
       / **********  MENU  ********** */
-      section.nav_bar
-        .menu_wrapper
-          .filter_obj
-            .orange_box_left
-              .orange_box_right
-                .orange_inner
-                  span: a.picture[href="#"]
-                  span: a.video[href="#"]
-                  span: a.text[href="#"]
-
-          nav.menu[role="navigation"]
-            .item_wrapper
-              .item
-                a.new_funs[href="#"] Новое
-              span
-            .item_wrapper
-              .item
-                a.popular_funs[href="#"] Популярное
-              span
-            .item_wrapper
-              .item
-                a.discussed_funs[href="#"] Обсуждамое
-              span
-            .item_wrapper
-              .item
-                a.sandbox_funs[href="#"] Песочница
-              span
-        .filter_time
-          .orange_box_left
-            .orange_box_right
-              .orange_inner: span
-          select.dropdown_select
-            option За все время
-            option За месяц
-            option за неделю
-            option за сегодня
-
-        .tumbler_switch
-          .toggle_track
-            a.switch.hold_left.active[href="#"]
-              span.toggle_slider.orange_box_left: span.orange_box_right: span.orange_inner
-              span.toggle_name
-            a.switch.hold_right[href="#"]
-              span.toggle_slider.orange_box_right: span.orange_box_left: span.orange_inner
-              span.toggle_name
-
+      = render 'layouts/navigation'
       / **********  CONTENT  ********** */
 
       == yield

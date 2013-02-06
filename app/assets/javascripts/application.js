@@ -191,17 +191,8 @@ $(function(){
         }
     });
 
-    // MENU(active)
-    $('.menu a').click(function(e){
-        e.preventDefault();
-        var parent = $(this).parents('.item_wrapper');
-        parent.siblings().removeClass('active');
-        parent.addClass('active');
-    });
-
     // ddSlick (dropdown select)
-    $('.dropdown_select').ddslick({
-    });
+    $('.dropdown_select').ddslick({});
 
 
     // FOLLOW/UNFOLLOW

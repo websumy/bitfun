@@ -45,11 +45,10 @@ module FunsHelper
   end
 
   def link_to_menu(name, options = {}, html_options = {})
-    if html_options.key? :class
-      html_options[:class] << " active" if current_page?(options)
-    end
-
-    link_to(name, options, html_options)
+    current_class  = current_page?(options) ? " active" : ""
+    raw "<div class='item_wrapper#{current_class}'><div class='item'>" +
+      link_to(name, options, html_options) +
+    '</div><span></span></div>'
   end
 
 
