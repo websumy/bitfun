@@ -1,0 +1,56 @@
+header.main_panel[role="banner"]
+  .user_bar_wrapper
+    .user_bar
+      .logo
+        = link_to "", root_path
+
+      .items_wrapper
+        .item_outer
+          .item.followers
+            a.item_link[href="#"]:  span.span_cell Мои подписки
+        .item_outer
+          .item.add_fun
+            a.item_link.modal_link[href="#add_fun"]:  span.span_cell Добавить Fun
+
+      .items_wrapper.user_panel
+        .item_outer
+          .item.search
+            a.item_link[href="#" data-toggle="dropdown-search"]: span.span_cell
+        - if user_signed_in?
+          .item_outer
+            .item.user
+              = show_user_link
+          .item_outer
+            .item.settings
+              a.item_link[href="#" data-toggle="dropdown-settings"]: span.span_cell
+              .dropdown_profile
+                ul.top
+                  li = link_to 'Моя страница', user_path(current_user)
+                  li = link_to 'Мои подписки', feed_path
+                  - if current_user.role? :admin
+                    li = link_to 'Пользователи', users_path
+                ul.down
+                  li = link_to 'Профиль', edit_user_registration_path
+                  li = link_to 'Выход', destroy_user_session_path, method: :delete
+          .item_outer
+            .item.logout
+              = link_to destroy_user_session_path, class: 'item_link', method: :delete do
+                span.span_cell
+        - else
+          .item_outer
+            .item.login
+              a.item_link[href="#"]: span.span_cell Войти
+          .item_outer
+            .item.registration
+              a.item_link[href="#"]: span.span_cell Регистрация
+
+  .dropdown_search
+    .search_block
+
+      form[action="" method="" role="search"]
+        .controls
+          input[name="search" value="" placeholder="Поиск..."] /
+          .icon-close
+
+        a.btn[href="#"] Искать
+      .clearfix

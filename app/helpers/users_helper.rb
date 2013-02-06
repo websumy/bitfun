@@ -8,4 +8,13 @@ module UsersHelper
       end
     end if user_signed_in? && current_user != user
   end
+
+  def show_user_link
+    link_to user_path(current_user), class: "item_link signUp" do
+      raw "<div class='avatar_wrapper'>" +
+            image_tag( current_user.avatar? ? current_user.avatar_url(:thumb) : 'default-avatar-32.jpg' ) +
+          "</div><span class='span_cell'><span>#{current_user.login}</span></span>"
+    end
+  end
+
 end

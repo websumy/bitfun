@@ -1,0 +1,161 @@
+doctype html
+html
+  head
+    title = content_for?(:title) ? yield(:title) : "Test App"
+    meta name="description" content="#{content_for?(:description) ? yield(:description) : "Test App"}"
+    meta name="keywords" content="template language" charset="utf-8"
+    = stylesheet_link_tag "application", media: "all"
+    = javascript_include_tag  "application"
+    = csrf_meta_tags
+    /[if IE]
+      script src="http://html5shim.googlecode.com/svn/trunk/html5.js"
+    link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'
+
+  body
+    / **********  MAIN PANEL  ********** */
+
+    = render 'layouts/header'
+
+    / **********  PAGE  ********** */
+    .page
+      / **********  MENU  ********** */
+      section.nav_bar
+        .menu_wrapper
+          .filter_obj
+            .orange_box_left
+              .orange_box_right
+                .orange_inner
+                  span: a.picture[href="#"]
+                  span: a.video[href="#"]
+                  span: a.text[href="#"]
+
+          nav.menu[role="navigation"]
+            .item_wrapper
+              .item
+                a.new_funs[href="#"] Новое
+              span
+            .item_wrapper
+              .item
+                a.popular_funs[href="#"] Популярное
+              span
+            .item_wrapper
+              .item
+                a.discussed_funs[href="#"] Обсуждамое
+              span
+            .item_wrapper
+              .item
+                a.sandbox_funs[href="#"] Песочница
+              span
+        .filter_time
+          .orange_box_left
+            .orange_box_right
+              .orange_inner: span
+          select.dropdown_select
+            option За все время
+            option За месяц
+            option за неделю
+            option за сегодня
+
+        .tumbler_switch
+          .toggle_track
+            a.switch.hold_left.active[href="#"]
+              span.toggle_slider.orange_box_left: span.orange_box_right: span.orange_inner
+              span.toggle_name
+            a.switch.hold_right[href="#"]
+              span.toggle_slider.orange_box_right: span.orange_box_left: span.orange_inner
+              span.toggle_name
+
+      / **********  CONTENT  ********** */
+
+      == yield
+
+      /* ********** FOOTER **************** */
+      footer.footer[role="contentinfo"]
+        .footer_logo: a[href="/" title="bitFun.ru"]
+        .footer_box
+          .years 2012-2013 BitFun.
+          .developers
+            | Проект создан компанией &nbsp;
+            a[href="//rezonans.ru" target="_blank" ]: strong Резонанс.
+          ul
+            li: a[href="#"] О проекте
+            li: a[href="#"] Реклама
+            li: a[href="#"] Правила
+            li: a[href="#"] Контакты
+
+    /* ********** MODAL **************** */
+    /* Add fun */
+    .modal.add_fun_form[id="add_fun"]
+      .modal_header
+        | Добавление шутки на bitFun Добавление шутки на bitFun<br>Добавление шутки на bitFun
+      .modal_body
+        .tabs_box
+          ul.nav_tabs data-tabs="tabs"
+            li.active: a[class="image_tab" href="#add_image" data-toggle="tab"]
+              span
+              | Изображение
+            li: a[class="video_tab" href="#add_video" data-toggle="tab"]
+              span
+              | Видео
+            li: a[class="text_tab" href="#add_text" data-toggle="tab"]
+              span
+              | Текст
+
+          .tab_content
+            form[action="" method="POST"]
+              .tab_pane.active id="add_image"
+                .controls: input.error[type="text" name="name" placeholder="Название веселой картинки (не обязательно)"]
+                .control-group
+                  .controls
+                    input.url[type="text" name="name" placeholder="Вставить ссылку на картинку"]
+                  span.help-inline или
+                  .controls.upload
+                    a[href="#"] Загрузить
+                .controls: input.valid[type="text" name="name" placeholder="Введите теги (через запятую)"]
+
+
+              .tab_pane id="add_video"
+                .controls: input[type="text" name="name" placeholder="Название видео (не обязательно)"]
+                .controls: input.url[type="text" name="name" placeholder="Вставить ссылку на видео"]
+                .controls: input[type="text" name="name" placeholder="Введите теги (через запятую)"]
+
+              .tab_pane id="add_text"
+                .controls: input[type="text" name="name" placeholder="Название шутки, истории, анекдота(не обязательно)"]
+                .controls: textarea[name="" placeholder="Скопируйте текст сюда..." ]
+                .controls: input[type="text" name="name" placeholder="Введите теги (через запятую)"]
+
+      .modal_footer
+        a.cancel[href="#"] Отменить
+        a.add[href="#"]:span Добавить
+
+    /* Sign up form */
+    .modal_registration[id="sign_up"]
+      .reg_logo
+        a[href="/"]
+          img[src="#{asset_path "logo_large.png"}" alt="bitfun_logo"]/
+      p.topic Зарегистрируйтесь через ВКонтакте, Twitter, Facebook или Email
+      .reg_box
+        .reg_social
+          .reg_vk
+            a[href="#" ]
+          .reg_tw
+            a[href="#" ]
+          .reg_fb
+            a[href="#" ]
+        .divider
+          span.line
+          span.text или
+          span.line
+        form[action="" method=""]
+          input.input-xxlarge[type="email" name="usr_email" required="required" placeholder="Адрес электронной почты" ]
+          input.input-xxlarge[type="text" name="usr_nick" placeholder="Ник на сайте" ]
+          input.input-xxlarge[type="password" name="usr_pass" placeholder="Пароль" ]
+
+          label.checkbox.inline
+            input[type="checkbox" name="agree"] Зарегистрировавшись, я принимаю условия
+            a[href="#" ] пользовательского соглашения.
+          .buttons
+            a.cancel[href="#"] Отменить
+            a.join[href="#"] Вступить в BitFun
+
+      p.topic Уже зарегистрированы? <a href="#">Войти</a>
