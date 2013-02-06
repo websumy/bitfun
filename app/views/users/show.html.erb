@@ -2,7 +2,7 @@
   <div class="row-fluid">
     <div class="span3">
       <h2>User info</h2>
-      <%= image_tag(@user.avatar_url(:thumb), class: "img-circle") %>
+      <%= image_tag(@user.avatar_url(:img, :main), class: "img-circle") %>
       <dl>
         <dt>Login:</dt>
         <dd><%= @user.login %></dd>

@@ -13,7 +13,7 @@
     <dd><%= time_ago_in_words fun.created_at %> ago</dd>
     <dt>Posted by</dt>
     <% if fun.user.avatar? %>
-        <dd><%= link_to image_tag(fun.user.avatar_url(:thumb), class: "img-circle", width: "50px") + ' ' + fun.user.login, fun.user %></dd>
+        <dd><%= link_to image_tag(fun.user.avatar_url(:img, :main), class: "img-circle", width: "50px") + ' ' + fun.user.login, fun.user %></dd>
     <% else %>
       <dd><%= link_to fun.user.login, fun.user %></dd>
     <% end %>
