@@ -58,6 +58,12 @@ gem 'thinking-sphinx', '2.0.10'
 # Mutes assets pipeline log messages
 gem 'quiet_assets'
 
+# Slim is a template language whose goal is reduce html syntax to the essential parts without becoming cryptic.
+gem "slim"
+
+# A simple and lightweight mixin library for Sass
+gem 'bourbon'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
