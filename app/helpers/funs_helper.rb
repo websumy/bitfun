@@ -35,6 +35,14 @@ module FunsHelper
     value.in?(data) ? ' active' : ''
   end
 
+  def selected_option?(value)
+    active_class?(:interval, value).length > 0 ? 'selected=\'selected\'' : ''
+  end
+
+  def select_options
+    %w(year month week day).collect { |key| "<option value='#{key}' #{selected_option?(key)}>" + t("select_options." + key) + '</option>' }.join.html_safe
+  end
+
   def link_to_type(type)
     content_tag :span do
       link_to '', '/', class: type + active_class?(:type, type),  data: { value: type}

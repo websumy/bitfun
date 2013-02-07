@@ -16,12 +16,10 @@ section.nav_bar
     .orange_box_left
       .orange_box_right
         .orange_inner: span
-    select.dropdown_select
-      option[value="year"] за все время
-      option[value="month"] За месяц
-      option[value="week"] за неделю
-      option[value="day"] за сегодня
-
+    span[id="last_interval" data-value="#{cookies_store[:interval]}"]
+    #dropdown_select
+      select.dropdown_select
+        = select_options
   .tumbler_switch
     .toggle_track
       a.switch.hold_left.active[href="#"]
