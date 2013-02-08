@@ -55,8 +55,8 @@ $(function(){
 //            }
 //        });
 
-       // var tags = get_tags();
-        // if (tags) data["query"] = tags;
+        var tags = get_tags();
+        if (tags) data["query"] = tags;
 
         return data;
     };
@@ -114,23 +114,6 @@ $(function(){
         }
     });
 
-    $("div.btn-group ul.dropdown-menu").on("click", "a", function(e){
-        $("div.btn-group[data-type='interval'] button").text($(this).text() + " ").append($("<span>").addClass("caret")).data("value", $(this).data("value"));
-        post_sorting_data(get_sorting_data());
-    });
-
-    $('#show_likes a, #show_reposts a').on('ajax:success',  function(evt, data, status, xhr){
-        var $link = $(this);
-        $.each(data, function(k, v){
-            $link.after($("<img>").attr({
-                "src": v.avatar.thumb.url,
-                "class": "img-circle",
-                "width": "30px"
-            }));
-        });
-        $link.hide();
-    });
-
     var cache = {};
     var autocomplete_tags = function( request, response ) {
         if (request.term in cache){
@@ -150,9 +133,22 @@ $(function(){
         return (tags.length) ? $.map(tags, function(tag){ return tag.value; }) : false;
     };
 
-    $('.search_tag button').click(function(e){
+    $('.search_block a').click(function(e){
+        e.preventDefault();
         var data = get_tags();
         if (data) window.location.href = "/search?" + $.param({query:data});
+    });
+
+    $('#show_likes a, #show_reposts a').on('ajax:success',  function(evt, data, status, xhr){
+        var $link = $(this);
+        $.each(data, function(k, v){
+            $link.after($("<img>").attr({
+                "src": v.avatar.thumb.url,
+                "class": "img-circle",
+                "width": "30px"
+            }));
+        });
+        $link.hide();
     });
 
     $("input.date_picker").datepicker({format:"yyyy-mm-dd"});
@@ -220,8 +216,7 @@ $(function(){
     });
 
     $('.icon-close').click(function(){
-        $(this).parents('.dropdown_search').fadeOut('fast');
-        dropdown_search_link.parent().toggleClass('active');
+        $('.search_by_tags').tagit('reset');
     });
 
 
@@ -233,8 +228,6 @@ $(function(){
         }
         $(this).parent().toggleClass('active');
         dropdown_profile.fadeToggle('slow');
-
-
     });
 
     // FOLLOW/UNFOLLOW
