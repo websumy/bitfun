@@ -73,7 +73,7 @@ $(function(){
     $(".filter_obj a").on("click", function(e){
         e.preventDefault();
         $(this).toggleClass('active');
-        post_sorting_data();
+        post_sorting_data()
     });
 
     $('#dropdown_select').ddslick({
@@ -81,8 +81,36 @@ $(function(){
             var selected_interval = data.selectedData.value;
             if ($('#last_interval').data('value') !=  selected_interval){
                 post_sorting_data();
-                $('#last_interval').data('value', selected_interval);
+                $('#last_interval').data('value', selected_interval)
             }
+        }
+    });
+
+    $('.tumbler_switch .switch').click(function(e){
+        e.preventDefault();
+        var $$ = $(this);
+        if($$.hasClass('active')){
+            return false;
+        }
+        else{
+            var sib = $$.siblings('a'),
+                slider = sib.find('.toggle_slider'),
+                cwidth = $$.outerWidth(),
+                swidth = sib.outerWidth();
+
+            function changeClass(sib, cur){
+                cur.toggleClass('active');
+                sib.toggleClass('active');
+            }
+            //            changeClass(sib, $$);
+            if($$.hasClass('hold_left')){
+                slider.animate({left: -cwidth, width: cwidth}, 300, function(){changeClass(sib, $$);});
+            }
+            else if($$.hasClass('hold_right')){
+                slider.animate({left: swidth, width: cwidth}, 300, function(){changeClass(sib, $$);});
+            }
+
+            slider.animate({left: 0, width: swidth});
         }
     });
 
@@ -115,7 +143,7 @@ $(function(){
         }
     };
 
-    $('#tags').tagit({tagSource: autocomplete_tags, minLength: 2, allowNewTags: false, maxTags: 5});
+    $('#tags').tagit({tagSource: autocomplete_tags, minLength: 1, allowNewTags: false, maxTags: 5, messages: { noResults: null, results: function() {} } });
 
     var get_tags = function(){
         var tags = $('#tags').tagit("tags");
@@ -238,40 +266,6 @@ $(function(){
         }
     });
 
-    // BOOTSTRAP
-//    $('.sidebar .nav_tabs a:first').tab('show');
-
-
-    // TOGGLE VIEW
-    $('.tumbler_switch .switch').click(function(e){
-//        if(!$(this).parents('.tumbler_switch').hasClass('toggle_reload')){
-        e.preventDefault();
-        var $$ = $(this);
-        if($$.hasClass('active')){
-            return false;
-        }
-        else{
-            var sib = $$.siblings('a'),
-                slider = sib.find('.toggle_slider'),
-                cwidth = $$.outerWidth(),
-                swidth = sib.outerWidth();
-
-            function changeClass(sib, cur){
-                cur.toggleClass('active');
-                sib.toggleClass('active');
-            }
-            //            changeClass(sib, $$);
-            if($$.hasClass('hold_left')){
-                slider.animate({left: -cwidth, width: cwidth}, 300, function(){changeClass(sib, $$);});
-            }
-            else if($$.hasClass('hold_right')){
-                slider.animate({left: swidth, width: cwidth}, 300, function(){changeClass(sib, $$);});
-            }
-
-            slider.animate({left: 0, width: swidth});
-        }
-//        }
-    });
 
     // MASONRY JS
     $('.main_layout.grid .post_wall').imagesLoaded( function(){
@@ -317,9 +311,11 @@ $(function(){
     $('.modal_link').fancybox({
         padding : 0
     });
+
     $('.signUp').fancybox({
         wrapCSS: 'sign_form',
         closeBtn: false,
+        minHeight: 780,
         padding : 0
     });
 

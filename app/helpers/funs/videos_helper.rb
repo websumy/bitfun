@@ -6,6 +6,6 @@ module Funs::VideosHelper
       vimeo:    "http://player.vimeo.com/video",
     }
 
-    "<iframe width=\"#{width}\" height=\"#{height}\" src=\"#{src[video.video_type.to_sym]}/#{video.video_id}\" frameborder=\"0\" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>".html_safe
+    "<iframe width=\"#{width}\" height=\"#{height}\" src=\"#{src[video.video_type.to_sym]}/#{video.video_id}?wmode=opaque\" frameborder=\"0\" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>".html_safe
   end
 end
