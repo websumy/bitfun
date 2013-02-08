@@ -39,18 +39,19 @@ header.main_panel[role="banner"]
         - else
           .item_outer
             .item.login
-              a.item_link.signUp[href="#sign_up"]: span.span_cell Войти
+              = link_to new_user_session_path, class: 'item_link signUp' do
+                span.span_cell Войти
           .item_outer
             .item.registration
-              a.item_link.signUp[href="#sign_up"]: span.span_cell Регистрация
+              = link_to new_user_registration_path, class: 'item_link signUp' do
+                span.span_cell Регистрация
 
   .dropdown_search
-    .search_block
-
-      form[action="" method="" role="search"]
+    .search_block_wrapper
+      .search_block
         .controls
-          input[name="search" value="" placeholder="Поиск..."] /
+          ul.search_by_tags
           .icon-close
-
+          .icon-search
         a.btn[href="#"] Искать
-      .clearfix
+        .clearfix

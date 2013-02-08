@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
-//= require bootstrap-tab
+//= require source/bootstrap-tab
 //= require rails.validations
 //= require_tree .
 
@@ -143,10 +143,10 @@ $(function(){
         }
     };
 
-    $('#tags').tagit({tagSource: autocomplete_tags, minLength: 1, allowNewTags: false, maxTags: 5, messages: { noResults: null, results: function() {} } });
+    $('.search_by_tags').tagit({tagSource: autocomplete_tags, minLength: 2, allowNewTags: false, maxTags: 5});
 
     var get_tags = function(){
-        var tags = $('#tags').tagit("tags");
+        var tags = $('.search_by_tags').tagit("tags");
         return (tags.length) ? $.map(tags, function(tag){ return tag.value; }) : false;
     };
 
@@ -313,6 +313,7 @@ $(function(){
     });
 
     $('.signUp').fancybox({
+        type: 'ajax',
         wrapCSS: 'sign_form',
         closeBtn: false,
         minHeight: 780,

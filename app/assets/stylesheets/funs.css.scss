@@ -3,8 +3,8 @@
 @import 'inc/_config.css.scss';
 @import 'inc/mixins.scss';
 @import 'inc/_variables.scss';
-@import 'inc/_plugins.css.scss';
 @import 'inc/_forms.css.scss';
+@import 'inc/_plugins.css.scss';
 
 html, body {
 	font-family: $baseFontFamily;
@@ -181,18 +181,21 @@ a {
 	}
 
 	.dropdown_search {
-		background: asset_url("main-panel-sprite.png", images) repeat-x 0 -306px;
-		height: 54px;
+		//background: asset_url("main-panel-sprite.png", images) repeat-x 0 -306px;
+		background: #2C2B3A;
 		position: relative;
 		top: -5px;
 		display: none;
 		width: 100%;
-		.search_block {
+		.search_block_wrapper {
 			width: $page_width;
 			margin: 0 auto;
 			padding: 5px 0;
-			height: 44px;
 			position: relative;
+			.search_block{
+				@include inline-block();
+				width: 100%;
+			}
 			input{
 				margin-bottom: 0;
 				height: auto;
@@ -201,23 +204,46 @@ a {
 				@include inline-block();
 				position: relative;
 				float: left;
-				input{
+				.search_by_tags{
 					@include border-radius(4px);
-					width: 804px;
-					height: 38px;
-					position: relative;
-					background: #fff asset_url('header-icons.png', image) no-repeat left -118px;
+					background: #fff;
+					width: 796px;
 					color: #444444;
 					font-size: 14px;
 					font-family: $baseFontFamily;
-					//border: 0 none;
-					padding: 0 30px;
+					padding: 0 30px 0 36px;
 					line-height: 18px;
+					min-height: 40px;
 					&:focus {
 						background-position: left -148px;
 						outline: none;
 					}
+					input{
+						height: 30px;
+						line-height: 24px;
+					}
+					.ui-helper-hidden-accessible{display: none;}
+					.tagit-choice{
+						margin-top: 7px;
+						background: #FDBD5B;
+						color: #fff;
+						font-weight: bold;
+						@include text-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
+						border: 1px solid #F5AD3F;
+					}
+					.tagit-input{@include box-shadow(none);}
 				}
+
+				.icon-search{
+					background: asset_url('header-icons.png', image) no-repeat left -150px;
+					position: absolute;
+					z-index: 10;
+					height: 30px;
+					width: 30px;
+					left: 3px;
+					top: 5px;
+				}
+
 				.icon-close {
 					background: {
 						image: asset_url('header-icons.png', image);
@@ -604,7 +630,7 @@ a {
 	}
 
 	.dd-container {
-		@include white-box-select(true);
+		@include white-box-select();
 		@include text-shadow(1px 1px 0px #E2E2E2);
 		border: 0 none;
 		border-bottom: 1px solid #e2e2e2;
@@ -634,7 +660,9 @@ a {
 		@include ddSlick_width(160px);
 		.dd-options{
 			margin-top: 4px;
-			border-color: #eee;
+			border: 0 none;
+			margin-left: 0;
+			width: 160px;
 			@include white-box-select(true);
 
 		}
@@ -1895,10 +1923,7 @@ a {
 	}
 	.divider{border-top: 1px solid #EDEDF0; margin: 25px 0 23px;}
 	.dd-container{
-		width: 410px;
-		.dd-options, .dd-select{
-			width: 410px;
-		}
+		@include ddSlick_width(470px);
 	}
 }
 .feed_layout{
