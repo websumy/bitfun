@@ -68,7 +68,7 @@ gem 'bourbon'
 # in production environments by default.
 group :assets do
   # Toolkit from Twitter designed to kickstart development of webapps and sites
-  gem "bootstrap-sass"
+  # gem "bootstrap-sass"
 
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'

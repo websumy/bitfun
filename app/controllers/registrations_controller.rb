@@ -1,5 +1,10 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  def new
+    resource = build_resource({})
+    respond_with resource, layout: !request.xhr?
+  end
+
   def update
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
 

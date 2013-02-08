@@ -20,7 +20,7 @@ Bitfun::Application.routes.draw do
   get 'discuss' => 'funs#index', defaults: {sort: 'comments_count'}, as: :discuss
   get 'sandbox' => 'funs#index', defaults: {sandbox: true, sort: 'created_at'}, as: :sandbox
 
-  devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks"}
+  devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions", :omniauth_callbacks => "users/omniauth_callbacks"}
 
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'

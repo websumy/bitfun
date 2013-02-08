@@ -1370,7 +1370,6 @@ a {
 	}
 }
 .modal_registration{
-	display: none;
 	width: 610px;
 	z-index: $zindexModal;
 	.reg_logo{
@@ -1395,20 +1394,24 @@ a {
 	}
 
 	.input-xxlarge{
-		height: 35px;
-		padding: 4px 14px;
-		width: 415px;
-		border: 1px solid #f4f4f5;
-		background: #f4f4f5;
-		&:focus{
-			color: #000000;
-			@include box-shadow(none);
-			border-color: #fdad32;
-			background: #ffffff;
-			&:required:invalid:focus{
-				@include box-shadow(none);
-			}
-		}
+        height: 35px;
+        padding: 4px 14px;
+        width: 415px;
+        border: 1px solid #f4f4f5;
+        background: #f4f4f5;
+        &:focus{
+          color: #000000;
+          @include box-shadow(0 0 8px 0px #FF7373, 0 0 6px #F38C89 inset);
+          border-color: #fdad32;
+          background: #ffffff;
+          &:required:invalid:focus{
+            @include box-shadow(0 0 8px 0px #FF7373, 0 0 6px #F38C89 inset);
+          }
+        }
+        &.error{
+          @include box-shadow(0 0 8px 0px #FF7373, 0 0 6px #F38C89 inset);
+          border-color: #E9322D;
+        }
 	}
 
 	.reg_social{

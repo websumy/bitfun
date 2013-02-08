@@ -1,0 +1,29 @@
+
+/* Sign up form */
+.modal_registration[id="sign_up"]
+  .reg_logo
+    a[href="/"]
+      img[src="#{asset_path "logo_large.png"}" alt="bitfun_logo"]/
+  p.topic Авторизируйтесь используя социальные сети:
+  .reg_box
+    .reg_social
+      .reg_vk
+        a[href="#" ]
+      .reg_tw
+        a[href="#" ]
+      .reg_fb
+        a[href="#" ]
+    .divider
+      span.line
+      span.text или
+      span.line
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name), wrapper: :none) do |f|
+      = f.input :email, autofocus: true, required: true, input_html: { class: 'input-xxlarge' }, placeholder: "Ваш Email"
+      = f.input :password, required: true, input_html: { class: 'input-xxlarge' }, placeholder: "Пароль"
+      label.checkbox.inline
+        input[type="checkbox" name="agree"] Запомнить меня
+      .buttons
+        = link_to "Отменить", "", class: 'cancel'
+        = link_to "Авторизироваться", "", class: 'join'
+
+  p.topic Еще не зарегистрированы? #{link_to "Регистрация", new_user_registration_path, class: 'signUp'}
