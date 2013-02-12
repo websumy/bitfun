@@ -17,11 +17,13 @@ SimpleForm.setup do |config|
     b.use :input, :class => 'input-xxlarge'
   end
 
-  config.wrappers :none, :tag => false do |b|
+  config.wrappers :none, :tag => 'div' do |b|
     b.use :html5
     b.use :placeholder
     b.use :input
+    b.use :error, :wrap_with => { :tag => 'div', :class => 'error-block' }
   end
+
   config.wrappers :label, :tag => false do |b|
     b.use :input
     b.use :label

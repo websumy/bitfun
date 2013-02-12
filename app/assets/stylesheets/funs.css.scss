@@ -1470,6 +1470,25 @@ a {
 		}
 	}
 
+    .remember_me{
+      padding-top: 12px;
+      font-size: 13px;
+      color: #777777;
+      font-family: "Droid Sans", sans-serif;
+      line-height: 16px;
+      font-weight: normal;
+      .checkbox {
+        float: left;
+      }
+    }
+
+    .error-block {
+      margin-bottom: 0;
+      font-size: 12px;
+      color: #E9322D;
+      margin: -3px 0 10px;
+    }
+
 	.checkbox{
 		a{
 			margin-left: 5px;

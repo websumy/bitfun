@@ -309,7 +309,7 @@ $(function(){
         type: 'ajax',
         wrapCSS: 'sign_form',
         closeBtn: false,
-        minHeight: 780,
+        minHeight: 900,
         padding : 0
     });
 
@@ -348,13 +348,22 @@ $(function(){
         }
     });
 
+    $(document).on('click', 'a[rel="submit"]', function(e){
+        e.preventDefault();
+        $(this).parents('form').submit()
+    });
+
+    $(document).on('click', 'a.cancel', function(e){
+        e.preventDefault();
+        $.fancybox.close()
+    });
 });
 
 ClientSideValidations.formBuilders['SimpleForm::FormBuilder'] = {
     add: function(element, settings, message) {
         if (element.data('valid') !== false) {
             var wrapper = element.closest(settings.wrapper_tag);
-            wrapper.parent().addClass(settings.wrapper_error_class);
+            element.addClass('error');
             var errorElement = $('<' + settings.error_tag + ' class="' + settings.error_class + '">' + message + '</' + settings.error_tag + '>');
             wrapper.append(errorElement);
         } else {
@@ -362,8 +371,8 @@ ClientSideValidations.formBuilders['SimpleForm::FormBuilder'] = {
         }
     },
     remove: function(element, settings) {
-        var wrapper = element.closest(settings.wrapper_tag + '.' + settings.wrapper_error_class);
-        wrapper.removeClass(settings.wrapper_error_class);
+        var wrapper = element.parent(settings.wrapper_tag);
+        element.removeClass('error');
         var errorElement = wrapper.find(settings.error_tag + '.' + settings.error_class);
         errorElement.remove();
     }
