@@ -1,12 +1,12 @@
 /* Sign up form */
-.modal_registration[id="sign_up"]
+.modal_registration
   .reg_logo
     a[href="/"]
       img[src="#{asset_path "logo_large.png"}" alt="bitfun_logo"]/
   p.topic Авторизируйтесь используя социальные сети:
   .reg_box
     = render 'users/reg_box'
-    = simple_form_for(resource, as: resource_name, url: session_path(resource_name), remote: true, :html => {:'data-type' => 'json'}, wrapper: :none) do |f|
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name), remote: true, html: {:'data-type' => 'json', id: 'signin'}, wrapper: :none) do |f|
       = f.input :email, autofocus: true, required: true, input_html: { class: 'input-xxlarge' }, placeholder: "Ваш Email"
       = f.input :password, required: true, input_html: { class: 'input-xxlarge' }, placeholder: "Пароль"
       .remember_me
@@ -15,6 +15,4 @@
       .buttons
         a.cancel[href=""] Отменить
         a.join[href="" rel="submit" ] Авторизироваться
-  p.topic Еще не зарегистрированы? #{link_to "Регистрация", new_user_registration_path, class: 'signUp'}
-  javascript:
-    $('#new_user').enableClientSideValidations();
+  p.topic Еще не зарегистрированы? #{link_to "Регистрация", new_user_registration_path, class: 'sign_pop_up'}

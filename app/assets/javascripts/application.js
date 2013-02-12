@@ -305,7 +305,7 @@ $(function(){
         padding : 0
     });
 
-    $('.signUp').fancybox({
+    $('.sign_pop_up').fancybox({
         type: 'ajax',
         wrapCSS: 'sign_form',
         closeBtn: false,
@@ -322,7 +322,6 @@ $(function(){
             layout: 'top',
             theme: 'defaultTheme'
         });
-
     }
 
 //    if($('.container').hasClass('profile_layout')){
@@ -358,7 +357,7 @@ $(function(){
         $.fancybox.close()
     });
 
-    $(document).on('ajax:success', '#new_user', function(evt, data, status, xhr){
+    $(document).on('ajax:success', '#signup, #signin', function(evt, data, status, xhr){
         if (data.success){
             window.location = data.redirect
         }

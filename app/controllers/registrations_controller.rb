@@ -1,8 +1,12 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def new
-    resource = build_resource({})
-    respond_with resource, layout: !request.xhr?
+    build_resource
+    if request.xhr?
+      render layout: false
+    else
+      redirect_to root_path
+    end
   end
 
   def update
@@ -15,6 +19,17 @@ class RegistrationsController < Devise::RegistrationsController
     else
       clean_up_passwords(resource)
       respond_with_navigational(resource){ render :edit }
+    end
+  end
+
+  def create
+    build_resource
+    if resource.save
+      sign_up(resource_name, resource)
+      render :json => { success: true, redirect: after_sign_up_path_for(resource) }
+    else
+      clean_up_passwords resource
+      render json: { success: false, errors: t('registration.invalid') }
     end
   end
 
