@@ -357,6 +357,17 @@ $(function(){
         e.preventDefault();
         $.fancybox.close()
     });
+
+    $(document).on('ajax:success', '#new_user', function(evt, data, status, xhr){
+        if (data.success){
+            window.location = data.redirect
+        }
+        else {
+            $(this).find('.error-block').remove();
+            $(this).prepend($('<div class="error-block">' + data.errors + '</div>'));
+        }
+    });
+
 });
 
 ClientSideValidations.formBuilders['SimpleForm::FormBuilder'] = {
@@ -373,8 +384,7 @@ ClientSideValidations.formBuilders['SimpleForm::FormBuilder'] = {
     remove: function(element, settings) {
         var wrapper = element.parent(settings.wrapper_tag);
         element.removeClass('error');
-        var errorElement = wrapper.find(settings.error_tag + '.' + settings.error_class);
-        errorElement.remove();
+        wrapper.find(settings.error_tag + '.' + settings.error_class).remove();
     }
 };
 

@@ -6,7 +6,7 @@
   p.topic Авторизируйтесь используя социальные сети:
   .reg_box
     = render 'users/reg_box'
-    = simple_form_for(resource, as: resource_name, url: session_path(resource_name), wrapper: :none) do |f|
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name), remote: true, :html => {:'data-type' => 'json'}, wrapper: :none) do |f|
       = f.input :email, autofocus: true, required: true, input_html: { class: 'input-xxlarge' }, placeholder: "Ваш Email"
       = f.input :password, required: true, input_html: { class: 'input-xxlarge' }, placeholder: "Пароль"
       .remember_me
