@@ -1,4 +1,3 @@
-
 /* Sign up form */
 .modal_registration[id="sign_up"]
   .reg_logo
@@ -6,24 +5,16 @@
       img[src="#{asset_path "logo_large.png"}" alt="bitfun_logo"]/
   p.topic Авторизируйтесь используя социальные сети:
   .reg_box
-    .reg_social
-      .reg_vk
-        a[href="#" ]
-      .reg_tw
-        a[href="#" ]
-      .reg_fb
-        a[href="#" ]
-    .divider
-      span.line
-      span.text или
-      span.line
+    = render 'users/reg_box'
     = simple_form_for(resource, as: resource_name, url: session_path(resource_name), wrapper: :none) do |f|
       = f.input :email, autofocus: true, required: true, input_html: { class: 'input-xxlarge' }, placeholder: "Ваш Email"
       = f.input :password, required: true, input_html: { class: 'input-xxlarge' }, placeholder: "Пароль"
-      label.checkbox.inline
-        input[type="checkbox" name="agree"] Запомнить меня
+      .remember_me
+        = f.input :remember_me, label: 'Запомнить меня', as: :boolean
+        | Запомнить меня
       .buttons
-        = link_to "Отменить", "", class: 'cancel'
-        = link_to "Авторизироваться", "", class: 'join'
-
+        a.cancel[href=""] Отменить
+        a.join[href="" rel="submit" ] Авторизироваться
   p.topic Еще не зарегистрированы? #{link_to "Регистрация", new_user_registration_path, class: 'signUp'}
+  javascript:
+    $('#new_user').enableClientSideValidations();
