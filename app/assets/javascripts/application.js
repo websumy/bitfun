@@ -313,22 +313,6 @@ $(function(){
         padding : 0
     });
 
-    // NOTY
-    function generate(type, text) {
-        var n = noty({
-            text: text,
-            type: type,
-            dismissQueue: true,
-            layout: 'top',
-            theme: 'defaultTheme'
-        });
-    }
-
-//    if($('.container').hasClass('profile_layout')){
-//        generate('information', 'К сожалению ваша учетная запись не была обновлена из-за ошибки:<br>- Адрес электронной почты<br>- Имя пользователя');
-//        generate('success', 'Ваша учетная запись была обновлена!');
-//    }
-
     //STICKY PROFILE
     var offset = $(".sticky_profile").offset();
     var topPadding = 200;
@@ -368,6 +352,16 @@ $(function(){
     });
 
 });
+
+function show_notice(type, text) {
+    var n = noty({
+        text: text,
+        type: type,
+        dismissQueue: true,
+        layout: 'top',
+        theme: 'defaultTheme'
+    });
+}
 
 ClientSideValidations.formBuilders['SimpleForm::FormBuilder'] = {
     add: function(element, settings, message) {
