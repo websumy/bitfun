@@ -1,8 +1,0 @@
-<% if funs.any?%>
-    <% funs.each do |fun| %>
-        <%= render_fun_partial fun, fun_partial %>
-    <% end %>
-    <%= paginate funs %>
-<% else %>
-    <p class="text-error">There aren't any funs in this folder.</p>
-<% end %>

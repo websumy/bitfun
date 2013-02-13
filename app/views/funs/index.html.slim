@@ -2,8 +2,12 @@
 .container.main_layout
   section.content[role="main"]
     section.post_wall
-      = render "list", funs: @funs, fun_partial: view_partial
-
+      - if @funs.any?
+        - @funs.each do |fun|
+          = render 'funs/list_item', fun: fun
+        = paginate @funs
+      - else
+        | There aren't any funs in this folder
   /* **** sidebar **** */
   aside.sidebar[role="complementary"]
     section.social_block
@@ -18,17 +22,3 @@
           .tab_pane.active id="tab_vk": img[src="#{asset_path "tmp/tabs-vk-widget.jpg"}" alt="image"]/
           .tab_pane id="tab_fb": img[src="#{asset_path "tmp/post-image.jpg"}" alt="image"]/
           .tab_pane id="tab_tw": img[src="#{asset_path "default-avatar-62.jpg"}" alt="image"]/
-
-  //* ********** FOOTER **************** */
-  /footer.footer[role="contentinfo"]
-  /  .footer_logo: a[href="/" title="bitFun.ru"]
-  /  .footer_box
-  /    .years 2012-2013 BitFun.
-  /    .developers
-  /      | Проект создан компанией &nbsp;
-  /      a[href="//rezonans.ru" target="_blank" ]: strong Резонанс.
-  /    ul
-  /      li: a[href="#"] О проекте
-  /      li: a[href="#"] Реклама
-  /      li: a[href="#"] Правила
-  /      li: a[href="#"] Контакты

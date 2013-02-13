@@ -1,0 +1,51 @@
+article.post_frame
+  .left_side
+    = user_block fun.user, :video
+    .post_share
+      .orange_box
+        .orange_inner: a.share_link[href="#"]: span.hide Share
+      ul
+        li: a[href="#"]: img[src="#{asset_path "tmp/share-vk.jpg"}" alt="img"]/
+        li: a[href="#"]: img[src="#{asset_path "tmp/share-fb.jpg"}" alt="img"]/
+        li: a[href="#"]: img[src="#{asset_path "tmp/share-vk.jpg"}" alt="img"]/
+        li: a[href="#"]: img[src="#{asset_path "tmp/share-fb.jpg"}" alt="img"]/
+  .post_box
+    .post_info
+      .poster
+        = link_to fun.user.login, fun.user
+        span  добавил &bull;
+        span.date_block
+          = time_ago_in_words fun.created_at
+          |  назад
+      .title
+        = link_to fun.content.title, fun
+      .tags_block
+        .tags
+          = show_cached_tags fun
+
+    .post_object
+      = render_fun_partial fun, :content
+    .post_nav
+      .item_wrapper.like_box.first_item.active
+        a.item[href="#"]
+          span.icon
+          span.counter 5
+
+      .item_wrapper.repost_box
+        a.item[href="#"]
+          span.icon
+          span.counter 25
+
+      .item_wrapper.comments_box
+        a.item[href="#"]
+          span.icon
+          span.counter 305
+
+      .item_wrapper.more_box.last_item
+        = link_to fun, class: 'item' do
+          span.icon
+          span.name Подробнее
+/= link_to image_tag(fun.user.avatar_url(:img, :main), class: "img-circle", width: "50px") + ' ' + fun.user.login, fun.user
+/= link_to fun.user.login, fun.user
+/= repost_button fun
+/= like_button fun
