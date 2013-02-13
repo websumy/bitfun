@@ -1,6 +1,0 @@
-<% if @fun.content_type == "Video" %>
-    $("#preview_<%= @fun.id %>").html("<%= j show_video @fun.content %>");
-<% elsif @fun.content.exist_gif_thumb?%>
-    $("#preview_<%= @fun.id %>").html("<%= j link_to image_tag(@fun.content.file_url(:gif), class: "img-polaroid"), @fun %>");
-<% end %>
-
