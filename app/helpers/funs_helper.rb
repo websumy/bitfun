@@ -63,5 +63,12 @@ module FunsHelper
   end
 
 
+  def user_block(user, content_type)
+    raw '<div class="photo_frame">' +
+        link_to(show_avatar(user, :main), user, class: 'photo_box') +
+        '<div class="arrow"></div>' +
+        follow_button(user).to_s +
+        "<div class='circle_content_obj'><div class='#{content_type}'></div></div></div>"
+  end
 
 end
