@@ -230,18 +230,6 @@ $(function(){
         dropdown_profile.fadeToggle('slow');
     });
 
-    // FOLLOW/UNFOLLOW
-    $('.circle_follow_status a').bind('click', function(e){
-        e.preventDefault();
-        var status = $(this).attr('class');
-        if(status == 'follow'){
-            $(this).attr('class', 'unfollow').attr('title', 'Не хочу читать');
-        }
-        else if(status == 'unfollow'){
-            $(this).attr('class', 'follow').attr('title', 'Читать');
-        }
-    });
-
     // SHOW/HIDE SHARE
     $('.share_link').bind('click', function(e){
         e.preventDefault();
@@ -295,7 +283,8 @@ $(function(){
             '' +
             '</div>'
     });
-    $('[rel="tooltip"]').tooltipster({
+
+    $('a[rel~="tooltip"]').tooltipster({
         theme: 'tooltips_theme',
         offsetY: -5
     });
@@ -358,6 +347,19 @@ $(function(){
         $this.removeAttr('data-gif')
     });
 
+    $(document).on('ajax:success', 'a.follow, a.unfollow', function(evt, data, status, xhr){
+        if (data.notice){
+            var $this = $(this);
+            if ($this.hasClass('follow')){
+                $this.removeClass('follow').addClass('unfollow').data('method', 'delete')
+            }
+            else{
+                $this.removeClass('unfollow').addClass('follow').data('method', 'post')
+            }
+            show_notice(data.notice)
+        }
+    });
+
     $(document).on('click', '.post_object a[data-video]', function(e){
         e.preventDefault();
         $this = $(this);
@@ -387,7 +389,8 @@ function show_notice(text, type) {
         type: type,
         dismissQueue: true,
         layout: 'top',
-        theme: 'defaultTheme'
+        theme: 'defaultTheme',
+        timeout: 3000
     });
 }
 

@@ -2,9 +2,9 @@ module UsersHelper
   def follow_button user
    content_tag :div, class: 'circle_follow_status' do
       if current_user.following? user
-        link_to '', user_follow_path(user, current_user), method: :delete, class: 'unfollow', rel: 'tooltip', title: t('user.unfollow')
+        link_to '', delete_user_follows_path(user), method: :delete, class: 'unfollow', rel: 'tooltip', title: t('user.unfollow'), remote: true, data: { type: :json }
       else
-        link_to '', user_follows_path(user), method: :post, class: 'follow', rel: 'tooltip', title: t('user.follow')
+        link_to '', user_follows_path(user), method: :post, class: 'follow', rel: 'tooltip', title: t('user.follow'), remote: true, data: { type: :json }
       end
     end if user_signed_in? && current_user != user
   end

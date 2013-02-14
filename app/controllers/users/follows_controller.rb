@@ -18,17 +18,19 @@ class Users::FollowsController < ApplicationController
 
   def create
     current_user.follow!(@user)
-    respond_to do |format|
-      format.html { redirect_to @user, notice: t('follows.followed') }
-      format.json { render json: { notice: t('follows.followed') } }
+    if request.xhr?
+      render json: { notice: t('follows.followed') }
+    else
+      redirect_to root_path
     end
   end
 
   def destroy
     current_user.unfollow!(@user)
-    respond_to do |format|
-      format.html { redirect_to @user, { notice: t('follows.unfollowed') } }
-      format.json { render json: { notice: t('follows.unfollowed') } }
+    if request.xhr?
+      render json: { notice: t('follows.unfollowed') }
+    else
+      redirect_to root_path
     end
   end
 
