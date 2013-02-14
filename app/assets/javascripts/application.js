@@ -164,7 +164,7 @@ $(function(){
         }
     });
 
-    $('#funs_list').on({
+    $('.post_wall').on({
         click: function(e) {
             if ($(this).data("disabled"))
                 return false;
@@ -175,19 +175,16 @@ $(function(){
             $this.data("disabled", false);
             var $span = $this.find("span");
             var value = parseInt($span.eq(1).text()) || 0;
+
             if (data.type == "like") {
-                $span.eq(0).text("Unlike fun");
-                $span.eq(1).text(value + 1).removeClass("badge-info").addClass("badge-success");
-                $this.data('method', 'delete')
+                $span.eq(1).text(value + 1);
+                $this.data('method', 'delete').parent('div').toggleClass('active')
             } else if(data.type == "unlike") {
-                $span.eq(0).text("Like fun");
-                $span.eq(1).text(value - 1).removeClass("badge-success").addClass("badge-info");
-                $this.data('method', 'post')
+                $span.eq(1).text(value - 1);
+                $this.data('method', 'post').parent('div').toggleClass('active')
             }
         }
-    }, "a.like");
-
-
+    }, ".like_box a.item");
 
 
     // DROPDOWN SEARCH BLOCK
