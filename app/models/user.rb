@@ -57,9 +57,13 @@ class User < ActiveRecord::Base
     self.role.try(:name) == role.to_s
   end
 
+  def followed_ids
+    @followed_ids ||= followed_users.pluck('users.id')
+  end
+
   # Check if user already followed
   def following?(other_user)
-    user_relationships.find_by_followed_id(other_user.id)
+    other_user.id.in? followed_ids
   end
 
   # Follow user
