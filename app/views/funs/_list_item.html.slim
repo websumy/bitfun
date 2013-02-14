@@ -27,16 +27,11 @@ article.post_frame
       = render_fun_partial fun, :content
     .post_nav
       = like_button fun
-
-      .item_wrapper.repost_box
-        a.item[href="#"]
-          span.icon
-          span.counter 25
-
+      = repost_button fun
       .item_wrapper.comments_box
         a.item[href="#"]
           span.icon
-          span.counter 305
+          span.counter 0
 
       .item_wrapper.more_box.last_item
         = link_to fun, class: 'item' do

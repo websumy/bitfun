@@ -13,7 +13,9 @@ module FunsHelper
   end
 
   def repost_button(fun)
-    link_to raw('Share ' + content_tag('span', fun.repost_counter, class: 'badge badge-info')), fun_reposts_path(fun), class: 'repost', 'data-type'.to_sym => 'json', method: 'post', remote: true
+    content_tag 'div', class: 'item_wrapper repost_box' do
+      link_to "<span class='icon'></span><span class='counter'>#{fun.repost_counter}</span>".html_safe, fun_reposts_path(fun), class: 'item',data: { type: :json }, method: :post, remote: true
+    end
   end
 
   def like_button(fun)
