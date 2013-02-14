@@ -153,14 +153,14 @@ $(function(){
 
     $("input.date_picker").datepicker({format:"yyyy-mm-dd"});
 
-    $("#funs_list").on('ajax:success', 'a.repost',  function(evt, data, status, xhr) {
+    $(".post_wall").on('ajax:success', '.repost_box a.item',  function(evt, data, status, xhr) {
         if (data.type == "success") {
-            var $span = $(this).find("span");
+            var $span = $(this).find("span.counter");
             var value = parseInt($span.text()) || 0;
-            $span.text(value + 1).removeClass("badge-info").addClass("badge-success");
-            $(this).attr('href', '#'); // need remove link or disabled
+            $span.text(value + 1);
+            $(this).parent('div').addClass('active')
         } else {
-            show_alert(data.message);
+            show_notice(data.message, 'error');
         }
     });
 
@@ -173,14 +173,14 @@ $(function(){
         'ajax:success':  function(evt, data, status, xhr){
             $this = $(this);
             $this.data("disabled", false);
-            var $span = $this.find("span");
-            var value = parseInt($span.eq(1).text()) || 0;
+            var $span = $this.find("span.counter");
+            var value = parseInt($span.text()) || 0;
 
             if (data.type == "like") {
-                $span.eq(1).text(value + 1);
+                $span.text(value + 1);
                 $this.data('method', 'delete').parent('div').toggleClass('active')
             } else if(data.type == "unlike") {
-                $span.eq(1).text(value - 1);
+                $span.text(value - 1);
                 $this.data('method', 'post').parent('div').toggleClass('active')
             }
         }
