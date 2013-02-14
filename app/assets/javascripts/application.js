@@ -153,16 +153,6 @@ $(function(){
 
     $("input.date_picker").datepicker({format:"yyyy-mm-dd"});
 
-    $('.alert .close').on("click", function(e) {
-        $(this).parent().fadeOut(3000);
-    });
-
-    var show_alert = function(message){
-        $("#js-alert").alert().show().find("div").text(message);
-        $(window).scrollTop(0);
-        $('.alert .close').click();
-    };
-
     $("#funs_list").on('ajax:success', 'a.repost',  function(evt, data, status, xhr) {
         if (data.type == "success") {
             var $span = $(this).find("span");

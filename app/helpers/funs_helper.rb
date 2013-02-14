@@ -18,9 +18,13 @@ module FunsHelper
 
   def like_button(fun)
     if current_user && current_user.voted_up_on?(fun)
-      link_to raw(content_tag('span','Unlike fun ') + content_tag('span', fun.total_likes, class: 'badge badge-success')), delete_fun_likes_path(fun), class: 'like', 'data-type'.to_sym => 'json', method: :delete,  remote: true
+      content_tag 'div', class: 'item_wrapper like_box first_item active' do
+        link_to "<span class='icon'></span><span class='counter'>#{fun.total_likes}</span>".html_safe, delete_fun_likes_path(fun), class: 'item', data: { type: :json }, method: :delete,  remote: true
+      end
     else
-      link_to raw(content_tag('span','Like fun ') + content_tag('span', fun.total_likes, class: 'badge badge-info')), fun_likes_path(fun), class: 'like', 'data-type'.to_sym => 'json', method: :post, remote: true
+      content_tag 'div', class: 'item_wrapper like_box first_item' do
+        link_to "<span class='icon'></span><span class='counter'>#{fun.total_likes}</span>".html_safe, fun_likes_path(fun), class: 'item', data: { type: :json }, method: :post, remote: true
+      end
     end
   end
 

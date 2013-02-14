@@ -26,10 +26,7 @@ article.post_frame
     .post_object
       = render_fun_partial fun, :content
     .post_nav
-      .item_wrapper.like_box.first_item.active
-        a.item[href="#"]
-          span.icon
-          span.counter 5
+      = like_button fun
 
       .item_wrapper.repost_box
         a.item[href="#"]
