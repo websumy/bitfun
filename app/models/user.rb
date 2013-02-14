@@ -57,6 +57,7 @@ class User < ActiveRecord::Base
     self.role.try(:name) == role.to_s
   end
 
+  # Get user ids, which user follow
   def followed_ids
     @followed_ids ||= followed_users.pluck('users.id')
   end
@@ -77,8 +78,24 @@ class User < ActiveRecord::Base
     find.destroy unless find.nil?
   end
 
+  # Get funs ids which user reposted
+  def reposted_ids
+    @reposted_ids ||= Fun.unscoped { funs.where('parent_id IS NOT NULL').pluck(:parent_id) }
+  end
+
+  # Check if user already reposted
   def reposted?(fun)
-    self.reposts.where(:fun_id => fun.id).any?
+    fun.id.in? reposted_ids
+  end
+
+  # Get funs ids which user voted
+  def voted_ids
+    @voted_ids ||= votes.where(votable_type: Fun).pluck(:votable_id)
+  end
+
+  # Check if user already voted
+  def voted?(fun)
+    fun.id.in? voted_ids
   end
 
   # User feeds

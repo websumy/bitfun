@@ -13,13 +13,19 @@ module FunsHelper
   end
 
   def repost_button(fun)
-    content_tag 'div', class: 'item_wrapper repost_box' do
-      link_to "<span class='icon'></span><span class='counter'>#{fun.repost_counter}</span>".html_safe, fun_reposts_path(fun), class: 'item',data: { type: :json }, method: :post, remote: true
+    if current_user && current_user.reposted?(fun)
+      content_tag 'div', class: 'item_wrapper repost_box active' do
+        "<span class='item'><span class='icon'></span><span class='counter'>#{fun.repost_counter}</span></span>".html_safe
+      end
+    else
+      content_tag 'div', class: 'item_wrapper repost_box' do
+        link_to "<span class='icon'></span><span class='counter'>#{fun.repost_counter}</span>".html_safe, fun_reposts_path(fun), class: 'item',data: { type: :json }, method: :post, remote: true
+      end
     end
   end
 
   def like_button(fun)
-    if current_user && current_user.voted_up_on?(fun)
+    if current_user && current_user.voted?(fun)
       content_tag 'div', class: 'item_wrapper like_box first_item active' do
         link_to "<span class='icon'></span><span class='counter'>#{fun.total_likes}</span>".html_safe, delete_fun_likes_path(fun), class: 'item', data: { type: :json }, method: :delete,  remote: true
       end
