@@ -380,7 +380,8 @@ $(function(){
 
 });
 
-function show_notice(type, text) {
+function show_notice(text, type) {
+    type = type || 'success'
     var n = noty({
         text: text,
         type: type,
