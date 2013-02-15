@@ -166,7 +166,7 @@ $(function(){
 
     $('.post_wall').on({
         click: function(e) {
-            if ($(this).data("disabled"))
+            if ($(this).data("disabled") && !$(this).data("auth"))
                 return false;
             $(this).data("disabled", true);
         },
@@ -367,6 +367,11 @@ $(function(){
         $this.after(videoIFrame).remove()
     });
 
+    $(document).on('click', 'a[data-auth]', function(e){
+        e.preventDefault();
+        show_notice('Авторизируйтесь или зарегистрируйтесь, чтобы можно было выполнять это действие.', 'error');
+    });
+
 });
 
 function show_notice(text, type) {
@@ -377,7 +382,7 @@ function show_notice(text, type) {
         dismissQueue: true,
         layout: 'top',
         theme: 'defaultTheme',
-        timeout: 3000
+        timeout: 5000
     });
 }
 

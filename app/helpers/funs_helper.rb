@@ -13,25 +13,43 @@ module FunsHelper
   end
 
   def repost_button(fun)
-    if current_user && current_user.reposted?(fun)
-      content_tag 'div', class: 'item_wrapper repost_box active' do
-        "<span class='item'><span class='icon'></span><span class='counter'>#{fun.repost_counter}</span></span>".html_safe
+    span_counter = "<span class='icon'></span><span class='counter'>#{fun.repost_counter}</span>".html_safe
+    classes = 'item_wrapper repost_box'
+    if user_signed_in?
+      if current_user.reposted?(fun)
+        content_tag 'div', class: classes + ' active' do
+          "<span class='item'>#{span_counter}</span>".html_safe
+        end
+      else
+        content_tag 'div', class: classes do
+          link_to span_counter, fun_reposts_path(fun), class: 'item', data: { type: :json }, method: :post, remote: true
+        end
       end
     else
-      content_tag 'div', class: 'item_wrapper repost_box' do
-        link_to "<span class='icon'></span><span class='counter'>#{fun.repost_counter}</span>".html_safe, fun_reposts_path(fun), class: 'item',data: { type: :json }, method: :post, remote: true
+      content_tag 'div', class: classes do
+        link_to span_counter, fun_reposts_path(fun), class: 'item', data: { auth: true }
       end
     end
   end
 
+
   def like_button(fun)
-    if current_user && current_user.voted?(fun)
-      content_tag 'div', class: 'item_wrapper like_box first_item active' do
-        link_to "<span class='icon'></span><span class='counter'>#{fun.total_likes}</span>".html_safe, delete_fun_likes_path(fun), class: 'item', data: { type: :json }, method: :delete,  remote: true
+    span_counter = "<span class='icon'></span><span class='counter'>#{fun.total_likes}</span>".html_safe
+    classes = 'item_wrapper like_box first_item'
+
+    if user_signed_in?
+      if current_user.voted?(fun)
+        content_tag 'div', class: classes + ' active' do
+          link_to span_counter, delete_fun_likes_path(fun), class: 'item', data: { type: :json }, method: :delete,  remote: true
+        end
+      else
+        content_tag 'div', class: classes do
+          link_to span_counter, fun_likes_path(fun), class: 'item', data: { type: :json }, method: :post, remote: true
+        end
       end
     else
-      content_tag 'div', class: 'item_wrapper like_box first_item' do
-        link_to "<span class='icon'></span><span class='counter'>#{fun.total_likes}</span>".html_safe, fun_likes_path(fun), class: 'item', data: { type: :json }, method: :post, remote: true
+      content_tag 'div', class: classes do
+        link_to span_counter, fun_likes_path(fun), class: 'item', data: { auth: true }
       end
     end
   end
