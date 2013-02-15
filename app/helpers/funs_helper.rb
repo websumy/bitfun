@@ -12,45 +12,60 @@ module FunsHelper
     fun.content.cached_tag_list.split(', ').map { |t| link_to t, tag_path(t) }.join(', ').html_safe
   end
 
+  def big_repost_button(fun)
+    show_repost_button(fun, "<span class='icon'></span><span class='name'>#{t('reposts.button')}</span>") +
+    "<div class='item_adds'><div class='adds'><span class='counter'>#{fun.total_likes}</span> #{t('reposts.count')}</div></div>".html_safe
+  end
+
   def repost_button(fun)
-    span_counter = "<span class='icon'></span><span class='counter'>#{fun.repost_counter}</span>".html_safe
-    classes = 'item_wrapper repost_box'
-    if user_signed_in?
-      if current_user.reposted?(fun)
-        content_tag 'div', class: classes + ' active' do
-          "<span class='item'>#{span_counter}</span>".html_safe
-        end
-      else
-        content_tag 'div', class: classes do
-          link_to span_counter, fun_reposts_path(fun), class: 'item', data: { type: :json }, method: :post, remote: true
-        end
-      end
-    else
-      content_tag 'div', class: classes do
-        link_to span_counter, fun_reposts_path(fun), class: 'item', data: { auth: true }
-      end
+    show_repost_button(fun, "<span class='icon'></span><span class='counter'>#{fun.repost_counter}</span>")
+  end
+
+  def like_button(fun)
+    show_like_button fun, "<span class='icon'></span><span class='counter'>#{fun.total_likes}</span>"
+  end
+
+  def big_like_button(fun)
+    show_like_button(fun, "<span class='icon'></span><span class='name'>#{t('likes.button')}</span>") +
+        "<div class='item_adds'><div class='adds'><span class='counter'>#{fun.total_likes}</span> #{t('likes.count')}</div></div>".html_safe
+  end
+
+  def wrapped_link_to(span, url = {}, html_options = {})
+    options = { class: 'item', data: { type: :json } }
+    options.merge! html_options
+    wrapper_class = options[:wrapper_class]
+    options.delete(:wrapper_class)
+    content_tag 'div', class: 'item_wrapper ' + wrapper_class do
+      link_to(span, url, options)
     end
   end
 
-
-  def like_button(fun)
-    span_counter = "<span class='icon'></span><span class='counter'>#{fun.total_likes}</span>".html_safe
-    classes = 'item_wrapper like_box first_item'
-
+  def show_repost_button(fun, span)
+    span = span.html_safe
     if user_signed_in?
-      if current_user.voted?(fun)
-        content_tag 'div', class: classes + ' active' do
-          link_to span_counter, delete_fun_likes_path(fun), class: 'item', data: { type: :json }, method: :delete,  remote: true
-        end
+      unlink_span = "<span class='item'>#{span}</span>".html_safe
+      if current_user.reposted?(fun)
+        content_tag('div', class: 'item_wrapper repost_box active') { unlink_span }
+      elsif current_user == fun.user
+        content_tag('div', class: 'item_wrapper repost_box') { unlink_span }
       else
-        content_tag 'div', class: classes do
-          link_to span_counter, fun_likes_path(fun), class: 'item', data: { type: :json }, method: :post, remote: true
-        end
+        wrapped_link_to span, fun_reposts_path(fun), method: :post, remote: true, wrapper_class: 'repost_box first_item'
       end
     else
-      content_tag 'div', class: classes do
-        link_to span_counter, fun_likes_path(fun), class: 'item', data: { auth: true }
+      wrapped_link_to span, fun_reposts_path(fun), data: { auth: true }, wrapper_class: 'repost_box first_item'
+    end
+  end
+
+  def show_like_button(fun, span)
+    span = span.html_safe
+    if user_signed_in?
+      if current_user.voted?(fun)
+        wrapped_link_to span, delete_fun_likes_path(fun), method: :delete, remote: true, wrapper_class: 'like_box first_item active'
+      else
+        wrapped_link_to span, fun_likes_path(fun), method: :post, remote: true, wrapper_class: 'like_box first_item'
       end
+    else
+      wrapped_link_to span, fun_likes_path(fun), data: { auth: true }, wrapper_class: 'like_box first_item'
     end
   end
 
@@ -91,7 +106,6 @@ module FunsHelper
       link_to(name, options, html_options) +
     '</div><span></span></div>'
   end
-
 
   def user_block(user, content_type)
     raw '<div class="photo_frame">' +
