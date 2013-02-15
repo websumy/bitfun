@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def only_xhr_request
+    redirect_to root_path unless request.xhr?
+  end
+
   def exception_catcher(exception)
     case exception
       when ActiveRecord::RecordNotFound, ActionController::UnknownController, ActionController::RoutingError

@@ -1,5 +1,6 @@
 class Users::FollowsController < ApplicationController
   before_filter :load_user, except: :index
+  before_filter :only_xhr_request
   authorize_resource class: "UserRelationship"
 
   def index
@@ -18,25 +19,16 @@ class Users::FollowsController < ApplicationController
 
   def create
     current_user.follow!(@user)
-    if request.xhr?
-      render json: { notice: t('follows.followed') }
-    else
-      redirect_to root_path
-    end
+    render json: { notice: t('follows.followed') }
   end
 
   def destroy
     current_user.unfollow!(@user)
-    if request.xhr?
-      render json: { notice: t('follows.unfollowed') }
-    else
-      redirect_to root_path
-    end
+    render json: { notice: t('follows.unfollowed') }
   end
 
   private
   def load_user
     @user = User.find_by_login!(params[:user_id])
   end
-
 end
