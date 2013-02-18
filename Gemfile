@@ -51,6 +51,7 @@ gem 'thin'
 # Show error in better format
 gem "better_errors"
 gem "binding_of_caller"
+gem "meta_request"
 
 # Rails plugin for Sphinx.
 gem 'thinking-sphinx', '2.0.10'
