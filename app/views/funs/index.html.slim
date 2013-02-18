@@ -1,24 +1,24 @@
 - content_for :navigation, render('layouts/navigation')
-.container.main_layout
+div[class="container main_layout #{view_partial == 'box' ? ' grid' : ''}"]
   section.content[role="main"]
     section.post_wall
       - if @funs.any?
         - @funs.each do |fun|
-          = render 'funs/list_item', fun: fun
+          = render "funs/#{view_partial}", fun: fun
         = paginate @funs
       - else
         | There aren't any funs in this folder
-  /* **** sidebar **** */
-  aside.sidebar[role="complementary"]
-    section.social_block
-      header.sidebar_topics Следите за нами
-      article.tabs_box.soc_tabs
-        ul.nav_tabs data-tabs="tabs"
-          li.active: a[class="icon_vk" href="#tab_vk" data-toggle="tab"]: span ВКонтакте
-          li: a[class="icon_fb" href="#tab_fb" data-toggle="tab"]: span Facebook
-          li: a[class="icon_tw" href="#tab_tw" data-toggle="tab"]: span Twitter
+  -unless view_partial == 'box'
+    aside.sidebar[role="complementary"]
+      section.social_block
+        header.sidebar_topics Следите за нами
+        article.tabs_box.soc_tabs
+          ul.nav_tabs data-tabs="tabs"
+            li.active: a[class="icon_vk" href="#tab_vk" data-toggle="tab"]: span ВКонтакте
+            li: a[class="icon_fb" href="#tab_fb" data-toggle="tab"]: span Facebook
+            li: a[class="icon_tw" href="#tab_tw" data-toggle="tab"]: span Twitter
 
-        .tab_content
-          .tab_pane.active id="tab_vk": img[src="#{asset_path "tmp/tabs-vk-widget.jpg"}" alt="image"]/
-          .tab_pane id="tab_fb": img[src="#{asset_path "tmp/post-image.jpg"}" alt="image"]/
-          .tab_pane id="tab_tw": img[src="#{asset_path "default-avatar-62.jpg"}" alt="image"]/
+          .tab_content
+            .tab_pane.active id="tab_vk": img[src="#{asset_path "tmp/tabs-vk-widget.jpg"}" alt="image"]/
+            .tab_pane id="tab_fb": img[src="#{asset_path "tmp/post-image.jpg"}" alt="image"]/
+            .tab_pane id="tab_tw": img[src="#{asset_path "default-avatar-62.jpg"}" alt="image"]/

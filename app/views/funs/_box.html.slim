@@ -1,0 +1,22 @@
+article.post_frame.post_card
+  .post_info
+    .photo_frame
+      = link_to user_path(fun.user), class: 'photo_box' do
+        = show_avatar fun.user, :small
+
+    .poster
+      = link_to fun.content.title, fun
+      span.date_block
+        = time_ago_in_words fun.created_at
+        |  назад
+  .post_object
+    .arrow
+    = render_fun_partial fun, :box
+  .post_nav
+    = small_like_button fun
+    = small_repost_button fun
+
+    .item_wrapper.comments_box.last_item
+      a.item[href="#"]
+        span.icon
+        span.counter: span.slice 305

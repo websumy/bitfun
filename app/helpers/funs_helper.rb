@@ -12,6 +12,10 @@ module FunsHelper
     fun.content.cached_tag_list.split(', ').map { |t| link_to t, tag_path(t) }.join(', ').html_safe
   end
 
+  def small_repost_button(fun)
+    show_repost_button(fun, "<span class='icon'></span><span class='counter'><span class='slice'>#{fun.repost_counter}</span></span>")
+  end
+
   def big_repost_button(fun)
     show_repost_button(fun, "<span class='icon'></span><span class='name'>#{t('reposts.button')}</span>") +
     "<div class='item_adds'><div class='adds'><span class='counter'>#{fun.total_likes}</span> #{t('reposts.count')}</div></div>".html_safe
@@ -19,6 +23,10 @@ module FunsHelper
 
   def repost_button(fun)
     show_repost_button(fun, "<span class='icon'></span><span class='counter'>#{fun.repost_counter}</span>")
+  end
+
+  def small_like_button(fun)
+    show_like_button fun, "<span class='icon'></span><span class='counter'><span class='slice'>#{fun.total_likes}</span></span>"
   end
 
   def like_button(fun)
@@ -95,9 +103,8 @@ module FunsHelper
   end
 
   def view_partial
-    default = "list"
     partial = params[:view] ||= cookies_store[:view]
-    ((partial.in? %w(list box)) ?  partial : default) + "_item"
+    (partial.in? %w(list box)) ?  partial : 'list'
   end
 
   def link_to_menu(name, options = {}, html_options = {})
