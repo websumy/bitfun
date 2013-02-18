@@ -9,7 +9,7 @@ module UsersHelper
     end if user_signed_in? && current_user != user
   end
 
-  def show_avatar(user, type = :big)
+  def show_avatar(user, type = nil)
     image_tag( user.avatar? ? user.avatar_url(:img, type) : "default-avatar-#{type}.jpg" )
   end
 

@@ -1,1 +1,8 @@
-$("#funs_list").html("<%= j render "list", funs: @funs, fun_partial: view_partial %>");
+<%
+content = ''
+@funs.each do |fun|
+ content << render("funs/#{view_partial}", fun: fun)
+end
+%>
+
+$(".post_wall").html("<%= j content.html_safe %>");
