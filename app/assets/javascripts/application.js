@@ -164,7 +164,7 @@ $(function(){
         }
     });
 
-    $('.post_wall').on({
+    $('.content').on({
         click: function(e) {
             if ($(this).data("disabled") && !$(this).data("auth"))
                 return false;
