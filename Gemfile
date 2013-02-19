@@ -19,6 +19,9 @@ gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
 
+# Symbolize attribute values in ActiveRecord
+gem 'enumerize'
+
 # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Rails 3
 gem 'kaminari'
 
