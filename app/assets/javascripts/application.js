@@ -12,9 +12,20 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery.ui.core
+//= require jquery.ui.widget
+//= require jquery.ui.autocomplete
+//= require jquery.ui.draggable
 //= require source/bootstrap-tab
 //= require rails.validations
+
+//= require source/fileupload/jquery.iframe-transport
+//= require source/fileupload/jquery.fileupload
+//= require source/fileupload/jquery.fileupload-ui
+//= require source/fileupload/locale
+
+//= require avatar
+
 //= require_tree .
 
 $(function(){
@@ -55,8 +66,8 @@ $(function(){
 //            }
 //        });
 
-        var tags = get_tags();
-        if (tags) data["query"] = tags;
+//        var tags = get_tags();
+//        if (tags) data["query"] = tags;
 
         return data;
     };
