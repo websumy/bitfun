@@ -1,0 +1,282 @@
+@import "inc/css3/_border_radius.css.scss";
+@import "inc/css3/_text_shadow.css.scss";
+
+// =================================================== */
+//     	    developers =============================== */
+// =================================================== */
+
+@mixin sassy-hover($item: all, $time: 500ms, $animate: cubic-bezier(0.420, 0.000, 0.580, 1.000)){
+	@include transition(#{$item} #{$time} #{$animate});
+}
+
+@mixin header-icons($item-bp: false){
+	.span_cell{background-position: left #{$item-bp}px;}
+	&.active .span_cell, &:hover .span_cell{background-position: left #{$item-bp - 30}px;}
+}
+
+@mixin bg($img: "none", $rpt: no-repeat, $pos: 0 0){
+	background: {
+		image: asset_url("#{$img}", image);
+		position: $pos;
+		repeat: $rpt;
+	}
+}
+@mixin orange-box-set($pos1: -104px, $pos2: -52px, $pos3: 0, $h: 52px){
+
+	.orange_box_left{
+		//@include inline-block();
+		@include bg("orange_boxes_set.png", no-repeat, 0 $pos1);
+		height: $h;
+		padding-left: 4px;
+		@include box-sizing(border-box) ;
+
+	}
+	.orange_box_right{
+		//@include inline-block();
+		@include box-sizing(border-box) ;
+		height: $h;
+		@include bg("orange_boxes_set.png", no-repeat, 100% $pos2);
+		padding-right: 4px;
+	}
+	.orange_inner{
+		height: 100%;
+		//width: 100%;
+		@include inline-block();
+		@include bg("orange_boxes_set.png", repeat, 0 $pos3);
+	}
+}
+
+@mixin orange-box-32(){
+	.orange_box{
+		@include inline-block();
+		background: asset_url("orange_boxes_h32.png", image) no-repeat 0 -32px;
+		padding-left: 4px;
+		.orange_inner{
+			@include inline-block();
+			background: asset_url("orange_boxes_h32.png", image) no-repeat right 0;
+		}
+	}
+}
+
+@mixin white-box-select($shadow: false){
+	@if $shadow != false{
+		@include box-shadow(0 1px 1px rgba(0,0,0,.23), inset 0 1px rgba(255,255,255,.2));
+	}
+	background: #ffffff;
+	border-radius: 0 0 2px 2px;
+}
+
+@mixin underlined_titles($color: false, $border: false,$padding: false, $font-size: 14px){
+	@if $color == false{
+		$color: #444444;
+	}
+	@if $border == false{
+		$border: 1px solid #ededf0;
+  	}
+	@if $padding == false{
+		$padding: 8px;
+  	}
+
+	color: $color;
+	border-bottom: $border;
+	font-size: $font-size;
+	padding-bottom: $padding;
+
+}
+
+@mixin border-arrow($width: 7px, $color: #fff){
+	border-right: $width solid $color;
+	border-top: $width solid transparent;
+	border-bottom: $width solid transparent;
+}
+
+@mixin easy-btn-white($height: 50px){
+	@include inline-block();
+	@include border-radius(4px);
+	background-color: #F9FAFA;
+	border: solid 1px #ccc;
+	color: #5b5985;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 0 32px;
+	line-height: $height;
+	height: $height;
+	&:hover{
+		cursor: pointer;
+		background: #ffffff;
+		//@include box-shadow(inset 0 0 10px 2px #D8D8D8);
+	}
+}
+
+@mixin btn-white($height: 50px){
+	@include easy-btn-white($height);
+	@include linear-gradient(bottom, rgba(232,234,238,.5), rgba(251,251,251,.5));
+}
+
+@mixin easy-btn-orange($height: 50px){
+	@include inline-block();
+	@include border-radius(4px);
+	@include box-shadow(inset 0 2px 0 2px #fdbd5b);
+	@include text-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
+	background: #fdad32;
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 0 32px;
+	line-height: $height;
+	height: $height;
+	&:hover{
+		cursor: pointer;
+		background: #fdbd5b;
+	}
+}
+
+@mixin btn-orange($height: 50px){
+	@include easy-btn-orange($height);
+	@include box-shadow(0 1px 1px rgba(0,0,0,.23), inset 0 2px rgba(255,255,255,.2));
+	border: solid 1px #da8219;
+	@include linear-gradient(bottom, #fd9726, #fdb939, $fallback: #fdb839);
+
+}
+@mixin btn-violet($height: 50px){
+	@include inline-block();
+	@include border-radius(4px);
+	background-color: #fff;
+	border: solid 1px #ccc;
+	@include background-image(linear-gradient(bottom, #e1e4ec, #fbfbfd));
+	color: #5b5985;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: $height - 12px;
+	padding: 5px 18px;
+	height: $height - 12px;
+	&:hover{
+		@include background-image(linear-gradient(top, #e1e4ec, #fbfbfd));
+	}
+}
+
+@mixin btn-upload($height: 50px){
+	@include btn-orange(#{$height});
+	span{
+		background: asset_url("icon_arrow.png", image) no-repeat right center;
+		padding-right: 20px;
+	}
+}
+
+@mixin ddSlick_width($width: 260px){
+	&, .dd-select, .dd-options{width: #{$width};}
+}
+
+// =================================================== */
+//  	BOOTSTRAP SCSS =============================== */
+// =================================================== */
+
+
+// Opacity
+@mixin opacity($opacity: 100) {
+	opacity: $opacity / 100;
+	filter: alpha(opacity=$opacity);
+}
+// Popover arrows
+// -------------------------
+// For tipsies and popovers
+@mixin popoverArrow-top($arrowWidth: 5px, $color: #000) {
+	bottom: 0px;
+	left: 50%;
+	margin-left: -$arrowWidth;
+	border-left: $arrowWidth solid transparent;
+	border-right: $arrowWidth solid transparent;
+	border-top: $arrowWidth solid $color;
+}
+@mixin popoverArrow-left($arrowWidth: 5px, $color: #000) {
+	top: 50%;
+	right: 0;
+	margin-top: -$arrowWidth;
+	border-top: $arrowWidth solid transparent;
+	border-bottom: $arrowWidth solid transparent;
+	border-left: $arrowWidth solid $color;
+}
+@mixin popoverArrow-bottom($arrowWidth: 5px, $color: #000) {
+	top: 0;
+	left: 50%;
+	margin-left: -$arrowWidth;
+	border-left: $arrowWidth solid transparent;
+	border-right: $arrowWidth solid transparent;
+	border-bottom: $arrowWidth solid $color;
+}
+@mixin popoverArrow-right($arrowWidth: 5px, $color: #000) {
+	top: 50%;
+	left: 0;
+	margin-top: -$arrowWidth;
+	border-top: $arrowWidth solid transparent;
+	border-bottom: $arrowWidth solid transparent;
+	border-right: $arrowWidth solid $color;
+}
+
+
+// Background clipping
+// Heads up: FF 3.6 and under need padding instead of padding-box
+@mixin background-clip($clip) {
+	-webkit-background-clip: $clip;
+	-moz-background-clip: $clip;
+	background-clip: $clip;
+}
+
+// Sizing shortcuts
+// -------------------------
+@mixin size($height: 5px, $width: 5px) {
+	width: $width;
+	height: $height;
+}
+
+
+// Placeholder text
+// -------------------------
+@mixin placeholder($color: #aaa) {
+	:-moz-placeholder {
+		color: $color;
+	}
+	::-webkit-input-placeholder {
+		color: $color;
+	}
+}
+
+// Webkit-style focus
+// ------------------
+@mixin tab-focus() {
+// Default
+	outline: thin dotted #333;
+// Webkit
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+
+// Mixin for form field states
+@mixin formFieldState($textColor: #555, $borderColor: #ccc, $backgroundColor: #f5f5f5) {
+// Set the text color
+	> label,
+	.help-block,
+	.help-inline {
+		color: $textColor;
+	}
+// Style inputs accordingly
+	input,
+	select,
+	textarea {
+		color: $textColor;
+		border-color: $borderColor;
+		&:focus {
+			border-color: darken($borderColor, 10%);
+			@include box-shadow(0 0 6px lighten($borderColor, 20%));
+		}
+	}
+// Give a small background color for input-prepend/-append
+	.input-prepend .add-on,
+	.input-append .add-on {
+		color: $textColor;
+		background-color: $backgroundColor;
+		border-color: $textColor;
+	}
+}
+
+
