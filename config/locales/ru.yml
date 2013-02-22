@@ -36,3 +36,25 @@ ru:
     follow: "Подписаться"
     unfollow: "Отписаться"
 
+  simple_form:
+    labels:
+      user:
+        email: 'Почта'
+        login: 'Логин'
+        password: 'Парроль'
+        password_confirmation: 'Подтверждение парроль'
+        current_password: 'Текущий парроль'
+      setting:
+        sex: 'Выберите пол'
+        birthday: 'День рождения'
+        location: 'Ваш адрес'
+        info: 'О себе'
+        site: 'Веб сайт'
+        fb_link: 'Facebook'
+        tw_link: 'Twitter'
+        vk_link: 'Вконтакте'
+    hints:
+      user:
+        password: 'оставьте пустым, если не собираетесь менять пароль'
+        current_password: 'для изменения пароля введите свой старый пароль.'
+
