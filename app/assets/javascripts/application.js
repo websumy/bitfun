@@ -368,7 +368,7 @@ $(function(){
         var videoData = $this.data('video').split('-');
         var videoIFrame = $('<iframe />', {
             frameborder: 0,
-            src: videoUrl[videoData[0]] + videoData[1] + '?wmode=opaque',
+            src: videoUrl[videoData[0]] + videoData[1] + '?wmode=opaque&autoplay=1',
             width: 500+'px',
             height: 320+'px',
             webkitAllowFullScreen: '',
