@@ -1892,7 +1892,9 @@ a {
 	}
 
 	.form-horizontal{
-		padding-top: 26px;
+        .avatar_box{
+          padding-top: 26px;
+        }
 		.control-group{
 			margin-bottom: 14px;
 			.controls{min-height: 37px;}

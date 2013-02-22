@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
   # Avatar uploader
   mount_uploader :avatar, AvatarUploader
 
+  def to_jq_upload
+    { thumb_url: avatar.img.url }.to_json
+  end
+
   # Associations
   belongs_to :role
   has_many :funs
