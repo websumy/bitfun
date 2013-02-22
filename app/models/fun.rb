@@ -107,14 +107,16 @@ class Fun < ActiveRecord::Base
   end
 
   def get_related(user, type)
-    exclude = user.get_voted_ids(MONTH_RANGE) << id
+    exclude = [id]
+    exclude << user.get_voted_ids(MONTH_RANGE) unless user.blank?
     related_ids = Fun.search_fun_ids(content.cached_tag_list, type)
     Fun.where(:id, related_ids).exclude_funs(exclude).where(published_at: MONTH_RANGE).filter_by_type(type).order("cached_votes_total DESC").limit 3
   end
 
   # get max liked funs of the month without funs liked by user
   def get_month_trends(user, type)
-    exclude = user.get_voted_ids(MONTH_RANGE) << id
+    exclude = [id]
+    exclude = user.get_voted_ids(MONTH_RANGE) unless user.blank?
     Fun.exclude_funs(exclude).where(published_at: MONTH_RANGE).filter_by_type(type).order("cached_votes_total DESC").limit 3
   end
 
