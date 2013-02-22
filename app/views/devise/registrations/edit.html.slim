@@ -1,13 +1,12 @@
 .container.profile_layout
-  section.content[role="main"]
+  section.content[role='main']
     .topics_block
       .title_page
         h2 Профиль
       p.title_help_block Редактировать основные параметры профиля и более.
-    = simple_form_for(resource, as: resource_name, :url => user_avatars_path(current_user), :html => { :method => :post, :class => 'form-horizontal', id: 'avatarupload'} ) do |f|
-
+    = simple_form_for(resource, as: resource_name, url: user_avatars_path(current_user), html: { method: :post, class: 'form-horizontal', id: 'avatarupload' } ) do |f|
       .control-group.avatar_box
-        label.control-label for="inputEmail" Фото профиля
+        label.control-label for='inputEmail' Фото профиля
         .controls.photo_settings
           .photo_frame
             .photo_box
@@ -18,22 +17,22 @@
                 span.btn-file.change_photo
                   span Сменить фото
                   = f.file_field :avatar, accept: 'image/jpeg,image/png,image/gif'
-              a.delete_photo[href="#"] Удалить фото
+              = link_to 'Удалить фото', delete_user_avatars_path(current_user), id: 'delete_photo', class: 'delete_photo', remote: true, data: { disable_with: 'Удаляется...' }, method: :delete
             .text
               |Разрешенные типы файлов JPG, GIF или PNG. <br>Максимальный размер 1 МБ
               .progress.progress-warning.progress-striped.active[style='display: none']
                 .bar[style='width: 0%;']
-    = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-horizontal' }, validate: true) do |f|
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-horizontal' }, validate: true) do |f|
       = f.error_notification
-      = f.input :email, :required => true, :validate => true
-      = f.input :login, :required => true, :validate => true
+      = f.input :email, required: true, validate: true
+      = f.input :login, required: true, validate: true
       - @user.build_setting if @user.setting.nil?
       = f.simple_fields_for :setting do |settings|
-        = render "settings_form", s: settings
-      = f.input :password, :autocomplete => "off", :hint => "остаьвте пустым, если не собираетесь менять пароль", :required => false
-      = f.input :password_confirmation, :required => false
-      = f.input :current_password, :hint => "для изменения пароля введи свой старый пароль", :required => true
+        = render 'settings_form', s: settings
+      = f.input :password, autocomplete: 'off', hint: 'остаьвте пустым, если не собираетесь менять пароль', required: false
+      = f.input :password_confirmation, required: false
+      = f.input :current_password, hint: 'для изменения пароля введи свой старый пароль', required: true
       .divider
       .control-group
         .controls
-          a.save[href="#" rel="submit"] Сохранить профиль
+          a.save[href='#' rel='submit'] Сохранить профиль

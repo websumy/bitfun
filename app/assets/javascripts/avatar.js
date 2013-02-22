@@ -8,6 +8,7 @@ $(function () {
     var $span = $('.change_photo');
     var $progress = $('.progress');
     var $bar = $progress.find('.bar');
+    var $avatars = $('.photo_box img, .avatar_wrapper img');
 
     'use strict';
 
@@ -24,7 +25,7 @@ $(function () {
         },
 
         done: function(e, data) {
-            $('.photo_box img, .avatar_wrapper img').attr('src', data.result.thumb_url);
+            $avatars.attr('src', data.result.thumb_url);
         },
         failed: function(e, data) {
             var msg = 'К сожалению, не удалось загрузить файл.';
@@ -55,4 +56,10 @@ $(function () {
             $span.removeClass('disabled').find('span').text($span.data('value') || 'Изменить фото');
         }
     });
+
+    $('.photo_settings').on(
+        'ajax:success', function(evt, data, status, xhr){
+        if (data.success)
+            $avatars.attr('src', data.url);
+    })
 });

@@ -10,7 +10,7 @@ module UsersHelper
   end
 
   def show_avatar(user, type = nil)
-    image_tag( user.avatar? ? user.avatar_url(:img, type) : "default-avatar-#{type}.jpg" )
+    image_tag( user.avatar_url :img, type )
   end
 
   def show_user_link
