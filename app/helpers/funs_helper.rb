@@ -13,16 +13,16 @@ module FunsHelper
   end
 
   def small_repost_button(fun)
-    show_repost_button(fun, "<span class='icon'></span><span class='counter'><span class='slice'>#{fun.repost_counter}</span></span>")
+    show_repost_button(fun, "<span class='icon'></span><span class='counter'><span class='slice rcnt'>#{fun.repost_counter}</span></span>")
   end
 
   def big_repost_button(fun)
     show_repost_button(fun, "<span class='icon'></span><span class='name'>#{t('reposts.button')}</span>") +
-    "<div class='item_adds'><div class='adds'><span class='counter'>#{fun.total_likes}</span> #{t('reposts.count')}</div></div>".html_safe
+    "<div class='item_adds'><div class='adds'><span class='counter rcnt'>#{fun.total_likes}</span> #{t('reposts.count')}</div></div>".html_safe
   end
 
   def repost_button(fun)
-    show_repost_button(fun, "<span class='icon'></span><span class='counter'>#{fun.repost_counter}</span>")
+    show_repost_button(fun, "<span class='icon'></span><span class='counter rcnt'>#{fun.repost_counter}</span>")
   end
 
   def small_like_button(fun)
@@ -57,10 +57,10 @@ module FunsHelper
       elsif current_user == fun.user
         content_tag('div', class: 'item_wrapper repost_box') { unlink_span }
       else
-        wrapped_link_to span, fun_reposts_path(fun), method: :post, remote: true, wrapper_class: 'repost_box first_item'
+        wrapped_link_to span, fun_reposts_path(fun), method: :post, remote: true, wrapper_class: 'repost_box'
       end
     else
-      wrapped_link_to span, fun_reposts_path(fun), data: { auth: true }, wrapper_class: 'repost_box first_item'
+      wrapped_link_to span, fun_reposts_path(fun), data: { auth: true }, wrapper_class: 'repost_box'
     end
   end
 

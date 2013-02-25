@@ -152,26 +152,14 @@ $(function(){
         if (data) window.location.href = "/search?" + $.param({query:data});
     });
 
-    $('#show_likes a, #show_reposts a').on('ajax:success',  function(evt, data, status, xhr){
-        var $link = $(this);
-        $.each(data, function(k, v){
-            $link.after($("<img>").attr({
-                "src": v.avatar.thumb.url,
-                "class": "img-circle",
-                "width": "30px"
-            }));
-        });
-        $link.hide();
-    });
-
     $("input.date_picker").datepicker({format:"yyyy-mm-dd"});
 
-    $(".post_wall").on('ajax:success', '.repost_box a.item',  function(evt, data, status, xhr) {
+    $(".post_nav").on('ajax:success', '.repost_box a.item',  function(evt, data, status, xhr) {
         if (data.type == "success") {
-            var $span = $(this).find("span.counter");
-            var value = parseInt($span.text()) || 0;
-            $span.text(value + 1);
-            $(this).parent('div').addClass('active')
+            var $counter = $(this).parents('.post_nav').find("span.rcnt");
+            var value = parseInt($counter.text()) || 0;
+            $counter.text(value + 1);
+            $(this).parent('.repost_box').addClass('active')
         } else {
             show_notice(data.message, 'error');
         }
