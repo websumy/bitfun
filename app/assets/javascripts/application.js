@@ -177,24 +177,24 @@ $(function(){
         }
     });
 
-    $('.content').on({
+    $('.post_nav').on({
         click: function(e) {
             if ($(this).data("disabled") && !$(this).data("auth"))
                 return false;
             $(this).data("disabled", true);
         },
         'ajax:success':  function(evt, data, status, xhr){
-            $this = $(this);
+            var $this = $(this);
             $this.data("disabled", false);
-            var $span = $this.find("span.counter");
-            var value = parseInt($span.text()) || 0;
+            var $counter = $this.parents('.post_nav').find("span.lcnt");
+            var value = parseInt($counter.text()) || 0;
 
             if (data.type == "like") {
-                $span.text(value + 1);
-                $this.data('method', 'delete').parent('div').toggleClass('active')
+                $counter.text(value + 1);
+                $this.data('method', 'delete').parent('.like_box').toggleClass('active')
             } else if(data.type == "unlike") {
-                $span.text(value - 1);
-                $this.data('method', 'post').parent('div').toggleClass('active')
+                $counter.text(value - 1);
+                $this.data('method', 'post').parent('.like_box').toggleClass('active')
             }
         }
     }, ".like_box a.item");

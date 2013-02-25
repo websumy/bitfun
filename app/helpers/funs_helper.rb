@@ -26,16 +26,16 @@ module FunsHelper
   end
 
   def small_like_button(fun)
-    show_like_button fun, "<span class='icon'></span><span class='counter'><span class='slice'>#{fun.total_likes}</span></span>"
+    show_like_button fun, "<span class='icon'></span><span class='counter'><span class='slice lcnt'>#{fun.total_likes}</span></span>"
   end
 
   def like_button(fun)
-    show_like_button fun, "<span class='icon'></span><span class='counter'>#{fun.total_likes}</span>"
+    show_like_button fun, "<span class='icon'></span><span class='counter lcnt'>#{fun.total_likes}</span>"
   end
 
   def big_like_button(fun)
     show_like_button(fun, "<span class='icon'></span><span class='name'>#{t('likes.button')}</span>") +
-        "<div class='item_adds'><div class='adds'><span class='counter'>#{fun.total_likes}</span> #{t('likes.count')}</div></div>".html_safe
+        "<div class='item_adds'><div class='adds'><span class='counter lcnt'>#{fun.total_likes}</span> #{t('likes.count')}</div></div>".html_safe
   end
 
   def wrapped_link_to(span, url = {}, html_options = {})
