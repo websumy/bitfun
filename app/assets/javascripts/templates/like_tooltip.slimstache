@@ -1,0 +1,7 @@
+.popover_content
+  '{{#users}}
+  a[href='{{login}}']
+    img src='{{avatar_path}}' alt='{{login}}'
+  '{{/users}}
+.popover_footer
+  a[href="#"] ... и еще {{likes}} людям

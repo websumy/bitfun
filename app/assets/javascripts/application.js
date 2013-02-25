@@ -265,24 +265,26 @@ $(function(){
     // TOOLTIPSTER
     $('.post_layout .like_box').tooltipster({
         interactive: true,
-        animation: 'grow',
-//        animation: 'fade',
-//        animation: 'slide',
-//        animation: 'fall',
-//        animation: 'swing',
+        animation: 'fade',
         theme: 'likes_theme',
-        content: '<div class="popover_content">' +
-            '<a href="#"><img src="/assets/default-avatar-30.jpg" alt="img" /></a> ' +
-            '<a href="#"><img src="/assets/default-avatar-30.jpg" alt="img" /></a> ' +
-            '<a href="#"><img src="/assets/default-avatar-30.jpg" alt="img" /></a> ' +
-            '<a href="#"><img src="/assets/default-avatar-30.jpg" alt="img" /></a> ' +
-            '<a href="#"><img src="/assets/default-avatar-30.jpg" alt="img" /></a> ' +
-            '</div>' +
-            '<div class="popover_footer">' +
-            '<a href="#">... и еще 387 людям</a>' +
-            '' +
-            '</div>'
+        content: '<div class="popover_content">Загружается...</div>',
+        functionBefore: function(origin, continueTooltip) {
+            continueTooltip();
+            var url = origin.find('a.item').attr('href');
+            if (origin.data('ajax') !== 'cached') {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function(data) {
+                        var likes = parseInt(origin.find('span.counter').text()) || 0;
+                        var tmpl = HoganTemplates['like_tooltip'].render({ likes: likes, users: data });
+                        origin.tooltipster('update', tmpl).data('ajax', 'cached');
+                    }
+                });
+            }
+        }
     });
+
 
     $('a[rel~="tooltip"]').tooltipster({
         theme: 'tooltips_theme',
