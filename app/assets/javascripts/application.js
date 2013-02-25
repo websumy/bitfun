@@ -25,6 +25,8 @@
 //= require source/fileupload/locale
 
 //= require avatar
+//= require hogan.js
+//= require_tree ./templates
 
 //= require_tree .
 
