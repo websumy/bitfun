@@ -51,11 +51,10 @@ module FunsHelper
   def show_repost_button(fun, span)
     span = span.html_safe
     if user_signed_in?
-      unlink_span = "<span class='item'>#{span}</span>".html_safe
       if current_user.reposted?(fun)
-        content_tag('div', class: 'item_wrapper repost_box active') { unlink_span }
+        wrapped_link_to span, fun_reposts_path(fun), data: { disabled: true }, wrapper_class: 'repost_box active'
       elsif current_user == fun.user
-        content_tag('div', class: 'item_wrapper repost_box') { unlink_span }
+        wrapped_link_to span, fun_reposts_path(fun), data: { disabled: true }, wrapper_class: 'repost_box'
       else
         wrapped_link_to span, fun_reposts_path(fun), method: :post, remote: true, wrapper_class: 'repost_box'
       end

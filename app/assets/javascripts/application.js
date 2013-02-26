@@ -154,14 +154,41 @@ $(function(){
 
     $("input.date_picker").datepicker({format:"yyyy-mm-dd"});
 
+    $('.post_nav .like_box, .post_nav .repost_box').tooltipster({
+        interactive: true,
+        animation: 'fade',
+        theme: 'likes_theme',
+        content: '<div class="popover_content">Загружается...</div>',
+        functionBefore: function(origin, continueTooltip) {
+            continueTooltip();
+            var isLike = origin.hasClass('like_box') ? true : false;
+            var counter = parseInt(origin.find("span." + (isLike ? 'lcnt' : 'rcnt')).text()) || 0;
+            var content =  '<div class="popover_content">' + (isLike ? 'Нет голосов' : 'Нет репостов') + '</div>';
+            if (counter) {
+                if (origin.data('ajax') !== 'cached') {
+                    $.ajax({
+                        type: 'GET',
+                        url: origin.find('a.item').attr('href'),
+                        success: function(data) {
+                            if (data.length) content = HoganTemplates['like_tooltip'].render({ likes: counter, users: data });
+                            origin.tooltipster('update', content).data('ajax', 'cached');
+                        }
+                    });
+                }
+            }
+            else {
+                origin.tooltipster('update', content).data('ajax', 'cached');
+            }
+        }
+    });
+
+
     $(".post_nav").on('ajax:success', '.repost_box a.item',  function(evt, data, status, xhr) {
-        if (data.type == "success") {
+        if (data.success) {
             var $counter = $(this).parents('.post_nav').find("span.rcnt");
             var value = parseInt($counter.text()) || 0;
             $counter.text(value + 1);
             $(this).parent('.repost_box').addClass('active')
-        } else {
-            show_notice(data.message, 'error');
         }
     });
 
@@ -250,30 +277,6 @@ $(function(){
         });
     });
 
-    // TOOLTIPSTER
-    $('.post_layout .like_box').tooltipster({
-        interactive: true,
-        animation: 'fade',
-        theme: 'likes_theme',
-        content: '<div class="popover_content">Загружается...</div>',
-        functionBefore: function(origin, continueTooltip) {
-            continueTooltip();
-            var url = origin.find('a.item').attr('href');
-            if (origin.data('ajax') !== 'cached') {
-                $.ajax({
-                    type: 'GET',
-                    url: url,
-                    success: function(data) {
-                        var likes = parseInt(origin.find('span.counter').text()) || 0;
-                        var tmpl = HoganTemplates['like_tooltip'].render({ likes: likes, users: data });
-                        origin.tooltipster('update', tmpl).data('ajax', 'cached');
-                    }
-                });
-            }
-        }
-    });
-
-
     $('a[rel~="tooltip"]').tooltipster({
         theme: 'tooltips_theme',
         offsetY: -5
@@ -313,6 +316,10 @@ $(function(){
     $(document).on('click', 'a[rel="submit"]', function(e){
         e.preventDefault();
         $(this).parents('form').submit()
+    });
+
+    $(document).on('click', 'a[data-disabled]', function(e){
+        e.preventDefault();
     });
 
     $(document).on('click', 'a.cancel', function(e){

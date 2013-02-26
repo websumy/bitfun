@@ -2,10 +2,10 @@ class Funs::LikesController < ApplicationController
   before_filter :load_fun, expect: :index
   before_filter :only_xhr_request
 
-  # Shows 10 last users who liked this fun
+  # Shows 5 last users who liked this fun
   def index
     users = @fun.likes.limit(5).voters
-    render json: users.map{ |user| user.voters_to_json }
+    render json: users.map { |user| user.info_to_json }
   end
 
   # Like by current_user for this fun

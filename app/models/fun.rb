@@ -58,6 +58,10 @@ class Fun < ActiveRecord::Base
     !parent_id.nil?
   end
 
+  def get_reposts
+    Fun.unscoped.where(parent_id: id)
+  end
+
   def get_id
     repost? ? parent_id : id
   end

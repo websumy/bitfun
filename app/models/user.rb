@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
     { thumb_url: avatar.img.url }.to_json
   end
 
-  def voters_to_json
+  def info_to_json
     {
         user: id,
         login: login,
