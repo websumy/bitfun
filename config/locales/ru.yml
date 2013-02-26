@@ -35,6 +35,7 @@ ru:
   user:
     follow: "Подписаться"
     unfollow: "Отписаться"
+    settings: "Настройки"
 
   simple_form:
     labels:
