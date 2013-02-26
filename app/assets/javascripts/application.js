@@ -162,8 +162,9 @@ $(function(){
         functionBefore: function(origin, continueTooltip) {
             continueTooltip();
             var isLike = origin.hasClass('like_box') ? true : false;
-            var counter = parseInt(origin.find("span." + (isLike ? 'lcnt' : 'rcnt')).text()) || 0;
+            var counter = parseInt(origin.parents('.post_nav').find("span." + (isLike ? 'lcnt' : 'rcnt')).text()) || 0;
             var content =  '<div class="popover_content">' + (isLike ? 'Нет голосов' : 'Нет репостов') + '</div>';
+            console.log(counter);
             if (counter) {
                 if (origin.data('ajax') !== 'cached') {
                     $.ajax({
@@ -188,7 +189,7 @@ $(function(){
             var $counter = $(this).parents('.post_nav').find("span.rcnt");
             var value = parseInt($counter.text()) || 0;
             $counter.text(value + 1);
-            $(this).parent('.repost_box').addClass('active')
+            $(this).parent('.repost_box').addClass('active').data('ajax', 'recache')
         }
     });
 
@@ -211,6 +212,7 @@ $(function(){
                 $counter.text(value - 1);
                 $this.data('method', 'post').parent('.like_box').toggleClass('active')
             }
+            $this.parent('.like_box').data('ajax', 'recache')
         }
     }, ".like_box a.item");
 
