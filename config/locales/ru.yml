@@ -36,6 +36,16 @@ ru:
     follow: "Подписаться"
     unfollow: "Отписаться"
     settings: "Настройки"
+    following:
+      zero: "нет подписок"
+      one: "<strong>%{count}</strong> подписка"
+      few: "<strong>%{count}</strong> подписки"
+      other: "<strong>%{count}</strong> подписок"
+    followers:
+      zero: "нет подписчиков"
+      one: "<strong>%{count}</strong> подписчик"
+      few: "<strong>%{count}</strong> подписчика"
+      other: "<strong>%{count}</strong> подписчиков"
 
   simple_form:
     labels:
