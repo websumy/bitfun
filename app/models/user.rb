@@ -64,6 +64,8 @@ class User < ActiveRecord::Base
   # Set default role
   before_create :set_default_role
 
+  after_create { create_setting if setting.nil? }
+
   # Compare user role
   def role?(role)
     self.role.try(:name) == role.to_s
