@@ -12,13 +12,21 @@
         .geo
           = @user.setting.location
         ul.user_social
-          li.soc1: a[href="#"]
-          li.soc2: a[href="#"]
-          li.soc3: a[href="#"]
-          li.soc4: a[href="#"]
+          - unless @user.setting.site.blank?
+            li.soc1
+              = link_to '', @user.setting.site
+          - unless @user.setting.vk_link.blank?
+            li.soc2
+              = link_to '', @user.setting.vk_link
+          - unless @user.setting.fb_link.blank?
+            li.soc3
+              = link_to '', @user.setting.fb_link
+          - unless @user.setting.tw_link.blank?
+            li.soc4
+              = link_to '', @user.setting.tw_link
     .user_follow
       = link_to t('user.following', count: @user.followed_users.count).html_safe, following_user_path(@user), class: 'following'
-      = link_to t('user.followers', count: @user.followers.count).html_safe, followers_user_path(@user), class: 'followers'
+      = link_to t('user.followers', count: 0).html_safe, followers_user_path(@user), class: 'followers'
 
     .info_block
       .topic О себе

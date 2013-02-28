@@ -19,18 +19,6 @@ class User < ActiveRecord::Base
   # Avatar uploader
   mount_uploader :avatar, AvatarUploader
 
-  def to_jq_upload
-    { thumb_url: avatar.img.url }.to_json
-  end
-
-  def info_to_json
-    {
-        user: id,
-        login: login,
-        avatar_path: avatar.img.small.url,
-    }
-  end
-
   # Associations
   belongs_to :role
   has_many :funs
@@ -65,6 +53,18 @@ class User < ActiveRecord::Base
   before_create :set_default_role
 
   after_create { create_setting if setting.nil? }
+
+  def to_jq_upload
+    { thumb_url: avatar.img.url }.to_json
+  end
+
+  def info_to_json
+    {
+        user: id,
+        login: login,
+        avatar_path: avatar.img.small.url,
+    }
+  end
 
   # Compare user role
   def role?(role)
