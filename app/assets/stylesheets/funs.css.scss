@@ -1626,6 +1626,15 @@ a {
 			padding-top: 30px;
 			.tab_pane{
 				overflow: inherit;
+                .url{
+                  @include inline-block();
+                  width: 278px;
+                }
+                .control-row{
+                  .help-inline{
+                    padding-right: 7px;
+                  }
+                }
 				input{
 					padding: 4px 10px;
 					width: 448px;
@@ -1645,14 +1654,12 @@ a {
 						line-height: 45px;
 						padding: 0 11px;
 					}
-					.upload{
-						text-align: center;
-						a{
-							@include btn-violet(45px);
-							width: 112px;
-						}
-					}
 				}
+                .btn-file{
+                  text-align: center;
+                  @include btn-violet(45px);
+                  width: 112px;
+                }
 			}
 			#add_video{
 				.url{width: 430px;}
@@ -1929,7 +1936,7 @@ a {
 		padding-top: 7px;
 		width: 343px;
 		.nav{padding-bottom: 8px;}
-		.change_photo{
+		.btn-file{
 			@include btn-violet(34px);
 		}
 		.delete_photo{

@@ -14,7 +14,7 @@
           .settings
             .nav
               span.fileupload-new[data-provides='fileupload']
-                span.btn-file.change_photo
+                span.btn-file
                   span Сменить фото
                   = f.file_field :avatar, accept: 'image/jpeg,image/png,image/gif'
               = link_to 'Удалить фото', delete_user_avatars_path(current_user), id: 'delete_photo', class: 'delete_photo', remote: true, data: { disable_with: 'Удаляется...' }, method: :delete
