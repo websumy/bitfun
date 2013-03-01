@@ -8,10 +8,10 @@
     = render 'users/reg_box'
     = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { id: 'signup' }, wrapper: :none, validate: true, remote: true) do |f|
       = f.error_notification
-      = f.input :email, input_html: { class: 'input-xxlarge' }, required: true, placeholder: "Ваш Email", validate: true
-      = f.input :login, input_html: { class: 'input-xxlarge' }, required: true, placeholder: "Ник на сайте"
-      = f.input :password, input_html: { class: 'input-xxlarge' }, required: true, validate: true, placeholder: "Пароль"
-      = f.input :password_confirmation, input_html: { class: 'input-xxlarge' }, required: true, placeholder: "Повторите пароль"
+      = f.input :email, input_html: { class: 'input-xxlarge' }, required: true, validate: true
+      = f.input :login, input_html: { class: 'input-xxlarge' }, required: true
+      = f.input :password, input_html: { class: 'input-xxlarge' }, required: true, validate: true
+      = f.input :password_confirmation, input_html: { class: 'input-xxlarge' }, required: true
       .buttons
         a.cancel[href=""] Отменить
         a.join[href="" rel="submit" ] Зарегистрироваться

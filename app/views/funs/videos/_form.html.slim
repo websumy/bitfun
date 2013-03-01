@@ -1,0 +1,5 @@
+= fun.input :content_type, as: :hidden, input_html: { value: 'Video' }
+= fun.simple_fields_for :content_attributes, Video.new do |f|
+  = f.input :title
+  = f.input :url
+  = f.input :tag_list

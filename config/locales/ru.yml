@@ -55,6 +55,9 @@ ru:
         password: 'Парроль'
         password_confirmation: 'Подтверждение парроль'
         current_password: 'Текущий парроль'
+      video:
+        content_attributes:
+          title: 'asdfasdfa'
       setting:
         sex: 'Выберите пол'
         birthday: 'День рождения'
@@ -64,8 +67,24 @@ ru:
         fb_link: 'Facebook'
         tw_link: 'Twitter'
         vk_link: 'Вконтакте'
+
     hints:
       user:
         password: 'оставьте пустым, если не собираетесь менять пароль'
         current_password: 'для изменения пароля введите свой старый пароль.'
+    placeholders:
+      user:
+        new:
+          email: 'Ваш Email'
+          login: 'Ник на сайте'
+          password: 'Пароль'
+          password_confirmation: 'Повторите пароль'
+      fun:
+        content:
+          title: 'Название (не обязательно)'
+          tag_list: 'Введите теги (через запятую)'
+          remote_file_url: 'Вставить ссылку на изображение'
+          url: 'Вставьте ссылку на видео (youtube или vimeo)'
+
+
 

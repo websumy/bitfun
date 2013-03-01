@@ -1,0 +1,37 @@
+/* ********** MODAL **************** */
+/* Add fun */
+.modal.add_fun_form
+  .modal_header
+    | Добавление материала на bitFun.ru
+  .modal_body
+    .tabs_box
+      ul.nav_tabs data-tabs="tabs"
+        li.active: a[class="image_tab" href="#add_image" data-toggle="tab"]
+          span
+          | Изображение
+        li: a[class="video_tab" href="#add_video" data-toggle="tab"]
+          span
+          | Видео
+        li: a[class="text_tab" href="#add_text" data-toggle="tab"]
+          span
+          | Текст
+
+      .tab_content
+        = simple_form_for @fun, wrapper: :none, validate: false do |f|
+          .tab_pane.active id="add_image"
+            = render 'funs/images/form', fun: f
+            /.controls: input.error[type="text" name="name" placeholder="Название веселой картинки (не обязательно)"]
+            /.control-group
+            /  .controls
+            /    input.url[type="text" name="name" placeholder="Вставить ссылку на картинку"]
+            /  span.help-inline или
+            /  .controls.upload
+            /    a[href="#"] Загрузить
+            /.controls: input.valid[type="text" name="name" placeholder="Введите теги (через запятую)"]
+          .tab_pane id="add_video"
+            = render 'funs/videos/form', fun: f
+          .tab_pane id="add_text"
+            = render 'funs/posts/form', fun: f
+  .modal_footer
+    a.cancel[href="#"] Отменить
+    a.add[href="#" rel='submit' data-form='#new_fun']:span Добавить

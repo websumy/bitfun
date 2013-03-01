@@ -283,8 +283,8 @@ $(function(){
         offsetY: -5
     });
 
-    // FANCYBOX
-    $('.modal_link').fancybox({
+    $('#link_new_fun').fancybox({
+        type: 'ajax',
         padding : 0
     });
 
@@ -314,9 +314,9 @@ $(function(){
         }
     });
 
-    $(document).on('click', 'a[rel="submit"]', function(e){
+    $(document).on('click', 'a[rel=submit]', function(e){
         e.preventDefault();
-        $(this).parents('form').submit()
+        $(this).data('form') ? $($(this).data('form')).submit() : $(this).parents('form').submit()
     });
 
     $(document).on('click', 'a[data-disabled]', function(e){

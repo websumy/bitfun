@@ -1523,7 +1523,6 @@ a {
 }
 //todo: http://jamielottering.github.com/DropKick/ - scroll
 .modal{
-	display: none;
 	@include border-radius(5px);
 	min-width: 350px;
 	background: #ffffff;
@@ -1631,12 +1630,12 @@ a {
 					padding: 4px 10px;
 					width: 448px;
 					height: 35px;
-				}
-				.url{
-					background: asset_url("icon_link.png", image) no-repeat 10px center;
-					padding-left: 28px;
-					width: 236px;
-				}
+                    &.url{
+                      background: asset_url("icon_link.png", image) no-repeat 10px center;
+                      padding-left: 28px;
+                      width: 236px;
+                    }
+                }
 				.control-group{
 					margin-bottom: 0;
 					.controls, span{@include inline-block();}

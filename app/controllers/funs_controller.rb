@@ -1,6 +1,7 @@
 class FunsController < ApplicationController
   load_and_authorize_resource
   respond_to :html
+  before_filter :only_xhr_request, only: :new
 
   # GET /funs
   def index
@@ -43,7 +44,7 @@ class FunsController < ApplicationController
 
   # GET /funs/new
   def new
-    @fun = Fun.new
+    render layout: false
   end
 
   # GET /funs/1/edit
