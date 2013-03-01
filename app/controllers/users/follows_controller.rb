@@ -1,6 +1,6 @@
 class Users::FollowsController < ApplicationController
   before_filter :load_user, except: :index
-  before_filter :only_xhr_request
+  before_filter :only_xhr_request, except: :index
   authorize_resource class: "UserRelationship"
 
   def index

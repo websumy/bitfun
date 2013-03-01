@@ -1,5 +1,6 @@
 class Users::AvatarsController < ApplicationController
   before_filter :load_user
+  before_filter :only_xhr_request
 
   def create
     avatar = params[:user][:avatar]
