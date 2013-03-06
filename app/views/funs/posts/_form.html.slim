@@ -1,5 +1,5 @@
 = fun.input :content_type, as: :hidden, input_html: { value: 'Post' }
 = fun.simple_fields_for :content_attributes, Post.new do |f|
   = f.input :title
-  = f.input :body
+  = f.input :body, validate: true
   = f.input :tag_list

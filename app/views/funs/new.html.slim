@@ -17,17 +17,9 @@
           | Текст
 
       .tab_content
-        = simple_form_for @fun, wrapper: :none, validate: false do |f|
+        = simple_form_for @fun, wrapper: :none, remote: true, validate: true do |f|
           .tab_pane.active id="add_image"
             = render 'funs/images/form', fun: f
-            /.controls: input.error[type="text" name="name" placeholder="Название веселой картинки (не обязательно)"]
-            /.control-group
-            /  .controls
-            /    input.url[type="text" name="name" placeholder="Вставить ссылку на картинку"]
-            /  span.help-inline или
-            /  .controls.upload
-            /    a[href="#"] Загрузить
-            /.controls: input.valid[type="text" name="name" placeholder="Введите теги (через запятую)"]
           .tab_pane id="add_video"
             = render 'funs/videos/form', fun: f
           .tab_pane id="add_text"
@@ -35,3 +27,5 @@
   .modal_footer
     a.cancel[href="#"] Отменить
     a.add[href="#" rel='submit' data-form='#new_fun']:span Добавить
+  javascript:
+    $('#new_fun').enableClientSideValidations();

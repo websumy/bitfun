@@ -1,12 +1,11 @@
 = fun.input :content_type, as: :hidden, input_html: { value: 'Image' }
 = fun.simple_fields_for :content_attributes, Image.new do |f|
   = f.input :title
-  /= f.input :file, as: :file
   .control-row
     = f.input :remote_file_url
     span.help-inline или
     span.fileupload-new[data-provides='fileupload']
       span.btn-file
         span Загрузить
-        = f.file_field :avatar, accept: 'image/jpeg,image/png,image/gif'
+        = f.file_field :file, accept: 'image/jpeg,image/png,image/gif'
   = f.input :tag_list

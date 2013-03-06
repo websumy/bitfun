@@ -55,9 +55,9 @@ class FunsController < ApplicationController
   def create
     @fun = current_user.funs.new(params[:fun])
     if @fun.save
-      redirect_to @fun, notice: t('funs.created')
+      render json: { success: true, notice: t('funs.created') }
     else
-      render "new"
+      render json: { success: false, notice: @fun.errors }
     end
   end
 

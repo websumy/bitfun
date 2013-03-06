@@ -14,7 +14,7 @@ class Video < ActiveRecord::Base
     vimeo:    %w(vimeo.com)
   }
 
-  has_many :fun, :as => :content, :dependent => :destroy
+  has_many :fun, as: :content, dependent: :destroy
 
   def url= url
     url.strip!
@@ -33,9 +33,9 @@ class Video < ActiveRecord::Base
   private
   def check_video_url
     if self.video_type.present?
-      errors.add(:url, "can't find video from this url") unless self.video_id.present?
+      errors.add(:url, 'cant find video from this url') unless self.video_id.present?
     else
-      errors.add(:url, "only Youtube.com, Vimeo.com links can be posted")
+      errors.add(:url, 'only Youtube.com, Vimeo.com links can be posted')
     end
   end
 
@@ -56,15 +56,15 @@ class Video < ActiveRecord::Base
     urls, keys  = {}, %w(sddefault hqdefault mqdefault default)
     response = Net::HTTP.get_response(URI.parse(url))
     result = Hash.from_xml(response.body)
-    result["entry"]["group"]["thumbnail"].each {|item| urls[item["yt:name"]] = item["url"]}
-    keys.each {|key| return urls[key] if urls.has_key? key }
+    result['entry']['group']['thumbnail'].each { |item| urls[item['yt:name']] = item['url'] }
+    keys.each { |key| return urls[key] if urls.has_key? key }
   end
 
   def thumb_url_vimeo
     url = "http://vimeo.com/api/v2/video/#{self.video_id}.xml"
     response = Net::HTTP.get_response(URI.parse(url))
     result = Hash.from_xml(response.body)
-    result["videos"]["video"]["thumbnail_large"]
+    result['videos']['video']['thumbnail_large']
   end
 
 end
