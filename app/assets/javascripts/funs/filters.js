@@ -71,34 +71,6 @@ $(function(){
         }
     });
 
-    $('.tumbler_switch .switch').click(function(e){
-        e.preventDefault();
-        var $$ = $(this);
-        if($$.hasClass('active')){
-            return false;
-        }
-        else{
-            var sib = $$.siblings('a'),
-                slider = sib.find('.toggle_slider'),
-                cwidth = $$.outerWidth(),
-                swidth = sib.outerWidth();
-
-            function changeClass(sib, cur){
-                cur.toggleClass('active');
-                sib.toggleClass('active');
-            }
-            //            changeClass(sib, $$);
-            if($$.hasClass('hold_left')){
-                slider.animate({left: -cwidth, width: cwidth}, 300, function(){changeClass(sib, $$);});
-            }
-            else if($$.hasClass('hold_right')){
-                slider.animate({left: swidth, width: cwidth}, 300, function(){changeClass(sib, $$);});
-            }
-
-            slider.animate({left: 0, width: swidth});
-        }
-    });
-
     var get_tags = function(){
         var tags = $('.search_by_tags').tagit("tags");
         return (tags.length) ? $.map(tags, function(tag){ return tag.value; }) : false;
