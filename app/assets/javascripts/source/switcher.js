@@ -8,39 +8,33 @@
     "use strict";
 
     var Switcher = function (element, options) {
-        this.element = $(element),
-        this.options = $.extend({}, $.fn.switcher.defaults, options);
+        this.$element = $(element)
+        this.options = $.extend({}, $.fn.switcher.defaults, options)
+        this.$links = this.$element.find('a.switch')
+        this.listen()
     }
 
     Switcher.prototype = {
 
-        constructor: Switcher
+        constructor: Switcher,
 
-        , show: function () {
-            var $this = this.element
+        listen: function () {
+            this.$links.on('click.switcher', $.proxy(this.change, this))
+        },
 
-            if ($this.hasClass('active')) return
+        change: function (e) {
+            var $current = $(e.target).closest('a.switch');
+            if ($current.hasClass('active')) return
+            var sib = $current.siblings('a'),
+                cwidth = +$current.outerWidth() || 0,
+                swidth = +sib.outerWidth() || 0;
 
-            var sib = $this.siblings('a'),
-                slider = sib.find('.toggle_slider'),
-                cwidth = $this.outerWidth() || 0,
-                swidth = sib.outerWidth() || 0,
-                changeClass = function (sib, cur){
-                    cur.toggleClass('active');
-                    sib.toggleClass('active');
-                };
+            sib.find('.toggle_slider').animate({left: ($current.hasClass('hold_left')) ? -cwidth : swidth, width: cwidth}, 300, function() {
+                $current.toggleClass('active');
+                sib.toggleClass('active')
+            }).animate({left: 0, width: swidth});
 
-            if ($this.hasClass('hold_left'))
-                slider.animate({left: -cwidth, width: cwidth}, 300, function(){changeClass(sib, $this)});
-            else
-                slider.animate({left: swidth, width: cwidth}, 300, function(){changeClass(sib, $this)});
-
-            slider.animate({left: 0, width: swidth});
-
-            $this.trigger({type: 'shown'})
-
-            this.options.onChange(this);
-
+            if (typeof this.options.onChange == 'function') this.options.onChange($current)
         }
     }
 
@@ -48,17 +42,15 @@
 
     $.fn.switcher = function ( option ) {
         return this.each(function () {
-            var $this = $(this)
-                , data = $this.data('switcher')
-            if (!data) $this.data('switcher', (data = new Switcher(this)))
-            if (typeof option == 'string') data[option]()
+            var $this = $(this),
+                data = $this.data('switcher'),
+                options = typeof option == 'object' && option
+            if (!data) $this.data('switcher', new Switcher(this, options))
         })
     }
 
     $.fn.switcher.defaults = {
-        onChange: function(date) {
-            console.log(12121212121);
-        }
+        onChange: function() {}
     };
 
     $.fn.switcher.Constructor = Switcher
@@ -70,7 +62,11 @@
 
     $(document).on('click.switcher.data-api', '[data-toggle="switcher"]', function (e) {
         e.preventDefault()
-        $(this).switcher('show')
+        var $this = $(this)
+        if ($this.data('switcher')) return
+        $this.switcher($this.data())
+        var $target = $(e.target).closest('a.switch');
+        if ($target.length > 0) $target.trigger('click.switcher')
     })
 
 }(window.jQuery);

@@ -81,4 +81,10 @@ $(function(){
         var data = get_tags();
         if (data) window.location.href = "/search?" + $.param({query:data});
     });
+
+    $('.tumbler_switch').switcher({
+        onChange: function(element){
+            console.log(element);
+        }
+    })
 });
