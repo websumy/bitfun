@@ -1,5 +1,21 @@
 $(function(){
 
+    // Masonry initialize
+
+    $('.main_layout.grid .post_wall').imagesLoaded( function(){
+        $('.main_layout.grid .post_wall').masonry({
+            itemSelector : '.post_card',
+            gutterWidth: 21
+        });
+    });
+
+    $('.feed_layout.grid .post_wall').imagesLoaded( function(){
+        $('.feed_layout.grid .post_wall').masonry({
+            itemSelector : '.post_card',
+            gutterWidth: 20
+        });
+    });
+
     // Replace post image to gif
 
     $(document).on('click', '.post_object a[data-gif]', function(e){

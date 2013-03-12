@@ -4,5 +4,4 @@ content = ''
  content << render("funs/#{view_partial}", fun: fun)
 end
 %>
-
-$(".post_wall").html("<%= j content.html_safe %>");
+<%= content.html_safe %>
