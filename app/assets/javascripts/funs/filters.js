@@ -35,6 +35,7 @@ $(function(){
                         wall = $('.post_wall');
 
                     wall.html(data.responseText);
+                    $.initTooltipster();
 
                     if (postData.view == 'box'){
                         layout.addClass('grid');
