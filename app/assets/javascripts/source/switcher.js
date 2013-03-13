@@ -23,6 +23,7 @@
         },
 
         change: function (e) {
+            e.preventDefault();
             var $current = $(e.target).closest('a.switch');
             if ($current.hasClass('active')) return
             if (typeof this.options.onChange == 'function') this.options.onChange($current);

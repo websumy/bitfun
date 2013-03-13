@@ -22,10 +22,10 @@ section.nav_bar
         = select_options
   .tumbler_switch#switch_view
     .toggle_track
-      a.switch.hold_left[href='#' data-value='list' class="#{(cookies_store[:view] == 'list') ? 'active': ''}"]
+      a.switch.hold_left[href='#' data-value='list' class="#{(view_partial == 'list') ? 'active': ''}"]
         span.toggle_slider.orange_box_left: span.orange_box_right: span.orange_inner
         span.toggle_name
-      a.switch.hold_right[href='#' data-value='box' class="#{(cookies_store[:view] == 'box') ? 'active': ''}"]
+      a.switch.hold_right[href='#' data-value='box' class="#{(view_partial == 'box') ? 'active': ''}"]
         span.toggle_slider.orange_box_right: span.orange_box_left: span.orange_inner
         span.toggle_name
 

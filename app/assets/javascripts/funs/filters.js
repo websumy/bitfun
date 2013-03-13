@@ -79,7 +79,7 @@ $(function(){
         if (data) window.location.href = "/search?" + $.param({query:data});
     });
 
-    $('.tumbler_switch').switcher({
+    $('#switch_view').switcher({
         onChange: function(e){ post_filter_data({ view: e.data('value') })}
     })
 });

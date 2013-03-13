@@ -1,4 +1,4 @@
-.container.feed_layout
+div[class="container feed_layout#{view_partial == 'box' ? ' grid' : ''}"]
   .sticky_profile
     .user_info
       .photo_frame
@@ -26,7 +26,7 @@
               = link_to '', @user.setting.tw_link
     .user_follow
       = link_to t('user.following', count: @user.followed_users.count).html_safe, following_user_path(@user), class: 'following'
-      = link_to t('user.followers', count: 0).html_safe, followers_user_path(@user), class: 'followers'
+      = link_to t('user.followers', count: @user.followers.count).html_safe, followers_user_path(@user), class: 'followers'
 
     .info_block
       .topic О себе
@@ -70,76 +70,29 @@
 
   section.content[role="main"]
     .feed_top
-      .tumbler_switch.sort_content
+      .tumbler_switch.sort_content#user_switch_content
         .toggle_track
-          a.switch.hold_left.active[href="#"]
-            span.toggle_slider.orange_box_left: span.orange_box_right: span.orange_inner
-            span.toggle_name 7 постов
-          a.switch.hold_right[href="#"]
-            span.toggle_slider.orange_box_right: span.orange_box_left: span.orange_inner
-            span.toggle_name 1 лайк
-
-      .tumbler_switch.toggle_view
-        .toggle_track
-          a.switch.hold_left.active[href="#"]
+          a.switch.hold_left.active[href="#{user_path(@user)}"]
             span.toggle_slider.orange_box_left: span.orange_box_right: span.orange_inner
             span.toggle_name
-          a.switch.hold_right[href="#"]
+              = t('user.funs', count: @user.funs.count)
+          a.switch.hold_right[href="#{likes_user_path @user}"]
             span.toggle_slider.orange_box_right: span.orange_box_left: span.orange_inner
             span.toggle_name
+              = t('user.likes', count: @user.voted_ids.count)
 
-    /.upload_block
-    /  .photo_frame
-    /    .photo_box
-    /      img[src="#{asset_path "default-avatar-62.jpg"}" alt="image"]/
-    /      .arrow
-    /      .circle_content_obj
-    /  .post_frame
-    /    .post_box
-    /      .post_info[style="display: none"]
-    /        .upload_intro
-    /          .intro_title Загрузить смешной рисунок, видео или текст на bitFun
-    /          a.upload_file[href=""]: span Загрузить файл
-    /      .add_fun_form
-    /        .tabs_box.mini_tabs
-    /          .intro_tab Добавить шутку на bitFun
-    /          ul.nav_tabs data-tabs="tabs"
-    /            li.active: a[class="image_tab" href="#add_image" data-toggle="tab"]
-    /              span
-    /            li: a[class="video_tab" href="#add_video" data-toggle="tab"]
-    /              span
-    /            li: a[class="text_tab" href="#add_text" data-toggle="tab"]
-    /              span
-    /          .clearfix
-    /          .tab_content
-    /            form[action="" method="POST"]
-    /              .tab_pane.active id="add_image"
-    /                .controls: input[type="text" name="name" placeholder="Название веселой картинки (не обязательно)"]
-    /                .control-group
-    /                  .controls
-    /                    input.url[type="text" name="name" placeholder="Вставить ссылку на картинку"]
-    /                  span.help-inline или
-    /                  .controls.upload
-    /                    a[href="#"] Загрузить
-    /                .controls: input[type="text" name="name" placeholder="Введите теги (через запятую)"]
-    /
-    /
-    /              .tab_pane id="add_video"
-    /                .controls: input[type="text" name="name" placeholder="Название видео (не обязательно)"]
-    /                .controls: input.url[type="text" name="name" placeholder="Вставить ссылку на видео"]
-    /                .controls: input[type="text" name="name" placeholder="Введите теги (через запятую)"]
-    /
-    /              .tab_pane id="add_text"
-    /                .controls: input[type="text" name="name" placeholder="Название шутки, истории, анекдота(не обязательно)"]
-    /                .controls: textarea[name="" placeholder="Скопируйте текст сюда..." ]
-    /                .controls: input[type="text" name="name" placeholder="Введите теги (через запятую)"]
-    /              a.upload_file[href="#"]: span Загрузить
-
-
+      .tumbler_switch.toggle_view#user_switch_view
+        .toggle_track
+          a.switch.hold_left[href='#' data-value='list' class="#{(view_partial == 'list') ? 'active': ''}"]
+            span.toggle_slider.orange_box_left: span.orange_box_right: span.orange_inner
+            span.toggle_name
+          a.switch.hold_right[href='#' data-value='box' class="#{(view_partial == 'box') ? 'active': ''}"]
+            span.toggle_slider.orange_box_right: span.orange_box_left: span.orange_inner
+            span.toggle_name
     section.post_wall
-    - if @funs.any?
-      - @funs.each do |fun|
-        = render "funs/#{view_partial}", fun: fun
-      = paginate @funs
-    - else
-      | There aren't any funs in this folder
+      - if @funs.any?
+        - @funs.each do |fun|
+          = render "funs/#{view_partial}", fun: fun
+        = paginate @funs
+      - else
+        | There aren't any funs in this folder

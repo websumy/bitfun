@@ -46,6 +46,16 @@ ru:
       one: "<strong>%{count}</strong> подписчик"
       few: "<strong>%{count}</strong> подписчика"
       other: "<strong>%{count}</strong> подписчиков"
+    funs:
+      zero: "нет фанов"
+      one: "%{count} фан"
+      few: "%{count} фана"
+      other: "%{count} фанов"
+    likes:
+      zero: "нет лайков"
+      one: "%{count} лайк"
+      few: "%{count} лайка"
+      other: "%{count} лайков"
 
   simple_form:
     labels:

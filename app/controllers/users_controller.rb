@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   authorize_resource
   skip_authorize_resource only: :likes
   before_filter :load_user, except: :index
+  before_filter :set_cookies, only: [:show, :likes]
 
   def index
     @users = User.all
@@ -11,7 +12,7 @@ class UsersController < ApplicationController
     @funs = @user.funs_with_reposts.includes(:content, :reposts).order('created_at DESC').page params[:page]
     respond_to do |format|
       format.html
-      format.js {render 'likes'}
+      format.js { render 'funs/index' }
     end
   end
 
@@ -36,13 +37,17 @@ class UsersController < ApplicationController
   def likes
     @funs = @user.get_up_voted(Fun).includes(:content).order('votes.created_at DESC').page params[:page]
     respond_to do |format|
-      format.html {render 'show'}
-      format.js
+      format.html { render 'show' }
+      format.js { render 'funs/index' }
     end
   end
 
   private
   def load_user
     @user = User.find_by_login!(params[:id])
+  end
+
+  def set_cookies
+    cookies_store.set({view: params[:view]}) unless params[:view].nil?
   end
 end
