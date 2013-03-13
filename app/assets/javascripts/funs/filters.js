@@ -28,12 +28,25 @@ $(function(){
             data: postData,
             dataType: 'script',
             complete: function(data) {
-                if (data.status == 200) $('.post_wall').html(data.responseText);
-                if (postData.view == 'box'){
-                    $('.main_layout.grid .post_wall').masonry('reload');
-                }
-                else{
-                    $('.sidebar').show();
+                if (data.status == 200)
+                {
+                    var layout = $('.main_layout'),
+                        sidebar = $('.sidebar'),
+                        wall = $('.post_wall');
+
+                    wall.html(data.responseText);
+
+                    if (postData.view == 'box'){
+                        layout.addClass('grid');
+                        sidebar.hide();
+                        if (wall.data('masonry')) wall.masonry('reload');
+                        else wall.masonry({ itemSelector : '.post_card', gutterWidth: 21 })
+                    }
+                    else{
+                        if (wall.data('masonry')) wall.masonry('destroy');
+                        layout.removeClass('grid');
+                        sidebar.show()
+                    }
                 }
             }
         });
@@ -67,17 +80,6 @@ $(function(){
     });
 
     $('.tumbler_switch').switcher({
-        onChange: function(element){
-            var cuurrentState = element.data('value');
-            if (cuurrentState == 'box'){
-                $('.main_layout').addClass('grid');
-                $('.sidebar').hide();
-            }
-            else{
-                $('.main_layout').removeClass('grid');
-                $('.sidebar').show();
-            }
-            post_filter_data( { view: cuurrentState } )
-       }
+        onChange: function(e){ post_filter_data({ view: e.data('value') })}
     })
 });
