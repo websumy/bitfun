@@ -40,4 +40,60 @@ $(function(){
         $this.after(videoIFrame).remove()
     });
 
+    // using some custom options
+
+    var loading = false,
+        hasContent = true;
+
+    EndlessScroll.prototype.shouldBeFiring = function() {
+        this.calculateScrollableCanvas();
+        return this.isScrollable
+            && (this.options.fireOnce === false || (this.options.fireOnce === true && this.fired !== true && !loading && hasContent));
+    };
+
+    $(window).endlessScroll({
+        fireOnce: true,
+        fireDelay: false,
+        inflowPixels: 300,
+        ceaseFireOnEmpty: false,
+        insertAfter: ".post_wall",
+        callback: function(i) {
+            loading = true;
+            var url = $('.pagination .next a').attr('href');
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'script',
+                complete: function(data) {
+                    if (data.status == 200)
+                    {
+                        if (data.responseText.length == 0){
+                            hasContent = false;
+                        }
+                        loading = false;
+                        var $newElems = $( data.responseText ).css({ opacity: 0 }),
+                            $wall = $('.post_wall');
+
+                        $newElems.imagesLoaded(function(){
+                            $newElems.animate({ opacity: 1 }).initTooltipster();
+                            if ($wall.data('masonry')) $wall.masonry( 'appended', $newElems, true );
+                            $wall.append($newElems);
+                        });
+
+                    }
+                }
+            });
+
+        },
+        resetCounter: function(){
+            var $wall = $('.post_wall');
+            if ($wall.data('resetCounter')) {
+                $wall.data('resetCounter', false);
+                return true
+            }
+            return false;
+        }
+    });
+
+
 });

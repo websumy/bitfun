@@ -10,10 +10,8 @@ class UsersController < ApplicationController
 
   def show
     @funs = @user.funs_with_reposts.includes(:content, :reposts).order('created_at DESC').page params[:page]
-    respond_to do |format|
-      format.html
-      format.js { render 'funs/index' }
-    end
+
+    render 'funs/index.js.erb' if request.xhr?
   end
 
   def update

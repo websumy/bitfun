@@ -19,6 +19,8 @@ class FunsController < ApplicationController
     cookies_store.set params.select { |k,v| k.in? %w(type view interval sort) }
 
     @funs = @funs.page params[:page]
+
+    render 'index.js.erb' if request.xhr?
   end
 
   def autocomplete_tags

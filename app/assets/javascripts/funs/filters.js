@@ -34,8 +34,8 @@ $(function(){
                         sidebar = $('.sidebar'),
                         wall = $('.post_wall');
 
-                    wall.html(data.responseText);
-                    $.initTooltipster();
+                    wall.data('resetCounter', true).html(data.responseText);
+                    wall.initTooltipster();
 
                     if (postData.view == 'box'){
                         layout.addClass('grid');
