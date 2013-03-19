@@ -53,9 +53,8 @@ $(function(){
     $(window).endlessScroll({
         fireOnce: true,
         fireDelay: false,
-        inflowPixels: 300,
+        inflowPixels: 200,
         ceaseFireOnEmpty: false,
-        insertAfter: ".post_wall",
         callback: function(i) {
             loading = true;
             var url = $('#next_url').data('url');
@@ -66,6 +65,7 @@ $(function(){
                 complete: function(data) {
                     if (data.status == 200)
                     {
+                        console.log(url);
                         $('#next_url').data('url', url.replace('page=' + (i + 1), 'page=' + (i + 2)));
 
                         if (data.responseText.length == 0) $(window).data('endelessscroll').stopFiring();
