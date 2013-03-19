@@ -1,14 +1,14 @@
 $(function () {
 
-    $('.change_photo').on('click', function(e){
+    var $span = $('.change_photo'),
+        $progress = $('.progress'),
+        $bar = $progress.find('.bar'),
+        $avatars = $('.photo_box img, .avatar_wrapper img');
+
+    $span.on('click', function(e){
         if ($(this).is('.disabled'))
             e.preventDefault()
     });
-
-    var $span = $('.change_photo');
-    var $progress = $('.progress');
-    var $bar = $progress.find('.bar');
-    var $avatars = $('.photo_box img, .avatar_wrapper img');
 
     'use strict';
 

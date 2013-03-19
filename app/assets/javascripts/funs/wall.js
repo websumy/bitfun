@@ -1,13 +1,16 @@
 $(function(){
 
     // Masonry initialize
+    var $wall = $('#wall');
 
-    $('.main_layout.grid .post_wall').imagesLoaded( function(){
-        $('.main_layout.grid .post_wall').masonry({
-            itemSelector : '.post_card',
-            gutterWidth: 21
+    if ($wall.hasClass('grid')){
+        $wall.imagesLoaded( function(){
+            $wall.masonry({
+                itemSelector : '.post_card',
+                gutterWidth: 21
+            });
         });
-    });
+    }
 
     // Replace post image to gif
 
@@ -50,40 +53,44 @@ $(function(){
             && (this.options.fireOnce === false || (this.options.fireOnce === true && this.fired !== true && !loading));
     };
 
-    $(window).endlessScroll({
-        fireOnce: true,
-        fireDelay: false,
-        inflowPixels: 200,
-        ceaseFireOnEmpty: false,
-        callback: function(i) {
-            loading = true;
-            var url = $('#next_url').data('url');
-            $.ajax({
-                type: 'GET',
-                url: url,
-                dataType: 'script',
-                complete: function(data) {
-                    if (data.status == 200)
-                    {
-                        console.log(url);
-                        $('#next_url').data('url', url.replace('page=' + (i + 1), 'page=' + (i + 2)));
+    // Initialize endlessScroll on window only if we on page #wall
 
-                        if (data.responseText.length == 0) $(window).data('endelessscroll').stopFiring();
-                        loading = false;
-                        var $newElems = $( data.responseText ).css({ opacity: 0 }),
-                            $wall = $('.post_wall');
+    if ($wall.length){
+        $(window).endlessScroll({
+            fireOnce: true,
+            fireDelay: false,
+            inflowPixels: 200,
+            ceaseFireOnEmpty: false,
+            callback: function(i) {
+                loading = true;
+                var url = $('#next_url').data('url');
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    dataType: 'script',
+                    complete: function(data) {
+                        if (data.status == 200)
+                        {
+                            $('#next_url').data('url', url.replace('page=' + (i + 1), 'page=' + (i + 2)));
 
-                        $newElems.imagesLoaded(function(){
-                            $newElems.animate({ opacity: 1 }).initTooltipster();
-                            if ($wall.data('masonry')) $wall.masonry( 'appended', $newElems, true );
-                            $wall.append($newElems);
-                        });
+                            if (data.responseText.length == 0) $(window).data('endelessscroll').stopFiring();
+                            loading = false;
+                            var $newElems = $( data.responseText ).css({ opacity: 0 });
 
+                            $newElems.imagesLoaded(function(){
+                                $newElems.animate({ opacity: 1 }).initTooltipster();
+                                if ($wall.data('masonry')) $wall.masonry( 'appended', $newElems, true );
+                                $wall.append($newElems);
+                            });
+
+                        }
                     }
-                }
-            });
+                });
 
-        }
-    });
+            }
+        });
+    }
+
+
 
 });

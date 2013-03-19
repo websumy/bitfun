@@ -89,7 +89,7 @@ div[class="container feed_layout#{view_partial == 'box' ? ' grid' : ''}"]
           a.switch.hold_right[href='#' data-value='box' class="#{(view_partial == 'box') ? 'active': ''}"]
             span.toggle_slider.orange_box_right: span.orange_box_left: span.orange_inner
             span.toggle_name
-    section.post_wall
+    section.post_wall.load_buttons#wall
       - if @funs.any?
         = next_url(@funs)
         - @funs.each do |fun|

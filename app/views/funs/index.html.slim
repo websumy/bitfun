@@ -1,7 +1,7 @@
 - content_for :navigation, render('layouts/navigation')
 div[class="container main_layout#{view_partial == 'box' ? ' grid' : ''}"]
   section.content[role="main"]
-    section.post_wall
+    section.post_wall.load_buttons#wall
       - if @funs.any?
         = next_url(@funs)
         - @funs.each do |fun|

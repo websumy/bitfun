@@ -36,13 +36,13 @@ $(function(){
             }
         });
     };
-    var wall = $(".post_wall");
+    var content = $(".load_buttons");
 
-    wall.initTooltipster();
+    content.initTooltipster();
 
     // Processing repost callback
 
-    wall.on('ajax:success', '.repost_box a.item',  function(evt, data, status, xhr) {
+    content.on('ajax:success', '.repost_box a.item',  function(evt, data, status, xhr) {
         if (data.success) {
             var $counter = $(this).parents('.post_nav').find("span.rcnt");
             var value = parseInt($counter.text()) || 0;
@@ -53,7 +53,7 @@ $(function(){
 
     // Processing like callback
 
-    wall.on({
+    content.on({
         click: function(e) {
             if ($(this).data("disabled") && !$(this).data("auth"))
                 return false;
