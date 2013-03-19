@@ -32,7 +32,7 @@ $(function(){
                 {
                     var layout = $('.main_layout'),
                         sidebar = $('.sidebar'),
-                        wall = $('.post_wall');
+                        wall = $('#wall');
 
                     wall.html(data.responseText);
                     wall.initTooltipster();

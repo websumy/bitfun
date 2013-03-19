@@ -3,7 +3,7 @@ $(function(){
     // Masonry initialize
     var $wall = $('#wall');
 
-    if ($wall.hasClass('grid')){
+    if ($wall.parents('.grid').length){
         $wall.imagesLoaded( function(){
             $wall.masonry({
                 itemSelector : '.post_card',
