@@ -42,13 +42,12 @@ $(function(){
 
     // using some custom options
 
-    var loading = false,
-        hasContent = true;
+    var loading = false;
 
     EndlessScroll.prototype.shouldBeFiring = function() {
         this.calculateScrollableCanvas();
         return this.isScrollable
-            && (this.options.fireOnce === false || (this.options.fireOnce === true && this.fired !== true && !loading && hasContent));
+            && (this.options.fireOnce === false || (this.options.fireOnce === true && this.fired !== true && !loading));
     };
 
     $(window).endlessScroll({
@@ -59,7 +58,7 @@ $(function(){
         insertAfter: ".post_wall",
         callback: function(i) {
             loading = true;
-            var url = $('.pagination .next a').attr('href');
+            var url = $('#next_url').data('url');
             $.ajax({
                 type: 'GET',
                 url: url,
@@ -67,9 +66,9 @@ $(function(){
                 complete: function(data) {
                     if (data.status == 200)
                     {
-                        if (data.responseText.length == 0){
-                            hasContent = false;
-                        }
+                        $('#next_url').data('url', url.replace('page=' + (i + 1), 'page=' + (i + 2)));
+
+                        if (data.responseText.length == 0) $(window).data('endelessscroll').stopFiring();
                         loading = false;
                         var $newElems = $( data.responseText ).css({ opacity: 0 }),
                             $wall = $('.post_wall');
@@ -84,16 +83,7 @@ $(function(){
                 }
             });
 
-        },
-        resetCounter: function(){
-            var $wall = $('.post_wall');
-            if ($wall.data('resetCounter')) {
-                $wall.data('resetCounter', false);
-                return true
-            }
-            return false;
         }
     });
-
 
 });

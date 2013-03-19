@@ -332,12 +332,26 @@ EndlessScroll = (function() {
         }
     };
 
+    EndlessScroll.prototype.stopFiring = function() {
+        this.firing = false;
+    };
+
+    EndlessScroll.prototype.resetFiring = function() {
+        this.firing = true;
+        this.fireSequence = 0;
+    };
+
     return EndlessScroll;
 
 })();
 
 (function($) {
-    return $.fn.endlessScroll = function(options) {
-        return new EndlessScroll(this, options).run();
+    return $.fn.endlessScroll = function(option) {
+        var $this = $(this),
+            data = $this.data('endelessscroll'),
+            options = typeof option == 'object' && option;
+        if (!data) $this.data('endelessscroll', new EndlessScroll(this, options));
+
+        return $this.data('endelessscroll').run();
     };
 })(jQuery);

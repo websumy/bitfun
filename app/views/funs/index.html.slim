@@ -3,9 +3,9 @@ div[class="container main_layout#{view_partial == 'box' ? ' grid' : ''}"]
   section.content[role="main"]
     section.post_wall
       - if @funs.any?
+        = next_url(@funs)
         - @funs.each do |fun|
           = render "funs/#{view_partial}", fun: fun
-        = paginate @funs
       - else
         | There aren't any funs in this folder
   aside.sidebar[role="complementary" style="#{(view_partial == 'box') ? 'display:none': ''}"]

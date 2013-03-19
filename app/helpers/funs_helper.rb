@@ -121,4 +121,9 @@ module FunsHelper
         "<div class='circle_content_obj'><div class='#{content_type.downcase}'></div></div></div>"
   end
 
+  def next_url(funs)
+    params[:page] = funs.current_page + 1
+    content_tag(:div, id: 'next_url', data: { url: url_for(params)}){}
+  end
+
 end

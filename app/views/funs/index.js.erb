@@ -1,5 +1,6 @@
 <%
 content = ''
+content << next_url(@funs) if @funs.first_page?
 @funs.each do |fun|
  content << render("funs/#{view_partial}", fun: fun)
 end

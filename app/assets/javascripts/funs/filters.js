@@ -34,8 +34,9 @@ $(function(){
                         sidebar = $('.sidebar'),
                         wall = $('.post_wall');
 
-                    wall.data('resetCounter', true).html(data.responseText);
+                    wall.html(data.responseText);
                     wall.initTooltipster();
+                    $(window).data('endelessscroll').resetFiring();
 
                     if (postData.view == 'box'){
                         layout.addClass('grid');
