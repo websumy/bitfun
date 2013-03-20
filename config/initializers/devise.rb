@@ -230,14 +230,8 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 
-  OM_CONF = YAML.load_file("#{Rails.root}/config/omniauth.yml")[Rails.env]
-
-  config.omniauth :facebook, OM_CONF[:facebook][:app_id], OM_CONF[:facebook][:app_secret],
-                  :scope => OM_CONF[:facebook][:scope], :display => OM_CONF[:facebook][:display], :image_size => OM_CONF[:facebook][:image_size]
-
-  config.omniauth :vkontakte, OM_CONF[:vkontakte][:app_id], OM_CONF[:vkontakte][:app_secret],
-                  :scope => OM_CONF[:vkontakte][:scope], :display => OM_CONF[:vkontakte][:display]
-
-  config.omniauth :twitter, OM_CONF[:twitter][:app_key], OM_CONF[:twitter][:app_secret]
+  config.omniauth :facebook, Settings.oauth.facebook.id, Settings.oauth.facebook.secret, scope: Settings.oauth.facebook.scope, display: Settings.oauth.facebook.display, image_size: Settings.oauth.facebook.image_size
+  config.omniauth :vkontakte, Settings.oauth.vkontakte.id, Settings.oauth.vkontakte.secret, scope: Settings.oauth.vkontakte.scope, display: Settings.oauth.vkontakte.display
+  config.omniauth :twitter, Settings.oauth.twitter.key, Settings.oauth.twitter.secret
 
 end

@@ -56,6 +56,12 @@ gem "better_errors"
 gem "binding_of_caller"
 gem "meta_request"
 
+# use this gem only for testing VK widgets
+gem "localtunnel"
+
+# A simple and straightforward settings solution that uses an ERB enabled YAML file and a singleton design pattern
+gem "settingslogic"
+
 # Rails plugin for Sphinx.
 gem 'thinking-sphinx', '2.0.10'
 

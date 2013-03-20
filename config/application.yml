@@ -1,0 +1,26 @@
+development: &defaults
+  oauth:
+    facebook:
+      id: 314168212029543
+      secret: cfe4b8ca8737e7d8ca1636cc53cf692f
+      scope: "email,user_birthday,read_stream"
+      display: "popup"
+      image_size: "large"
+
+    vkontakte:
+      id: 3316459
+      secret: GqOBEcSd9FasQ38h40oh
+      scope: "notify,offline"
+      display: "popup"
+
+    twitter:
+      key: h5EgR2HL0dpwltGJTuYrng
+      secret: bp1FRQ4M5nARDhfqarrvTVPuRci9h12xXLLUXG3HDY
+  widgets:
+    vkontakte:
+      comments:
+        id: 3505076
+        secret: KaJJZWeGTTIwGTjQq8Hs
+
+production:
+  <<: *defaults

@@ -1,0 +1,26 @@
+development: &defaults
+  oauth:
+    facebook:
+      id: app_id
+      secret: secret_key
+      scope: "email,user_birthday,read_stream"
+      display: "popup"
+      image_size: "large"
+
+    vkontakte:
+      id: app_id
+      secret: secret_key
+      scope: "notify,offline"
+      display: "popup"
+
+    twitter:
+      key: key
+      secret: secret_key
+  widgets:
+    vkontakte:
+      comments:
+        id: app_id
+        secret: secret_key
+
+production:
+  <<: *defaults
