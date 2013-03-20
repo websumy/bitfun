@@ -4,14 +4,14 @@ development: &defaults
       id: 314168212029543
       secret: cfe4b8ca8737e7d8ca1636cc53cf692f
       scope: "email,user_birthday,read_stream"
-      display: "popup"
+      display: "page"
       image_size: "large"
 
     vkontakte:
       id: 3316459
       secret: GqOBEcSd9FasQ38h40oh
       scope: "notify,offline"
-      display: "popup"
+      display: "page"
 
     twitter:
       key: h5EgR2HL0dpwltGJTuYrng
