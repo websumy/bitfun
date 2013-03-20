@@ -9,6 +9,8 @@ Bitfun::Application.routes.draw do
     resources :reposts, only: [:index, :create], controller: 'funs/reposts'
   end
 
+  post 'vk/comments/:id', to: 'vk_widgets#comments', as: :vk_comments_callback
+
   get   'funs/tags/:query',   to: 'funs#index',                 as: :tag
   get   'search',             to: 'funs#index',                 as: :search_tags
   post  'get_tags',           to: 'funs#autocomplete_tags',     as: :autocomplete_tags

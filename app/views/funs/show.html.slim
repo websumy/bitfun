@@ -1,3 +1,5 @@
+- content_for :headscripts do
+  = javascript_include_tag 'http://vk.com/js/api/openapi.js?83'
 .container.post_layout
   section.content[role="main"]
     article.post_frame.load_buttons
@@ -36,11 +38,12 @@
         .tags_block
           .tags
             = show_cached_tags @fun
-        .comments_block
-          img[src="#{asset_path "tmp/vk_widget_comm.jpg"}" alt="image"]/
-
-
-
+        .comments_block#vk_comments
+          javascript:
+            VK.init({ apiId: #{Settings.widgets.vkontakte.comments.id}, onlyWidgets: true });
+            VK.Widgets.Comments("vk_comments", { limit: 15, width: "670", attach: "*", onChange: function(num, last_comment, date, sign){
+              $.post( "#{vk_comments_callback_path(@fun.id)}", { num: num.toString(), last_comment:last_comment , date: date, sign:sign } );
+            } }, #{@fun.id});
   .aside.sidebar
     .tumbler_switch
       .toggle_track
