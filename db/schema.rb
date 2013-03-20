@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121226080625) do
+ActiveRecord::Schema.define(:version => 20130320130018) do
 
   create_table "funs", :force => true do |t|
     t.integer  "user_id"
@@ -24,9 +24,11 @@ ActiveRecord::Schema.define(:version => 20121226080625) do
     t.datetime "published_at"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
+    t.integer  "comments_counter",   :default => 0
   end
 
   add_index "funs", ["cached_votes_total"], :name => "index_funs_on_cached_votes_total"
+  add_index "funs", ["comments_counter"], :name => "index_funs_on_comments_counter"
   add_index "funs", ["repost_counter"], :name => "index_funs_on_repost_counter"
   add_index "funs", ["user_id"], :name => "index_funs_on_user_id"
 

@@ -1,5 +1,5 @@
 class Fun < ActiveRecord::Base
-  attr_accessible :content_attributes, :content_type
+  attr_accessible :content_attributes, :content_type, :comments_count
   attr_accessible :content_id, :content_type, :user_id, :owner_id, as: :admin
 
   # Kaminari pagination config
