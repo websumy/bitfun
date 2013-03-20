@@ -19,7 +19,7 @@ Bitfun::Application.routes.draw do
 
   get 'new' => 'funs#index', as: :new
   get 'hot' => 'funs#index', defaults: {sort: 'cached_votes_total'}, as: :hot
-  get 'discuss' => 'funs#index', defaults: {sort: 'comments_count'}, as: :discuss
+  get 'discuss' => 'funs#index', defaults: {sort: 'comments_counter'}, as: :discuss
   get 'sandbox' => 'funs#index', defaults: {sandbox: true, sort: 'created_at'}, as: :sandbox
 
   devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions", :omniauth_callbacks => "users/omniauth_callbacks"}

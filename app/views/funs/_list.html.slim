@@ -29,9 +29,10 @@ article.post_frame
       = like_button fun
       = repost_button fun
       .item_wrapper.comments_box
-        a.item[href="#"]
+        a.item[href="#{fun_path(fun)}/#comments"]
           span.icon
-          span.counter 0
+          span.counter
+            = fun.comments_counter
 
       .item_wrapper.more_box.last_item
         = link_to fun, class: 'item' do

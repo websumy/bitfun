@@ -38,6 +38,7 @@
         .tags_block
           .tags
             = show_cached_tags @fun
+        a[name='comments']
         .comments_block#vk_comments
           javascript:
             VK.init({ apiId: #{Settings.widgets.vkontakte.comments.id}, onlyWidgets: true });

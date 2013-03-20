@@ -17,6 +17,7 @@ article.post_frame.post_card
     = small_repost_button fun
 
     .item_wrapper.comments_box.last_item
-      a.item[href="#"]
+      a.item[href="#{fun_path(fun)}/#comments"]
         span.icon
-        span.counter: span.slice 305
+        span.counter: span.slice
+          = fun.comments_counter
