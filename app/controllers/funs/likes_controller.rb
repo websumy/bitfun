@@ -5,7 +5,13 @@ class Funs::LikesController < ApplicationController
   # Shows 5 last users who liked this fun
   def index
     users = @fun.likes.limit(5).voters
-    render json: users.map { |user| user.info_to_json }
+    users.map! do |user|
+      user = user.info_to_json
+      user[:user_path] = user_path user[:login]
+      user
+    end
+
+    render json: users
   end
 
   # Like by current_user for this fun

@@ -60,7 +60,6 @@ class User < ActiveRecord::Base
 
   def info_to_json
     {
-        user: id,
         login: login,
         avatar_path: avatar.img.small.url,
     }

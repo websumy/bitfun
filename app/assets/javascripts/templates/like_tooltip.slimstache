@@ -1,6 +1,6 @@
 .popover_content
   '{{#users}}
-  a[href='{{login}}']
+  a[href='{{user_path}}']
     img src='{{avatar_path}}' alt='{{login}}'
   '{{/users}}
 .popover_footer
