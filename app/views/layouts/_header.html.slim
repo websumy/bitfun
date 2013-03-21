@@ -7,11 +7,12 @@ header.main_panel[role="banner"]
       .items_wrapper
         .item_outer
           .item.followers
-            = link_to feed_path, class: 'item_link' do
+            - data = user_signed_in? ? {} : {:'data-auth' => 'true'}
+            a.item_link *data href="#{feed_path}"
               span.span_cell Мои подписки
         .item_outer
           .item.add_fun
-            = link_to new_fun_path, class: 'item_link', id: 'link_new_fun'  do
+            a.item_link#link_new_fun *data href="#{new_fun_path}"
               span.span_cell Добавить Fun
 
       .items_wrapper.user_panel
