@@ -562,6 +562,13 @@ a {
 		.sidebar{
 			float: right;
 			width: 242px;
+            .toggle_track{
+              width: 100%;
+              a.switch{
+                width: 50%;
+                text-align: center;
+              }
+          }
 		}
 	}
 }
@@ -1304,6 +1311,8 @@ a {
 	}
 	.popover_content{
 		padding: 11px 6px 11px 11px;
+        display: inline-block;
+        width: 100%;
 		a{
 			@include border-radius(50%);
 			border: 2px solid #919191;
@@ -1311,7 +1320,7 @@ a {
 			height: 30px;
 			width: 30px;
 			overflow: hidden;
-			//float: left;
+			float: left;
 			margin-right: 5px;
 
 		}
@@ -1871,7 +1880,7 @@ a {
 			width: 100%;
 			.post_card{
 				float: none; margin-bottom: 10px;
-				.post_object{width: 218px; height: 190px; overflow: hidden;}
+				.post_object{width: 218px; overflow: hidden;}
 			}
 		}
 
