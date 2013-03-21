@@ -11,16 +11,14 @@ class Fun < ActiveRecord::Base
   # Default types of Funs
   DEF_TYPES = %w(image video post)
 
-  MONTH_RANGE = 1.month.ago .. Time.now
-
   # Associations
   belongs_to :user
   belongs_to :content, polymorphic: true, dependent: :destroy
   accepts_nested_attributes_for :content, allow_destroy: true
 
   # Reposts
-  has_many :reposts, class_name: "Fun", foreign_key: "parent_id"
-  belongs_to :parent, class_name: "Fun"
+  has_many :reposts, class_name: 'Fun', foreign_key: 'parent_id'
+  belongs_to :parent, class_name: 'Fun'
 
   # Initialize "acts_as_votable" gem for "likes"
   acts_as_votable
@@ -45,10 +43,10 @@ class Fun < ActiveRecord::Base
   validate :cant_repost_own_fun
 
   # Scopes
-  default_scope where("parent_id IS NULL")
-  scope :images, where(content_type: "Image")
-  scope :videos, where(content_type: "Video")
-  scope :posts, where(content_type: "Post")
+  default_scope where('parent_id IS NULL')
+  scope :images, where(content_type: 'Image')
+  scope :videos, where(content_type: 'Video')
+  scope :posts, where(content_type: 'Post')
   scope :published, lambda { |show = true| where("published_at IS #{show ? 'NOT':''} NULL") }
   # Filter fun by type
   scope :filter_by_type, lambda { |types| where(content_type: clean_types(types)) }
@@ -110,18 +108,19 @@ class Fun < ActiveRecord::Base
     !published_at.nil?
   end
 
+  # get related funs without funs liked by user
   def get_related(user, type)
     exclude = [id]
-    exclude << user.get_voted_ids(MONTH_RANGE) unless user.blank?
-    related_ids = Fun.search_fun_ids(content.cached_tag_list, type)
-    Fun.where(:id, related_ids).exclude_funs(exclude).where(published_at: MONTH_RANGE).filter_by_type(type).order("cached_votes_total DESC").limit 3
+    exclude.concat user.get_voted_ids(month_range(3)) unless user.blank?
+    related_ids = Fun.search_fun_ids(content.cached_tag_list, type, 1)
+    Fun.where(id: related_ids).exclude_funs(exclude).where(published_at: month_range(3)).filter_by_type(type).order('cached_votes_total DESC').limit 6
   end
 
   # get max liked funs of the month without funs liked by user
   def get_month_trends(user, type)
     exclude = [id]
-    exclude = user.get_voted_ids(MONTH_RANGE) unless user.blank?
-    Fun.exclude_funs(exclude).where(published_at: MONTH_RANGE).filter_by_type(type).order("cached_votes_total DESC").limit 3
+    exclude.concat user.get_voted_ids(month_range) unless user.blank?
+    Fun.exclude_funs(exclude).where(published_at: month_range).filter_by_type(type).order('cached_votes_total DESC').limit 6
   end
 
   class << self
@@ -136,8 +135,8 @@ class Fun < ActiveRecord::Base
     end
 
     def order_by(order_column)
-      order_column = Fun.column_names.include?(order_column) ? order_column : "published_at"
-      order(order_column + " DESC")
+      order_column = Fun.column_names.include?(order_column) ? order_column : 'published_at'
+      order(order_column + ' DESC')
     end
 
     def interval(interval, sandbox = false)
@@ -156,7 +155,7 @@ class Fun < ActiveRecord::Base
         DEF_TYPES
       else
         types = [types].flatten
-        types.first == "unknown" ? nil:  types.select { |type| type.in? DEF_TYPES }
+        types.first == 'unknown' ? nil:  types.select { |type| type.in? DEF_TYPES }
       end
     end
 
@@ -171,9 +170,13 @@ class Fun < ActiveRecord::Base
       types = clean_types types
       type_index = []
       DEF_TYPES.each{|t| type_index << DEF_TYPES.index(t) if t.in? types }
-      Fun.search_for_ids(query, with: {type: type_index}, :match_mode => :any).page(p).per(default_per_page)
+      Fun.search_for_ids(query, with: {type: type_index}, match_mode: :any).page(p).per(default_per_page)
     end
 
+  end
+
+  def month_range(month = 1)
+    month.month.ago .. Time.now
   end
 
   def cant_repost_own_fun

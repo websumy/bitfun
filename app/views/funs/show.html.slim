@@ -50,45 +50,20 @@
       .toggle_track
         a.switch.hold_left.active[href="#"]
           span.orange_box_left.toggle_slider: .orange_box_right: span.orange_inner
-          span.toggle_name Популярные
+          span.toggle_name Тренды
         a.switch.hold_right[href="#"]
           span.orange_box_right.toggle_slider: span.orange_box_left: span.orange_inner
-          span.toggle_name Рекомендуемые
+          span.toggle_name Похожее
 
     section.vertical_carousel
       .pagination
         .pagination_vl
           a.pn_item.top[href="#"]: span
 
-      .carousel_wrapper
-        article.post_frame.post_card
-          .post_info
-            .photo_frame
-              a.photo_box[href="#"]
-                img[src="#{asset_path "default-avatar-30.jpg"}" alt="image"]/
-
-            .poster
-              a[href="#"] Huseyin Eskici Huseyin Eskici Huseyin EskiciHuseyin Eskici Huseyin Eskici Huseyin Eskici
-              span.date_block 1ч. 19м. назад
-          .post_object
-            a[href="#"]: img[src="#{asset_path "tmp/postcard-img2.jpg"}" alt="image"]/
-
-          .post_nav
-            .item_wrapper.like_box.first_item.active
-              a.item[href="#"]
-                span.icon
-                span.counter: span.slice 5123123213
-
-            .item_wrapper.repost_box
-              a.item[href="#"]
-                span.icon
-                span.counter: span.slice 2512312312
-
-            .item_wrapper.comments_box.last_item
-              a.item[href="#"]
-                span.icon
-                span.counter: span.slice 305
-
+      .carousel_wrapper.load_buttons
+        - if @funs.any?
+          - @funs.each do |fun|
+            = render "funs/box", fun: fun
       .pagination
         .pagination_vl
           a.pn_item.btm[href="#"]: span

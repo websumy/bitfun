@@ -39,8 +39,7 @@ class FunsController < ApplicationController
 
   # GET /funs/1
   def show
-    @funs = @fun.get_month_trends(current_user, cookies_store[:type])
-    #@funs = @fun.get_related(current_user, cookies_store[:type])
+    @funs = @fun.get_month_trends(current_user, cookies_store[:type]).includes(:user, :content)
     respond_to :html, :js
   end
 
