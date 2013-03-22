@@ -3,7 +3,7 @@ $(function(){
     // Masonry initialize
     var $wall = $('#wall');
 
-    if ($wall.parents('.grid').length){
+    if ($wall.closest('.grid').length){
         $wall.imagesLoaded( function(){
             $wall.masonry({
                 itemSelector : '.post_card',
@@ -12,38 +12,35 @@ $(function(){
         });
     }
 
-    // Replace post image to gif
+    // Replace post image to gif or video
 
-    $(document).on('click', '.post_object a[data-gif]', function(e){
+    $(document).on('click', '.post_object a', function(e){
         e.preventDefault();
         $this = $(this);
-        $this.children('img').attr("src", $this.data('gif'));
-        $this.removeAttr('data-gif')
+        if ( ! $wall.closest('.grid').length){
+            if ($this.data('gif')){
+                $this.children('img').attr("src", $this.data('gif'));
+                $this.removeAttr('data-gif')
+            }
+            if ($this.data('video')){
+                var videoUrl = {
+                        youtube: 'http://www.youtube.com/embed/',
+                        vimeo: 'http://player.vimeo.com/video/'
+                    },
+                    videoData = $this.data('video').split('-'),
+                    videoIFrame = $('<iframe />', {
+                        frameborder: 0,
+                        src: videoUrl[videoData[0]] + videoData[1] + '?wmode=opaque&autoplay=1',
+                        width: 500+'px',
+                        height: 320+'px',
+                        webkitAllowFullScreen: '',
+                        mozallowfullscreen: '',
+                        allowFullScreen: ''
+                    });
+                $this.after(videoIFrame).remove()
+            }
+        }
     });
-
-    // Replace post image to video
-
-    $(document).on('click', '.post_object a[data-video]', function(e){
-        e.preventDefault();
-        $this = $(this);
-        var videoUrl = {
-            youtube: 'http://www.youtube.com/embed/',
-            vimeo: 'http://player.vimeo.com/video/'
-        };
-        var videoData = $this.data('video').split('-');
-        var videoIFrame = $('<iframe />', {
-            frameborder: 0,
-            src: videoUrl[videoData[0]] + videoData[1] + '?wmode=opaque&autoplay=1',
-            width: 500+'px',
-            height: 320+'px',
-            webkitAllowFullScreen: '',
-            mozallowfullscreen: '',
-            allowFullScreen: ''
-        });
-        $this.after(videoIFrame).remove()
-    });
-
-    // using some custom options
 
     var loading = false;
 
