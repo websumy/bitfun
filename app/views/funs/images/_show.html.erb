@@ -1,7 +1,0 @@
-<% if fun.content.file? %>
-    <% if fun.content.exist_gif_thumb?%>
-        <%= image_tag fun.content.file_url :gif %>
-    <% else %>
-        <%= image_tag fun.content.file_url :img %>
-    <% end %>
-<% end %>

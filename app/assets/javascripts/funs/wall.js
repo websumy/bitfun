@@ -17,7 +17,7 @@ $(function(){
     $(document).on('click', '.post_object a', function(e){
         e.preventDefault();
         $this = $(this);
-        if ( ! $wall.closest('.grid').length){
+        if ( ! $this.closest('.grid').length){
             if ($this.data('gif')){
                 $this.children('img').attr("src", $this.data('gif'));
                 $this.removeAttr('data-gif')
