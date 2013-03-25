@@ -17,24 +17,24 @@ header.main_panel[role="banner"]
 
       .items_wrapper.user_panel
         .item_outer
-          .item.search
-            a.item_link[href="#" data-toggle="dropdown-search"]: span.span_cell
+          .item.search[ data-dropdown=".dropdown_search"]
+            a.item_link[href="#"]: span.span_cell
         - if user_signed_in?
           .item_outer
             .item.user
               = show_user_link
           .item_outer
-            .item.settings
-              a.item_link[href="#" data-toggle="dropdown-settings"]: span.span_cell
-              .dropdown_profile
-                ul.top
-                  li = link_to 'Моя страница', user_path(current_user)
-                  li = link_to 'Мои подписки', feed_path
-                  - if current_user.role? :admin
-                    li = link_to 'Пользователи', users_path
-                ul.down
-                  li = link_to 'Профиль', edit_user_registration_path
-                  li = link_to 'Выход', destroy_user_session_path, method: :delete
+            .item.settings[data-dropdown=".dropdown_profile"]
+              a.item_link[href="#"]: span.span_cell
+            .dropdown_profile
+              ul.top
+                li = link_to 'Моя страница', user_path(current_user)
+                li = link_to 'Мои подписки', feed_path
+                - if current_user.role? :admin
+                  li = link_to 'Пользователи', users_path
+              ul.down
+                li = link_to 'Профиль', edit_user_registration_path
+                li = link_to 'Выход', destroy_user_session_path, method: :delete
           .item_outer
             .item.logout
               = link_to destroy_user_session_path, class: 'item_link', method: :delete do
