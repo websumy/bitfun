@@ -16,12 +16,18 @@ $(function(){
 
     // Initialize tagit plugin
 
-    $('.search_by_tags').tagit({tagSource: autocomplete_tags, minLength: 2, allowNewTags: false, maxTags: 5});
+    $('.search_by_tags').tagit({tagSource: autocomplete_tags, minLength: 1, allowNewTags: true, maxTags: 10});
 
     // Reset link
 
     $('.icon-close').click(function(){
-        $('.search_by_tags').tagit('reset');
+        var $search = $('.search_by_tags');
+        if ($search.tagit("tags").length){
+            $search.tagit('reset');
+        }
+        else {
+            $.CloseActiveDropdowns();
+        }
     });
 
 });

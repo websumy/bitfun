@@ -16,24 +16,24 @@ $(function(){
 
     $("input.date_picker").datepicker({format:"yyyy-mm-dd"});
 
-    var FadeDropdown = function($e){
+    $.FadeDropdown = function($e){
         $e.toggleClass('active');
         $($e.data('dropdown')).fadeToggle('fast');
     };
 
-    var CloseActiveDropdowns = function(){
+    $.CloseActiveDropdowns = function(){
         $('.active[data-dropdown]').each(function(){
-            FadeDropdown($(this));
+            $.FadeDropdown($(this));
         });
     };
 
     $(document).on('click', '[data-dropdown]', function(){
-        if( ! $(this).hasClass('active')) CloseActiveDropdowns();
-        FadeDropdown($(this));
+        if( ! $(this).hasClass('active')) $.CloseActiveDropdowns();
+        $.FadeDropdown($(this));
     });
 
     $(document).on('click', function(e){
-        if (! $(e.target).parents('.main_panel, .tagit-choice').length) CloseActiveDropdowns();
+        if (! $(e.target).parents('.main_panel, .tagit-choice').length) $.CloseActiveDropdowns();
     });
 
     $('a[rel~="tooltip"]').tooltipster({
