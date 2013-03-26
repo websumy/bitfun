@@ -15,14 +15,15 @@ $(function(){
     // Replace post image to gif or video
 
     $(document).on('click', '.post_object a', function(e){
-        e.preventDefault();
         $this = $(this);
         if ( ! $this.closest('.grid').length){
             if ($this.data('gif')){
+                e.preventDefault();
                 $this.children('img').attr("src", $this.data('gif'));
-                $this.removeAttr('data-gif')
+                $this.data('gif', 0);
             }
             if ($this.data('video')){
+                e.preventDefault();
                 var videoUrl = {
                         youtube: 'http://www.youtube.com/embed/',
                         vimeo: 'http://player.vimeo.com/video/'
