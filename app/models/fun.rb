@@ -112,7 +112,7 @@ class Fun < ActiveRecord::Base
   def get_related(user, type)
     exclude = [id]
     exclude.concat user.get_voted_ids(month_range(3)) unless user.blank?
-    related_ids = Fun.search_fun_ids(content.cached_tag_list, type, 1)
+    related_ids = Fun.search_fun_ids(content.cached_tag_list, type)
     Fun.where(id: related_ids).exclude_funs(exclude).where(published_at: month_range(3)).filter_by_type(type).order('cached_votes_total DESC').limit 3
   end
 
@@ -165,12 +165,12 @@ class Fun < ActiveRecord::Base
     end
 
     # Content types for searching
-    def search_fun_ids(query, types=[], p)
+    def search_fun_ids(query, types=[])
       query = [query].flatten.join(',')
       types = clean_types types
       type_index = []
       DEF_TYPES.each{|t| type_index << DEF_TYPES.index(t) if t.in? types }
-      Fun.search_for_ids(query, with: {type: type_index}, match_mode: :any).page(p).per(default_per_page)
+      Fun.search_for_ids(query, with: {type: type_index}, match_mode: :any, max_matches: 100, per_page: 100)
     end
 
   end

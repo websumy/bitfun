@@ -12,7 +12,7 @@ class FunsController < ApplicationController
     @funs = Fun.includes(:user, :content).filter_by_type(type).sorting(params[:sort], interval: interval, sandbox: params[:sandbox])
 
     if params[:query]
-      funs_ids = Fun.search_fun_ids(params[:query], type, params[:page])
+      funs_ids = Fun.search_fun_ids(params[:query], type)
       @funs = @funs.where(id: funs_ids)
     end
 

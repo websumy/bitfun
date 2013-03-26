@@ -11,8 +11,7 @@ Bitfun::Application.routes.draw do
 
   post 'vk/comments/:id', to: 'vk_widgets#comments', as: :vk_comments_callback
 
-  get   'funs/tags/:query',   to: 'funs#index',                 as: :tag
-  get   'search',             to: 'funs#index',                 as: :search_tags
+  get   'search',            to: 'funs#index',                 as: :search_tags, defaults: { search: true }
   post  'get_tags',           to: 'funs#autocomplete_tags',     as: :autocomplete_tags
 
   get 'feed' => 'funs#feed'

@@ -9,7 +9,7 @@ module FunsHelper
   end
 
   def show_cached_tags(fun)
-    fun.content.cached_tag_list.split(', ').map { |t| link_to t, tag_path(t) }.join(', ').html_safe
+    fun.content.cached_tag_list.split(', ').map { |t| link_to t, search_tags_path(query: t) }.join(', ').html_safe
   end
 
   def small_repost_button(fun)
