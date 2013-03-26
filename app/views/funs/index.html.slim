@@ -1,5 +1,6 @@
 - content_for :navigation, render('layouts/navigation')
-div[class="container main_layout#{view_partial == 'box' ? ' grid' : ''}"]
+- data = params[:query] ? {:'data-search' => search_tags_path(query: params[:query])} : {}
+div *data class="container main_layout#{view_partial == 'box' ? ' grid' : ''}"
   section.content[role="main"]
     section.post_wall.load_buttons#wall
       - if @funs.any?

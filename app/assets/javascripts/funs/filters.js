@@ -13,18 +13,17 @@ $(function(){
         data['interval'] = $('#dropdown_select').data('ddslick').selectedData.value || 'year';
         data['view'] = $('#switch_view').find('a.active').data('value') || 'list';
 
-//        var tags = get_tags();
-//        if (tags) data["query"] = tags;
         return data;
     };
 
     // Post data
 
     var post_filter_data = function(data){
-        var postData = $.extend({}, get_filter_data(), data);
+        var postData = $.extend({}, get_filter_data(), data),
+            searchUrl = $('.main_layout').data('search') || '';
         $.ajax({
-            type: 'POST',
-            url: '/',
+            type: 'GET',
+            url: searchUrl.length ? searchUrl  :'/',
             data: postData,
             dataType: 'script',
             complete: function(data) {
