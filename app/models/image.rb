@@ -3,14 +3,10 @@ class Image < ActiveRecord::Base
   attr_accessible :title, :file, :remote_file_url, :url, :tag_list
 
   # Validation
-  require 'file_size_validator'
-  require 'uri_validator'
-  validates :file, presence: true, file_size: {maximum: 5.megabytes.to_i}
-  validates :remote_file_url,
-            uri: {
-                format: /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix,
-                unless: :file?
-            }
+  # require 'file_size_validator'
+  # validates :file, presence: true, file_size: { maximum: 5.megabytes.to_i }
+  validates :remote_file_url, format: /(https?:\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, allow_blank: true
+  validates :title, length: { minimum: 3 }, allow_blank: true
   validates_integrity_of :file
   validates_processing_of :file
 
@@ -22,7 +18,7 @@ class Image < ActiveRecord::Base
     super
   end
 
-  has_many :fun, :as => :content, :dependent => :destroy
+  has_many :fun, as: :content, dependent: :destroy
 
   def exist_gif_thumb?
     self.file.gif.file.exists?

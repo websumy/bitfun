@@ -28,10 +28,9 @@ class Fun < ActiveRecord::Base
     super
   end
 
-  def content_attributes=(attributes)
-    content = content_type.constantize.find_or_initialize_by_id(content_id)
-    content.attributes = attributes
-    self.content = content
+  def build_content(params, assignment_options)
+    raise "Unknown content_type: #{content_type}" unless DEF_TYPES.include?(content_type.downcase)
+    self.content = content_type.constantize.new(params)
   end
 
   # Validation

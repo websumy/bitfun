@@ -4,6 +4,8 @@ class Video < ActiveRecord::Base
   attr_accessible :title, :url, :remote_image_url, :tag_list
   mount_uploader :image, ImageUploader
 
+  validates :title, length: { minimum: 3 }, allow_blank: true
+  validates :url, presence: true, format: /^(?:https?:\/\/)(?:www\.)?(?:youtu\.be|youtube\.com|vimeo\.com)/ix
   validate :check_video_url
 
   # Tags
