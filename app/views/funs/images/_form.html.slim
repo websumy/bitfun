@@ -6,6 +6,8 @@
     span.help-inline или
     span.fileupload-new[data-provides='fileupload']
       span.btn-file
-        span Загрузить
+        span.fileupload-preview
+        span.fileupload-new Загрузить
         = f.file_field :file, accept: 'image/jpeg,image/png,image/gif'
+
   = f.input :tag_list

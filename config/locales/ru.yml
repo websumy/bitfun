@@ -1,4 +1,13 @@
 ru:
+  activerecord:
+    errors:
+      models:
+        video:
+          attributes:
+            url:
+              invalid: "загрузка видео доступна только с ресурсов youtube.com и vimeo.com"
+
+
   funs:
     created: "Фан успешно добавлен вам на стену."
     updated: "Фан успешно обновлен."
@@ -93,7 +102,7 @@ ru:
         content:
           title: 'Название (не обязательно)'
           tag_list: 'Введите теги (через запятую)'
-          remote_file_url: 'Вставить ссылку на изображение'
+          remote_file_url: 'Вставьте ссылку на изображение'
           url: 'Вставьте ссылку на видео (youtube или vimeo)'
 
 

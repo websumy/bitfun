@@ -28,4 +28,5 @@
     a.cancel[href="#"] Отменить
     a.add[href="#" rel='submit' data-form='#new_fun']:span Добавить
   javascript:
+    $('#add_video, #add_text').find('input, textarea').attr('disabled', 'disabled');
     $('#new_fun').enableClientSideValidations();

@@ -10,7 +10,6 @@ $(function(){
     $(document).on('show', '.add_fun_form a[data-toggle="tab"]', function(e){
         $('.add_fun_form .tab_content').find('input, textarea').attr('disabled', 'disabled');
         $('.add_fun_form .tab_content ' + e.target.hash).find('input, textarea').removeAttr('disabled');
-
     });
 
     $(document).on('shown', '.add_fun_form a[data-toggle="tab"]', function(e){
@@ -26,4 +25,10 @@ $(function(){
             show_notice(data.notice)
         }
     });
+
+    $(document).on('changed', '[data-provides="fileupload"]', function(){
+        $('#fun_content_attributes_remote_file_url').val('');
+        $('#new_fun').resetClientSideValidations();
+    });
+
 });

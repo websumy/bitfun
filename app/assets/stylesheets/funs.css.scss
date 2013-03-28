@@ -1672,8 +1672,9 @@ a {
 				}
                 .btn-file{
                   text-align: center;
-                  @include btn-violet(45px);
+                  @include btn-violet(47px);
                   width: 112px;
+                  padding: 3px 18px;
                 }
 			}
 			#add_video{

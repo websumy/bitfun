@@ -96,6 +96,7 @@ ClientSideValidations.formBuilders['SimpleForm::FormBuilder'] = {
     add: function(element, settings, message) {
         if (element.data('valid') !== false) {
             var wrapper = element.closest(settings.wrapper_tag);
+            if (wrapper.hasClass('url')) wrapper = wrapper.closest('.control-row'); // use only for add_fun form
             element.addClass('error');
             var errorElement = $('<' + settings.error_tag + ' class="' + settings.error_class + '">' + message + '</' + settings.error_tag + '>');
             wrapper.append(errorElement);
@@ -106,8 +107,16 @@ ClientSideValidations.formBuilders['SimpleForm::FormBuilder'] = {
     remove: function(element, settings) {
         var wrapper = element.parent(settings.wrapper_tag);
         element.removeClass('error');
+        if (wrapper.hasClass('url')) wrapper = wrapper.closest('.control-row');  // use only for add_fun form
         wrapper.find(settings.error_tag + '.' + settings.error_class).remove();
     }
 };
 
 ClientSideValidations.formBuilders['NestedForm::SimpleBuilder'] = ClientSideValidations.formBuilders['SimpleForm::FormBuilder'];
+
+ClientSideValidations.callbacks.element.pass = function(element, callback, eventData) {
+  callback();
+  if(element.is('#fun_content_attributes_remote_file_url') && element.val()){
+      $('[data-provides="fileupload"]').inputfileupload('clear');
+  }
+}
