@@ -73,7 +73,15 @@
         this.clear()
         return
       }
-      
+
+      // slice preview text to 14 length
+      var length = file.name.length,
+          name = file.name;
+      if (length > 14) name = file.name.slice(0, -length + 6) + '...' + file.name.slice(length - 5, length);
+
+      // call trigger changed
+      this.$input.trigger('changed');
+
       this.$hidden.val('')
       this.$hidden.attr('name', '')
       this.$input.attr('name', this.name)
@@ -90,7 +98,7 @@
 
         reader.readAsDataURL(file)
       } else {
-        this.$preview.text(file.name)
+        this.$preview.text(name.toLowerCase())
         this.$element.addClass('fileupload-exists').removeClass('fileupload-new')
       }
     },
