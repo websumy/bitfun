@@ -30,4 +30,15 @@ $(function(){
         }
     });
 
+    var get_tags = function(){
+        var tags = $('.search_by_tags').tagit("tags");
+        return (tags.length) ? $.map(tags, function(tag){ return tag.value; }) : false;
+    };
+
+    $('.search_block a').click(function(e){
+        e.preventDefault();
+        var data = get_tags();
+        if (data) window.location.href = "/search?" + $.param({query:data});
+    });
+
 });
