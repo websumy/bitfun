@@ -118,6 +118,6 @@ ClientSideValidations.formBuilders['NestedForm::SimpleBuilder'] = ClientSideVali
 ClientSideValidations.callbacks.element.pass = function(element, callback, eventData) {
   callback();
   if(element.is('#fun_content_attributes_remote_file_url') && element.val()){
-      $('[data-provides="fileupload"]').inputfileupload('clear');
+      $('#upload_image_botton').inputfileupload('clear');
   }
 };

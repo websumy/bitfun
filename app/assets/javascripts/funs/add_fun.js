@@ -26,8 +26,9 @@ $(function(){
         }
     });
 
-    $(document).on('changed', '[data-provides="fileupload"]', function(){
+    $(document).on('changed', '#upload_image_botton', function(){
         $('#fun_content_attributes_remote_file_url').val('');
+        $(this).closest('.control-row').find(".error-block").remove();
         $('#new_fun').resetClientSideValidations();
     });
 
