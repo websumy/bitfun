@@ -32,7 +32,7 @@
     if (this.$input.length === 0) return
 
     this.name = this.$input.attr('name') || options.name
-
+    this.options = $.extend({}, $.fn.inputfileupload.defaults, options);
     this.$hidden = this.$element.find('input[type=hidden][name="'+this.name+'"]')
     if (this.$hidden.length === 0) {
       this.$hidden = $('<input type="hidden" />')
@@ -101,6 +101,11 @@
         this.$preview.text(name.toLowerCase())
         this.$element.addClass('fileupload-exists').removeClass('fileupload-new')
       }
+
+      if (this.options.maxFileSize && file.size > this.options.maxFileSize){
+        this.options.onFailMaxSize()
+        this.reset()
+      }
     },
 
     clear: function(e) {
@@ -126,7 +131,7 @@
         e.preventDefault()
       }
     },
-    
+
     reset: function(e) {
       this.clear()
       
@@ -155,6 +160,11 @@
       if (typeof options == 'string') data[options]()
     })
   }
+
+  $.fn.inputfileupload.defaults = {
+      maxFileSize: undefined,
+      onFailMaxSize: function() {}
+  };
 
   $.fn.inputfileupload.Constructor = Fileupload
 
