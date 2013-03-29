@@ -1,6 +1,6 @@
 $(function () {
 
-    var $span = $('.change_photo'),
+    var $span = $('#change_photo'),
         $progress = $('.progress'),
         $bar = $progress.find('.bar'),
         $avatars = $('.photo_box img, .avatar_wrapper img');
