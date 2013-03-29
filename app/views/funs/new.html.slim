@@ -17,7 +17,7 @@
           | Текст
 
       .tab_content
-        = simple_form_for @fun, wrapper: :none, remote: true, validate: true do |f|
+        = simple_form_for @fun, wrapper: :none, remote: true, html: {:'data-type' => 'json'}, validate: true do |f|
           .tab_pane.active id="add_image"
             = render 'funs/images/form', fun: f
           .tab_pane id="add_video"

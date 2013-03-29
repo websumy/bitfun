@@ -33,7 +33,7 @@ class FunsController < ApplicationController
   end
 
   def feed
-    @funs = current_user.feed.includes(:user, :content, :reposts).order("created_at DESC").page params[:page]
+    @funs = current_user.feed.includes(:user, :content, :reposts).order('created_at DESC').page params[:page]
     render 'index'
   end
 
@@ -55,10 +55,14 @@ class FunsController < ApplicationController
   # POST /funs
   def create
     @fun = current_user.funs.new(params[:fun])
-    if @fun.save
-      render json: { success: true, notice: t('funs.created') }
-    else
-      render json: { success: false, notice: @fun.errors }
+    respond_to do |format|
+      if @fun.save
+        format.html { redirect_to @fun, notice: t('funs.created') }
+        format.json { render json: { success: true, path: fun_path(@fun) } }
+      else
+        format.html { redirect_to root_path, notice: t('funs.add_error') }
+        format.json { render json: { success: false, notice: t('funs.add_error') } }
+      end
     end
   end
 
@@ -67,7 +71,7 @@ class FunsController < ApplicationController
     if @fun.update_attributes(params[:fun])
       redirect_to @fun, notice: t('funs.updated')
     else
-      render "edit"
+      render 'edit'
     end
   end
 

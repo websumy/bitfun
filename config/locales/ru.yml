@@ -6,12 +6,17 @@ ru:
           attributes:
             url:
               invalid: "загрузка видео доступна только с ресурсов youtube.com и vimeo.com"
+        image:
+          attributes:
+            remote_file_url:
+              invalid: "проверьте правильность пути к изображению"
 
 
   funs:
-    created: "Фан успешно добавлен вам на стену."
+    created: "Фан успешно добавлен."
     updated: "Фан успешно обновлен."
     deleted: "Фан успешно удален."
+    add_error: "Произошла ошибка при добавлении фана :("
 
   reposts:
     created: "Фан успешно скопирован вам на стену."

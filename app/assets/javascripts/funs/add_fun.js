@@ -19,10 +19,10 @@ $(function(){
     $(document).on('ajax:success', '#new_fun', function(evt, data, status, xhr){
         $.fancybox.close();
         if (data.success){
-            show_notice(data.notice)
+            window.location.href = data.path;
         }
         else{
-            show_notice(data.notice)
+            show_notice(data.notice, 'error')
         }
     });
 

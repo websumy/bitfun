@@ -9,6 +9,7 @@ class Image < ActiveRecord::Base
   validates :title, length: { minimum: 3 }, allow_blank: true
   validates_integrity_of :file
   validates_processing_of :file
+  validate :check_image
 
   # Tags
   acts_as_taggable
@@ -22,5 +23,11 @@ class Image < ActiveRecord::Base
 
   def exist_gif_thumb?
     self.file.gif.file.exists?
+  end
+
+  private
+
+  def check_image
+    errors.add(:url, 'Cat not add this file') unless file.present?
   end
 end
