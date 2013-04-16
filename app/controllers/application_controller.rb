@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  after_filter :user_activity
 
   unless Rails.env.development?
     rescue_from Exception, :with => :exception_catcher
@@ -52,5 +53,9 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :cookies_store
+
+  def user_activity
+    current_user.try :touch, :last_response_at
+  end
 
 end

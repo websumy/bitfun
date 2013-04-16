@@ -54,6 +54,8 @@ class User < ActiveRecord::Base
 
   after_create { create_setting if setting.nil? }
 
+  scope :online, lambda{ where('last_response_at > ?', 10.minutes.ago) }
+
   def to_jq_upload
     { thumb_url: avatar.img.url }.to_json
   end
@@ -63,6 +65,11 @@ class User < ActiveRecord::Base
         login: login,
         avatar_path: avatar.img.small.url,
     }
+  end
+
+  # Check user state
+  def online?
+    last_response_at > 10.minutes.ago
   end
 
   # Compare user role
