@@ -20,4 +20,8 @@ class SessionsController < Devise::SessionsController
     render json: { success: false, errors: t('devise.failure.invalid') }
   end
 
+  def destroy
+    warden.user.update_attribute :last_response_at, nil
+    super
+  end
 end

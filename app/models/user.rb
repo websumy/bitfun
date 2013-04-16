@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
 
   # Check user state
   def online?
-    last_response_at > 10.minutes.ago
+    ! last_response_at.nil? && last_response_at  > 10.minutes.ago
   end
 
   # Compare user role
