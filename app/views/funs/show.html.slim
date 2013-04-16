@@ -19,12 +19,10 @@
           .post_share
             .share_item
               img[src="#{asset_path "post_soc_icons.jpg"}" alt="image"]/
-
-          .pagination
-            .pagination_hl
-              a.pn_item.prev[href="#"]: span
-              a.pn_item.next[href="#"]: span
-
+          .follow_box
+            |Подписаться
+            a.btn-follow[href="#"]
+              i.icon
         .post_object
           = render_fun_partial @fun, :show
         .post_nav
@@ -45,25 +43,15 @@
             VK.Widgets.Comments("vk_comments", { limit: 15, width: "670", attach: "*", onChange: function(num, last_comment, date, sign){
               $.post( "#{vk_comments_callback_path(@fun.id)}", { num: num.toString(), last_comment:last_comment , date: date, sign:sign } );
             } }, #{@fun.id});
+
   .aside.sidebar
-    .tumbler_switch[data-toggle="switcher"]
-      .toggle_track
-        a.switch.hold_left.active[href="#"]
-          span.orange_box_left.toggle_slider: .orange_box_right: span.orange_inner
-          span.toggle_name Тренды
-        a.switch.hold_right[href="#"]
-          span.orange_box_right.toggle_slider: span.orange_box_left: span.orange_inner
-          span.toggle_name Похожее
-
-    section.vertical_carousel.grid
-      .pagination
-        .pagination_vl
-          a.pn_item.top[href="#"]: span
-
+    section.vertical_carousel
+      .title Рекомендуемое
       .carousel_wrapper.load_buttons
         - if @funs.any?
           - @funs.each do |fun|
-            = render "funs/box", fun: fun
-      .pagination
-        .pagination_vl
-          a.pn_item.btm[href="#"]: span
+            = render 'funs/box', fun: fun
+
+      a.show_more[href=""]
+        |Смотреть еще
+        i.icon

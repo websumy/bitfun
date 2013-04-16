@@ -69,6 +69,8 @@ $(function(){
         }
     });
 
+    $('.rating-sort select').ddslick({});
+
     $('#switch_view').switcher({
         onChange: function(e){ post_filter_data({ view: e.data('value') })}
     })

@@ -1,57 +1,116 @@
 // ddSlick
 // -------
 
-.dd-container {
-	@include white-box-select();
-	@include border-radius(4px);
-	border: 1px solid #CCC;
-	float: left;
-	position: relative;
-	height: 45px;
-	color: #444444;
-	font-size: 14px;
-
-
-	.dd-selected{
-		height: 45px;
-		color: #707070;
-		padding: 0 0 0 18px;
-		line-height: 45px;
+.filter_time{
+	.dd-container {
+		@include white-box-select();
+		@include border-radius(4px);
+		border: 1px solid #CCC;
+		float: left;
 		position: relative;
-		.dd-selected-text{
+		height: 45px;
+		color: #444444;
+		font-size: 14px;
+
+
+		.dd-selected{
+			height: 45px;
+			color: #707070;
+			padding: 0 0 0 18px;
 			line-height: 45px;
-			padding-right: 40px;
+			position: relative;
+			.dd-selected-text{
+				line-height: 45px;
+				padding-right: 40px;
+			}
+			&:after {
+				background: asset_url("select-dropdown-icons.png", image) no-repeat left -28px;
+				height: 14px;
+				width: 8px;
+				content: "";
+				position: absolute;
+				right: 18px;
+				top: 50%;
+				margin-top: -7px;
+			}
 		}
-		&:after {
-			background: asset_url("select-dropdown-icons.png", image) no-repeat left -28px;
-			height: 14px;
-			width: 8px;
-			content: "";
-			position: absolute;
-			right: 18px;
-			top: 50%;
-			margin-top: -7px;
+		.dd-options{
+			margin-left: -1px;
+			margin-top: -3px;
+			border: 1px solid #ccc;
+			border-top: 0 none;
+			.dd-option{
+			padding:10px 10px 10px 18px;
+			display:block;
+			border-bottom:solid 1px #ddd;
+			overflow:hidden;
+			text-decoration:none;
+			color:#333;
+			cursor:pointer;
+			}
+			label{margin-bottom: 0;}
 		}
+		@include ddSlick_width();
+
+
 	}
-	.dd-options{
-		margin-left: -1px;
-		margin-top: -3px;
-		border: 1px solid #ccc;
-		border-top: 0 none;
-		.dd-option{
-		padding:10px 10px 10px 18px;
-		display:block;
-		border-bottom:solid 1px #ddd;
-		overflow:hidden;
-		text-decoration:none;
-		color:#333;
-		cursor:pointer;
+}
+
+.rating-sort{
+	.dd-container {
+		position: relative;
+		color: #777777;
+		font-size: 13px;
+		.dd-selected{
+			color: #707070;
+			padding: 0 0 0 3px;
+			position: relative;
+			height: 26px;
+			line-height: 26px;
+			.dd-selected-text{
+				padding-right: 20px;
+				line-height: 26px;
+			}
+		}
+		.dd-pointer{
+			height: 26px;
+			width: 28px;
+			position: absolute;
+			right: 0;
+			top: 50%;
+			margin-top: -14px;
+			z-index: 200;
+			background: asset_url("dropdown-arrow-2.png", image) no-repeat -28px 0;
+
+			//&.dd-pointer-down{background: asset_url("dropdown-arrow-2.png", image) no-repeat -28px 0;}
+			&.dd-pointer-up{
+				background-color: #ffffff;
+				@include border-radius(3px 3px 0 0 );
+				@include box-shadow(0px -2px 4px #c9c9c9,0px 2px 2px 0 #fff);
+				//@include box-shadow(0 -1px 2px 0 #c9c9c9);
+			}
+		}
+		.dd-options{
+			font-size: 11px;
+			margin-left: 0px;
+			//margin-top: -5px;
+			background-color: #ffffff;
+			z-index: 10;
+			@include box-shadow(0 0 4px 0#c9c9c9);
+			@include border-radius(6px 0 6px 6px);
+			.dd-option{
+				padding:5px 4px 5px 8px;
+				display:block;
+				overflow:hidden;
+				text-decoration:none;
+				color:#333;
+				cursor:pointer;
+				border-bottom: 1px solid #D8D8D8;
+			}
 		}
 		label{margin-bottom: 0;}
+		@include ddSlick_width(120px);
 	}
-	@include ddSlick_width();
-
-
 }
 
 
