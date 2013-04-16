@@ -17,10 +17,10 @@
             .share_item
               img[src="#{asset_path "post_soc_icons.jpg"}" alt="image"]/
 
-          .pagination
-            .pagination_hl
-              a.pn_item.prev[href="#"]: span
-              a.pn_item.next[href="#"]: span
+          .follow_box
+            |Подписаться
+            a.btn-follow[href="#"]
+              i.icon
 
         .post_object
           a[href="#"]: img[src="#{asset_path "tmp/post_img_full.jpg"}" alt="image"]/
@@ -61,20 +61,8 @@
 
 
   .aside.sidebar
-    .tumbler_switch
-      .toggle_track
-        a.switch.hold_left.active[href="#"]
-          span.orange_box_left.toggle_slider: .orange_box_right: span.orange_inner
-          span.toggle_name Популярные
-        a.switch.hold_right[href="#"]
-          span.orange_box_right.toggle_slider: span.orange_box_left: span.orange_inner
-          span.toggle_name Рекомендуемые
-
     section.vertical_carousel
-      .pagination
-        .pagination_vl
-          a.pn_item.top[href="#"]: span
-
+      .title Популярное
       .carousel_wrapper
         article.post_frame.post_card
           .post_info
@@ -104,6 +92,6 @@
                 span.icon
                 span.counter: span.slice 305
 
-      .pagination
-        .pagination_vl
-          a.pn_item.btm[href="#"]: span
+      a.show_more[href=""]
+        |Смотреть еще
+        i.icon

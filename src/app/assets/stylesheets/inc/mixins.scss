@@ -5,6 +5,17 @@
 //     	    developers =============================== */
 // =================================================== */
 
+
+@mixin icon-x25($l: 0, $t: 0, $p: 5px 0 0 25px, $m: 0 0 0 10px)
+{
+	.icon{
+		padding: $p;
+		margin: $m;
+		overflow: hidden;
+		background: asset_url("icons-sprite-x25.png", image) no-repeat $l $t;
+	}
+}
+
 @mixin sassy-hover($item: all, $time: 500ms, $animate: cubic-bezier(0.420, 0.000, 0.580, 1.000)){
 	@include transition(#{$item} #{$time} #{$animate});
 }
@@ -63,7 +74,7 @@
 		@include box-shadow(0 1px 1px rgba(0,0,0,.23), inset 0 1px rgba(255,255,255,.2));
 	}
 	background: #ffffff;
-	border-radius: 0 2px 2px 0;
+	border-radius: 0 0 2px 2px;
 }
 
 @mixin underlined_titles($color: false, $border: false,$padding: false, $font-size: 14px){
@@ -161,6 +172,10 @@
 		background: asset_url("icon_arrow.png", image) no-repeat right center;
 		padding-right: 20px;
 	}
+}
+
+@mixin ddSlick_width($width: 260px){
+	&, .dd-select, .dd-options{width: #{$width};}
 }
 
 // =================================================== */

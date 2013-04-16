@@ -114,6 +114,107 @@
 
   /* **** sidebar **** */
   aside.sidebar[role="complementary"]
+    .info_block.following_list
+      .topic
+        span.in_rating.pull-left <strong>Рейтинг </strong>
+        .pull-right.rating-sort
+          select
+            option За все время
+            option За месяц
+            option За неделю
+            option За сегодня
+      .text
+        table
+          tr.odd
+            td.number_cell 1.
+            td.avatar_cell
+              .photo_frame
+                a.photo_box[href="#"]
+                  img[src="#{asset_path "default-avatar-34.jpg"}" alt="image"]/
+            td
+              .user_name: a[href=""] Andrey
+              .user_stats
+                a.downloads[href="#"] 18
+                | &nbsp;&middot;&nbsp;
+                a.subscribers[href="#" ] 22
+            td.follow_cell
+              a.follow.active[href="#"  rel="tooltip" title="Отписаться"]
+          tr.even
+            td.number_cell 2.
+            td.avatar_cell
+              .photo_frame
+                a.photo_box[href="#"]
+                  img[src="#{asset_path "default-avatar-34.jpg"}" alt="image"]/
+            td
+              .user_name: a[href=""] Тарас Петрович
+              .user_stats
+                a.downloads[href="#"] 18
+                | &nbsp;&middot;&nbsp;
+                a.subscribers[href="#" ] 22
+            td.follow_cell
+              a.follow[href="#" rel="tooltip" title="Читать"]
+          tr.odd
+            td.number_cell 1.
+            td.avatar_cell
+              .photo_frame
+                a.photo_box[href="#"]
+                  img[src="#{asset_path "default-avatar-34.jpg"}" alt="image"]/
+            td
+              .user_name: a[href=""] Andrey
+              .user_stats
+                a.downloads[href="#"] 18
+                | &nbsp;&middot;&nbsp;
+                a.subscribers[href="#" ] 22
+            td.follow_cell
+              a.follow.active[href="#"  rel="tooltip" title="Отписаться"]
+          tr.even
+            td.number_cell 2.
+            td.avatar_cell
+              .photo_frame
+                a.photo_box[href="#"]
+                  img[src="#{asset_path "default-avatar-34.jpg"}" alt="image"]/
+            td
+              .user_name: a[href=""] Тарас Петрович
+              .user_stats
+                a.downloads[href="#"] 18
+                | &nbsp;&middot;&nbsp;
+                a.subscribers[href="#" ] 22
+            td.follow_cell
+              a.follow[href="#" rel="tooltip" title="Читать"]
+          tr.odd
+            td.number_cell 1.
+            td.avatar_cell
+              .photo_frame
+                a.photo_box[href="#"]
+                  img[src="#{asset_path "default-avatar-34.jpg"}" alt="image"]/
+            td
+              .user_name: a[href=""] Andrey
+              .user_stats
+                a.downloads[href="#"] 18
+                | &nbsp;&middot;&nbsp;
+                a.subscribers[href="#" ] 22
+            td.follow_cell
+              a.follow.active[href="#"  rel="tooltip" title="Отписаться"]
+          tr
+            td
+            td
+            td ...
+            td
+          tr.even.self
+            td.number_cell 2.
+            td.avatar_cell
+              .photo_frame
+                a.photo_box[href="#"]
+                  img[src="#{asset_path "default-avatar-34.jpg"}" alt="image"]/
+            td
+              .user_name: a[href=""] Тарас Петрович
+              .user_stats
+                a.downloads[href="#"] 18
+                | &nbsp;&middot;&nbsp;
+                a.subscribers[href="#" ] 22
+            td.follow_cell Это вы
+
+
     section.social_block
       header.sidebar_topics Следите за нами
       article.tabs_box.soc_tabs
