@@ -119,7 +119,7 @@ class Fun < ActiveRecord::Base
   def get_month_trends(user, type)
     exclude = [id]
     exclude.concat user.get_voted_ids(month_range) unless user.blank?
-    Fun.exclude_funs(exclude).where(published_at: month_range).filter_by_type(type).order('cached_votes_total DESC').limit 3
+    Fun.exclude_funs(exclude).where(published_at: month_range).filter_by_type(type).order('cached_votes_total DESC')
   end
 
   class << self

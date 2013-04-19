@@ -47,11 +47,11 @@
   .aside.sidebar
     section.vertical_carousel
       .title Рекомендуемое
-      .carousel_wrapper.load_buttons
+      #trends.carousel_wrapper.load_buttons
         - if @funs.any?
           - @funs.each do |fun|
-            = render 'funs/box', fun: fun
-
-      a.show_more[href=""]
+            .trend_item[style='display:none;']
+              = render 'funs/box', fun: fun
+      a.show_more#show_more_trends[href="" ]
         |Смотреть еще
         i.icon

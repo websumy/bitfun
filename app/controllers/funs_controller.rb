@@ -24,12 +24,7 @@ class FunsController < ApplicationController
   end
 
   def autocomplete_tags
-    unless params[:tag].nil?
-      tags = Fun.find_tags_by_name params[:tag]
-      respond_to do |format|
-        format.json { render :json => tags.collect { |tag| tag.name.to_s } }
-      end
-    end
+    render json: Fun.find_tags_by_name(params[:tag]).collect { |tag| tag.name.to_s } unless params[:tag].nil?
   end
 
   def feed
@@ -39,7 +34,7 @@ class FunsController < ApplicationController
 
   # GET /funs/1
   def show
-    @funs = @fun.get_month_trends(current_user, cookies_store[:type]).includes(:user, :content)
+    @funs = @fun.get_month_trends(current_user, cookies_store[:type]).includes(:user, :content).limit 9
     respond_to :html, :js
   end
 
