@@ -139,7 +139,7 @@ class Fun < ActiveRecord::Base
     end
 
     def interval(interval, sandbox = false)
-      interval = %w(week month year).include?(interval) ? interval: "year"
+      interval = %w(day week month year).include?(interval) ? interval: "year"
       where(sandbox ? :created_at : :published_at => 1.send(interval).ago .. Time.now)
     end
 

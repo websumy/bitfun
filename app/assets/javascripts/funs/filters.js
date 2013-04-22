@@ -24,7 +24,7 @@ $(function(){
             wall = $('#wall');
         $.ajax({
             type: 'GET',
-            url: searchUrl.length ? searchUrl  :'/',
+            url: searchUrl.length ? searchUrl  : '',
             data: postData,
             dataType: 'script',
             complete: function(data) {
@@ -40,8 +40,10 @@ $(function(){
                     if (postData.view == 'box'){
                         layout.addClass('grid');
                         sidebar.hide();
-                        if (wall.data('masonry')) wall.masonry('reload');
-                        else wall.masonry({ itemSelector : '.post_card', gutterWidth: 21 })
+                        wall.imagesLoaded(function(){
+                            if (wall.data('masonry')) wall.masonry('reload');
+                            else wall.masonry({ itemSelector : '.post_card', gutterWidth: 21 })
+                        });
                     }
                     else{
                         if (wall.data('masonry')) wall.masonry('destroy');
