@@ -20,7 +20,8 @@ $(function(){
 
     var post_filter_data = function(data){
         var postData = $.extend({}, get_filter_data(), data),
-            searchUrl = $('.main_layout').data('search') || '';
+            searchUrl = $('.main_layout').data('search') || '',
+            wall = $('#wall');
         $.ajax({
             type: 'GET',
             url: searchUrl.length ? searchUrl  :'/',
@@ -30,8 +31,7 @@ $(function(){
                 if (data.status == 200)
                 {
                     var layout = $('.main_layout'),
-                        sidebar = $('.sidebar'),
-                        wall = $('#wall');
+                        sidebar = $('.sidebar');
 
                     wall.html(data.responseText);
                     wall.initTooltipster();

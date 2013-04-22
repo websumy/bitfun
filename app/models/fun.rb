@@ -3,7 +3,7 @@ class Fun < ActiveRecord::Base
   attr_accessible :content_id, :content_type, :user_id, :owner_id, as: :admin
 
   # Kaminari pagination config
-  paginates_per 5
+  paginates_per 15
 
   # Fun moved from sandbox when total_likes = MIN_LIKES
   MIN_LIKES = 1

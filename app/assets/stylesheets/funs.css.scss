@@ -1890,7 +1890,7 @@ a {
 			width: 100%;
 			.post_card{
 				float: none; margin-bottom: 10px;
-				.post_object{width: 218px; height: 190px; overflow: hidden;}
+				.post_object{width: 218px; overflow: hidden;}
 			}
 		}
 
@@ -2502,3 +2502,9 @@ a {
 		.active{font-weight: bold;}
 	}
 }
+#loading{
+  width: 100%;
+  height: 150px;
+  background: asset_url("loading.gif", images) no-repeat center;
+}
+

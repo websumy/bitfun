@@ -57,11 +57,14 @@ $(function(){
         $(window).endlessScroll({
             fireOnce: true,
             fireDelay: false,
+            intervalFrequency: 250,
             inflowPixels: 200,
+            loader: '',
             ceaseFireOnEmpty: false,
             callback: function(i) {
                 loading = true;
                 var url = $('#next_url').data('url');
+                $wall.after($('<div id="loading"/>'))
                 $.ajax({
                     type: 'GET',
                     url: url,
@@ -80,7 +83,7 @@ $(function(){
                                 if ($wall.data('masonry')) $wall.masonry( 'appended', $newElems, true );
                                 $wall.append($newElems);
                             });
-
+                            $('#loading').remove();
                         }
                     }
                 });
