@@ -19,10 +19,7 @@
           .post_share
             .share_item
               img[src="#{asset_path "post_soc_icons.jpg"}" alt="image"]/
-          .follow_box
-            |Подписаться
-            a.btn-follow[href="#"]
-              i.icon
+          = follow_link(@fun.user)
         .post_object
           = render_fun_partial @fun, :show
         .post_nav

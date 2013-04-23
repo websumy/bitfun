@@ -11,6 +11,16 @@ module UsersHelper
     end if user_signed_in?
   end
 
+  def follow_link user
+    if user_signed_in? && current_user != user
+      if current_user.following? user
+        link_to raw('<i class="icon"></i>') + t('user.unfollow'), delete_user_follows_path(user), method: :delete, class: 'btn-follow active', remote: true, data: { type: :json }
+      else
+        link_to raw('<i class="icon"></i>') + t('user.follow'), user_follows_path(user), method: :post, class: 'btn-follow', remote: true, data: { type: :json }
+      end
+    end
+  end
+
   def show_avatar(user, type = nil)
     image_tag( user.avatar_url :img, type )
   end
