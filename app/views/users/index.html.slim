@@ -1,0 +1,54 @@
+.container.rating_layout
+  section.content[role="main"]
+    .topics_block
+      .filter_time.pull-right
+        .orange_box_left
+          .orange_box_right
+            .orange_inner: span
+        select.dropdown_select
+          option За все время
+          option За месяц
+          option за неделю
+          option за сегодня
+      .title_page
+        h2 Рейтинг пользователей
+    table.table-rating
+      thead
+        tr
+          th.name Имя
+          th.active
+            a.desc[href="#"]
+              |Загружено фанов
+              i.icon
+          th
+            a.asc[href="#"]
+              |Нравится
+              i.icon
+          th
+            a[href="#"]
+              |Подпищиков
+              i.icon
+          th
+            a[href="#"]
+              |Регистрация
+              i.icon
+          th
+            a[href="#"]
+              |Подписаться
+              i.icon
+      tbody
+        - @users.each do |user|
+          tr.odd.first-three
+            td.name
+              |1.
+              .photo_frame
+                a.photo_box[href="#"]
+                  = show_avatar user
+              = user.login
+            td.active 1654
+            td 854
+            td 204
+            td
+              = user.created_at.to_date
+            td
+              a.btn-follow.follow[href="#"]
