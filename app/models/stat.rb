@@ -12,13 +12,9 @@ class Stat < ActiveRecord::Base
 
     def recount(user, type)
       result, type  = {}, type.to_s
-      if type.in?(%w(votes funs reposts followers)) && user.present?
+      if type.in?(%w(votes funs reposts followers)) and user.present?
         %w(day week month all).each { |period|
-          result[:"#{period}_#{type}"] = if period == 'all'
-                                           user.send(type).count
-                                         else
-                                           user.send(type).where(created_at: 1.send(period).ago .. Time.now).count
-                                         end }
+          result[:"#{period}_#{type}"] = user.send('count_' + type, period != 'all' ? 1.send(period).ago .. Time.now : nil) }
         Stat.find_or_create_by_user_id(user_id: user.id).update_attributes result
       end
     end

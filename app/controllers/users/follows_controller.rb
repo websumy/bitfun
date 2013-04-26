@@ -1,29 +1,31 @@
 class Users::FollowsController < ApplicationController
   before_filter :load_user, except: :index
   before_filter :only_xhr_request, except: :index
-  authorize_resource class: "UserRelationship"
+  authorize_resource class: 'UserRelationship'
 
   def index
     user = User.find_by_login!(params[:id])
-    @users = if params[:type] == "following"
+    @users = if params[:type] == 'following'
                user.followed_users.page params[:page]
-             elsif params[:type] == "followers"
+             elsif params[:type] == 'followers'
                user.followers.page params[:page]
              else
                []
              end
     respond_to do |format|
-      format.html {render 'users/index'}
+      format.html { render 'users/index' }
     end
   end
 
   def create
     current_user.follow!(@user)
+    Stat.recount @user, :followers
     render json: { notice: t('follows.followed') }
   end
 
   def destroy
     current_user.unfollow!(@user)
+    Stat.recount @user, :followers
     render json: { notice: t('follows.unfollowed') }
   end
 

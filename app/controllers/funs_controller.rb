@@ -52,6 +52,7 @@ class FunsController < ApplicationController
     @fun = current_user.funs.new(params[:fun])
     respond_to do |format|
       if @fun.save
+        Stat.recount current_user, :funs
         format.html { redirect_to @fun, notice: t('funs.created') }
         format.json { render json: { success: true, path: fun_path(@fun) } }
       else

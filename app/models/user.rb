@@ -95,9 +95,31 @@ class User < ActiveRecord::Base
     find.destroy unless find.nil?
   end
 
+  # methods witch recount stats
+  def count_funs(range)
+    range.nil? ? funs.count : funs.where(created_at: range).count
+  end
+
+  def count_followers(range)
+    range.nil? ? followers.count : followers.where(created_at: range).count
+  end
+
+  def count_votes(range)
+    @fun_ids ||= Fun.unscoped { Fun.where(user_id: id) }.pluck(:id)
+    if range.nil?
+      ActsAsVotable::Vote.where(votable_type: Fun, voter_type: User, votable_id: @fun_ids).count
+    else
+      ActsAsVotable::Vote.where(created_at: range, votable_type: Fun, voter_type: User, votable_id: @fun_ids).count
+    end
+  end
+
+  def count_reposts(range)
+    range.nil? ? reposts.count : reposts.where(created_at: range).count
+  end
+
   # Get user reposts
   def reposts
-    Fun.unscoped { funs.where('parent_id IS NOT NULL') }
+    Fun.unscoped { Fun.where('parent_id IS NOT NULL').where(owner_id: id) }
   end
 
   # Get funs ids which user reposted

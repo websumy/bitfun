@@ -17,6 +17,7 @@ class Funs::RepostsController < ApplicationController
   def create
     authorize! :create, :repost
     @fun.repost_by current_user
+    Stat.recount @fun.user, :reposts
     render json: { success: true }
   end
 

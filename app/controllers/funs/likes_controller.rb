@@ -18,6 +18,7 @@ class Funs::LikesController < ApplicationController
   def create
     authorize! :create, :like
     @fun.like_by current_user
+    Stat.recount @fun.user, :votes
     render json: { type: :like }
   end
 
@@ -25,6 +26,7 @@ class Funs::LikesController < ApplicationController
   def destroy
     authorize! :destroy, :like
     @fun.unlike_by current_user
+    Stat.recount @fun.user, :votes
     render json: { type: :unlike }
   end
 
