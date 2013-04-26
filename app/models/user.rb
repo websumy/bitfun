@@ -31,9 +31,6 @@ class User < ActiveRecord::Base
   has_one :setting
   accepts_nested_attributes_for :setting, :allow_destroy => true
 
-  # Reposts
-  has_many :reposts
-
     # Followers and followed
   has_many :user_relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :reverse_user_relationships, foreign_key: "followed_id", class_name: "UserRelationship", dependent: :destroy
@@ -96,6 +93,11 @@ class User < ActiveRecord::Base
   def unfollow!(other_user)
     find = user_relationships.find_by_followed_id(other_user.id)
     find.destroy unless find.nil?
+  end
+
+  # Get user reposts
+  def reposts
+    Fun.unscoped { funs.where('parent_id IS NOT NULL') }
   end
 
   # Get funs ids which user reposted

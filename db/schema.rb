@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130416095235) do
+ActiveRecord::Schema.define(:version => 20130424091901) do
 
   create_table "funs", :force => true do |t|
     t.integer  "user_id"
@@ -70,6 +70,43 @@ ActiveRecord::Schema.define(:version => 20130416095235) do
     t.date    "birthday"
     t.integer "user_id"
   end
+
+  create_table "stats", :force => true do |t|
+    t.integer "user_id"
+    t.integer "day_votes",       :default => 0
+    t.integer "week_votes",      :default => 0
+    t.integer "month_votes",     :default => 0
+    t.integer "all_votes",       :default => 0
+    t.integer "day_funs",        :default => 0
+    t.integer "week_funs",       :default => 0
+    t.integer "month_funs",      :default => 0
+    t.integer "all_funs",        :default => 0
+    t.integer "day_reposts",     :default => 0
+    t.integer "week_reposts",    :default => 0
+    t.integer "month_reposts",   :default => 0
+    t.integer "all_reposts",     :default => 0
+    t.integer "day_followers",   :default => 0
+    t.integer "week_followers",  :default => 0
+    t.integer "month_followers", :default => 0
+    t.integer "all_followers",   :default => 0
+  end
+
+  add_index "stats", ["all_followers"], :name => "index_stats_on_all_followers"
+  add_index "stats", ["all_funs"], :name => "index_stats_on_all_funs"
+  add_index "stats", ["all_reposts"], :name => "index_stats_on_all_reposts"
+  add_index "stats", ["all_votes"], :name => "index_stats_on_all_votes"
+  add_index "stats", ["day_followers"], :name => "index_stats_on_day_followers"
+  add_index "stats", ["day_funs"], :name => "index_stats_on_day_funs"
+  add_index "stats", ["day_reposts"], :name => "index_stats_on_day_reposts"
+  add_index "stats", ["day_votes"], :name => "index_stats_on_day_votes"
+  add_index "stats", ["month_followers"], :name => "index_stats_on_month_followers"
+  add_index "stats", ["month_funs"], :name => "index_stats_on_month_funs"
+  add_index "stats", ["month_reposts"], :name => "index_stats_on_month_reposts"
+  add_index "stats", ["month_votes"], :name => "index_stats_on_month_votes"
+  add_index "stats", ["week_followers"], :name => "index_stats_on_week_followers"
+  add_index "stats", ["week_funs"], :name => "index_stats_on_week_funs"
+  add_index "stats", ["week_reposts"], :name => "index_stats_on_week_reposts"
+  add_index "stats", ["week_votes"], :name => "index_stats_on_week_votes"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
