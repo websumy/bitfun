@@ -19,7 +19,8 @@
           .post_share
             .share_item
               img[src="#{asset_path "post_soc_icons.jpg"}" alt="image"]/
-          = follow_link(@fun.user)
+          .follow_parent
+            = follow_link(@fun.user)
         .post_object
           = render_fun_partial @fun, :show
         .post_nav

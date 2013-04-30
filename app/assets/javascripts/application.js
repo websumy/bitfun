@@ -42,6 +42,13 @@ $(function(){
         offsetY: -5
     });
 
+    $(document).on('ajax:success', '.follow_parent a:visible', function(evt, data, status, xhr){
+        if (data.notice){
+            $(this).hide().siblings('a').show().css('display', 'inline-block');
+            show_notice(data.notice)
+        }
+    });
+
 //    //STICKY PROFILE
 //    var offset = $(".sticky_profile").offset();
 //    var topPadding = 200;
