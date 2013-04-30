@@ -15,7 +15,7 @@
     table.table-rating
       thead
         tr
-          th.name Имя
+          th.name Пользователь
           th.active
             a.desc[href="#"]
               |Загружено фанов
@@ -23,6 +23,10 @@
           th
             a.asc[href="#"]
               |Нравится
+              i.icon
+          th
+            a[href="#"]
+              |Репостов
               i.icon
           th
             a[href="#"]
@@ -42,13 +46,17 @@
             td.name
               |1.
               .photo_frame
-                a.photo_box[href="#"]
-                  = show_avatar user
-              = user.login
-            td.active 1654
-            td 854
-            td 204
+                = link_to show_avatar(user), user_path(user), class: 'photo_box'
+              = link_to(user.login, user_path(user))
+            td.active
+              = user.stat.all_funs
+            td
+              = user.stat.all_votes
+            td
+              = user.stat.all_reposts
+            td
+              = user.stat.all_followers
             td
               = user.created_at.to_date
-            td
-              a.btn-follow.follow[href="#"]
+            td.follow_parent
+              = follow_link_rating user

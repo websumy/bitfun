@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   # Associations
   belongs_to :role
   has_many :funs
+  has_one :stat
 
   def funs_with_reposts
     Fun.unscoped.where( user_id: id )
@@ -50,6 +51,7 @@ class User < ActiveRecord::Base
   before_create :set_default_role
 
   after_create { create_setting if setting.nil? }
+  after_create { create_stat if stat.nil? }
 
   scope :online, lambda{ where('last_response_at > ?', 10.minutes.ago) }
 

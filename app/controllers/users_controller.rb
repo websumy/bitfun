@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_filter :set_cookies, only: [:show, :likes]
 
   def index
-    @users = User.all
+    @users = User.includes(:stat).page params[:page]
   end
 
   def show
