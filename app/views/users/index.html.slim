@@ -16,30 +16,18 @@
       thead
         tr
           th.name Пользователь
-          th.active
-            a.desc[href="#"]
-              |Загружено фанов
-              i.icon
           th
-            a.asc[href="#"]
-              |Нравится
-              i.icon
+            = sort_to 'funs'
           th
-            a[href="#"]
-              |Репостов
-              i.icon
+            = sort_to 'votes'
           th
-            a[href="#"]
-              |Подпищиков
-              i.icon
+            = sort_to 'reposts'
           th
-            a[href="#"]
-              |Регистрация
-              i.icon
+            = sort_to 'followers'
           th
-            a[href="#"]
-              |Подписаться
-              i.icon
+            = sort_to 'created_at'
+          th
+            |Подписаться
       tbody
         - @users.each do |user|
           tr.odd.first-three

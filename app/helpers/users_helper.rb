@@ -48,4 +48,9 @@ module UsersHelper
     end
   end
 
+  def sort_to(column)
+    direction = (sort_column == column && sort_direction == 'asc') ? 'desc' : 'asc'
+    link_to(raw(t("user.sort.#{column}") + '<i class="icon"></i>'), { sort: column, direction: direction, interva: sort_interval }, class: direction)
+  end
+
 end

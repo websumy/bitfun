@@ -203,6 +203,28 @@ class User < ActiveRecord::Base
 
   class << self
 
+    def set_sort(params)
+      @sort ||= params
+    end
+
+    def sort_column
+      Stat.column_names.include?(@sort[:sort]) ? @sort[:sort] : 'votes'
+    end
+
+    def sort_direction
+      %w(asc desc).include?(@sort[:direction]) ? @sort[:direction] : 'asc'
+    end
+
+    def sort_interval
+      %w(day week month all).include?(@sort[:interval]) ? @sort[:interval] : 'week'
+    end
+
+    def sorting
+      query = scoped
+      query.where(created_at: 1.send(sort_interval).ago .. Time.now) unless sort_interval == 'all'
+      query.order(sort_interval + '_' + sort_column + ' ' + sort_direction)
+    end
+
     # Create user from oAuth data
     def create_with_omniauth(data)
       providers = Devise.omniauth_providers

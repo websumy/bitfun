@@ -70,6 +70,12 @@ ru:
       one: "%{count} лайк"
       few: "%{count} лайка"
       other: "%{count} лайков"
+    sort:
+      funs: "Фанов"
+      votes: "Нравится"
+      reposts: "Репостов"
+      followers: "Подпищиков"
+      created_at: "Регистрация"
 
   simple_form:
     labels:
