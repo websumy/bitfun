@@ -72,7 +72,7 @@ ru:
       other: "%{count} лайков"
     sort:
       funs: "Фанов"
-      votes: "Нравится"
+      votes: "Лайков"
       reposts: "Репостов"
       followers: "Подпищиков"
       created_at: "Регистрация"

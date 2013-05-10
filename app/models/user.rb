@@ -203,26 +203,20 @@ class User < ActiveRecord::Base
 
   class << self
 
-    def set_sort(params)
-      @sort ||= params
+    def sort_column(column)
+      %w(funs votes reposts followers created_at).include?(column) ? column : 'votes'
     end
 
-    def sort_column
-      Stat.column_names.include?(@sort[:sort]) ? @sort[:sort] : 'votes'
+    def sort_direction(direction)
+      %w(asc desc).include?(direction) ? direction : 'desc'
     end
 
-    def sort_direction
-      %w(asc desc).include?(@sort[:direction]) ? @sort[:direction] : 'asc'
+    def sort_interval(interval)
+      %w(day week month all).include?(interval) ? interval : 'week'
     end
 
-    def sort_interval
-      %w(day week month all).include?(@sort[:interval]) ? @sort[:interval] : 'week'
-    end
-
-    def sorting
-      query = scoped
-      query.where(created_at: 1.send(sort_interval).ago .. Time.now) unless sort_interval == 'all'
-      query.order(sort_interval + '_' + sort_column + ' ' + sort_direction)
+    def sorting(column, direction, interval)
+      order("#{column != 'created_at' ? interval + '_' : ''}#{column} #{direction}")
     end
 
     # Create user from oAuth data

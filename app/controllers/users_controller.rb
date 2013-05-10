@@ -6,8 +6,7 @@ class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction, :sort_interval
 
   def index
-    User.set_sort params if params
-    @users = User.joins(:stat).includes(:stat).sorting.page params[:page]
+    @users = User.joins(:stat).includes(:stat).sorting(sort_column, sort_direction, sort_interval).page params[:page]
   end
 
   def show
@@ -52,14 +51,14 @@ class UsersController < ApplicationController
   end
 
   def sort_column
-    User.sort_column
+    User.sort_column params[:sort]
   end
 
   def sort_direction
-    User.sort_direction
+    User.sort_direction params[:direction]
   end
 
   def sort_interval
-    User.sort_interval
+    User.sort_interval params[:interval]
   end
 end
