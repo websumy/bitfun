@@ -1,0 +1,8 @@
+<%
+content = ''
+content << next_url(@users) if @users.first_page? && @users.any?
+@users.each do |user|
+ content << render('list_item', user: user)
+end
+%>
+<%= content.html_safe %>

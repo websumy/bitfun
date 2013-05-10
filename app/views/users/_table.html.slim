@@ -1,0 +1,19 @@
+table.table-rating
+  thead
+    tr
+      th.name Пользователь
+      th[class='#{active? 'funs'}']
+        = sort_to 'funs'
+      th[class='#{active? 'votes'}']
+        = sort_to 'votes'
+      th[class='#{active? 'reposts'}']
+        = sort_to 'reposts'
+      th[class='#{active? 'followers'}']
+        = sort_to 'followers'
+      th[class='#{active? 'created_at'}']
+        = sort_to 'created_at'
+      th
+        |Подписка
+  tbody
+    - @users.each do |user|
+      = render('list_item', user: user)

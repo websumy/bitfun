@@ -7,11 +7,13 @@ class UsersController < ApplicationController
 
   def index
     @users = User.joins(:stat).includes(:stat).sorting(sort_column, sort_direction, sort_interval).page params[:page]
+    if request.xhr?
+      render 'users/_table', layout: false
+    end
   end
 
   def show
     @funs = @user.funs_with_reposts.includes(:content, :reposts, :user).order('created_at DESC').page params[:page]
-
     render 'funs/index.js.erb' if request.xhr?
   end
 

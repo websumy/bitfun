@@ -1,0 +1,18 @@
+tr.odd.first-three
+  td.name
+    |1.
+    .photo_frame
+      = link_to show_avatar(user), user_path(user), class: 'photo_box'
+    = link_to(user.login, user_path(user))
+  td[class='#{active? 'funs'}']
+    = user.stat.try(:"#{sort_interval}_funs")
+  td[class='#{active? 'votes'}']
+    = user.stat.try(:"#{sort_interval}_votes")
+  td[class='#{active? 'reposts'}']
+    = user.stat.try(:"#{sort_interval}_reposts")
+  td[class='#{active? 'followers'}']
+    = user.stat.try(:"#{sort_interval}_followers")
+  td[class='#{active? 'created_at'}']
+    = user.created_at.to_date
+  td.follow_parent
+    = follow_link_rating user
