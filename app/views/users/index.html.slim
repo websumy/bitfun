@@ -5,11 +5,13 @@
         .orange_box_left
           .orange_box_right
             .orange_inner: span
-        select.dropdown_select
-          option За все время
-          option За месяц
-          option за неделю
-          option за сегодня
+        span[id="last_interval" data-value="week"]
+        select.dropdown_select#rating_dropdown
+          option[value='all'] За все время
+          option[value='month'] За месяц
+          option[value='week' selected='selected'] за неделю
+          option[value='day'] за сегодня
       .title_page
         h2 Рейтинг пользователей сайта BitFun.ru
+  #rating_table
     = render 'table'

@@ -57,4 +57,9 @@ module UsersHelper
     sort_column == column ? 'active' : ''
   end
 
+  def next_users_url(users)
+    current_state = { sort: sort_column, direction: sort_direction, interval: sort_interval }
+    content_tag(:div, id: 'current_users_url', data: { url: url_for(current_state.merge({ page: users.current_page + 1 })), current: url_for(current_state) }){}
+  end
+
 end

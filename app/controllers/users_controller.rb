@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def index
     @users = User.joins(:stat).includes(:stat).sorting(sort_column, sort_direction, sort_interval).page params[:page]
     if request.xhr?
-      render 'users/_table', layout: false
+      render params[:page] ? 'index' : 'users/_table', layout: false
     end
   end
 

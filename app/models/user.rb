@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  # Kaminari pagination config
+  paginates_per 3
+
   # Can vote for Funs
   acts_as_voter
 
