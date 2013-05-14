@@ -128,3 +128,11 @@ ClientSideValidations.callbacks.element.pass = function(element, callback, event
       $('#upload_image_botton').inputfileupload('clear');
   }
 };
+
+window.endlessScrolllLoading = false;
+
+EndlessScroll.prototype.shouldBeFiring = function() {
+    this.calculateScrollableCanvas();
+    return this.isScrollable
+        && (this.options.fireOnce === false || (this.options.fireOnce === true && this.fired !== true && !window.endlessScrolllLoading));
+};
