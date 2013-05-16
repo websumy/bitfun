@@ -207,7 +207,7 @@ class User < ActiveRecord::Base
   class << self
 
     def sort_column(column)
-      %w(funs votes reposts followers created_at).include?(column) ? column : 'votes'
+      %w(funs votes reposts followers created_at).include?(column) ? column : 'followers'
     end
 
     def sort_direction(direction)

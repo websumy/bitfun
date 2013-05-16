@@ -2,6 +2,12 @@ $(function(){
 
     var $table = $('#rating_table');
 
+    var resetOrder = function(){
+        $('td.name span').each(function(k){$(this).text(k + 1 + ".")})
+    };
+
+    resetOrder();
+
     var ajax_reload = function(url, data){
         $table.after($('<div id="loading"/>'));
         $.ajax({
@@ -13,6 +19,7 @@ $(function(){
                 if (data.status == 200)
                 {
                     $table.html(data.responseText);
+                    resetOrder();
                     $(window).data('endelessscroll').resetFiring();
                     $('#loading').remove();
                 }
@@ -59,6 +66,7 @@ $(function(){
                             if (data.responseText.length == 0) $(window).data('endelessscroll').stopFiring();
                             var $newElems = $( data.responseText ).css({ opacity: 0 });
                             $table.find('tbody').append($newElems);
+                            resetOrder();
                             $newElems.animate({ opacity: 1 });
                             $('#loading').remove();
                         }
