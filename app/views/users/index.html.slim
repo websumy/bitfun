@@ -12,6 +12,7 @@
           option[value='week' selected='selected'] за неделю
           option[value='day'] за сегодня
       .title_page
-        h2 Рейтинг пользователей сайта BitFun.ru
+        h2
+          = list_title
   #rating_table
-    = render 'table'
+    = render 'users/table'

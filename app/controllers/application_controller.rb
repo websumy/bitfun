@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   after_filter :user_activity
+  helper_method :cookies_store, :sort_column, :sort_direction, :sort_interval
 
   unless Rails.env.development?
     rescue_from Exception, :with => :exception_catcher
@@ -52,10 +53,20 @@ class ApplicationController < ActionController::Base
     @cookies_store ||= CookiesStore.new(cookies)
   end
 
-  helper_method :cookies_store
-
   def user_activity
     current_user.try :touch, :last_response_at
+  end
+
+  def sort_column
+    User.sort_column params[:sort]
+  end
+
+  def sort_direction
+    User.sort_direction params[:direction]
+  end
+
+  def sort_interval
+    User.sort_interval params[:interval]
   end
 
 end

@@ -1,12 +1,12 @@
 module UsersHelper
   def link_to_follow(content, user, html_options)
-    status = current_user.following?(user)
+    status = current_user.follow?(user)
     options = { method: :post, rel: 'tooltip', title: t('user.follow'), remote: true, data: { type: :json }, style: "display: #{status ? 'none' : 'inline-block'};" }
     link_to(content, user_follows_path(user), options.merge(html_options))
   end
 
   def link_to_unfollow(content, user, html_options)
-    status = current_user.following?(user)
+    status = current_user.follow?(user)
     options = { method: :delete, rel: 'tooltip', title: t('user.unfollow'), remote: true, data: {type: :json}, style: "display: #{status ? 'inline-block' : 'none'};" }
     link_to(content, delete_user_follows_path(user), options.merge(html_options))
   end
@@ -60,6 +60,19 @@ module UsersHelper
   def next_users_url(users)
     current_state = { sort: sort_column, direction: sort_direction, interval: sort_interval }
     content_tag(:div, id: 'current_users_url', data: { url: url_for(current_state.merge({ page: users.current_page + 1 })), current: url_for(current_state) }){}
+  end
+
+  def list_title
+    l = if params[:controller] == 'users/follows'
+          if params[:type] == 'followers'
+            'followers'
+          else
+            'following'
+          end
+        else
+          'rating'
+        end
+    t('user.list.' + l)
   end
 
 end

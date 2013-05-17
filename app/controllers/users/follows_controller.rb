@@ -6,14 +6,17 @@ class Users::FollowsController < ApplicationController
   def index
     user = User.find_by_login!(params[:id])
     @users = if params[:type] == 'following'
-               user.followed_users.page params[:page]
+               user.following_list.sorting(sort_column, sort_direction, sort_interval).page params[:page]
              elsif params[:type] == 'followers'
-               user.followers.page params[:page]
+               user.followers_list.sorting(sort_column, sort_direction, sort_interval).page params[:page]
              else
                []
              end
-    respond_to do |format|
-      format.html { render 'users/index' }
+
+    if request.xhr?
+      render params[:page] ? 'users/index' : 'users/_table', layout: false
+    else
+      render 'users/index'
     end
   end
 

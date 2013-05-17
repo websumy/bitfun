@@ -33,11 +33,11 @@ class User < ActiveRecord::Base
 
   # User settings
   has_one :setting
-  accepts_nested_attributes_for :setting, :allow_destroy => true
+  accepts_nested_attributes_for :setting, allow_destroy: true
 
     # Followers and followed
-  has_many :user_relationships, foreign_key: "follower_id", dependent: :destroy
-  has_many :reverse_user_relationships, foreign_key: "followed_id", class_name: "UserRelationship", dependent: :destroy
+  has_many :user_relationships, foreign_key: 'follower_id', dependent: :destroy
+  has_many :reverse_user_relationships, foreign_key: 'followed_id', class_name: 'UserRelationship', dependent: :destroy
 
   has_many :followed_users, through: :user_relationships, source: :followed
   has_many :followers, through: :reverse_user_relationships, source: :follower
@@ -80,13 +80,25 @@ class User < ActiveRecord::Base
   end
 
   # Get user ids, which user follow
-  def followed_ids
-    @followed_ids ||= followed_users.pluck('users.id')
+  def following_ids
+    @following_ids ||= followed_users.pluck('users.id')
+    end
+
+  def followers_ids
+    @followers_ids ||= followers.pluck('users.id')
   end
 
   # Check if user already followed
-  def following?(other_user)
-    other_user.id.in? followed_ids
+  def follow?(other_user)
+    other_user.id.in? following_ids
+  end
+
+  def following_list
+    User.where(id: self.following_ids).joins(:stat).includes(:stat)
+  end
+
+  def followers_list
+    User.where(id: self.followers_ids).joins(:stat).includes(:stat)
   end
 
   # Follow user
@@ -219,7 +231,7 @@ class User < ActiveRecord::Base
     end
 
     def sorting(column, direction, interval)
-      order("#{column != 'created_at' ? interval + '_' : ''}#{column} #{direction}")
+      order("#{column != 'created_at' ? interval + '_' : ''}#{column} #{direction}, `users`.id #{direction}")
     end
 
     # Create user from oAuth data

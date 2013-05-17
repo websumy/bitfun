@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   skip_authorize_resource only: :likes
   before_filter :load_user, except: :index
   before_filter :set_cookies, only: [:show, :likes]
-  helper_method :sort_column, :sort_direction, :sort_interval
 
   def index
     @users = User.joins(:stat).includes(:stat).sorting(sort_column, sort_direction, sort_interval).page params[:page]
@@ -50,17 +49,5 @@ class UsersController < ApplicationController
 
   def set_cookies
     cookies_store.set({view: params[:view]}) unless params[:view].nil?
-  end
-
-  def sort_column
-    User.sort_column params[:sort]
-  end
-
-  def sort_direction
-    User.sort_direction params[:direction]
-  end
-
-  def sort_interval
-    User.sort_interval params[:interval]
   end
 end

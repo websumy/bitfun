@@ -76,6 +76,10 @@ ru:
       reposts: "Репостов"
       followers: "Подпищиков"
       created_at: "Регистрация"
+    list:
+      following: 'Список подписок'
+      followers: 'Список подписчиков'
+      rating: 'Рейтинг пользователей'
 
   simple_form:
     labels:
