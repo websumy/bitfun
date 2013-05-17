@@ -3,7 +3,12 @@ $(function(){
     var $table = $('#rating_table');
 
     var resetOrder = function(){
-        $('td.name span').each(function(k){$(this).text(k + 1 + ".")})
+        $('.table-rating').find('tbody tr').each(function(k){
+            var $this = $(this);
+            $this.find('.name span').text(k + 1 + ".");
+            $this.addClass((k % 2 == 0) ? 'even' : 'odd');
+            if (k < 3) $this.addClass('first-three');
+        })
     };
 
     resetOrder();

@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Kaminari pagination config
-  paginates_per 3
+  paginates_per 5
 
   # Can vote for Funs
   acts_as_voter
