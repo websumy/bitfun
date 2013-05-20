@@ -10,6 +10,7 @@ class FunsController < ApplicationController
     interval = params[:interval] ||= cookies_store[:interval]
 
     @funs = Fun.includes(:user, :content).filter_by_type(type).sorting(params[:sort], interval: interval, sandbox: params[:sandbox])
+    @users = User.joins(:stat).includes(:stat).sorting('followers', 'desc', sort_interval).limit 5
 
     if params[:query]
       funs_ids = Fun.search_fun_ids(params[:query], type)

@@ -14,7 +14,7 @@ class Users::FollowsController < ApplicationController
              end
 
     if request.xhr?
-      render params[:page] ? 'users/index' : 'users/_table', layout: false
+      render params[:page] ? 'users/index' : 'users/_rating', layout: false
     else
       render 'users/index'
     end
