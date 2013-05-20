@@ -33,41 +33,7 @@ div[class="container feed_layout#{view_partial == 'box' ? ' grid' : ''}"]
       .topic О себе
       .text
         = @user.setting.info || 'Еще не заполнено...'
-
-    .info_block.following_list
-      .topic
-        span.in_rating <strong>90 </strong> в рейтинге
-        a.show_all[href="#"] Посмотреть все
-      .text
-        table
-          tr
-            td.number_cell 1.
-            td.avatar_cell
-              .photo_frame
-                a.photo_box[href="#"]
-                  img[src="#{asset_path "default-avatar-34.jpg"}" alt="image"]/
-            td
-              .user_name: a[href=""] Andrey
-              .user_stats
-                a.downloads[href="#"] 18
-                | &nbsp;&middot;&nbsp;
-                a.subscribers[href="#" ] 22
-            td.follow_cell
-              a.follow.active[href="#"  rel="tooltip" title="Отписаться"]
-          tr
-            td.number_cell 2.
-            td.avatar_cell
-              .photo_frame
-                a.photo_box[href="#"]
-                  img[src="#{asset_path "default-avatar-34.jpg"}" alt="image"]/
-            td
-              .user_name: a[href=""] Тарас Петрович
-              .user_stats
-                a.downloads[href="#"] 18
-                | &nbsp;&middot;&nbsp;
-                a.subscribers[href="#" ] 22
-            td.follow_cell
-              a.follow[href="#" rel="tooltip" title="Читать"]
+    = render 'users/rating_block'
 
   section.content[role="main"]
     .feed_top

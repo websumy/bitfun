@@ -1,7 +1,7 @@
 <%
 content = ''
 @users.each do |user|
- content << render('users/list_item', user: user)
+ content << render('users/rating_item', user: user)
 end
 %>
 <%= content.html_safe %>

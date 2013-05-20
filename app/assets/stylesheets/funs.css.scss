@@ -2564,7 +2564,7 @@ a {
     }
     td {
       vertical-align: middle;
-      padding: 0 3px 15px;
+      padding: 6px 3px;
       text-align: left;
       &.follow_cell {
         width: 30px;
@@ -2572,7 +2572,7 @@ a {
       &.number_cell {
         width: 20px;
         text-align: right;
-        padding: 0 10px;
+        padding: 0 5px;
         font-weight: bold;
         color: #5b5985;
       }
@@ -2608,28 +2608,42 @@ a {
       }
       .downloads {
         background: asset_url("icon_download.png", image) no-repeat 0 0;
+        float: left;
+        padding: 0 4px 0 18px;
       }
       .subscribers {
         background: asset_url("icon_subscribers.png", image) no-repeat 0 0;
+        float: left;
+        padding: 0 4px 0 18px;
       }
     }
     .follow_cell {
       vertical-align: middle;
       padding-right: 10px;
     }
-    .follow {
-      background: asset_url("feed_icons.png", image) no-repeat 0 -35px;
-      display: block;
-      height: 30px;
-      width: 30px;
-      &:hover {
-        background: asset_url("feed_icons.png", image) no-repeat 0 0;
+    a.btn-follow {
+      display: inline-block;
+      height: 32px;
+      width: 32px;
+      opacity: .3;
+      background: {
+        image: asset_url("follow-icons.png", image);
+        repeat: no-repeat;
       }
-      &.active {
-        background: asset_url("feed_icons.png", image) no-repeat 0 0;
+      &.follow {
+        background-position: -35px -35px;
         &:hover {
-          background: asset_url("feed_icons.png", image) no-repeat 0 -35px;
+          background-position: -35px 0;
         }
+      }
+      &.unfollow {
+        background-position: -70px -70px;
+        &:hover {
+          background-position: -70px -105px;
+        }
+      }
+      &:hover {
+        opacity: 1
       }
     }
     .photo_frame {
@@ -2663,9 +2677,6 @@ a {
 
 .sidebar {
   .following_list {
-    td {
-      padding: 6px 3px;
-    }
     .self {
       .follow_cell {
         white-space: nowrap;

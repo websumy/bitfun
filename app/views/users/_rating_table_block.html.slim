@@ -1,0 +1,17 @@
+table#short-table-rating
+  - @users.each do |user|
+    tr
+      td.number_cell 1.
+      td.avatar_cell
+        .photo_frame
+          = link_to show_avatar(user), user_path(user), class: 'photo_box'
+      td
+        .user_name
+          = link_to(user.login, user_path(user))
+        .user_stats
+          span.downloads
+            = user.stat.try(:"#{sort_interval}_funs")
+          span.subscribers
+            = user.stat.try(:"#{sort_interval}_followers")
+      td.follow_cell.follow_parent
+        = follow_link_rating user
