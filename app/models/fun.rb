@@ -6,13 +6,14 @@ class Fun < ActiveRecord::Base
   paginates_per 15
 
   # Fun moved from sandbox when total_likes = MIN_LIKES
-  MIN_LIKES = 1
+  MIN_LIKES = 3
 
   # Default types of Funs
   DEF_TYPES = %w(image video post)
 
   # Associations
   belongs_to :user
+  belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
   belongs_to :content, polymorphic: true, dependent: :destroy
   accepts_nested_attributes_for :content, allow_destroy: true
 

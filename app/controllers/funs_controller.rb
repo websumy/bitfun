@@ -30,6 +30,7 @@ class FunsController < ApplicationController
 
   def feed
     @funs = current_user.feed.includes(:user, :content, :reposts).order('created_at DESC').page params[:page]
+    @users = User.joins(:stat).includes(:stat).sorting('followers', 'desc', sort_interval).limit 5
     render 'index'
   end
 

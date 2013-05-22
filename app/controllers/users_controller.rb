@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @funs = @user.funs_with_reposts.includes(:content, :reposts, :user).order('created_at DESC').page params[:page]
+    @funs = @user.funs_with_reposts.includes(:content, :reposts, :user, :owner).order('created_at DESC').page params[:page]
     @users = User.joins(:stat).includes(:stat).sorting('followers', 'desc', sort_interval).limit 5
     render 'funs/index.js.erb' if request.xhr?
   end
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   end
 
   def likes
-    @funs = @user.get_up_voted(Fun).includes(:content).order('votes.created_at DESC').page params[:page]
+    @funs = Fun.unscoped{ @user.get_up_voted(Fun) }.includes(:content).order('votes.created_at DESC').page params[:page]
     respond_to do |format|
       format.html { render 'show' }
       format.js { render 'funs/index' }
