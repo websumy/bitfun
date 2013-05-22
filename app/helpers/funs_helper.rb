@@ -126,4 +126,12 @@ module FunsHelper
     content_tag(:div, id: 'next_url', data: { url: url_for(params)}){}
   end
 
+  def fun_add_line(fun)
+  if fun.repost?
+      raw t('funs.reposted') + link_to(fun.owner.login, fun.owner)
+    else
+      t('funs.added')
+    end
+  end
+
 end

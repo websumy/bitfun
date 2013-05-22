@@ -13,7 +13,9 @@ article.post_frame
     .post_info
       .poster
         = link_to fun.user.login, fun.user
-        span  добавил &bull;
+        span
+          = fun_add_line fun
+          |  &bull;
         span.date_block
           = time_ago_in_words fun.created_at
           |  назад
