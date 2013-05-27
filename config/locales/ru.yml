@@ -17,7 +17,7 @@ ru:
     updated: "Фан успешно обновлен."
     deleted: "Фан успешно удален."
     add_error: "Произошла ошибка при добавлении фана :("
-    reposted: " перепостил "
+    reposted: "%{reposter} сделал(а) репост от %{owner}"
     added: " добавил "
 
   reposts:

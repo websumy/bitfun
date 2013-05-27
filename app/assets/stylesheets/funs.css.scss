@@ -863,6 +863,12 @@ a {
       padding-bottom: 5px;
       a {
         color: #6d6b93;
+        padding-right: 5px;
+      }
+      .repost {
+        background: asset_url('post-nav-icons.png', image);
+        padding-left: 20px;
+        background-position: 23px -31px;
       }
     }
     .date_block {

@@ -38,7 +38,7 @@ $(function(){
         if (! $this.parents('.main_panel, .tagit-choice').length && ! $this.data('dropdown')) $.CloseActiveDropdowns();
     });
 
-    $('a[rel~="tooltip"]').tooltipster({
+    $('[rel~="tooltip"]').tooltipster({
         theme: 'tooltips_theme',
         offsetY: -5
     });
