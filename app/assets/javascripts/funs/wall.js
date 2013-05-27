@@ -56,29 +56,31 @@ $(function(){
             callback: function(i) {
                 window.endlessScrolllLoading = true;
                 var url = $('#next_url').data('url');
-                $wall.after($('<div id="loading"/>'))
-                $.ajax({
-                    type: 'GET',
-                    url: url,
-                    dataType: 'script',
-                    complete: function(data) {
-                        if (data.status == 200)
-                        {
-                            $('#next_url').data('url', url.replace('page=' + (i + 1), 'page=' + (i + 2)));
+                if (url){
+                    $wall.after($('<div id="loading"/>'))
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        dataType: 'script',
+                        complete: function(data) {
+                            if (data.status == 200)
+                            {
+                                $('#next_url').data('url', url.replace('page=' + (i + 1), 'page=' + (i + 2)));
 
-                            if (data.responseText.length == 0) $(window).data('endelessscroll').stopFiring();
-                            window.endlessScrolllLoading = false;
-                            var $newElems = $( data.responseText ).css({ opacity: 0 });
+                                if (data.responseText.length == 0) $(window).data('endelessscroll').stopFiring();
+                                window.endlessScrolllLoading = false;
+                                var $newElems = $( data.responseText ).css({ opacity: 0 });
 
-                            $newElems.imagesLoaded(function(){
-                                $newElems.animate({ opacity: 1 }).initTooltipster();
-                                if ($wall.data('masonry')) $wall.masonry( 'appended', $newElems, true );
-                                $wall.append($newElems);
-                            });
-                            $('#loading').remove();
+                                $newElems.imagesLoaded(function(){
+                                    $newElems.animate({ opacity: 1 }).initTooltipster();
+                                    if ($wall.data('masonry')) $wall.masonry( 'appended', $newElems, true );
+                                    $wall.append($newElems);
+                                });
+                                $('#loading').remove();
+                            }
                         }
-                    }
-                });
+                    });
+                }
 
             }
         });

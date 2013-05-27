@@ -8,7 +8,7 @@ div *data class="container main_layout#{view_partial == 'box' ? ' grid' : ''}"
         - @funs.each do |fun|
           = render "funs/#{view_partial}", fun: fun
       - else
-        | There aren't any funs in this folder
+        = render 'funs/empty'
   aside.sidebar[role="complementary" style="#{(view_partial == 'box') ? 'display:none': ''}"]
     = render 'users/rating_block'
     section.social_block

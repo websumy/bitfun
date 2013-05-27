@@ -34,7 +34,8 @@ $(function(){
     });
 
     $(document).on('click', function(e){
-        if (! $(e.target).parents('.main_panel, .tagit-choice').length) $.CloseActiveDropdowns();
+        var $this = $(e.target);
+        if (! $this.parents('.main_panel, .tagit-choice').length && ! $this.data('dropdown')) $.CloseActiveDropdowns();
     });
 
     $('a[rel~="tooltip"]').tooltipster({

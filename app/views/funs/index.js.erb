@@ -1,8 +1,12 @@
 <%
 content = ''
-content << next_url(@funs) if @funs.first_page? && @funs.any?
-@funs.each do |fun|
- content << render("funs/#{view_partial}", fun: fun)
+if @funs.any?
+    content << next_url(@funs) if @funs.first_page?
+    @funs.each do |fun|
+        content << render("funs/#{view_partial}", fun: fun)
+    end
+elsif ! params[:page]
+    content << render('funs/empty')
 end
 %>
 <%= content.html_safe %>
