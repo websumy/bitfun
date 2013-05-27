@@ -1,16 +1,12 @@
 class FunsController < ApplicationController
   load_and_authorize_resource
   respond_to :html
-  before_filter :only_xhr_request, only: :new
+  before_filter :only_xhr_request, only: [:new, :autocomplete_tags]
+  before_filter :load_users, only: [:index, :feed]
 
   # GET /funs
   def index
-
-    type = params[:type] ||= cookies_store[:type]
-    interval = params[:interval] ||= cookies_store[:interval]
-
     @funs = Fun.includes(:user, :content).filter_by_type(type).sorting(params[:sort], interval: interval, sandbox: params[:sandbox])
-    @users = User.joins(:stat).includes(:stat).sorting('followers', 'desc', sort_interval).limit 5
 
     if params[:query]
       funs_ids = Fun.search_fun_ids(params[:query], type)
@@ -29,8 +25,7 @@ class FunsController < ApplicationController
   end
 
   def feed
-    @funs = current_user.feed.includes(:user, :content, :reposts).order('created_at DESC').page params[:page]
-    @users = User.joins(:stat).includes(:stat).sorting('followers', 'desc', sort_interval).limit 5
+    @funs = current_user.feed.includes(:user, :content, :reposts).filter_by_type(type).sorting('created_at', interval: interval, sandbox: true).page params[:page]
     render 'index'
   end
 
@@ -77,5 +72,19 @@ class FunsController < ApplicationController
   def destroy
     @fun.destroy
     redirect_to funs_url, notice: t('funs.deleted')
+  end
+
+  private
+
+  def load_users
+    @users = User.joins(:stat).includes(:stat).sorting('followers', 'desc', sort_interval).limit 5
+  end
+
+  def type
+    params[:type] ||= cookies_store[:type]
+  end
+
+  def interval
+    params[:interval] ||= cookies_store[:interval]
   end
 end
