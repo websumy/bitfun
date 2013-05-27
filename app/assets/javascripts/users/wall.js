@@ -9,10 +9,15 @@ $(function(){
         });
     });
 
+    var layout = $('.feed_layout'),
+        loading = $('<div id="ajax_loading"><div class="loading_wrapper"></div></div>');
+
     $('#user_switch_view').switcher({
         onChange: function(e){
             var currentState = e.data('value'),
                 url = $('#user_switch_content').find('a.switch.active').attr('href');
+
+            layout.after(loading);
             $.ajax({
                 type: 'GET',
                 url: url,
@@ -21,8 +26,7 @@ $(function(){
                 complete: function(data) {
                     if (data.status == 200)
                     {
-                        var layout = $('.feed_layout'),
-                            wall = $('.post_wall');
+                        var wall = $('.post_wall');
 
                         wall.html(data.responseText);
                         wall.initTooltipster();
@@ -37,6 +41,7 @@ $(function(){
                             if (wall.data('masonry')) wall.masonry('destroy');
                             layout.removeClass('grid');
                         }
+                        $('#ajax_loading').remove();
                     }
                 }
             });
@@ -46,6 +51,8 @@ $(function(){
         onChange: function(e){
             var currentState = $('#user_switch_view').find('a.switch.active').data('value'),
                 url = e.attr('href');
+
+            layout.after(loading);
             $.ajax({
                 type: 'GET',
                 url: url,
@@ -62,6 +69,7 @@ $(function(){
                         }
 
                     }
+                    $('#ajax_loading').remove();
                 }
             });
         }

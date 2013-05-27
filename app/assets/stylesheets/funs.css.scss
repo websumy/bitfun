@@ -2918,21 +2918,28 @@ a {
   }
 }
 
-.__ajax {
-  //background: rgba(44, 43, 58, .75) asset_url("loading.gif", image) no-repeat center;
+#ajax_loading {
   background: rgba(255, 255, 255, .45);
+  position: fixed;
   height: 100%;
-  position: absolute;
   width: 100%;
   left: 0;
   top: 0;
   z-index: 1000;
-  .loading {
-    margin-top: 200px;
-    background: asset_url("loading.gif", image) no-repeat center top;
-    height: 196px;
-    width: 100%;
+  text-align: center;
+  .loading_wrapper{
+    background: asset_url("__loading.gif", image) no-repeat center;
+    display: inline-block;
+    width: 144px;
+    height: 144px;
+    overflow: hidden;
+    margin-top: -72px;
+    position: relative;
+    top: 50%;
+    @include box-shadow(0 0 15px 2px rgba(182, 182, 182, .25));
+    @include border-radius(50%);
   }
+
 }
 
 .post_layout {

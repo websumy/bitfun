@@ -20,8 +20,10 @@ $(function(){
 
     var post_filter_data = function(data){
         var postData = $.extend({}, get_filter_data(), data),
-            searchUrl = $('.main_layout').data('search') || '',
+            $layout = $('.main_layout'),
+            searchUrl = $layout.data('search') || '',
             wall = $('#wall');
+            $layout.after($('<div id="ajax_loading"><div class="loading_wrapper"></div></div>'));
         $.ajax({
             type: 'GET',
             url: searchUrl.length ? searchUrl  : '',
@@ -50,6 +52,7 @@ $(function(){
                         layout.removeClass('grid');
                         sidebar.show()
                     }
+                    $('#ajax_loading').remove();
                 }
             }
         });
