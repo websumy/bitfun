@@ -20,7 +20,7 @@ $(function(){
             if ($this.data('gif')){
                 e.preventDefault();
                 $this.children('img').attr("src", $this.data('gif'));
-                $this.data('gif', 0);
+                $this.data('gif', 0).removeClass('po-gif');
             }
             if ($this.data('video')){
                 e.preventDefault();

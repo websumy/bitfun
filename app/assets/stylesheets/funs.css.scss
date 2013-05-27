@@ -873,8 +873,30 @@ a {
     overflow: hidden;
     width: 100%;
     text-align: center;
+
     img {
       vertical-align: top;;
+    }
+    a {
+      @include inline-block();
+      position: relative;
+      &:after{
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 65px;
+        width: 65px;
+        margin-top: -32px;
+        margin-left: -32px;
+      }
+      &.po-video:hover:after{
+        background: asset_url("material-spot-sprite.png", image) no-repeat left top;
+      }
+
+      &.po-gif:hover:after{
+        background: asset_url("material-spot-sprite.png", image) no-repeat right top;
+      }
     }
   }
   .post_nav {
