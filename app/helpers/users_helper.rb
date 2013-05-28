@@ -75,4 +75,12 @@ module UsersHelper
     t('user.list.' + l)
   end
 
+  def omniauth_link(resource, provider)
+    if current_user.binded? provider
+      link_to '', unbind_identity_path(provider), class: 'unbind'
+    else
+      link_to '', omniauth_authorize_path(resource, provider)
+    end
+  end
+
 end

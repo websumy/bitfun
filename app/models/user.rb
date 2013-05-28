@@ -216,6 +216,11 @@ class User < ActiveRecord::Base
     result
   end
 
+  def binded?(provider)
+    @providers ||= identities.pluck(:provider)
+    provider.to_s.in? @providers
+  end
+
   class << self
 
     def sort_column(column)

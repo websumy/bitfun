@@ -25,7 +25,8 @@ Bitfun::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions", :omniauth_callbacks => "users/omniauth_callbacks"}
 
   devise_scope :user do
-    get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+#    get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+    get '/users/unbind/:provider' => 'users/omniauth_callbacks#unbind_identity', as: :unbind_identity
   end
 
   resources :users do
