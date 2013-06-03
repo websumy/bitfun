@@ -1577,6 +1577,9 @@ a {
       margin-left: -2px;
       a {
         background-position: 0 0;
+        &.unbind {
+          background-position: 0 -324px;
+        }
         &:hover {
           background-position: 0 -162px;
         }
@@ -1584,6 +1587,9 @@ a {
     }
     .reg_fb a {
       background-position: 0 -108px;
+      &.unbind {
+        background-position: 0 -432px;
+      }
       &:hover {
         background-position: 0 -270px;
       }
@@ -1591,6 +1597,9 @@ a {
     .reg_tw {
       margin-right: 14px;
       a {
+        &.unbind {
+          background-position: 0 -378px;
+        }
         background-position: 0 -54px;
         &:hover {
           background-position: 0 -216px;
@@ -2099,8 +2108,17 @@ a {
 
 .profile_layout {
   position: relative;
+  .modal_registration{
+    width: auto;
+    .reg_social{
+      width: auto;
+      text-align: left;
+      margin-top: 0;
+    }
+  }
   .topics_block {
     padding-right: 265px;
+    margin-bottom: 26px;
   }
 
   .toggle_track {
@@ -2113,7 +2131,7 @@ a {
     .toggle_name {
       height: 32px;
       line-height: 32px;
-      width: 128px;
+      width: 150px;
       text-align: center;
     }
     .hold_left {
@@ -2125,9 +2143,6 @@ a {
   }
 
   .form-horizontal {
-    .avatar_box {
-      padding-top: 26px;
-    }
     .control-group {
       margin-bottom: 14px;
       .controls {
@@ -2138,6 +2153,9 @@ a {
       width: 440px;
       max-width: 440px;
       padding-left: 18px;
+    }
+    textarea {
+      padding: 10px 18px;
     }
     .save {
       @include btn-orange(45px);

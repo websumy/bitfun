@@ -89,14 +89,20 @@ ru:
       continue_reg: 'Произошла ошибка при регистрации, попробуйте зарегистрироваться через форму регистрации.'
       unbind: 'Аккаунт успешно откреплен от Вашей учетной записи.'
 
+  enumerize:
+    setting:
+      sex:
+        male: "Mужской"
+        female: "Женский"
+
   simple_form:
     labels:
       user:
         email: 'Почта'
         login: 'Логин'
-        password: 'Парроль'
-        password_confirmation: 'Подтверждение парроль'
-        current_password: 'Текущий парроль'
+        password: 'Новый пароль'
+        password_confirmation: 'Подтверждение пароля'
+        current_password: 'Текущий пароль'
       video:
         content_attributes:
           title: 'asdfasdfa'
@@ -112,8 +118,7 @@ ru:
 
     hints:
       user:
-        password: 'оставьте пустым, если не собираетесь менять пароль'
-        current_password: 'для изменения пароля введите свой старый пароль.'
+        password_confirmation: 'введите повторно новый пароль, чтобы не ошибиться'
     placeholders:
       user:
         new:

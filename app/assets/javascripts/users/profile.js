@@ -61,5 +61,29 @@ $(function () {
         'ajax:success', function(evt, data, status, xhr){
         if (data.success)
             $avatars.attr('src', data.url);
-    })
+    });
+
+    $('#user_setting_attributes_sex_male').parents('.controls').find('label').each(function(k, l){$(l).addClass('inline')})
+
+    var tabs = $('#change_edit_profile');
+
+    function setState(){
+        var currentState = tabs.find('a.switch.active').data('tab'),
+            secondState = tabs.find('a.switch').not('.active').data('tab');
+
+        if (currentState == 'user_settings') $('#avatarupload').hide();
+        else $('#avatarupload').show();
+
+        $('#' + currentState).show().find('input, textarea').removeAttr('disabled');
+        $('#' + secondState).hide().find('input, textarea').attr('disabled', 'disabled');
+    }
+
+    setState();
+
+    tabs.switcher({
+        onChange: function(e){
+            setState();
+            $('#edit_user').resetClientSideValidations();
+        }
+    });
 });
