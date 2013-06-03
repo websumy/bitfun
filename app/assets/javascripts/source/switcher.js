@@ -26,15 +26,15 @@
             e.preventDefault();
             var $current = $(e.target).closest('a.switch');
             if ($current.hasClass('active')) return
-            if (typeof this.options.onChange == 'function') this.options.onChange($current);
-            var sib = $current.siblings('a'),
+            var $sib = $current.siblings('a'),
                 cwidth = +$current.outerWidth() || 0,
-                swidth = +sib.outerWidth() || 0,
+                swidth = +$sib.outerWidth() || 0,
                 animateCallback = function(){
                     $current.toggleClass('active');
-                    sib.toggleClass('active');
+                    $sib.toggleClass('active');
+                    if (typeof this.options.onChange == 'function') this.options.onChange($current);
                 };
-            sib.find('.toggle_slider').animate({left: ($current.hasClass('hold_left')) ? -cwidth : swidth, width: cwidth}, 300, $.proxy(animateCallback, this)).animate({left: 0, width: swidth})
+            $sib.find('.toggle_slider').animate({left: ($current.hasClass('hold_left')) ? -cwidth : swidth, width: cwidth}, 300, $.proxy(animateCallback, this)).animate({left: 0, width: swidth})
         }
     };
 
