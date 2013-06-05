@@ -2589,6 +2589,7 @@ a {
 
 .following_list {
   .topic {
+    line-height: 28px;
     font-weight: normal;
     a {
       color: #444444;
@@ -2902,15 +2903,65 @@ a {
 
 
 .__error {
-  background: #ffffff;
-  text-align: center;
-  min-height: 900px;
-  position: relative;
-  &.error-404 {
-    background: #fefeff asset_url("404.png", image) no-repeat center 50px;
+  background: #fefeff;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: -76px;
+  bottom: 0;
+  z-index: 1000;
+  text-align: left;
+  min-height: 100%;
+  .error-inner{
+    width: 964px;
+    margin: 0 auto;
+    position: relative;
+    min-height: 100%;
   }
-  &.error-500 {
-    background: #ffffff asset_url("500.png", image) no-repeat center 53px;
+  .error-404 {
+    background: #fefeff asset_url("404.jpg", image) no-repeat center 50px;
+    position: relative;
+    min-height: 100%;
+    .error-text{
+      background: asset_url("404-text.png", image) no-repeat 0 0;
+      width: 522px;
+      color: #8a888e;
+      padding-top: 54px;
+      top: 230px;
+      margin-left: 240px;
+      a{
+        color: #0096bc;
+        text-decoration: underline;;
+        &:hover{text-decoration: none;}
+      }
+    }
+  }
+  .error-500 {
+    background: #ffffff asset_url("500.jpg", image) no-repeat center 53px;
+    position: relative;
+    min-height: 100%;
+    .error-text{
+      background: asset_url("500-text.png", image) no-repeat 0 0;
+      color: #005997;
+      margin: 0 auto;
+      top: 170px;
+      width: 507px;
+      padding-top: 154px;
+      text-align: center;
+      text-shadow: 1px 0 #fff;
+      a{
+        color: #3A3A3A;
+        text-decoration: underline;;
+        &:hover{text-decoration: none;}
+      }
+    }
+  }
+
+  .error-text{
+    position: relative;
+    font-family: 'verdana';
+    font-size: 13px;
+    line-height: 16px;
   }
 
   .footer {
@@ -2940,16 +2991,6 @@ a {
     }
   }
 }
-//
-//body {
-//  position: relative
-//}
-//
-///* ========================== 22.04.13 ========================== */
-//
-//.container {
-//  position: relative
-//}
 
 .__goup {
   background: asset_url("goup.png", image) no-repeat 0 0;
@@ -3006,6 +3047,16 @@ a {
 
 .modal {
   &.add_fun_form {
+    .__ajax{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, .45);
+      z-index: 1000;
+      background: url('/assets/__loading.gif') no-repeat center rgba(255, 255, 255, .45);
+    }
     .modal_footer {
       .add {
         @include btn-upload(44px);
