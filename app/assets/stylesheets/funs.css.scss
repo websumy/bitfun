@@ -3077,3 +3077,26 @@ a {
     display: none;
   }
 }
+
+.container{
+  &.page-layout{
+    color: #616161;
+    text-align: justify;
+    line-height: 25px;
+    text-indent: 25px;
+    font-size: 16px;
+    h1 {
+      font-size: 24px;
+      border-bottom: 1px solid rgba(237, 236, 238, 0.9);
+      padding: 8px 0 14px;
+      margin-bottom: 10px;
+      @include box-shadow(0 1px rgba(255, 255, 255, .73));
+      @include text-shadow(1px 1px #fff);
+      text-align: left;
+    }
+    p {
+      margin-bottom: 10px;
+    }
+
+  }
+}

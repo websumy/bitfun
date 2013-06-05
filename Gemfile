@@ -48,19 +48,22 @@ gem 'client_side_validations-simple_form','2.0.0'
 gem 'russian'
 gem 'devise-i18n'
 
+# Easily include static pages in your Rails app.
+gem 'high_voltage'
+
 # Thin is a Ruby web server
 gem 'thin'
 
 # Show error in better format
-gem "better_errors"
-gem "binding_of_caller"
-gem "meta_request"
+gem 'better_errors'
+gem 'binding_of_caller'
+gem 'meta_request'
 
 # use this gem only for testing VK widgets
-gem "localtunnel"
+gem 'localtunnel'
 
 # A simple and straightforward settings solution that uses an ERB enabled YAML file and a singleton design pattern
-gem "settingslogic"
+gem 'settingslogic'
 
 # Rails plugin for Sphinx.
 gem 'thinking-sphinx', '2.0.10'
@@ -69,7 +72,7 @@ gem 'thinking-sphinx', '2.0.10'
 gem 'quiet_assets'
 
 # Slim is a template language whose goal is reduce html syntax to the essential parts without becoming cryptic.
-gem "slim"
+gem 'slim'
 
 # A simple and lightweight mixin library for Sass
 gem 'bourbon'

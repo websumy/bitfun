@@ -34,7 +34,9 @@ html
             | Проект создан компанией &nbsp;
             a[href="//rezonans.ru" target="_blank" ]: strong Резонанс.
           ul
-            li: a[href="#"] О проекте
-            li: a[href="#"] Реклама
-            li: a[href="#"] Правила
-            li: a[href="#"] Контакты
+            li
+              = link_to 'О проекте', static_path('about')
+            li
+              = link_to 'Пользователи', users_path
+            li
+              = link_to 'Контакты', static_path('contact')

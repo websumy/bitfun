@@ -43,6 +43,8 @@ Bitfun::Application.routes.draw do
     end
   end
 
+  get '/:id.html' => 'high_voltage/pages#show', :as => :static, :via => :get
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
