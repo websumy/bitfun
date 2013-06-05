@@ -26,6 +26,10 @@ $(function(){
         }
     });
 
+    $(document).on('ajax:beforeSend, submit', '#new_fun', function(evt, data, status, xhr){
+        $('.add_fun_form').append($('<div class="__ajax"></div>'));
+    });
+
     $(document).on('changed', '#upload_image_botton', function(){
         $('#fun_content_attributes_remote_file_url').val('');
         $(this).closest('.control-row').find(".error-block").remove();

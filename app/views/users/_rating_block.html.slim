@@ -1,6 +1,8 @@
 .info_block.following_list
   .topic
-    span.in_rating.pull-left <strong>Рейтинг</strong>
+    span.in_rating.pull-left
+      strong
+        = link_to 'Рейтинг', users_path
     .pull-right.rating-sort
       span[id="last_top_interval" data-value="week"]
       select#top_rating_dropdown

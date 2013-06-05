@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
 
   def exception_respond_with(status)
     respond_to do |format|
-      format.html { render file: "public/#{status}", status: status, layout: false }
+      format.html { render file: "public/#{status}", status: status }
       format.xml { render xml: {error: status}, status: status, layout: false }
       format.json { render json: {error: status}, status: status, layout: false }
     end

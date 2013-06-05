@@ -82,7 +82,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = "3b74c2ce55a09f8a6686c77940e6e5a517a13a63c2d7d8fdaa7b648d873d675dab7bf93f6e0b440a90da89c7431bddca24e06e739a14ed80a3709fe1b0ac53a9"
+  config.pepper = "3b74c2ce55a09f8a6686c77940e6ejkqurjGgfjkd641194hshdqrteiHHDmdlwpo32849GHhjdlH63hjksf9c7431bddca24e06e739a14ed80a3709fe1b0ac53a9"
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -103,7 +103,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+  config.remember_for = 2.weeks
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false
