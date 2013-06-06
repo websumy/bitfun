@@ -89,16 +89,19 @@ $(function(){
 
 });
 
-function show_notice(text, type) {
-    type = type || 'success'
-    var n = noty({
-        text: text,
-        type: type,
-        dismissQueue: true,
-        layout: 'top',
-        theme: 'defaultTheme',
-        timeout: 5000
-    });
+function show_notice(text, type, options) {
+    var type = type || 'success',
+        defaults = {
+            text: text,
+            type: type,
+            dismissQueue: true,
+            layout: 'top',
+            theme: 'defaultTheme',
+            timeout: false
+        },
+        noty_options = $.extend({}, defaults, options);
+
+    noty(noty_options);
 }
 
 ClientSideValidations.formBuilders['SimpleForm::FormBuilder'] = {

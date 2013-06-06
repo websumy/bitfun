@@ -66,7 +66,7 @@
 
 			this.$buttons.css({
 				padding: 5,
-				textAlign: 'right',
+				textAlign: 'center',
 				borderTop: '1px solid #ccc',
 				backgroundColor: '#fff'
 			});
@@ -135,9 +135,9 @@
 					this.$bar.css({backgroundColor: '#FFEAA8', borderColor: '#FFC237', color: '#826200'});
 					this.$buttons.css({borderTop: '1px solid #FFC237'}); break;
 				case 'error':
-					this.$bar.css({backgroundColor: 'red', borderColor: 'darkred', color: '#FFF'});
+					this.$bar.css({backgroundColor: '#FF4545', borderColor: '#FF4545', color: '#FFF'});
 					this.$message.css({fontWeight: 'bold'});
-					this.$buttons.css({borderTop: '1px solid darkred'}); break;
+					this.$buttons.css({borderTop: '1px solid #FF4545'}); break;
 				case 'information':
 					this.$bar.css({backgroundColor: '#ce5035', borderColor: '#9d3b25', color: '#f8f8f8'});
 					this.$buttons.css({borderTop: '1px solid #0B90C4'}); break;
@@ -152,7 +152,9 @@
 //					this.$bar.css({backgroundColor: 'lightgreen', borderColor: '#50C24E', color: 'darkgreen'});
 //					this.$buttons.css({borderTop: '1px solid #50C24E'});break;
 				default:
-					this.$bar.css({backgroundColor: '#FFF', borderColor: '#CCC', color: '#444'}); break;
+                    this.$bar.css({backgroundColor: '#FF7000', borderColor: '#FFDDB8', color: '#FFF'});
+                    this.$message.css({fontWeight: 'bold'});
+                    this.$buttons.css({borderTop: '1px solid darkred'}); break;
 			}
 		},
 		callback: {
