@@ -71,7 +71,11 @@ class FunsController < ApplicationController
   # DELETE /funs/1
   def destroy
     @fun.destroy
-    redirect_to funs_url, notice: t('funs.deleted')
+    Stat.recount current_user, :funs
+    respond_to do |format|
+      format.html { redirect_to funs_path, notice: t('funs.deleted') }
+      format.json { render json: { success: true, notice: t('funs.deleted') } }
+    end
   end
 
   private

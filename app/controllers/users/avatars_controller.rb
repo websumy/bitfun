@@ -22,5 +22,6 @@ class Users::AvatarsController < ApplicationController
   private
   def load_user
     @user = User.find_by_login!(params[:user_id])
+    authorize! :update, @user
   end
 end
