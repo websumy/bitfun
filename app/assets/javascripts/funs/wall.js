@@ -46,6 +46,7 @@ $(function(){
     // Initialize endlessScroll on window only if we on page #wall
 
     if ($wall.length){
+
         $(window).endlessScroll({
             fireOnce: true,
             fireDelay: false,
@@ -82,6 +83,16 @@ $(function(){
                     });
                 }
 
+            }
+        });
+
+        $(document).on('ajax:success', '.btn-fun-delete', function(evt, data, status, xhr){
+            var $this = $(this);
+            if (data.success){
+                $this.parent('.post_frame').fadeOut('slow', function(){
+                    if ($wall.data('masonry')) $wall.masonry('remove', this).masonry('reload');
+                    show_notice(data.notice);
+                })
             }
         });
     }

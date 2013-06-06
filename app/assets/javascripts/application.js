@@ -87,6 +87,27 @@ $(function(){
         show_notice('Авторизируйтесь или зарегистрируйтесь, чтобы можно было выполнять это действие.', 'error');
     });
 
+    $.rails.allowAction = function(element){
+        if ( ! element.attr('data-confirm')) return true
+
+        show_notice(element.data('confirm'), 'confirm', {
+            buttons: [
+                { addClass: 'btn btn-danger', text: 'Отменить', onClick: function($noty) {
+                    $noty.close();
+                }
+                },
+                { addClass: 'btn btn-primary', text: 'Подтвердить', onClick: function($noty) {
+                    $noty.close();
+                    element.removeAttr('data-confirm');
+                    element.trigger('click.rails');
+                }
+                }
+
+            ]
+        });
+        return false
+    }
+
 });
 
 function show_notice(text, type, options) {
