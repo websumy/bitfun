@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   authorize_resource
-  skip_authorize_resource only: :likes
+  skip_authorize_resource only: [:likes, :rating_table_block]
   before_filter :load_user, except: [:index, :rating_table_block]
   before_filter :set_cookies, only: [:show, :likes]
   before_filter :only_xhr_request, only: :rating_table_block

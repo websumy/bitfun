@@ -1,6 +1,7 @@
 class FunsController < ApplicationController
   load_and_authorize_resource
   skip_load_resource only: :destroy
+  skip_authorize_resource only: :autocomplete_tags
   respond_to :html
   before_filter :only_xhr_request, only: [:new, :autocomplete_tags]
   before_filter :load_users, only: [:index, :feed]

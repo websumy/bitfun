@@ -62,4 +62,4 @@ div[class="container feed_layout#{view_partial == 'box' ? ' grid' : ''}"]
         - @funs.each do |fun|
           = render "funs/#{view_partial}", fun: fun
       - else
-        | There aren't any funs in this folder
+        = render 'funs/empty'

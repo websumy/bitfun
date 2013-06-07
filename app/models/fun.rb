@@ -3,7 +3,7 @@ class Fun < ActiveRecord::Base
   attr_accessible :content_id, :content_type, :user_id, :owner_id, as: :admin
   after_destroy :delete_content
   before_destroy :delete_likes
-  before_destroy :delete_repost
+  before_destroy :delete_reposts
 
   # Kaminari pagination config
   paginates_per 15
@@ -190,9 +190,11 @@ class Fun < ActiveRecord::Base
     likes.delete_all
   end
 
-  def delete_repost
+  def delete_reposts
     if repost?
       parent.decrement! :repost_counter
+    else
+      get_reposts.destroy_all
     end
   end
   def delete_content
