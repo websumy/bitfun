@@ -134,7 +134,7 @@ module FunsHelper
 
   def remove_fun_link(fun)
     if can? :destroy, fun
-      link_to '', fun_path(fun), class: 'btn-fun-delete', method: :delete, remote: true, data: { type: :json }, confirm: t('funs.confirm.delete')
+      link_to '', url_for(action: 'show', controller: 'funs', id: fun), class: 'btn-fun-delete', method: :delete, remote: true, data: { type: :json }, confirm: t('funs.confirm.delete')
     end
   end
 end

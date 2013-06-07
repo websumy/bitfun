@@ -1,6 +1,9 @@
 class Fun < ActiveRecord::Base
   attr_accessible :content_attributes, :content_type, :comments_count
   attr_accessible :content_id, :content_type, :user_id, :owner_id, as: :admin
+  after_destroy :delete_content
+  before_destroy :delete_likes
+  before_destroy :delete_repost
 
   # Kaminari pagination config
   paginates_per 15
@@ -14,7 +17,7 @@ class Fun < ActiveRecord::Base
   # Associations
   belongs_to :user
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
-  belongs_to :content, polymorphic: true, dependent: :destroy
+  belongs_to :content, polymorphic: true
   accepts_nested_attributes_for :content, allow_destroy: true
 
   # Reposts
@@ -181,6 +184,19 @@ class Fun < ActiveRecord::Base
 
   def cant_repost_own_fun
     errors.add(:user_id, I18n.t('reposts.errors.cant_repost_own')) if user_id == owner_id
+  end
+
+  def delete_likes
+    likes.delete_all
+  end
+
+  def delete_repost
+    if repost?
+      parent.decrement! :repost_counter
+    end
+  end
+  def delete_content
+    content.destroy unless repost?
   end
 
   # Thinking Sphinx index

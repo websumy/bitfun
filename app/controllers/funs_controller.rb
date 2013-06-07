@@ -1,5 +1,6 @@
 class FunsController < ApplicationController
   load_and_authorize_resource
+  skip_load_resource only: :destroy
   respond_to :html
   before_filter :only_xhr_request, only: [:new, :autocomplete_tags]
   before_filter :load_users, only: [:index, :feed]
@@ -70,6 +71,8 @@ class FunsController < ApplicationController
 
   # DELETE /funs/1
   def destroy
+    @fun = Fun.unscoped.find params[:id]
+    authorize! :destroy, @fun
     @fun.destroy
     Stat.recount current_user, :funs
     respond_to do |format|
