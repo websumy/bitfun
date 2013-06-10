@@ -68,17 +68,26 @@ $(function () {
     var tabs = $('#change_edit_profile');
 
     function setState(){
+        var hash = window.location.hash.substr(1);
+
+        if (! tabs.find('a.switch.active').length) {
+            if (hash.length) tabs.find('a.switch[data-tab='+ hash +']').addClass('active');
+            else tabs.find('a.switch').first().addClass('active');
+        }
+
         var currentState = tabs.find('a.switch.active').data('tab'),
             secondState = tabs.find('a.switch').not('.active').data('tab');
 
-        if (currentState == 'user_settings') $('#avatarupload').hide();
+        if (currentState == 'settings') $('#avatarupload').hide();
         else $('#avatarupload').show();
 
-        $('#' + currentState).show().find('input, textarea').removeAttr('disabled');
-        $('#' + secondState).hide().find('input, textarea').attr('disabled', 'disabled');
+       window.location.hash = currentState;
+
+        $('#user_' + currentState).show().find('input, textarea').removeAttr('disabled');
+        $('#user_' + secondState).hide().find('input, textarea').attr('disabled', 'disabled');
     }
 
-    setState();
+    if (tabs.length) setState();
 
     tabs.switcher({
         onChange: function(e){
