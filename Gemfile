@@ -35,10 +35,10 @@ gem 'acts_as_votable'
 gem 'carrierwave'
 
 # RMagick is an interface between the Ruby programming language and ImageMagick/GraphicsMagick.
-gem "rmagick"
+gem 'rmagick'
 
 # Forms made easy for Rails! It's tied to a simple DSL, with no opinion on markup
-gem "simple_form"
+gem 'simple_form'
 
 # ClientSideValidations made easy for your Rails v3.1+ applications!
 gem 'client_side_validations', '3.2.0'
@@ -61,6 +61,9 @@ gem 'meta_request'
 
 # use this gem only for testing VK widgets
 gem 'localtunnel'
+
+# MailCatcher runs a super simple SMTP server which catches any message sent to it to display in a web interface.
+gem 'mailcatcher'
 
 # A simple and straightforward settings solution that uses an ERB enabled YAML file and a singleton design pattern
 gem 'settingslogic'

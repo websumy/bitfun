@@ -1,0 +1,11 @@
+<p>Добро пожаловать, <%= @user.login %>!</p>
+
+<p>Благодарим Вас за регистрацию на сайте <%= link_to 'BitFun.ru', root_url %>. Теперь Вы являетесь участником проекта и можете пользоваться всеми преимуществами регистрации.</p>
+
+<p>Ваши данные для входа:</p>
+
+<p>
+Email: <strong><%= @user.email %></strong><br />
+Пароль: <strong><%= @user.password %></strong> <%= link_to 'Изменить пароль', edit_password_url(@user, :reset_password_token => @user.reset_password_token) %></p>
+
+<p>Если у Вас есть какие-либо вопросы - обращайтесь к нам через форму <%= link_to 'обратной связи', static_url('contact') %>.</p>

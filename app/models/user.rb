@@ -57,6 +57,7 @@ class User < ActiveRecord::Base
 
   after_create { create_setting if setting.nil? }
   after_create { create_stat if stat.nil? }
+  after_create :send_welcome_email
 
   scope :online, lambda{ where('last_response_at > ?', 10.minutes.ago) }
 
@@ -193,6 +194,10 @@ class User < ActiveRecord::Base
   def binded?(provider)
     @providers ||= identities.pluck(:provider)
     provider.to_s.in? @providers
+  end
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver if email.present?
   end
 
   class << self
