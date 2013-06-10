@@ -3129,8 +3129,16 @@ a {
   .btn-danger {
     @include btn-white(35px);
   }
+}
 
-
+.noty_text{
+  a {
+    text-decoration: underline;
+    color: white;
+    &:hover{
+      text-decoration: none;
+    }
+  }
 }
 
 

@@ -84,7 +84,7 @@ $(function(){
 
     $(document).on('click', 'a[data-auth]', function(e){
         e.preventDefault();
-        show_notice('Авторизируйтесь или зарегистрируйтесь, чтобы можно было выполнять это действие.', 'error');
+        show_notice('<a href="/users/sign_in" class="sign_pop_up">Авторизируйтесь</a> или <a href="/users/sign_up" class="sign_pop_up">зарегистрируйтесь</a>, чтобы можно было выполнять это действие.', 'error');
     });
 
     $.rails.allowAction = function(element){
@@ -118,7 +118,7 @@ function show_notice(text, type, options) {
             dismissQueue: true,
             layout: 'top',
             theme: 'defaultTheme',
-            timeout: false
+            timeout: 3000
         },
         noty_options = $.extend({}, defaults, options);
 
