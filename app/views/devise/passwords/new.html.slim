@@ -1,0 +1,15 @@
+.modal_registration
+  .reg_logo
+    a[href="/"]
+      img[src="#{asset_path "logo_large.png"}" alt="bitfun_logo"]/
+  p.topic Забыли свой пароль?
+  .reg_box
+    = simple_form_for(resource, as: resource_name, url: user_password_path, html: { id: 'recover_pass' }, wrapper: :none, validate: true, remote: true) do |f|
+      = f.error_notification
+      = f.input :email, input_html: { class: 'input-xxlarge' }, :validate => { :presence => true }, required: true
+      .buttons
+        a.cancel[href=""] Отменить
+        a.join[href="" rel="submit" ] Напомнить пароль
+  p.topic Вспомнили пароль? #{link_to "Войти", new_session_path(resource_name), class: 'sign_pop_up'}
+  javascript:
+    $('#recover_pass').enableClientSideValidations();

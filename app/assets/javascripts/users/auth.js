@@ -12,7 +12,7 @@ $(function(){
 
     // Processing callback from
 
-    $(document).on('ajax:success', '#signup, #signin', function(evt, data, status, xhr){
+    $(document).on('ajax:success', '#signup, #signin, #recover_pass', function(evt, data, status, xhr){
         if (data.success){
             window.location = data.redirect
         }

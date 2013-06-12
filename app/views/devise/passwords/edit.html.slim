@@ -1,0 +1,14 @@
+.container.profile_layout
+  section.content[role='main']
+    .topics_block
+      .title_page
+        h2 Сменить пароль
+      p.title_help_block После смены пароля вы будете автоматически авторизированы.
+    = simple_form_for(resource, as: resource_name, url: user_password_path, html: { method: :put, class: 'form-horizontal' }, validate: true) do |f|
+      = f.hidden_field :reset_password_token
+      = f.input :password, autocomplete: 'off', required: false, validate: true
+      = f.input :password_confirmation, required: false, validate: true
+      .divider
+      .control-group
+        .controls
+          a.save[href='#' rel='submit'] Сохранить профиль

@@ -12,6 +12,7 @@
       .remember_me
         = f.input :remember_me, label: 'Запомнить меня', as: :boolean
         | Запомнить меня
+        = link_to 'Забыли свой пароль?', new_user_password_path, class: 'sign_pop_up'
       .buttons
         a.cancel[href=""] Отменить
         a.join[href="" rel="submit" ] Авторизироваться

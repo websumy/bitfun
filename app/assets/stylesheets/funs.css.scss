@@ -1648,6 +1648,13 @@ a {
     font-size: 12px;
     color: #E9322D;
     margin: -3px 0 10px;
+    a {
+      color: #fff;
+      text-decoration: underline;
+      &:hover{
+        text-decoration: none;
+      }
+    }
   }
 
   .checkbox {
@@ -3131,14 +3138,19 @@ a {
   }
 }
 
-.noty_text{
+.remember_me{
   a {
+    float: right;
     text-decoration: underline;
     color: white;
     &:hover{
       text-decoration: none;
     }
   }
+}
+
+#recover_pass{
+  margin-top: 20px;
 }
 
 
