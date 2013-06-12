@@ -1,4 +1,4 @@
-class SessionsController < Devise::SessionsController
+class Users::SessionsController < Devise::SessionsController
 
   def new
     self.resource = build_resource(nil, :unsafe => true)

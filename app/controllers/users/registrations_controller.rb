@@ -1,12 +1,9 @@
-class RegistrationsController < Devise::RegistrationsController
+class Users::RegistrationsController < Devise::RegistrationsController
+  before_filter :only_xhr_request, only: :new
 
   def new
     build_resource
-    if request.xhr?
-      render layout: false
-    else
-      redirect_to root_path
-    end
+    render layout: false
   end
 
   def update
