@@ -95,6 +95,11 @@ ru:
 
     welcome_email:
       subject: 'Добро пожаловать на BitFun.ru'
+    contact_us:
+      subject: 'Новое сообщение с сайта BitFun.ru'
+      filure: 'Ваше сообщение не отправлено, проверьте его и попробуйте отправить еще раз.'
+      success: 'Ваше сообщение отправлено, мы обязательно свяжемся с вами в ближайшее время.'
+
 
   enumerize:
     setting:
@@ -122,6 +127,11 @@ ru:
         fb_link: 'Facebook'
         tw_link: 'Twitter'
         vk_link: 'Вконтакте'
+      contact:
+        name: 'Представьтесь, пожалуйста'
+        email: 'Ваш e-mail'
+        message: 'Текст сообщения'
+
 
     hints:
       user:
