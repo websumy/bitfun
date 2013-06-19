@@ -2,6 +2,7 @@ class Post < ActiveRecord::Base
   attr_accessible :title, :body, :tag_list
   validates :body, presence: true
   validates :title, length: { minimum: 3 }, allow_blank: true
+  xss_terminate
 
   # Tags
   acts_as_taggable

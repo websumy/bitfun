@@ -10,7 +10,7 @@ article.post_frame
         li: a[href="#"]: img[src="#{asset_path "tmp/share-fb.jpg"}" alt="img"]/
         li: a[href="#"]: img[src="#{asset_path "tmp/share-vk.jpg"}" alt="img"]/
         li: a[href="#"]: img[src="#{asset_path "tmp/share-fb.jpg"}" alt="img"]/
-  .post_box
+  .post_box.list_item
     .post_info
       .poster
         = link_to fun.user.login, fun.user
@@ -20,7 +20,8 @@ article.post_frame
           = time_ago_in_words fun.created_at
           |  назад
       .title
-        = link_to fun.content.title, fun
+        h2 = link_to fun.content.title, fun
+
       .tags_block
         .tags
           = show_cached_tags fun
