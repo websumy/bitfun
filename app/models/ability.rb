@@ -11,7 +11,7 @@ class Ability
         fun.user_id == user.id && if fun.repost?
                                     true
                                   else
-                                    fun.repost_counter == 0 && fun.parent.published_at
+                                    fun.repost_counter == 0 && ! fun.published_at
                                   end
       end
       can :create, :repost

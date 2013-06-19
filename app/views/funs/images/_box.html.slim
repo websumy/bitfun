@@ -1,5 +1,5 @@
 - if fun.content.file?
   - if fun.content.exist_gif_thumb?
-    = link_to image_tag(fun.content.file_url(:img, :small)), fun, data: { gif: fun.content.file_url(:gif) }
+    = link_to fun_image(fun, version: [:img, :small]), fun, data: { gif: fun.content.file_url(:gif) }
   - else
-    = link_to image_tag(fun.content.file_url(:img, :small)), fun
+    = link_to fun_image(fun, version: [:img, :small]), fun

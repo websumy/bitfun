@@ -1,1 +1,1 @@
-= link_to image_tag(fun.content.image_url(:img, :thumb)), fun, data: {video: fun.content.video_type + '-' + fun.content.video_id}, class: 'po-video'
+= link_to fun_image(fun, version: [:img, :thumb]), fun, data: {video: fun.content.video_type + '-' + fun.content.video_id}, class: 'po-video'

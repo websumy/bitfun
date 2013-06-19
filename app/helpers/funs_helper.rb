@@ -137,4 +137,15 @@ module FunsHelper
       link_to '', url_for(action: 'show', controller: 'funs', id: fun), class: 'btn-fun-delete', method: :delete, remote: true, data: { type: :json }, confirm: t('funs.confirm.delete')
     end
   end
+
+  def fun_image(fun, options = {})
+    versions = options[:version]
+    options.delete(:version)
+    text = fun.content.title? ? fun.content.title : fun.content.cached_tag_list
+    options[:alt] = text unless options[:alt]
+    options[:title] = text unless options[:title]
+    column = fun.content.class.to_s == 'Image' ? :file : :image # fun.content.class.uploaders
+    image_tag(fun.content.send(column).url(*versions), options)
+  end
+
 end
