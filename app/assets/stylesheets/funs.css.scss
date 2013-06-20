@@ -2413,12 +2413,6 @@ a {
         width: 80px;
         height: 80px;
       }
-      .circle_follow_status {
-        display: block;
-        .follow {
-          background-position: -106px 0;
-        }
-      }
     }
     .user_info {
       @include inline-block();
