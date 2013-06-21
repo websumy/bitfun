@@ -46,6 +46,7 @@ GEM
     carrierwave (0.8.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
+    chardet (0.9.0)
     client_side_validations (3.2.0)
     client_side_validations-simple_form (2.0.0)
       client_side_validations (~> 3.2.0)
@@ -78,10 +79,15 @@ GEM
     hashie (1.2.0)
     high_voltage (1.2.2)
     hike (1.2.1)
+    hoe (3.6.2)
+      rake (>= 0.8, < 11.0)
     hogan_assets (1.5.0)
       execjs (>= 1.2.9)
       sprockets (>= 2.0.3)
       tilt (>= 1.3.3)
+    html5 (0.10.0)
+      chardet (>= 0.9.0)
+      hoe (>= 1.2.0)
     httpauth (0.2.0)
     i18n (0.6.1)
     journey (1.0.4)
@@ -114,6 +120,8 @@ GEM
       skinny (~> 0.2.3)
       sqlite3 (~> 1.3)
       thin (~> 1.5.0)
+    meta-tags (1.5.0)
+      actionpack
     meta_request (0.2.1)
       rack-contrib
       rails
@@ -231,6 +239,8 @@ GEM
       multi_json (~> 1.0, >= 1.0.2)
     warden (1.2.1)
       rack (>= 1.0)
+    xss_terminate (0.2)
+      html5 (>= 0.10.0)
 
 PLATFORMS
   ruby
@@ -256,6 +266,7 @@ DEPENDENCIES
   kaminari
   localtunnel
   mailcatcher
+  meta-tags
   meta_request
   mysql2
   omniauth
@@ -273,3 +284,4 @@ DEPENDENCIES
   thin
   thinking-sphinx (= 2.0.10)
   uglifier (>= 1.0.3)
+  xss_terminate

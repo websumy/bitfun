@@ -14,6 +14,12 @@ gem 'cancan'
 # Standardized Multi-Provider Authentication
 gem 'omniauth'
 
+# xss_terminate. xss_terminate is a plugin in that makes stripping and sanitizing HTML stupid-simple. Install and forget
+gem 'xss_terminate'
+
+# MetaTags: a gem to make your Rails application SEO-friendly
+gem 'meta-tags'
+
 # Omniauth providers
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
