@@ -32,34 +32,35 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
 
-  version :img do
+  version :original do
     process :only_first_frame
-    process :convert => 'png'
+    process convert: :jpg
     process :strip
-    process :resize_to_limit => [700, nil]
-    process :quality => 90
+    process resize_to_limit: [700, nil]
+    process quality: 90
+  end
 
-    version :thumb do
-      process :resize_to_limit => [500, nil]
-    end
+  version :full, from_version: :original do
+    process :watermark
+    def full_filename(for_file) md5_filename(for_file) end
+  end
 
-    version :small do
-      process :resize_to_limit => [218, nil]
-    end
+  version :thumb, from_version: :original do
+    process resize_to_limit: [500, nil]
+    process :watermark
+    def full_filename(for_file) md5_filename(for_file) end
+  end
+
+  version :small, from_version: :original do
+    process resize_to_limit: [218, nil]
+    def full_filename(for_file) md5_filename(for_file) end
   end
 
   version :gif, if: :gif? do
-    process :resize_to_limit => [500, nil]
-    process :quality => 80
-
-    def filename
-      "#{secure_token(10)}.gif" if original_filename.present?
-    end
-
-    def full_filename(for_file)
-      ext = File.extname(for_file)
-      [version_name, for_file.chomp(ext)].compact.join('_') + '.gif'
-    end
+    process resize_to_limit: [500, nil]
+    process quality: 80
+    process :watermark
+    def full_filename(for_file) md5_filename(for_file, 'gif') end
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -71,7 +72,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    "#{secure_token(10)}.png" if original_filename.present?
+    "#{secure_token(10)}.jpg" if original_filename.present?
   end
 
   def gif?(new_file)
@@ -79,9 +80,21 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   protected
+  def md5_filename(for_file, extension = 'jpg')
+    ext = File.extname(for_file)
+    Digest::MD5.hexdigest([model.id.to_s, version_name, for_file.chomp(ext)].compact.join('_')) + '.' + extension
+  end
+
   def secure_token(length=16)
     var = :"@#{mounted_as}_secure_token"
     model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.hex(length/2))
+  end
+
+  def watermark
+    manipulate! do |img|
+      logo = Magick::Image.read("#{Rails.root}/app/assets/images/fun-watermark.png").first
+      img.composite(logo, Magick::SouthEastGravity, 5, 5, Magick::OverCompositeOp)
+    end
   end
 
 end

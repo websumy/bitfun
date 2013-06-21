@@ -1,5 +1,5 @@
 - if fun.content.file?
   - if fun.content.exist_gif_thumb?
-    = link_to fun_image(fun, version: [:img, :thumb]), fun, data: { gif: fun.content.file_url(:gif) }, class: 'po-gif'
+    = link_to fun_image(fun, version: :thumb), fun, data: { gif: fun.content.file_url(:gif) }, class: 'po-gif'
   - else
-    = link_to fun_image(fun, version: [:img, :thumb]), fun
+    = link_to fun_image(fun, version: :thumb), fun
