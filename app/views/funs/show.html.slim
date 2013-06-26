@@ -1,3 +1,4 @@
+- keywords @fun.content.cached_tag_list.split(', ') if @fun.content.cached_tag_list?
 - content_for :headscripts do
   = javascript_include_tag 'http://vk.com/js/api/openapi.js?83'
 .container.post_layout
@@ -15,7 +16,7 @@
               = time_ago_in_words @fun.created_at
               |  назад
           h1.title
-            = @fun.content.title
+            = title @fun.content.title
           .post_share
             .share_item
               img[src="#{asset_path "post_soc_icons.jpg"}" alt="image"]/

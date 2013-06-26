@@ -18,7 +18,7 @@ gem 'omniauth'
 gem 'xss_terminate'
 
 # MetaTags: a gem to make your Rails application SEO-friendly
-gem 'meta-tags'
+gem 'meta-tags', require: 'meta_tags'
 
 # Omniauth providers
 gem 'omniauth-facebook'

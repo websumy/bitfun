@@ -1,9 +1,7 @@
 doctype html
 html
   head
-    title = content_for?(:title) ? yield(:title) : "Test App"
-    meta name="description" content="#{content_for?(:description) ? yield(:description) : "Test App"}"
-    meta name="keywords" content="template language" charset="utf-8"
+    = display_meta_tags site: t('meta_tags.main.title'), separator: '-', reverse: true, keywords: t('meta_tags.main.keywords'), description: t('meta_tags.main.description')
     = stylesheet_link_tag "application", media: "all"
     = javascript_include_tag  "application"
     = csrf_meta_tags
