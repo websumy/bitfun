@@ -6,6 +6,7 @@ development: &defaults
       scope: "email,user_birthday,read_stream"
       display: "page"
       image_size: "large"
+      admins: "100002650126740"
 
     vkontakte:
       id: 3316459

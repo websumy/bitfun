@@ -138,14 +138,44 @@ module FunsHelper
     end
   end
 
+  def fun_image_path(fun, versions = {})
+    column = fun.content.class.to_s == 'Image' ? :file : :image # fun.content.class.uploaders
+    fun.content.send(column).url(*versions)
+  end
+
   def fun_image(fun, options = {})
     versions = options[:version]
     options.delete(:version)
     text = fun.content.title? ? fun.content.title : fun.content.cached_tag_list
     options[:alt] = text unless options[:alt]
     options[:title] = text unless options[:title]
-    column = fun.content.class.to_s == 'Image' ? :file : :image # fun.content.class.uploaders
-    image_tag(fun.content.send(column).url(*versions), options)
+    image_tag(fun_image_path(fun, versions), options)
+  end
+
+  def fun_meta(fun)
+    fun_keywords fun
+    object = {
+        og: {
+            title: fun.content.title || t('meta_tags.main.title'),
+            site_name: t('meta_tags.main.title'),
+            type: 'website',
+            url: fun_url(fun),
+            image: 'http://' + request.host + fun_image_path(fun, :small)
+        },
+        vk: {
+            app_id: Settings.widgets.vkontakte.comments.id
+        },
+        fb: {
+            app_id: Settings.oauth.facebook.id,
+            admins: Settings.oauth.facebook.admins
+        }
+    }
+
+    set_meta_tags object
+  end
+
+  def fun_keywords(fun)
+    keywords fun.content.cached_tag_list + ', ' + t("meta_tags.fun.#{fun.content_type.downcase}.keywords") if fun.content.cached_tag_list?
   end
 
 end

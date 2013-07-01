@@ -34,7 +34,7 @@ class Fun < ActiveRecord::Base
 
   def build_content(params, assignment_options)
     raise "Unknown content_type: #{content_type}" unless DEF_TYPES.include?(content_type.downcase)
-    params[:url] = params[:remote_file_url]
+    params[:url] = params[:remote_file_url] if content_type == 'Image'
     self.content = content_type.constantize.new(params)
   end
 

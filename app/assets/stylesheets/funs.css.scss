@@ -3158,9 +3158,8 @@ a {
   }
 }
 
-.remember_me{
+.noty_text{
   a {
-    float: right;
     text-decoration: underline;
     color: white;
     &:hover{
@@ -3169,13 +3168,33 @@ a {
   }
 }
 
-#recover_pass{
+.remember_me {
+  a {
+    float: right;
+    text-decoration: underline;
+    color: white;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+#recover_pass {
   margin-top: 20px;
 }
 
-.page-layout{
-  textarea{
+.page-layout {
+  textarea {
     height: 150px;
   }
 }
 
+#vk_like {
+  clear: none !important;
+  float: left
+}
+
+.fb-like {
+  float: left;
+  width: 130px;
+}
