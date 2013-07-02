@@ -59,6 +59,7 @@ class Video < ActiveRecord::Base
     response = Net::HTTP.get_response(URI.parse(url))
     result = Hash.from_xml(response.body)
     result['entry']['group']['thumbnail'].each { |item| urls[item['yt:name']] = item['url'] }
+    self.title = result['entry']['title'] unless title?
     keys.each { |key| return urls[key] if urls.has_key? key }
   end
 
@@ -66,6 +67,7 @@ class Video < ActiveRecord::Base
     url = "http://vimeo.com/api/v2/video/#{self.video_id}.xml"
     response = Net::HTTP.get_response(URI.parse(url))
     result = Hash.from_xml(response.body)
+    self.title = result['videos']['video']['title'] unless title?
     result['videos']['video']['thumbnail_large']
   end
 
