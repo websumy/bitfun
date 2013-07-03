@@ -804,7 +804,7 @@ a {
     }
 
     ul {
-      display: none;
+      display: inline-block;
       text-align: right;
       width: 57px;
       @include border-radius(5px);
@@ -816,6 +816,9 @@ a {
     }
     li {
       padding: 3px 0 0;
+      float: left;
+      width: 100%;
+      text-align: center;
     }
     img {
       display: block;

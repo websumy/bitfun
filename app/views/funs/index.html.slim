@@ -1,3 +1,4 @@
+= render "layouts/social_plugin"
 - content_for :navigation, render('layouts/navigation')
 - data = params[:query] ? {:'data-search' => search_tags_path(query: params[:query])} : {}
 div *data class="container main_layout#{view_partial == 'box' ? ' grid' : ''}"

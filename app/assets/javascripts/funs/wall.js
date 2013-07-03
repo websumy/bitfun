@@ -76,6 +76,13 @@ $(function(){
                                     $newElems.animate({ opacity: 1 }).initTooltipster();
                                     if ($wall.data('masonry')) $wall.masonry( 'appended', $newElems, true );
                                     $wall.append($newElems);
+                                    // reload Like buttons
+                                    if ( ! $wall.data('masonry')){
+                                        $newElems.each(function(){
+                                            FB.XFBML.parse(this);
+                                            twttr.widgets.load(this);
+                                        })
+                                    }
                                 });
                                 $('#loading').remove();
                             }

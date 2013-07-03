@@ -37,6 +37,7 @@ $(function(){
 
                     wall.html(data.responseText);
                     wall.initTooltipster();
+
                     $(window).data('endelessscroll').resetFiring();
 
                     if (postData.view == 'box'){
@@ -48,6 +49,9 @@ $(function(){
                         });
                     }
                     else{
+                        // reload Like buttons
+                        FB.XFBML.parse();
+                        twttr.widgets.load();
                         if (wall.data('masonry')) wall.masonry('destroy');
                         layout.removeClass('grid');
                         sidebar.show()

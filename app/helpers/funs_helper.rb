@@ -143,6 +143,10 @@ module FunsHelper
     fun.content.send(column).url(*versions)
   end
 
+  def fun_image_url(fun, versions = {})
+    'http://' + request.host + fun_image_path(fun, versions)
+  end
+
   def fun_image(fun, options = {})
     versions = options[:version]
     options.delete(:version)
@@ -156,11 +160,11 @@ module FunsHelper
     fun_keywords fun
     object = {
         og: {
-            title: fun.content.title || t('meta_tags.main.title'),
+            title: fun.content.title? ? fun.content.title : t('meta_tags.main.title'),
             site_name: t('meta_tags.main.title'),
             type: 'website',
             url: fun_url(fun),
-            image: 'http://' + request.host + fun_image_path(fun, :small)
+            image: fun_image_url(fun, :small)
         },
         vk: {
             app_id: Settings.widgets.vkontakte.comments.id

@@ -1,6 +1,5 @@
 - fun_meta(@fun)
-- content_for :headscripts do
-  = javascript_include_tag 'http://vk.com/js/api/openapi.js?83'
+= render "layouts/social_plugin"
 .container.post_layout
   section.content[role="main"]
     article.post_frame.load_buttons
@@ -19,24 +18,9 @@
             = title @fun.content.title
           .post_share
             .share_item
-              #fb-root
-              javascript:
-                VK.init({ apiId: #{Settings.widgets.vkontakte.comments.id}, onlyWidgets: true });
-                VK.Widgets.Like("vk_like", {type: "mini", height: 20});
-
-                (function(d, s, id) {
-                  var js, fjs = d.getElementsByTagName(s)[0];
-                  if (d.getElementById(id)) return;
-                  js = d.createElement(s); js.id = id;
-                  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1&appId=#{Settings.oauth.facebook.id}";
-                  fjs.parentNode.insertBefore(js, fjs);
-                }(document, 'script', 'facebook-jssdk'));
-
-
-                !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
               #vk_like
               .fb-like[data-href="#{fun_url(@fun)}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial"]
-              a[href="https://twitter.com/share" class="twitter-share-button" data-via="bitfun" data-lang="ru" data-related="butfun" data-text="#{@fun.content.title || t('meta_tags.main.title')}"] Твитнуть
+              a[href="https://twitter.com/share" rel="nofollow" class="twitter-share-button" data-via="bitfun" data-lang="ru" data-related="butfun" data-text="#{@fun.content.title || t('meta_tags.main.title')}"] Tweet
           .follow_parent
             = follow_link(@fun.user)
         .post_object

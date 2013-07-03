@@ -6,10 +6,13 @@ article.post_frame
       .orange_box
         .orange_inner: a.share_link[href="#"]: span.hide Share
       ul
-        li: a[href="#"]: img[src="#{asset_path "tmp/share-vk.jpg"}" alt="img"]/
-        li: a[href="#"]: img[src="#{asset_path "tmp/share-fb.jpg"}" alt="img"]/
-        li: a[href="#"]: img[src="#{asset_path "tmp/share-vk.jpg"}" alt="img"]/
-        li: a[href="#"]: img[src="#{asset_path "tmp/share-fb.jpg"}" alt="img"]/
+        li: div[id="vk_like_#{fun.id}" style="display:inline-block" ]
+        li
+          <fb:like href="#{fun_url(fun)}" layout="box_count" show_faces="true" width="240" height="40" action="like" colorscheme="light"></fb:like>
+        li: a[href="https://twitter.com/share"  rel="nofollow" class="twitter-share-button" data-via="bitfun" data-url="#{fun_url(fun)}" data-count="vertical"  data-related="butfun" data-text="#{fun.content.title || t('meta_tags.main.title')}"] Tweet
+
+      javascript:
+        VK.Widgets.Like("vk_like_#{fun.id}", {type: "vertical", height: 20, pageTitle: "#{fun.content.title}", pageUrl: "#{fun_url(fun)}", pageImage: "#{fun_image_url(fun, :small)}"});
   .post_box.list_item
     .post_info
       .poster
