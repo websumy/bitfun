@@ -14,7 +14,7 @@
       = f.input :password_confirmation, input_html: { class: 'input-xxlarge' }, required: true
       .buttons
         a.cancel[href=""] Отменить
-        a.join[href="" rel="submit" ] Зарегистрироваться
+        button.join[type="submit" ] Зарегистрироваться
   p.topic Уже зарегистрированы? #{link_to "Войти", new_session_path(resource_name), class: 'sign_pop_up'}
   javascript:
     $('#signup').enableClientSideValidations();

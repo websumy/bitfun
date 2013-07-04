@@ -10,10 +10,10 @@
       = f.input :email, autofocus: true, required: true, input_html: { class: 'input-xxlarge' }, placeholder: "Ваш Email"
       = f.input :password, required: true, input_html: { class: 'input-xxlarge' }, placeholder: "Пароль"
       .remember_me
-        = f.input :remember_me, label: 'Запомнить меня', as: :boolean
-        | Запомнить меня
+        = f.input :remember_me, as: :boolean
         = link_to 'Забыли свой пароль?', new_user_password_path, class: 'sign_pop_up'
+        label[for="user_remember_me"] Запомнить меня
       .buttons
         a.cancel[href=""] Отменить
-        a.join[href="" rel="submit" ] Авторизироваться
+        button.join[type="submit" ] Авторизироваться
   p.topic Еще не зарегистрированы? #{link_to "Регистрация", new_user_registration_path, class: 'sign_pop_up'}

@@ -9,7 +9,7 @@
       = f.input :email, input_html: { class: 'input-xxlarge' }, :validate => { :presence => true }, required: true
       .buttons
         a.cancel[href=""] Отменить
-        a.join[href="" rel="submit" ] Напомнить пароль
+        button.join[type="submit" ] Напомнить пароль
   p.topic Вспомнили пароль? #{link_to "Войти", new_session_path(resource_name), class: 'sign_pop_up'}
   javascript:
     $('#recover_pass').enableClientSideValidations();

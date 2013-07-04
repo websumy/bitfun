@@ -1689,7 +1689,7 @@ a {
   .buttons {
     margin: 15px 0 35px 0;
     text-align: center;
-    a {
+    a, button {
       @include inline-block;
       &.cancel {
         @include easy-btn-white();
@@ -3172,6 +3172,7 @@ a {
 }
 
 .remember_me {
+  overflow: hidden;
   a {
     float: right;
     text-decoration: underline;

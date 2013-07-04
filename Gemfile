@@ -35,7 +35,7 @@ gem 'kaminari'
 gem 'acts-as-taggable-on'
 
 # Votable ActiveRecord for Rails.
-gem 'acts_as_votable'
+gem 'acts_as_votable', '~> 0.5.0'
 
 # Classier solution for file uploads for Rails, Sinatra and other Ruby web frameworks.
 gem 'carrierwave'
