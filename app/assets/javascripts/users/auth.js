@@ -17,8 +17,9 @@ $(function(){
             window.location = data.redirect
         }
         else {
-            $(this).find('.error-block').remove();
-            $(this).prepend($('<div class="error-block">' + data.errors + '</div>'));
+            $errors = $(this).find('.error-block');
+            if ($errors.length) { $errors.fadeOut(); $errors.text(data.errors).fadeIn()}
+            else $(this).prepend($('<div class="error-block">' + data.errors + '</div>').fadeIn());
         }
     });
 });
