@@ -21,6 +21,13 @@ div *data class="container main_layout#{view_partial == 'box' ? ' grid' : ''}"
           li: a[class="icon_tw" href="#tab_tw" data-toggle="tab"]: span Twitter
 
         .tab_content
-          .tab_pane.active id="tab_vk": img[src="#{asset_path "tmp/tabs-vk-widget.jpg"}" alt="image"]/
-          .tab_pane id="tab_fb": img[src="#{asset_path "tmp/post-image.jpg"}" alt="image"]/
-          .tab_pane id="tab_tw": img[src="#{asset_path "default-avatar-62.jpg"}" alt="image"]/
+          javascript:
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+            VK.Widgets.Group("vk_groups", {mode: 0, wide: 1, width: "328", height: "250", color1: 'FFFFFF', color2: '2B587A', color3: '5B7FA6'}, 28825260)
+          .tab_pane.active id="tab_vk"
+            #vk_groups
+          .tab_pane id="tab_fb"
+            <fb:like-box href="https://www.facebook.com/legalans" width="338" show_faces="true" stream="false" show_border="false" header="true"></fb:like-box>
+          .tab_pane id="tab_tw"
+            a[class="twitter-timeline" href="https://twitter.com/legalans" data-widget-id="353054577496559616"]виты пользователя @legalans
+

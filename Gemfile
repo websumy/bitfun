@@ -88,11 +88,13 @@ gem 'bourbon'
 
 # Gems used only for assets and not required
 # in production environments by default.
+
+gem 'sass-rails',   '~> 3.2.3'
+
 group :assets do
   # Toolkit from Twitter designed to kickstart development of webapps and sites
   # gem "bootstrap-sass"
 
-  gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
 
   # HoganAssets compiles mustache templates with hogan.js on sprockets and the Rails asset pipeline.
