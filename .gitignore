@@ -18,7 +18,6 @@
 # Ignore config files
 /config/database.yml
 /config/omniauth.yml
-/config/development.sphinx.conf
 
 # Ignore uploads directories
 /public/uploads
