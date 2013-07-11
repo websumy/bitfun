@@ -89,7 +89,7 @@ ru:
       funs: "Фанов"
       votes: "Лайков"
       reposts: "Репостов"
-      followers: "Подпищиков"
+      followers: "Подписчиков"
       created_at: "Регистрация"
     list:
       following: 'Список подписок'

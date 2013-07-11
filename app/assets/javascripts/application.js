@@ -4,12 +4,13 @@
 //= require jquery.ui.widget
 //= require jquery.ui.autocomplete
 //= require jquery.ui.draggable
-//= require hogan.js
-//= require_tree ./templates
+//= require jquery-fileupload/jquery.iframe-transport
+//= require jquery-fileupload/jquery.fileupload
+//= require jquery-fileupload/jquery.fileupload-ui
+//= require jquery-fileupload/locale
 //= require source/bootstrap-tab
 //= require rails.validations
-//= require source/fileupload/jquery.fileupload
-//= require_tree ./source/fileupload
+//= require hogan.js
 //= require_tree .
 
 $(function(){

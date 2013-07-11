@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: 'noreplay@bitfun.ru'
+  default from: 'websumy@mail.ru'
   default to: 'support@bitfun.ru'
 
   def welcome_email(user)

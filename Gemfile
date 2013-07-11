@@ -106,6 +106,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+# jQuery File Upload for Rails
+gem 'jquery-fileupload-rails'
+
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
