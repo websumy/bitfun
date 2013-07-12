@@ -11,7 +11,8 @@ Bitfun::Application.routes.draw do
 
   post  'contacts', to: 'contacts#create'
 
-  post 'vk/comments/:id', to: 'vk_widgets#comments', as: :vk_comments_callback
+  post 'vk/comments/:id', to: 'socials#vkontakte_comments', as: :vk_comments_callback
+  get 'social/likes/:id', to: 'socials#social_likes', as: :social_likes
 
   get   'search', to: 'funs#index', as: :search_tags, defaults: { search: true }
   post  'get_tags', to: 'funs#autocomplete_tags', as: :autocomplete_tags

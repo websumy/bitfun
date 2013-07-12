@@ -12,6 +12,34 @@ $(function(){
         });
     }
 
+    $wall.on('click', 'a.share_link',  function(e){
+        e.preventDefault();
+        var $this = $(this),
+            $like_box = $this.closest('.post_share').find('.like_box');
+
+        if ($like_box.length){
+            $like_box.fadeToggle(500);
+            $this.find('span').toggleClass('show');
+        }
+        else{
+            $.ajax({
+                type: 'GET',
+                url: $this.attr('href'),
+                success: function(data) {
+                    if (data.length){
+                        var $like_box = $('<div/>').addClass('like_box').hide();
+                        $this.closest('.orange_box').after($like_box);
+                        $like_box.html(data)
+                        FB.XFBML.parse($like_box.get(0));
+                        twttr.widgets.load($like_box.get(0));
+                        $like_box.fadeIn(500);
+                        $this.find('span').addClass('show');
+                    }
+                }
+            });
+        }
+    });
+
     // Replace post image to gif or video
 
     $(document).on('click', '.post_object a', function(e){
@@ -76,13 +104,6 @@ $(function(){
                                     $newElems.animate({ opacity: 1 }).initTooltipster();
                                     if ($wall.data('masonry')) $wall.masonry( 'appended', $newElems, true );
                                     $wall.append($newElems);
-                                    // reload Like buttons
-                                    if ( ! $wall.data('masonry')){
-                                        $newElems.each(function(){
-                                            FB.XFBML.parse(this);
-                                            twttr.widgets.load(this);
-                                        })
-                                    }
                                 });
                                 $('#loading').remove();
                             }

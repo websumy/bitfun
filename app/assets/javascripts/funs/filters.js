@@ -49,9 +49,6 @@ $(function(){
                         });
                     }
                     else{
-                        // reload Like buttons
-                        FB.XFBML.parse();
-                        twttr.widgets.load();
                         if (wall.data('masonry')) wall.masonry('destroy');
                         layout.removeClass('grid');
                         sidebar.show()

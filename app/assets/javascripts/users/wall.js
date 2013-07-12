@@ -40,8 +40,6 @@ $(function(){
                         else{
                             if (wall.data('masonry')) wall.masonry('destroy');
                             layout.removeClass('grid');
-                            FB.XFBML.parse();
-                            twttr.widgets.load();
                         }
                         $('#ajax_loading').remove();
                     }
@@ -69,8 +67,6 @@ $(function(){
                         if (currentState == 'box'){
                             if (wall.data('masonry')) wall.masonry('reload');
                         }
-                        FB.XFBML.parse();
-                        twttr.widgets.load();
                     }
                     $('#ajax_loading').remove();
                 }

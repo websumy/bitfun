@@ -779,6 +779,7 @@ a {
     @include orange-box-32();
     .orange_box {
       z-index: 100;
+      position: relative;
     }
     .share_link {
       @include text-shadow(0 1px 1px rgba(0, 0, 0, .6));
@@ -794,9 +795,7 @@ a {
         height: 17px;
         line-height: 17px;
         padding-left: 19px;
-        &.hide {
-          background: asset_url("share-icons.png", images) no-repeat left top;
-        }
+        background: asset_url("share-icons.png", images) no-repeat left top;
         &.show {
           background: asset_url("share-icons.png", images) no-repeat left bottom;
         }
@@ -1450,7 +1449,7 @@ a {
     }
   }
   .popover_content {
-    padding: 11px 6px 11px 11px;
+    padding: 8px;
     display: inline-block;
     width: 100%;
     a {
@@ -1469,7 +1468,7 @@ a {
     }
   }
   .popover_footer {
-    padding: 11px;
+    padding: 8px;
     line-height: 12px;
     border-top: 1px solid #ededf0;
   }

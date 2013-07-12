@@ -144,7 +144,7 @@ module FunsHelper
     unless type == 'Post'
       fun.content.try(column).url(*versions)
     else
-      asset_path('logo_hover.png')
+      asset_path('social_logo.png')
     end
   end
 
