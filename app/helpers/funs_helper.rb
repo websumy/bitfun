@@ -139,12 +139,17 @@ module FunsHelper
   end
 
   def fun_image_path(fun, versions = {})
-    column = fun.content.class.to_s == 'Image' ? :file : :image # fun.content.class.uploaders
-    fun.content.send(column).url(*versions)
+    type = fun.content.class.to_s
+    column = type == 'Image' ? :file : :image # fun.content.class.uploaders
+    unless type == 'Post'
+      fun.content.try(column).url(*versions)
+    else
+      asset_path('logo_hover.png')
+    end
   end
 
   def fun_image_url(fun, versions = {})
-    'http://' + request.host + fun_image_path(fun, versions)
+    'http://' + request.host + fun_image_path(fun, versions).to_s
   end
 
   def fun_image(fun, options = {})
