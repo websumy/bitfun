@@ -18,7 +18,7 @@ module FunsHelper
 
   def big_repost_button(fun)
     show_repost_button(fun, "<span class='icon'></span><span class='name'>#{t('reposts.button')}</span>") +
-    "<div class='item_adds'><div class='navbar'><span class='counter rcnt'>#{fun.total_likes}</span> #{t('reposts.count')}</div></div>".html_safe
+    "<div class='item_adds'><div class='navbar'><span class='counter rcnt'>#{fun.repost_counter}</span> #{t('reposts.count')}</div></div>".html_safe
   end
 
   def repost_button(fun)
