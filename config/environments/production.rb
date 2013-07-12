@@ -74,6 +74,6 @@ Bitfun::Application.configure do
       password: 'redmine_websumy',
       authentication: :login
   }
-
+  config.action_mailer.default_url_options = { :host => 'bitfun.ru' }
   ActionMailer::Base.default :from => 'websumy@mail.ru'
 end

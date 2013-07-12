@@ -6,7 +6,7 @@ class Fun < ActiveRecord::Base
   before_destroy :delete_reposts
 
   # Kaminari pagination config
-  paginates_per 5
+  paginates_per 10
 
   # Fun moved from sandbox when total_likes = MIN_LIKES
   MIN_LIKES = 3

@@ -14,7 +14,7 @@
 
 javascript:
   $('#upload_image_botton').inputfileupload({
-    maxFileSize: 1000000,
+    maxFileSize: 15000000,
     onFailMaxSize: function(){
       $('#upload_image_botton').closest('.control-row').append($('<div class="error-block">Размер файла больше допустимого, попробуйте загрузить меньшего размера.</div>'))
     }

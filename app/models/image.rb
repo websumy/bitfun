@@ -4,7 +4,7 @@ class Image < ActiveRecord::Base
 
   # Validation
   # require 'file_size_validator'
-  # validates :file, presence: true, file_size: { maximum: 5.megabytes.to_i }
+  validates :file, presence: true, file_size: { maximum: 15.megabytes.to_i }
   validates :remote_file_url, format: /(https?:\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, allow_blank: true
   validates :title, length: { minimum: 3 }, allow_blank: true
   validates_integrity_of :file

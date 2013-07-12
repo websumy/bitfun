@@ -28,7 +28,7 @@
                   = f.file_field :avatar, accept: 'image/jpeg,image/png,image/gif'
               = link_to 'Удалить фото', delete_user_avatars_path(current_user), id: 'delete_photo', class: 'delete_photo', remote: true, data: { disable_with: 'Удаляется...' }, method: :delete
             .text
-              |Разрешенные типы файлов JPG, GIF или PNG. <br>Максимальный размер 1 МБ
+              |Разрешенные типы файлов JPG, GIF или PNG. <br>Максимальный размер 2 МБ
               .progress.progress-warning.progress-striped.active[style='display: none']
                 .bar[style='width: 0%;']
     = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-horizontal' }, validate: true) do |f|

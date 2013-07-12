@@ -14,7 +14,7 @@ $(function () {
 
     $('#avatarupload').fileupload({
         autoUpload: true,
-        maxFileSize: 1000000,
+        maxFileSize: 2000000,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         singleFileUploads: false,
 
