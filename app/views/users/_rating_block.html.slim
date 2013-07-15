@@ -3,7 +3,7 @@
     span.in_rating.pull-left
       strong
         = link_to 'Рейтинг', users_path
-    .pull-right.rating-sort
+    .pull-right.rating-sort[rel='tooltip' title="#{t('funs.titles.profile.filter')}"]
       span[id="last_top_interval" data-value="week"]
       select#top_rating_dropdown
         option[value='all'] За все время

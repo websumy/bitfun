@@ -35,6 +35,7 @@ $(function(){
                 {
                     $table.html(data.responseText);
                     resetTopOrder();
+                    $table.initTooltips();
                     $('#loading').remove();
                 }
             }

@@ -25,6 +25,7 @@ $(function(){
                 {
                     $table.html(data.responseText);
                     resetOrder();
+                    $table.initTooltips();
                     $(window).data('endelessscroll').resetFiring();
                     $('#loading').remove();
                 }
@@ -71,6 +72,7 @@ $(function(){
                             if (data.responseText.length == 0) $(window).data('endelessscroll').stopFiring();
                             var $newElems = $( data.responseText ).css({ opacity: 0 });
                             $table.find('tbody').append($newElems);
+                            $newElems.initTooltips();
                             resetOrder();
                             $newElems.animate({ opacity: 1 });
                             $('#loading').remove();

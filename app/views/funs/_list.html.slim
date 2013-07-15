@@ -5,7 +5,7 @@ article.post_frame
     .post_share
       .orange_box
         .orange_inner
-          = link_to raw('<span>Like</span>'), social_likes_path(fun),  class: 'share_link'
+          = link_to raw('<span>Like</span>'), social_likes_path(fun),  { class: 'share_link', rel: 'tooltip', title: t('funs.titles.social_likes') }
   .post_box.list_item
     .post_info
       .poster

@@ -28,6 +28,15 @@ $(function(){
         });
     };
 
+    $.fn.initTooltips = function(){
+        $(this).find('[rel~="tooltip"]').tooltipster({
+            theme: 'tooltips_theme',
+            offsetY: -5
+        });
+    }
+
+    $(document).initTooltips();
+
     $(document).on('click', '[data-dropdown]', function(e){
         e.preventDefault();
         if( ! $(this).hasClass('active')) $.CloseActiveDropdowns();
@@ -39,10 +48,6 @@ $(function(){
         if (! $this.parents('.main_panel, .tagit-choice').length && ! $this.data('dropdown')) $.CloseActiveDropdowns();
     });
 
-    $('[rel~="tooltip"]').tooltipster({
-        theme: 'tooltips_theme',
-        offsetY: -5
-    });
 
     $(document).on('ajax:success', '.follow_parent a:visible', function(evt, data, status, xhr){
         if (data.notice){

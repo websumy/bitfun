@@ -9,9 +9,9 @@ table#short-table-rating
         .user_name
           = link_to(user.login, user_path(user))
         .user_stats
-          span.downloads
+          span.downloads[rel='tooltip' title="#{t('funs.titles.profile.downloads')}"]
             = user.stat.try(:"#{sort_interval}_funs")
-          span.subscribers
+          span.subscribers[rel='tooltip' title="#{t('funs.titles.profile.followers')}"]
             = user.stat.try(:"#{sort_interval}_followers")
       td.follow_cell.follow_parent
         = follow_link_rating user

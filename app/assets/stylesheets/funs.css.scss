@@ -242,6 +242,10 @@ a {
             font-weight: bold;
             @include text-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
             border: 1px solid #F5AD3F;
+            &.selected {
+              border: 1px solid #fd4317;
+              background: #fd4317;
+            }
           }
           .tagit-input {
             @include box-shadow(none);
@@ -1497,7 +1501,16 @@ a {
     @include popoverArrow-top(7px, #0c0c0d);
     bottom: -4px;
   }
+
+  .tooltipster-arrow-bottom span {
+    @include popoverArrow-bottom(7px, #0c0c0d);
+    bottom: auto;
+    top: -5px;
+    border-top: 0 none;
+  }
 }
+
+
 
 /* *** /tooltips *** */
 

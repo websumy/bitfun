@@ -40,21 +40,21 @@ div[class="container feed_layout#{view_partial == 'box' ? ' grid' : ''}"]
     .feed_top
       .tumbler_switch.sort_content#user_switch_content
         .toggle_track
-          a.switch.hold_left.active[href="#{user_path(@user)}"]
+          a.switch.hold_left.active[href="#{user_path(@user)}" rel='tooltip' title="#{t('funs.titles.profile.funs')}"]
             span.toggle_slider.orange_box_left: span.orange_box_right: span.orange_inner
             span.toggle_name
               = t('user.funs', count: @user.funs_with_reposts.count)
-          a.switch.hold_right[href="#{likes_user_path @user}"]
+          a.switch.hold_right[href="#{likes_user_path @user}" rel='tooltip' title="#{t('funs.titles.profile.likes')}"]
             span.toggle_slider.orange_box_right: span.orange_box_left: span.orange_inner
             span.toggle_name
               = t('user.likes', count: @user.voted_ids.count)
 
       .tumbler_switch.toggle_view#user_switch_view
         .toggle_track
-          a.switch.hold_left[href='#' data-value='list' class="#{(view_partial == 'list') ? 'active': ''}"]
+          a.switch.hold_left[href='#' rel='tooltip' title="#{t('funs.titles.view.box')}" data-value='list' class="#{(view_partial == 'list') ? 'active': ''}"]
             span.toggle_slider.orange_box_left: span.orange_box_right: span.orange_inner
             span.toggle_name
-          a.switch.hold_right[href='#' data-value='box' class="#{(view_partial == 'box') ? 'active': ''}"]
+          a.switch.hold_right[href='#' rel='tooltip' title="#{t('funs.titles.view.list')}" data-value='box' class="#{(view_partial == 'box') ? 'active': ''}"]
             span.toggle_slider.orange_box_right: span.orange_box_left: span.orange_inner
             span.toggle_name
     section.post_wall.load_buttons#wall

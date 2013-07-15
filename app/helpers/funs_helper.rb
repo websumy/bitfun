@@ -97,7 +97,7 @@ module FunsHelper
 
   def link_to_type(type)
     content_tag :span do
-      link_to '', '/', class: type + active_class?(:type, type),  data: { value: type}
+      link_to '', '/', class: type + active_class?(:type, type),  data: { value: type},  rel: 'tooltip', title: t('funs.titles.types.' + type)
     end
   end
 
@@ -134,7 +134,7 @@ module FunsHelper
 
   def remove_fun_link(fun)
     if can? :destroy, fun
-      link_to '', url_for(action: 'show', controller: 'funs', id: fun), class: 'btn-fun-delete', method: :delete, remote: true, data: { type: :json }, confirm: t('funs.confirm.delete')
+      link_to '', url_for(action: 'show', controller: 'funs', id: fun), class: 'btn-fun-delete', method: :delete, remote: true, data: { type: :json }, confirm: t('funs.confirm.delete') , rel: 'tooltip', title: t('funs.titles.delete')
     end
   end
 

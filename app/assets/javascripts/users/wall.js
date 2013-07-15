@@ -29,7 +29,8 @@ $(function(){
                         var wall = $('.post_wall');
 
                         wall.html(data.responseText);
-                        wall.initTooltipster();
+                        wall.initButtonTooltips();
+                        wall.initTooltips();
                         $(window).data('endelessscroll').resetFiring();
 
                         if (currentState == 'box'){
@@ -62,7 +63,8 @@ $(function(){
                     {
                         var wall = $('.post_wall');
                         wall.html(data.responseText);
-                        wall.initTooltipster();
+                        wall.initButtonTooltips();
+                        wall.initTooltips();
                         $(window).data('endelessscroll').resetFiring();
                         if (currentState == 'box'){
                             if (wall.data('masonry')) wall.masonry('reload');

@@ -36,8 +36,8 @@ $(function(){
                         sidebar = $('.sidebar');
 
                     wall.html(data.responseText);
-                    wall.initTooltipster();
-
+                    wall.initButtonTooltips();
+                    wall.initTooltips();
                     $(window).data('endelessscroll').resetFiring();
 
                     if (postData.view == 'box'){

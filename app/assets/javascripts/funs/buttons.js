@@ -2,7 +2,7 @@ $(function(){
 
     // Initialize totipster on hover for repost and like button
 
-    $.fn.initTooltipster = function(){
+    $.fn.initButtonTooltips = function(){
         $(this).find('.post_nav .like_box, .post_nav .repost_box').each(function(key, element){
             if ( ! $(element).data('tooltipsterContent'))
             {
@@ -40,7 +40,7 @@ $(function(){
     };
     var content = $(".load_buttons");
 
-    content.initTooltipster();
+    content.initButtonTooltips();
 
     // Processing repost callback
 

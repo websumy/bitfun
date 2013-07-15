@@ -41,7 +41,7 @@ module UsersHelper
   end
 
   def show_user_link
-    link_to user_path(current_user), class: "item_link signUp" do
+    link_to user_path(current_user), class: "item_link signUp", rel: 'tooltip', title: t('funs.titles.myprofile') do
       raw "<div class='avatar_wrapper'>" +
             show_avatar(current_user, :small) +
           "</div><span class='span_cell'><span>#{current_user.login}</span></span>"
@@ -50,7 +50,7 @@ module UsersHelper
 
   def sort_to(column)
     direction = (sort_column == column && sort_direction == 'desc') ? 'asc' : 'desc'
-    link_to(raw(t("user.sort.#{column}") + '<i class="icon"></i>'), { sort: column, direction: direction, interval: sort_interval }, class: sort_column == column ? direction : nil)
+    link_to(raw(t("user.sort.#{column}") + '<i class="icon"></i>'), { sort: column, direction: direction, interval: sort_interval }, rel: 'tooltip', title: t('funs.titles.sort.' + column), class: sort_column == column ? direction : nil)
   end
 
   def active?(column)
