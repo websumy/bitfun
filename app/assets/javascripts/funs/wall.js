@@ -47,8 +47,9 @@ $(function(){
         if ( ! $this.closest('.grid').length){
             if ($this.data('gif')){
                 e.preventDefault();
-                $this.children('img').attr("src", $this.data('gif'));
-                $this.data('gif', 0).removeClass('po-gif');
+                var $img = $this.children('img').attr("src");
+                $this.children('img').attr("src", $this.attr('data-gif'));
+                $this.attr('data-gif', $img).toggleClass('po-gif');
             }
             if ($this.data('video')){
                 e.preventDefault();
