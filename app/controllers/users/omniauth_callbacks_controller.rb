@@ -32,7 +32,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         if user.persisted?
           @identity.user = user
           @identity.save
-          flash[:notice] = t('user.omniauth.signed_in')
+          flash[:notice] = t('user.omniauth.signed_up') if user.email
           sign_in_and_redirect @identity.user, event: :authentication
         else
           redirect_to edit_user_registration_path, notice: t('user.omniauth.continue_reg')

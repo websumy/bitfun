@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   authorize_resource
-  skip_authorize_resource only: [:likes, :rating_table_block]
-  before_filter :load_user, except: [:index, :rating_table_block]
+  skip_authorize_resource only: [:likes, :rating_table_block, :need_email]
+  before_filter :load_user, except: [:index, :rating_table_block, :need_email]
   before_filter :set_cookies, only: [:show, :likes]
-  before_filter :only_xhr_request, only: :rating_table_block
+  before_filter :only_xhr_request, only: [:rating_table_block, :need_email]
 
 
   def index
@@ -48,6 +48,10 @@ class UsersController < ApplicationController
   def rating_table_block
     @users = User.joins(:stat).includes(:stat).sorting('followers', 'desc', sort_interval).limit 5
     render 'users/_rating_table_block', layout: false
+  end
+
+  def need_email
+    render layout: false
   end
 
   private

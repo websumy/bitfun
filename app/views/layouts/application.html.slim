@@ -14,6 +14,9 @@ html xmlns:fb="http://ogp.me/ns/fb#"
 
   body
     / **********  MAIN PANEL  ********** */
+    - if user_signed_in? && ! current_user.email.present?
+      javascript:
+        $.fancybox.open({href: '#{need_email_path}',type: 'ajax', wrapCSS: 'sign_form',closeBtn: false,minHeight: 900,padding : 0});
 
     = render 'layouts/header'
 

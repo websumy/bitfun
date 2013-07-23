@@ -59,6 +59,8 @@ class User < ActiveRecord::Base
   after_create { create_stat if stat.nil? }
   after_create :send_welcome_email
 
+  before_update :reset_password
+
   scope :online, lambda{ where('last_response_at > ?', 10.minutes.ago) }
 
   def to_jq_upload
@@ -194,6 +196,14 @@ class User < ActiveRecord::Base
   def binded?(provider)
     @providers ||= identities.pluck(:provider)
     provider.to_s.in? @providers
+  end
+
+  def reset_password
+    if email_was.nil? && email.present? && valid?
+      random_password = Devise.friendly_token[0,10]
+      self.password = random_password
+      send_welcome_email
+    end
   end
 
   def send_welcome_email

@@ -17,6 +17,7 @@ Bitfun::Application.routes.draw do
   get   'search', to: 'funs#index', as: :search_tags, defaults: { search: true }
   post  'get_tags', to: 'funs#autocomplete_tags', as: :autocomplete_tags
   get  'get_rating', to: 'users#rating_table_block', as: :get_rating
+  get  'need_email', to: 'users#need_email', as: :need_email
 
   get 'feed' => 'funs#feed'
 
