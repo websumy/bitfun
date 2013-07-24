@@ -41,13 +41,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :full, from_version: :original do
-    process :watermark
+    process add_watermark: 700
     def full_filename(for_file) md5_filename(for_file) end
   end
 
   version :thumb, from_version: :original do
-    process resize_to_limit: [500, nil]
-    process :watermark
+    process add_watermark: 500
     def full_filename(for_file) md5_filename(for_file) end
   end
 
@@ -57,9 +56,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :gif, if: :gif? do
-    process resize_to_limit: [500, nil]
+    process add_watermark: 700
     process quality: 80
-    process :watermark
     def full_filename(for_file) md5_filename(for_file, 'gif') end
   end
 
@@ -88,6 +86,49 @@ class ImageUploader < CarrierWave::Uploader::Base
   def secure_token(length=16)
     var = :"@#{mounted_as}_secure_token"
     model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.hex(length/2))
+  end
+
+  def add_watermark(min_width)
+    current_image = Magick::Image.read(current_path)
+    processed_list = Magick::ImageList.new
+    logo = Magick::Image.read("#{Rails.root}/app/assets/images/watermark.png").first
+
+    frames = if current_image.size > 1
+               coalesce_list = Magick::ImageList.new
+               current_image.each do |frame|
+                 coalesce_list << frame
+               end
+               coalesce_list.coalesce
+             else
+               current_image
+             end
+
+    frames.each do |frame|
+
+      if frame.columns > min_width
+        geometry = Magick::Geometry.new(min_width, nil, 0, 0, Magick::GreaterGeometry)
+        frame = frame.change_geometry(geometry) do |new_width, new_height|
+          frame.resize(new_width, new_height)
+          end
+      end
+
+      filled = Magick::Image.new(frame.columns,frame.rows + 24) { self.background_color = 'white' }
+      filled.composite!(frame, Magick::NorthWestGravity, Magick::OverCompositeOp)
+      #destroy_image(frame)
+
+        filled.composite!(logo, Magick::SouthEastGravity, 5, 3, Magick::OverCompositeOp)
+
+        txt = Magick::Draw.new
+        filled.annotate(txt, 0,0,5,3, 'bitfun.ru') do
+          txt.gravity = Magick::SouthWestGravity
+          txt.pointsize = 13
+          txt.fill = '#979BA7'
+          txt.font_weight = Magick::BoldWeight
+        end
+        processed_list << filled
+    end
+
+    processed_list.write(current_path)
   end
 
   def watermark
