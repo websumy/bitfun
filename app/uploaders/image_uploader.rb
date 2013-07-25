@@ -38,27 +38,27 @@ class ImageUploader < CarrierWave::Uploader::Base
     process :strip
     process resize_to_limit: [700, nil]
     process quality: 90
+    def full_filename(f) md5_filename(f) end
   end
 
-  version :full, from_version: :original do
+  version :full, if: :gif!, from_version: :original do
     process add_watermark: 700
-    def full_filename(for_file) md5_filename(for_file) end
+    def full_filename(f) md5_filename(f) end
   end
 
   version :thumb, from_version: :original do
     process add_watermark: 500
-    def full_filename(for_file) md5_filename(for_file) end
+    def full_filename(f) md5_filename(f) end
   end
 
   version :small, from_version: :original do
     process resize_to_limit: [218, nil]
-    def full_filename(for_file) md5_filename(for_file) end
+    def full_filename(f) md5_filename(f) end
   end
 
-  version :gif, if: :gif? do
+   version :gif, if: :gif? do
     process add_watermark: 700
-    process quality: 80
-    def full_filename(for_file) md5_filename(for_file, 'gif') end
+    def full_filename(f) md5_filename(f, 'gif') end
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -70,11 +70,15 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    "#{secure_token(10)}.jpg" if original_filename.present?
+    "#{secure_token(10)+File.extname(original_filename)}" if original_filename.present?
   end
 
   def gif?(new_file)
     new_file.content_type =~ /gif/
+  end
+
+  def gif!(new_file)
+    ! gif?(new_file)
   end
 
   protected

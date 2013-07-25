@@ -47,9 +47,16 @@ $(function(){
         if ( ! $this.closest('.grid').length){
             if ($this.data('gif')){
                 e.preventDefault();
-                var $img = $this.children('img').attr("src");
+                var path = $this.children('img').attr("src"),
+                    h = $this.parent('.post_object').height();
+                var img = new Image();
+                $(img).bind('load', function(){
+                    var diff = Math.floor(img.height/img.width*500) - h;
+                    diff < 0 ? $this.parent('.post_object').css('margin-bottom', parseInt($this.parent('.post_object').css('margin-bottom'))-diff) : $this.parent('.post_object').css('margin-bottom', -24)
+                });
+                img.src = $this.attr('data-gif');
                 $this.children('img').attr("src", $this.attr('data-gif'));
-                $this.attr('data-gif', $img).toggleClass('po-gif');
+                $this.attr('data-gif', path).toggleClass('po-gif');
             }
             if ($this.data('video')){
                 e.preventDefault();

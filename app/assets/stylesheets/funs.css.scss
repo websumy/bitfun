@@ -885,6 +885,7 @@ a {
     overflow: hidden;
     //width: 100%;
     text-align: center;
+    margin-bottom: -24px;
 
     img {
       vertical-align: top;;
@@ -1089,6 +1090,7 @@ a {
       border-left: solid 1px rgba(221, 221, 221, 0.9);
       border-right: solid 1px rgba(221, 221, 221, 0.9);
       width: 218px;
+      margin-bottom: 0px;
       p {
         color: #616161;
         text-align: left;
@@ -3216,4 +3218,10 @@ a {
 .fb-like {
   float: left;
   width: 130px;
+}
+.post_wall .post_object {
+
+  img {
+    max-width: 500px;
+  }
 }
