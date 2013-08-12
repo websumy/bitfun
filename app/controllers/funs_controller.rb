@@ -44,6 +44,7 @@ class FunsController < ApplicationController
 
   # GET /funs/1/edit
   def edit
+    @fun = Fun.find(params[:id])
   end
 
   # POST /funs
@@ -63,7 +64,7 @@ class FunsController < ApplicationController
 
   # PUT /funs/1
   def update
-    if @fun.update_attributes(params[:fun])
+    if @fun.content.update_attributes(params[:fun][:content_attributes])
       redirect_to @fun, notice: t('funs.updated')
     else
       render 'edit'

@@ -1,0 +1,6 @@
+.container.page-layout
+  h1 Редактирование фана
+  .profile_layout
+    section.content[role='main']
+    = simple_form_for @fun, url: fun_path(@fun), html: { method: :put, class: 'form-horizontal', id: 'new_fun' }, validate: true do |f|
+      = render 'funs/images/edit', fun: f
