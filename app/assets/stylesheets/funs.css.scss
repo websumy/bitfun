@@ -3161,9 +3161,32 @@ a {
       text-align: left;
     }
     p {
-      text-indent: 25px;
       margin-bottom: 10px;
     }
+    ul {
+      margin-bottom: 10px;
+      li {
+        strong {
+          color: #6d6b93;
+          display: inline-block;
+          margin: 15px 0 5px 0;
+        }
+        a {
+          color: #0072BC;
+          text-decoration: underline;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+    ul.registration {
+      li {
+        list-style-type: square;
+        margin-left: 45px;
+      }
+    }
+
 
   }
 }

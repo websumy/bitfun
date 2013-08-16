@@ -8,6 +8,7 @@ div[class="container feed_layout#{view_partial == 'box' ? ' grid' : ''}"]
           = follow_button @user
       .info_box
         .user
+          - title @user.login
           = link_to @user.login, user_path(@user)
           - if @user.online?
             span.user_status.online[rel="tooltip" title="В сети"]

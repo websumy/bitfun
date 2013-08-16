@@ -2,7 +2,7 @@ $(function(){
 
     // Initialize fancybox for add box
 
-    $('#link_new_fun').not('[data-auth]').fancybox({
+    $('.link_new_fun').not('[data-auth]').fancybox({
         type: 'ajax',
         padding : 0
     });

@@ -37,9 +37,6 @@ html xmlns:fb="http://ogp.me/ns/fb#"
             | Проект создан компанией &nbsp;
             a[href="//rezonans.ru" target="_blank" ]: strong Резонанс.
           ul
-            li
-              = link_to 'О проекте', static_path('about')
-            li
-              = link_to 'Пользователи', users_path
-            li
-              = link_to 'Контакты', static_path('contact')
+            li = link_to 'Пользователи', users_path
+            li = link_to 'Контакты', static_path('contact')
+            li = link_to 'FAQ', static_path('faq')
