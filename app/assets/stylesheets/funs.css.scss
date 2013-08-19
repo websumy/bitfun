@@ -2258,6 +2258,35 @@ a {
   .dd-container {
     @include ddSlick_width(470px);
   }
+
+  .control-row {
+    .url {
+      display: inline-block;
+    }
+    span.help-inline {
+      font-size: 14px;
+      padding: 0 0 15px 255px;
+      margin-top: -14px
+    }
+    .help-inline {
+      padding-right: 7px;
+    }
+  }
+  input {
+    &.url {
+      background: asset_url("icon_link.png", image) no-repeat 10px center;
+      padding-left: 28px;
+      width: 236px;
+    }
+  }
+  .btn-file {
+    text-align: center;
+    @include btn-violet(47px);
+    width: 112px;
+    padding: 3px 18px;
+  }
+
+
 }
 
 .feed_layout {
@@ -3121,7 +3150,6 @@ a {
     color: #616161;
     text-align: justify;
     line-height: 25px;
-    text-indent: 25px;
     font-size: 16px;
     h1 {
       font-size: 24px;
@@ -3135,6 +3163,30 @@ a {
     p {
       margin-bottom: 10px;
     }
+    ul {
+      margin-bottom: 10px;
+      li {
+        strong {
+          color: #6d6b93;
+          display: inline-block;
+          margin: 15px 0 5px 0;
+        }
+        a {
+          color: #0072BC;
+          text-decoration: underline;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+    ul.registration {
+      li {
+        list-style-type: square;
+        margin-left: 45px;
+      }
+    }
+
 
   }
 }

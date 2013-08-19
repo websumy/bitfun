@@ -1,0 +1,13 @@
+.container.page-layout
+  h1 Редактирование фана
+  .profile_layout
+    section.content[role='main']
+    = simple_form_for @fun, url: fun_path(@fun), html: { method: :put, class: 'form-horizontal', id: 'new_fun' }, validate: true do |fun|
+      = fun.input :content_type, as: :hidden, wrapper: :none
+      = fun.simple_fields_for :content_attributes, @fun.content, validate: true do |f|
+        = render "funs/#{@fun.content_type.downcase.pluralize}/edit", f: f
+
+      .divider
+      .control-group
+        .controls
+          a.save[href='#' rel='submit']Сохранить

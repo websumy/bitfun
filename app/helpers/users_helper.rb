@@ -72,7 +72,8 @@ module UsersHelper
         else
           'rating'
         end
-    t('user.list.' + l)
+    user = params[:id] ? ' ' + params[:id] : ''
+    t('user.list.' + l) + user
   end
 
   def omniauth_link(resource, provider)

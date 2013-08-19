@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
   end
 
   def count_followers(range)
-    range.nil? ? followers.count : followers.where(created_at: range).count
+    range.nil? ? followers.count : followers.where(user_relationships: { created_at: range }).count
   end
 
   def count_votes(range)
