@@ -6,14 +6,14 @@ header.main_panel[role="banner"]
 
       .items_wrapper
         .item_outer
-          .item.followers
-            - data = user_signed_in? ? {} : {:'data-auth' => 'true'}
-            a.item_link *data href="#{feed_path}"
-              span.span_cell Мои подписки
-        .item_outer
+          - data = user_signed_in? ? {} : {:'data-auth' => 'true'}
           .item.add_fun
             a.item_link.link_new_fun *data href="#{new_fun_path}"
               span.span_cell Добавить фан
+        .item_outer
+          .item
+            a.item_link href="#{users_path}"
+              span.span_cell Пользователи
 
       .items_wrapper.user_panel
         .item_outer

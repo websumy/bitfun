@@ -54,7 +54,7 @@ module FunsHelper
       if current_user.reposted?(fun)
         wrapped_link_to span, fun_reposts_path(fun), data: { disabled: true }, wrapper_class: 'repost_box active'
       elsif current_user == fun.user
-        wrapped_link_to span, fun_reposts_path(fun), data: { disabled: true }, wrapper_class: 'repost_box'
+        wrapped_link_to span, fun_reposts_path(fun), data: { disabled: true }, wrapper_class: 'repost_box disabled'
       else
         wrapped_link_to span, fun_reposts_path(fun), method: :post, remote: true, wrapper_class: 'repost_box'
       end
