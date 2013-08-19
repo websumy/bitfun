@@ -16,7 +16,7 @@ $(function(){
 
     // Initialize tagit plugin
 
-    $('.search_by_tags').tagit({tagSource: autocomplete_tags, minLength: 1, allowNewTags: true, maxTags: 10});
+    $('.search_by_tags').tagit({tagSource: autocomplete_tags, minLength: 1, allowNewTags: true, maxTags: 10, triggerKeys:['enter', 'space', 'tab']});
 
     // Reset link
 
