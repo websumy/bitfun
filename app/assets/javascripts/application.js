@@ -15,6 +15,22 @@
 
 $(function(){
 
+    $('body').append('<div class="btn-up">Вверх</div>');
+
+    var btnup = $('.btn-up');
+
+    $ (window).scroll (function () {
+        if ($ (this).scrollTop () > 100) btnup.fadeIn();
+        else btnup.fadeOut();
+    });
+
+    btnup.click(function(){
+        $('body,html').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+    });
+
     $("input.date_picker").datepicker({format:"yyyy-mm-dd"});
 
     $.FadeDropdown = function($e){
