@@ -20,7 +20,7 @@
 	@include transition(#{$item} #{$time} #{$animate});
 }
 
-@mixin header-icons($item-bp: false){
+@mixin header-icons($item-bp: 0){
 	.span_cell{background-position: left #{$item-bp}px;}
 	&.active .span_cell, &:hover .span_cell{background-position: left #{$item-bp - 30}px;}
 }

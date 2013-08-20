@@ -134,6 +134,9 @@ a {text-decoration: none;
 			.search {
 				@include header-icons(-120);
 			}
+			.users {
+				@include header-icons(-480);
+			}
 			.add_fun {
 				@include header-icons(-180);
 			}
@@ -145,6 +148,7 @@ a {text-decoration: none;
 			}
 			.registration {
 				@include header-icons(-360);
+				&:hover .span_cell{background-position: -1px -390px;}
 			}
 			.user {
 				max-width: 200px;
@@ -605,6 +609,7 @@ a {text-decoration: none;
 	@include orange-box-set(-104px, -156px, 0, 52px);
 	.orange_box_left {
 		float: left;
+		padding-left: 3px;
 		.orange_box_right {
 			padding-right: 4px;
 		}
@@ -853,6 +858,7 @@ a {text-decoration: none;
 		text-align: center;
 		img {
 			vertical-align: top;;
+			margin-bottom: -24px;
 		}
 		a {
 			@include inline-block();
@@ -2473,6 +2479,7 @@ a {text-decoration: none;
 					top: 0;
 					height: 20px;
 					width: 18px;
+
 					&.online {
 						background: asset_url("feed_icons.png", image) no-repeat -47px -70px;
 					}
@@ -3169,11 +3176,10 @@ a {text-decoration: none;
 .btn-up{
 	position: fixed;
 	right: 200px;
-	bottom: 80px;
+	bottom: 100px;
 	background: #FDBF4A;
 	color: #ffffff;
 	font-weight: bold;
-	//padding: 5px 20px;
 	padding: 8px 30px;
 	display: none;
 	cursor: pointer;
@@ -3192,4 +3198,18 @@ a {text-decoration: none;
 		@include linear-gradient(bottom,#FDBF4A,#FDA52D);
 		@include opacity(100);
 	}
+}
+
+
+/* Small devices (tablets, 768px and up) */
+@media only screen and (device-width: 768px) {
+	.tooltipster-base{display: none;}
+}
+
+@media only screen and (max-device-width: 1024px) and (orientation:portrait) {
+	.landscape {display: none;}
+}
+@media only screen and (max-device-width: 1024px)
+and (orientation:landscape) {
+	.portrait {display: none;}
 }

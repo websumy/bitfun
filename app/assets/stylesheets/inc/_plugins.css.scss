@@ -84,7 +84,6 @@
 			z-index: 200;
 			background: asset_url("dropdown-arrow-2.png", image) no-repeat -28px 0;
 
-			//&.dd-pointer-down{background: asset_url("dropdown-arrow-2.png", image) no-repeat -28px 0;}
 			&.dd-pointer-up{
 				background-color: #ffffff;
 				@include border-radius(3px 3px 0 0 );
