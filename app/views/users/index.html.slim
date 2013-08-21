@@ -1,10 +1,8 @@
 .container.rating_layout
   section.content[role="main"]
     .topics_block
-      .filter_time.pull-right[rel='tooltip' title="#{t('funs.titles.filter')}"]
-        .orange_box_left
-          .orange_box_right
-            .orange_inner: span
+      .filter_time[rel='tooltip' title="#{t('funs.titles.filter')}"]
+        .filter_icon: span
         span[id="last_interval" data-value="week"]
         select.dropdown_select#rating_dropdown
           option[value='all'] За все время
