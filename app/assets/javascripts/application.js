@@ -15,7 +15,7 @@
 
 $(function(){
 
-    $('body').append('<div class="btn-up">Вверх</div>');
+    $('body').append('<a class="btn-up"><span>Вверх</span></a>');
 
     var btnup = $('.btn-up');
 
