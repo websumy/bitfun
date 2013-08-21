@@ -19,7 +19,7 @@
 		> span {
 			display: table-cell; vertical-align: middle; height: 17px; width: 17px; padding: 0 2px 0 3px;
 			> a {
-				@include inline-block;
+				@include inline-block();
 				background: asset_url("content-obj-icons.png", image) no-repeat 0 0;
 				height: 17px;
 				width: 17px;
@@ -41,6 +41,10 @@
 					&:hover, &.active {
 						background-position: -42px -21px;
 					}
+				}
+				&.active{
+					@include opacity(100);
+					&:hover{@include opacity(40);}
 				}
 			}
 		}

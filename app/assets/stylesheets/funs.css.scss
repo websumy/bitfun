@@ -945,14 +945,12 @@ html, body {
 		&:hover{cursor: default;}
 	}
 	.circle_follow_status {
-		@include opacity(0);
 		position: absolute;
 		left: -15px;
 		top: 50%;
 		margin-top: -15px;
 		line-height: 24px;
 		text-align: center;
-		@include sassy-hover(opacity, 200ms);
 		a {
 			display: block;
 			height: 32px;
