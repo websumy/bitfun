@@ -27,3 +27,9 @@ q {
 table {  border-collapse: collapse;  border-spacing: 0;}
 a:focus{outline: none;}
 button{border: 0 none;  margin: 0;  padding: 0;}
+
+a {text-decoration: none;
+	&:hover {cursor: pointer;}
+}
+
+.radio.inline, .checkbox.inline, label {cursor: pointer;}

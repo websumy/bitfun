@@ -10,12 +10,12 @@
 	}
 
 	.toggle_slider{
-		@include linear-gradient(top, #fdb939, #fd9727);
-		@include border-radius(2px);
+		@include linear-gradient(top, #FFC65C, #fd9727);
 		@include box-shadow(0 0 0 1px #DE7F1A inset, 0 0 2px 0 #8B8B8B);
+		@include border-radius(2px);
 		@include box-sizing(border-box);
 		display: none;
-		background: #fd9727;
+		background-color: #fd9727;
 		position: absolute;
 		top: 0;
 		bottom: 0;
