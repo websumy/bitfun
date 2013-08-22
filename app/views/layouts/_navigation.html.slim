@@ -1,12 +1,9 @@
 section.nav_bar
   .menu_wrapper
     .filter_obj
-      .orange_box_left
-        .orange_box_right
-          .orange_inner
-            = link_to_type 'image'
-            = link_to_type 'video'
-            = link_to_type 'post'
+      = link_to_type 'image'
+      = link_to_type 'video'
+      = link_to_type 'post'
     nav.menu[role="navigation"]
       - if request.path == '/'
         = link_to_menu "Новое", request.path, {class: 'new_funs', rel: 'tooltip', title: t('funs.titles.new')}
@@ -16,19 +13,17 @@ section.nav_bar
       = link_to_menu "Обсуждаемое", discuss_path, { class: 'discussed_funs', rel: 'tooltip', title: t('funs.titles.discussed')}
       = link_to_menu "Песочница", sandbox_path, { class: 'sandbox_funs', rel: 'tooltip', title: t('funs.titles.sandbox')}
   .filter_time[rel='tooltip' title="#{t('funs.titles.filter')}"]
-    .orange_box_left
-      .orange_box_right
-        .orange_inner: span
+    .filter_icon: span
     span[id="last_interval" data-value="#{cookies_store[:interval]}"]
     #dropdown_select
       select.dropdown_select
         = select_options
+
   .tumbler_switch#switch_view
     .toggle_track
       a.switch.hold_left[href='#' rel='tooltip' title="#{t('funs.titles.view.box')}" data-value='list' class="#{(view_partial == 'list') ? 'active': ''}"]
-        span.toggle_slider.orange_box_left: span.orange_box_right: span.orange_inner
+        span.toggle_slider
         span.toggle_name
       a.switch.hold_right[href='#' rel='tooltip' title="#{t('funs.titles.view.list')}" data-value='box' class="#{(view_partial == 'box') ? 'active': ''}"]
-        span.toggle_slider.orange_box_right: span.orange_box_left: span.orange_inner
+        span.toggle_slider
         span.toggle_name
-

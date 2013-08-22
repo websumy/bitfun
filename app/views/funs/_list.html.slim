@@ -3,9 +3,7 @@ article.post_frame
   .left_side
     = user_block fun.user, fun.content_type
     .post_share
-      .orange_box
-        .orange_inner
-          = link_to raw('<span>Like</span>'), social_likes_path(fun),  { class: 'share_link', rel: 'tooltip', title: t('funs.titles.social_likes') }
+      = link_to raw('<span>Like</span>'), social_likes_path(fun),  { class: 'share_link', rel: 'tooltip', title: t('funs.titles.social_likes') }
   .post_box.list_item
     .post_info
       .poster

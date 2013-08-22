@@ -1,0 +1,113 @@
+.nav_bar {
+	@include inline-block();
+	width: 100%;
+	margin-bottom: 20px;
+	.menu_wrapper {float: left; @include box-shadow(0 1px 3px 0px #A7A7A7);}
+	.filter_obj {
+		@include border-radius(2px 0 0 2px);
+		@include linear-gradient(top, #FFC65C, #fd9727);
+		@include box-shadow(0 0 0 1px #DE7F1A inset);
+		@include box-sizing(border-box);
+		background-color: #fd9727;
+		float: left;
+		height: 50px;
+		position: relative;
+		display: table;
+		table-layout: fixed;
+		z-index: 10;
+		width: 83px;
+		> span {
+			display: table-cell; vertical-align: middle; height: 17px; width: 17px; padding: 0 2px 0 3px;
+			> a {
+				@include inline-block();
+				background: asset_url("content-obj-icons.png", image) no-repeat 0 0;
+				height: 17px;
+				width: 17px;
+				cursor: pointer;
+				&.image {
+					background-position: left top;
+					&:hover, &.active {
+						background-position: left -21px;
+					}
+				}
+				&.video {
+					background-position: -21px top;
+					&:hover, &.active {
+						background-position: -21px -21px;
+					}
+				}
+				&.post {
+					background-position: -42px top;
+					&:hover, &.active {
+						background-position: -42px -21px;
+					}
+				}
+				&.active{
+					@include opacity(100);
+					&:hover{@include opacity(40);}
+				}
+			}
+		}
+		&:after, &:before{
+			position: absolute;
+			top: 50%;
+			content: '';
+		}
+		&:after {
+			margin-top: -6px;
+			right: -4px;
+			border-top: 6px solid transparent;
+			border-bottom: 6px solid transparent;
+			border-left: 6px solid #fdae32;
+		}
+		&:before {
+			margin-top: -7px;
+			right: -6px;
+			border-top: 7px solid transparent;
+			border-left: 7px solid #e98f26;
+			border-bottom: 7px solid transparent;
+		}
+	}
+	.menu {
+		background: asset_url("menu-bg.png", image) repeat-x 0 0;
+		height: 50px;
+		border-radius: 0 2px 2px 0;
+		float: left;
+		font-size: 13px;
+		.item {
+			height: 49px;
+			float: left;
+			position: relative;
+			padding-bottom: 1px;
+			border-right: 1px solid #1d1624;
+			border-left: 1px solid #5f5667;
+			> a {
+				color: #d7d9d7;
+				text-transform: uppercase;
+				font-weight: bold;
+				text-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+				display: table-cell;
+				height: 50px;
+				vertical-align: middle;
+				text-align: center;
+			}
+			> span {
+				background: asset_url("menu-bg.png", image) repeat-x left -100px;
+				display: none;
+				position: absolute;
+				bottom: 1px;
+				width: 100%;
+				height: 4px;
+			}
+		}
+		.active, .item:hover {
+			> a {background: asset_url("menu-bg.png", image) repeat-x left -50px;}
+			> span {display: block;}
+		}
+		.item:first-child{	border-left: 0 none;}
+		.new_funs {width: 90px;}
+		.sandbox_funs {width: 135px;}
+		.popular_funs {width: 140px;}
+		.discussed_funs {width: 127px;}
+	}
+}

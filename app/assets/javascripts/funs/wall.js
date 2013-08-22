@@ -28,7 +28,7 @@ $(function(){
                 success: function(data) {
                     if (data.length){
                         var $like_box = $('<div/>').addClass('like_box').hide();
-                        $this.closest('.orange_box').after($like_box);
+                        $this.closest('.share_link').after($like_box);
                         $like_box.html(data)
                         FB.XFBML.parse($like_box.get(0));
                         twttr.widgets.load($like_box.get(0));
