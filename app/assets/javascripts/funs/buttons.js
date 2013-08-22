@@ -15,7 +15,7 @@ $(function(){
                         continueTooltip();
                         var isLike = origin.hasClass('like_box') ? true : false;
                         var counter = parseInt(origin.parents('.post_nav').find("span." + (isLike ? 'lcnt' : 'rcnt')).text()) || 0;
-                        var content =  '<div class="popover_content">' + (isLike ? 'Нет голосов' : 'Нет репостов') + '</div>';
+                        var content =  '<div class="popover_content empty_po">' + (isLike ? 'Нет голосов' : 'Нет репостов') + '</div>';
                         if (counter) {
                             if (origin.data('ajax') !== 'cached') {
                                 $.ajax({

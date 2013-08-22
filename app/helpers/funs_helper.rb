@@ -54,7 +54,7 @@ module FunsHelper
       if current_user.reposted?(fun)
         wrapped_link_to span, fun_reposts_path(fun), data: { disabled: true }, wrapper_class: 'repost_box active'
       elsif current_user == fun.user
-        wrapped_link_to span, fun_reposts_path(fun), data: { disabled: true }, wrapper_class: 'repost_box'
+        wrapped_link_to span, fun_reposts_path(fun), data: { disabled: true }, wrapper_class: 'repost_box disabled'
       else
         wrapped_link_to span, fun_reposts_path(fun), method: :post, remote: true, wrapper_class: 'repost_box'
       end
@@ -108,9 +108,9 @@ module FunsHelper
 
   def link_to_menu(name, options = {}, html_options = {})
     current_class  = current_page?(options) ? " active" : ""
-    raw "<div class='item_wrapper#{current_class}'><div class='item'>" +
+    raw "<div class='item#{current_class}'>" +
       link_to(name, options, html_options) +
-    '</div><span></span></div>'
+    '<span></span></div>'
   end
 
   def user_block(user, content_type)

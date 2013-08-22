@@ -8,10 +8,10 @@
     .tumbler_switch#change_edit_profile
       .toggle_track
         a.switch.hold_left[href="#" data-tab="profile"]
-          span.toggle_slider.orange_box_left: span.orange_box_right: span.orange_inner
+          span.toggle_slider
           span.toggle_name Личные данные
         a.switch.hold_right[href="#" data-tab="settings"]
-          span.toggle_slider.orange_box_right: span.orange_box_left: span.orange_inner
+          span.toggle_slider
           span.toggle_name Настройки аккаунта
     = simple_form_for(resource, as: resource_name, url: user_avatars_path(current_user), html: { method: :post, class: 'form-horizontal', id: 'avatarupload' } ) do |f|
       .control-group
