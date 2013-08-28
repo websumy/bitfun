@@ -459,14 +459,6 @@ html, body {
 	li {@include inline-block; padding-right: 10px;}
 }
 
-.post_wall {
-	@include inline-block;
-	width: 100%;
-	.hide_wm{
-		margin-bottom: -24px;
-	}
-}
-
 .post_frame {
 	@include inline-block;
 	margin-bottom: 20px;
@@ -809,6 +801,7 @@ html, body {
 				font-size: 13px;
 				padding: 0px 17px 10px;
 			}
+			img{margin-bottom: 0;}
 		}
 		.photo_frame {
 			float: left;
@@ -978,7 +971,6 @@ html, body {
 	}
 	&:hover {
 		cursor: pointer;
-		.circle_follow_status {@include opacity(100);}
 	}
 }
 
@@ -1254,19 +1246,6 @@ html, body {
 	}
 }
 
-.__goup {
-	background: asset_url("goup.png", image) no-repeat 0 0;
-	width: 75px;
-	height: 165px;
-	position: fixed;
-	right: 5%;
-	bottom: 5%;
-	&:hover {
-		cursor: pointer;
-		background-position: -75px 0
-	}
-}
-
 #ajax_loading {
 	background: rgba(255, 255, 255, .45);
 	position: fixed;
@@ -1305,35 +1284,6 @@ html, body {
 #recover_pass {margin-top: 20px;}
 #vk_like {clear: none !important;	float: left;}
 .fb-like {float: left;	width: 130px;}
-
-.btn-up{
-	position: fixed;
-	left: 0;
-	top: 0;
-	color: #ffffff;
-	background: asset_url("fade_screen_bg.png", image) left top;
-	padding: 8px 30px;
-	display: none;
-	cursor: pointer;
-	text-align: center;
-	line-height: 24px;
-	width: 80px;
-	height: 100%;
-	text-shadow: 1px 1px #000;
-	> span{
-		position: relative;
-		top: 50%;
-		display: block;
-		height: 24px;
-		line-height: 24px;
-		width: 100%;
-		text-align: center;
-	}
-	@include opacity(30);
-	&:hover{
-		@include opacity(100);
-	}
-}
 
 /* ---------- pages settings ---------- */
 
@@ -2258,8 +2208,40 @@ html, body {
       }
     }
   }
-
 }
+
+#back-to-top {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	z-index: 9999;
+	width: 45px;
+	height: 45px;
+	display: block;
+	background: #222;
+	background: rgba(0, 0, 0, 0.75);
+	font-size: 16px;
+	text-align: center;
+	line-height: 45px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	cursor: pointer;
+	text-align: center;
+	vertical-align: middle;
+	i{
+		background: asset_url("icon-goup.png", image) no-repeat 0 0;
+		height: 15px;
+		width: 28px;
+		display: inline-block;
+	}
+	&:hover {
+		text-decoration: none;
+		background-color: #F90;
+		background: rgba(255, 153, 0, 0.75);
+	}
+}
+
 
 
 /* Small devices (tablets, 768px and up) */
