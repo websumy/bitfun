@@ -12,4 +12,4 @@
         option[value='day'] За сегодня
   .text
     = render 'users/rating_table_block'
-  a[href="#{users_path}" class="link_to" ] Все пользователи
+  = link_to 'Все пользователи', users_path, class: 'link_to'
