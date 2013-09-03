@@ -15,21 +15,33 @@
 
 $(function(){
 
-    $('body').append('<a class="btn-up"><span>Вверх</span></a>');
+    function BackToTop () {
+        var backToTop = $('<a>', { id: 'back-to-top', href: '#top' });
+        var icon = $('<i>');
 
-    var btnup = $('.btn-up');
+        backToTop.appendTo ('body');
+        icon.appendTo (backToTop);
 
-    $ (window).scroll (function () {
-        if ($ (this).scrollTop () > 100) btnup.fadeIn();
-        else btnup.fadeOut();
-    });
+        backToTop.hide();
 
-    btnup.click(function(){
-        $('body,html').animate({
-            scrollTop: 0
-        }, 800);
-        return false;
-    });
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 150) {
+                backToTop.fadeIn ();
+            } else {
+                backToTop.fadeOut ();
+            }
+        });
+
+        backToTop.click (function (e) {
+            e.preventDefault ();
+
+            $('body, html').animate({
+                scrollTop: 0
+            }, 600);
+        });
+    }
+
+    BackToTop();
 
     $("input.date_picker").datepicker({format:"yyyy-mm-dd"});
 

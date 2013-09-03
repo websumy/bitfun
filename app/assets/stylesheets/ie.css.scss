@@ -1,0 +1,68 @@
+$orange: #FFB461;
+$darkorange: #DE7F1A;
+$gray: #bcbcbc;
+$lightgray: #cccccc;
+$violet: #625C67;
+
+.nav_bar{
+	.filter_obj{
+		background-color: #ffac55;
+		border-bottom: 1px solid $darkorange;
+		border-left: 1px solid $darkorange;
+	}
+}
+
+.filter_time {
+	.dd-container{
+		height: 51px;
+		border-right: 1px solid $gray;
+		border-bottom: 1px solid $gray;
+	}
+	.filter_icon{
+		border: 1px solid $darkorange;
+		background-color: $orange;
+	}
+}
+.tumbler_switch {
+	border: 1px solid #bcbcbc;
+	.toggle_slider{
+		border: 1px solid $darkorange;
+		background-color: $orange;
+	}
+	.toggle_track{display: block; overflow: hidden;}
+}
+
+.post_frame{
+	.post_object {
+		img{vertical-align: top;}
+	}
+	.post_share{
+		.share_link{
+			background-color: $orange;
+			border: 1px solid $darkorange;
+			font-family: arial;
+			padding: 3px 0 5px 0;
+			width: 68px;
+			span{padding-left: 21px;}
+		}
+	}
+	&.post_card{
+		border: 1px solid $gray;
+		float: left;
+		.post_object{width: 220px; border: 0;}
+	}
+}
+
+.photo_frame {
+	.photo_box{border-width: 3px;}
+	.arrow{right: -2px;}
+}
+
+.container {
+	&.feed_layout {
+	}
+}
+
+input{line-height: 36px !important;color: #676767 !important;}
+input:focus{}
+input[type="password"]{font-family: arial;}
