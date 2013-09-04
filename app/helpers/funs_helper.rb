@@ -111,6 +111,12 @@ module FunsHelper
     raw "<div class='item#{current_class}'>" +
       link_to(name, options, html_options) +
     '<span></span></div>'
+    end
+
+  def link_to_users
+    raw "<div class='item users#{current_page?(users_path) ? ' active' : ''}'>" +
+      link_to("<span class='span_cell'>#{t('menu.users')}</span>".html_safe, users_path, class: 'item_link') +
+    '</div>'
   end
 
   def user_block(user, content_type)

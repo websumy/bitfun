@@ -11,9 +11,7 @@ header.main_panel[role="banner"]
             a.item_link.link_new_fun *data href="#{new_fun_path}"
               span.span_cell Добавить фан
         .item_outer
-          .item.users
-            a.item_link href="#{users_path}"
-              span.span_cell Пользователи
+          = link_to_users
 
       .items_wrapper.user_panel
         .item_outer
