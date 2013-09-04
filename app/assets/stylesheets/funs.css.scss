@@ -1846,22 +1846,25 @@ html, body {
 			padding: 13px 200px 16px 16px;
 			width: 484px;
 			@include inline-block();
+			position: relative;
 		}
-		.follow_box {
+		.btn-follow {
 			position: absolute;
 			top: 18px;
 			right: 16px;
 			@include border-radius(2px 6px 6px 2px);
-			@include inline-block;
+			@include inline-block();
 			background-color: #fff;
 			border: solid 1px #ccc;
 			padding-left: 15px;
-			.btn-follow {
-				@include btn-follow();
-				position: absolute;
-				top: 20px;
-				right: 10px;
-			}
+			@include btn-follow();
+			position: absolute;
+			top: 20px;
+			right: 10px;
+		}
+		.follow_box {
+
+
 		}
 	}
 }
