@@ -14,8 +14,10 @@
             span.date_block
               = time_ago_in_words @fun.created_at
               |  назад
-          h1.title
-            = title @fun.content.title
+          - if @fun.content.title?
+            h1.title
+              = title @fun.content.title
+
           .post_share
             .share_item
               #vk_like

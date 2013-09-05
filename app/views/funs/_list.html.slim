@@ -13,8 +13,9 @@ article.post_frame
         span.date_block
           = time_ago_in_words fun.created_at
           |  назад
-      .title
-        h2 = link_to fun.content.title, fun
+      - if fun.content.title?
+        .title
+          h2 = link_to fun.content.title, fun
 
       .tags_block
         .tags

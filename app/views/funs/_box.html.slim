@@ -7,8 +7,8 @@ article.post_frame.post_card
 
     .poster
       = fun_add_line fun
-      h2
-        = link_to fun.content.title, fun
+      - if fun.content.title?
+        h2 = link_to fun.content.title, fun
       span.date_block
         = time_ago_in_words fun.created_at
         |  назад
