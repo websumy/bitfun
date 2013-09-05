@@ -6,9 +6,12 @@ article.post_frame.post_card
         = show_avatar fun.user, :small
 
     .poster
-      = fun_add_line fun
       - if fun.content.title?
-        h2 = link_to fun.content.title, fun
+        h2
+          = fun_add_line fun
+          = link_to fun.content.title, fun
+      - else
+        = fun_add_line fun
       span.date_block
         = time_ago_in_words fun.created_at
         |  назад

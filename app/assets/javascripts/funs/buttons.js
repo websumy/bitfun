@@ -22,7 +22,7 @@ $(function(){
                                     type: 'GET',
                                     url: origin.find('a.item').attr('href'),
                                     success: function(data) {
-                                        var partial = Hogan.compile("<div class='popover_content'>{{#users}}<a href='{{user_path}}'><img src='{{avatar_path}}' alt='{{login}}'>{{/users}}</a></div><div class='popover_footer'>Всего {{likes}} чел.</div>");
+                                        var partial = Hogan.compile("<div class='popover_content'>{{#users}}<a href='{{user_path}}'><img src='{{avatar_path}}' alt='{{login}}' title ='{{login}}'>{{/users}}</a></div><div class='popover_footer'>Всего {{likes}} чел.</div>");
                                         var template = partial.render({ likes: counter, users: data }, partial);
                                         if (data.length) content = template; //HoganTemplates['app/templates/like_tooltip'].render({ likes: counter, users: data });
                                         origin.tooltipster('update', content).data('ajax', 'cached');
