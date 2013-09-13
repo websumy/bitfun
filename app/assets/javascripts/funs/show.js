@@ -22,4 +22,18 @@ $(function(){
         $(window).scrollTop($trends.find('.trend_item:visible').last().offset().top);
     });
 
+    $('.btn-fun-report').not('[data-auth]').fancybox({
+        type: 'ajax',
+        padding : 0
+    });
+
+    $(document).on('ajax:success', '#new_report', function(evt, data, status, xhr){
+        $.fancybox.close();
+        if (data.success){
+            show_notice(data.notice)
+        }
+        else{
+            show_notice(data.notice, 'error')
+        }
+    });
 });

@@ -26,7 +26,7 @@ $(function(){
         }
     });
 
-    $(document).on('ajax:beforeSend, submit', '#new_fun', function(evt, data, status, xhr){
+    $(document).on('ajax:beforeSend, submit', '#new_fun, #new_report', function(evt, data, status, xhr){
         $('.add_fun_form').append($('<div class="__ajax"></div>'));
     });
 

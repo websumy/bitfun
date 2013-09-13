@@ -1,0 +1,21 @@
+.container.rating_layout
+  .topics_block
+    .title_page
+      h1 Reports list
+  .rating_layout
+    table.table-rating
+      thead
+        tr
+          th Fun
+          th Abuse
+          th User
+          th Created at
+          th
+        tbody
+        - @reports.each do |report|
+          tr
+            td = link_to(report.fun.content.title? ? report.fun.content.title : report.fun.id, report.fun)
+            td = simple_format report.abuse
+            td = link_to(report.user.login, user_path(report.user))
+            td = report.created_at.to_date
+            td = link_to 'Destroy', fun_report_path(report.fun, report), method: :delete, data: { confirm: 'Are you sure?' }

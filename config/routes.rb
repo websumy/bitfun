@@ -2,7 +2,9 @@ Bitfun::Application.routes.draw do
 
   root to: 'funs#index'
 
+  get 'reports', to: 'reports#index'
   resources :funs do
+    resources :reports, except: :index
     resources :likes, only: [:index, :create], controller: 'funs/likes' do
       delete '' => 'funs/likes#destroy', as: :delete, on: :collection
     end

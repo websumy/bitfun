@@ -18,7 +18,9 @@ class Ability
       can [:create, :destroy], [UserRelationship, :like]
       can :update, Fun, user_id: user.id
       can :update, User, id: user.id
+      can :create, Report
       can :read, :all
+      cannot [:destroy, :read], Report
     else
       can :read, :all
     end

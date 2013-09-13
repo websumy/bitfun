@@ -1,0 +1,12 @@
+.modal.add_fun_form.report_form
+  .modal_header
+    = t('funs.titles.report')
+  .modal_body
+    .tabs_box
+      .tab_content
+        = render 'form'
+  .modal_footer
+    a.cancel[href="#"] Отменить
+    a.add[href="#" rel='submit' data-form='#new_report']:span Сообщить
+javascript:
+  $('#new_report').enableClientSideValidations();

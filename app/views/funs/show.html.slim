@@ -30,11 +30,7 @@
         .post_nav
           = big_like_button @fun
           = big_repost_button @fun
-
-          .item_wrapper.complain_box.last_item
-            a.item[href="#"]
-              span.icon
-
+          = report_fun_link  @fun
         .tags_block
           .tags
             = show_cached_tags @fun

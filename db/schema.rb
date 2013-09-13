@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130704070425) do
+ActiveRecord::Schema.define(:version => 20130906075059) do
 
   create_table "funs", :force => true do |t|
     t.integer  "user_id"
@@ -51,6 +51,14 @@ ActiveRecord::Schema.define(:version => 20130704070425) do
     t.string "title"
     t.text   "body"
     t.string "cached_tag_list"
+  end
+
+  create_table "reports", :force => true do |t|
+    t.text     "abuse"
+    t.integer  "fun_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "roles", :force => true do |t|

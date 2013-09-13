@@ -19,6 +19,7 @@ class Fun < ActiveRecord::Base
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
   belongs_to :content, polymorphic: true
   accepts_nested_attributes_for :content, allow_destroy: true
+  has_many :reports, dependent: :destroy
 
   # Reposts
   has_many :reposts, class_name: 'Fun', foreign_key: 'parent_id'

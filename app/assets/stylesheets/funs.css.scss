@@ -2106,12 +2106,12 @@ html, body {
 				border-right: none;
 				border-left: none;
 			}
+            a {
+              color: #5b5985;
+            }
 			&.name {
 				text-align: left;
 				padding-left: 20px;
-				a {
-					color: #5b5985;
-				}
 			}
 		}
 		.photo_frame {
@@ -2258,4 +2258,14 @@ html, body {
 @media only screen and (max-device-width: 1024px)
 and (orientation:landscape) {
 	.portrait {display: none;}
+}
+
+.report_form{
+  .modal_body{
+    .tabs_box{
+      .tab_content{
+        padding-top: 10px;
+      }
+    }
+  }
 }

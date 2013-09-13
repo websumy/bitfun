@@ -144,6 +144,14 @@ module FunsHelper
     end
   end
 
+  def report_fun_link(fun)
+    options = { class: 'item btn-fun-report', rel: 'tooltip', title: t('funs.titles.report') }
+    options[:data] = { auth: true } unless user_signed_in?
+    content_tag 'div', class: 'item_wrapper complain_box last_item' do
+      link_to raw('<span class="icon"></span>'), new_fun_report_path(fun), options
+    end
+  end
+
   def fun_image_path(fun, versions = {})
     type = fun.content.class.to_s
     column = type == 'Image' ? :file : :image # fun.content.class.uploaders
@@ -191,6 +199,14 @@ module FunsHelper
 
   def fun_keywords(fun)
     keywords fun.content.cached_tag_list + ', ' + t("meta_tags.fun.#{fun.content_type.downcase}.keywords") if fun.content.cached_tag_list?
+  end
+
+  def link_to_fun_title(fun)
+    if fun.content.title?
+      content_tag 'h2' do
+        link_to fun.content.title, fun
+      end
+    end
   end
 
 end
