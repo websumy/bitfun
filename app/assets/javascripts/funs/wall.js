@@ -48,11 +48,11 @@ $(function(){
             if ($this.data('gif')){
                 e.preventDefault();
                 var path = $this.children('img').attr("src"),
-                    h = $this.parent('.post_object').height();
+                    h = $this.children('img').height();
                 var img = new Image();
                 $(img).bind('load', function(){
                     var diff = Math.floor(img.height/img.width*500) - h;
-                    diff < 0 ? $this.parent('.post_object').css('margin-bottom', parseInt($this.parent('.post_object').css('margin-bottom'))-diff) : $this.parent('.post_object').css('margin-bottom', -24)
+                    diff < 0 ? $this.children('img').css('margin-bottom', parseInt($this.children('img').css('margin-bottom'))-diff) : $this.children('img').css('margin-bottom', -24)
                 });
                 img.src = $this.attr('data-gif');
                 $this.children('img').attr("src", $this.attr('data-gif'));
