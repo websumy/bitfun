@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.11'
 
 # A modern, simple and very fast Mysql library for Ruby - binding to libmysql.
-gem 'mysql2'
+gem 'mysql2', '>= 0.3.13'
 
 # Flexible authentication solution for Rails with Warden.
 gem 'devise'
@@ -74,8 +74,8 @@ gem 'mailcatcher'
 # A simple and straightforward settings solution that uses an ERB enabled YAML file and a singleton design pattern
 gem 'settingslogic'
 
-# Rails plugin for Sphinx.
-gem 'thinking-sphinx', '2.0.10'
+# Rails plugin for Sphinx. Sphinx 2.1.4 is highly recommended for Thinking Sphinx v3.1.0 or newer.
+gem 'thinking-sphinx', '3.1.0'
 
 # Mutes assets pipeline log messages
 gem 'quiet_assets'
