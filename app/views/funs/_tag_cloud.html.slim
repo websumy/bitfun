@@ -1,0 +1,2 @@
+- tag_cloud(@tags, %w(small middle big biggest)) do |tag, css_class|
+  = link_to tag.name, search_tags_path(query: tag.name), class: "#{css_class} tags"
