@@ -1,6 +1,20 @@
 = render "layouts/social_plugin"
 - content_for :navigation, render('layouts/navigation')
 - data = params[:query] ? {:'data-search' => search_tags_path(query: params[:query])} : {}
+
+- if params[:query]
+  .tag_search
+    h2 Поиск по тегам:
+    .search_block_wrapper
+      .search_block
+        .controls
+          ul.main_search_by_tags
+          .icon-close#main_search_reset
+          .icon-search
+        a.find.btn[href="#"] Искать
+        .clearfix
+    = render 'tag_cloud'
+
 div *data class="container main_layout#{view_partial == 'box' ? ' grid' : ''}"
   section.content[role="main"]
     section.post_wall.load_buttons#wall

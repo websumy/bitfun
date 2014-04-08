@@ -1,5 +1,7 @@
 module FunsHelper
 
+  include ActsAsTaggableOn::TagsHelper
+
   def fun_path(fun)
     super fun.get_id
   end
