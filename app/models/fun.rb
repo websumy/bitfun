@@ -174,8 +174,23 @@ class Fun < ActiveRecord::Base
       query = [query].flatten.join(',')
       types = clean_types types
       type_index = []
-      DEF_TYPES.each{|t| type_index << DEF_TYPES.index(t) if t.in? types }
-      Fun.search_for_ids(query, with: {type: type_index}, match_mode: :any, max_matches: 100, per_page: 100)
+      unless types.nil?
+        DEF_TYPES.each{|t| type_index << DEF_TYPES.index(t) if t.in? types }
+        Fun.search_for_ids(query, with: {type: type_index}, match_mode: :any, max_matches: 100, per_page: 100)
+      end
+    end
+
+    def create_tag_cloud(type)
+      type = clean_types type
+      tags = []
+      if type.is_a? Array
+        type.each do |t|
+          tags.concat t.capitalize.constantize.tag_counts_on(:tags)
+        end
+      elsif type != 'unknown'
+        tags = type.capitalize.constantize.tag_counts_on(:tags)
+      end
+      tags.uniq.shuffle
     end
 
   end
