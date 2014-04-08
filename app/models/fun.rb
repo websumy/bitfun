@@ -202,12 +202,4 @@ class Fun < ActiveRecord::Base
   def delete_content
     content.destroy unless repost?
   end
-
-  # Thinking Sphinx index
-  define_index do
-    indexes content.title, as: :title, sortable: true
-    indexes content.cached_tag_list, as: :tags
-
-    has '(CASE WHEN content_type = "Image" THEN 0 WHEN content_type = "Video" THEN 1 WHEN content_type = "Post" THEN 2 END)', as: :type, type: :integer
-  end
 end
