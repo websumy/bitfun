@@ -187,7 +187,7 @@ class Fun < ActiveRecord::Base
         type.each do |t|
           tags.concat t.capitalize.constantize.tag_counts_on(:tags)
         end
-      elsif type != 'unknown'
+      elsif type
         tags = type.capitalize.constantize.tag_counts_on(:tags)
       end
       tags.uniq.shuffle
