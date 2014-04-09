@@ -3,13 +3,13 @@
 - data = params[:query] ? {:'data-search' => search_tags_path(query: params[:query])} : {}
 
 - if params[:query]
-  .tag_search
+  .tag_search.search_by_tags_wrapper
     h2 Поиск по тегам:
     .search_block_wrapper
       .search_block
         .controls
-          ul.main_search_by_tags
-          .icon-close#main_search_reset
+          ul.main_search_by_tags.search_by_tags data-selected-tags='#{params[:query]}'
+          .icon-close.reset_tags
           .icon-search
         a.find.btn[href="#"] Искать
         .clearfix
