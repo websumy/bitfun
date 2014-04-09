@@ -171,12 +171,12 @@ class Fun < ActiveRecord::Base
 
     # Content types for searching
     def search_fun_ids(query, types=[])
-      query = [query].flatten.join(',')
+      query = query.split(',').reject(&:blank?).map(&:strip).join('|')
       types = clean_types types
       type_index = []
       unless types.nil?
         DEF_TYPES.each{|t| type_index << DEF_TYPES.index(t) if t.in? types }
-        Fun.search_for_ids(query, with: {type: type_index}, match_mode: :any, max_matches: 100, per_page: 100)
+        Fun.search_for_ids(query, with: {type: type_index}, max_matches: 100, per_page: 10)
       end
     end
 
