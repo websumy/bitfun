@@ -2,69 +2,69 @@ $(function(){
 
     // Get tags for autocomplete
 
-    var cache = {};
-    var autocomplete_tags = function( request, response ) {
+    var cache = {},
+        autocomplete = function( request, response ) {
         if (request.term in cache){
             response(cache[request.term]);
         } else {
-            $.post("/get_tags", {tag: request.term}, function(data){
+            $.post('/get_tags', {tag: request.term}, function(data){
                 cache[request.term] = data;
                 response(data);
-            }, "json");
+            }, 'json');
         }
     };
 
-    // Initialize tagit plugin
+    var tagItSelector = '.search_by_tags',
+        tagItWrapperSelector = '.search_by_tags_wrapper';
 
-    $('.search_by_tags').tagit({tagSource: autocomplete_tags, minLength: 1, allowNewTags: true, maxTags: 10, triggerKeys:['enter', 'space', 'tab']});
+    $(tagItSelector).each(function(){
+        var $this = $(this),
+            selected = $.trim($this.data('selected-tags')),
+            options = {
+                tagSource: autocomplete,
+                minLength: 1,
+                allowNewTags: true,
+                maxTags: 10,
+                triggerKeys: ['enter', 'space', 'tab'],
+                initialTags: []
+            };
 
-    // Reset link
-
-    $('.icon-close').click(function(){
-        var $search = $('.search_by_tags');
-        if ($search.tagit("tags").length){
-            $search.tagit('reset');
+        if (selected.length){
+            $.each(selected.split(','), function(k,v){
+                v = $.trim(v);
+                if (v.length)
+                    options.initialTags.push(v)
+            })
         }
-        else {
+
+        $this.tagit(options);
+    });
+
+    var findSibTagIt = function(el){
+        return $(el).closest(tagItWrapperSelector).find(tagItSelector);
+    };
+
+    $(tagItWrapperSelector).on('click', '.find', function(e){
+        e.preventDefault();
+        var $list = findSibTagIt(this);
+        if ($list.length){
+            var data = $list.tagit('tags');
+            if ($.isArray(data) && data.length)
+                window.location.href = "/search?query=" + $.map(data, function(tag){ return tag.value }).join(',');
+        }
+    }).on('click', '.reset_tags', function(e){
+        e.preventDefault();
+        var $list = findSibTagIt(this);
+        if ($list.length == 0) return;
+
+        if ($list.tagit('tags').length){
+            $list.tagit('fill', []);
+        } else if ($(this).closest(tagItWrapperSelector).hasClass('close_on_empty'))
             $.CloseActiveDropdowns();
-        }
-    });
-
-    $.fn.get_tags = function(){
-        var tags = $(this).tagit("tags");
-        return (tags.length) ? $.map(tags, function(tag){ return tag.value; }) : false;
-    };
-
-    $('.search_block a').click(function(e){
+    }).on('click', 'a.tags', function(e){
         e.preventDefault();
-        var data = $('.search_by_tags').get_tags();
-        if (data) window.location.href = "/search?" + $.param({query:data});
+        var $list = findSibTagIt(this);
+        if ($list.length)
+            $list.tagit('add', $(this).text());
     });
-
-
-    // Initialize main search
-    $main_serch = $('.main_search_by_tags');
-
-    $main_serch.tagit({tagSource: autocomplete_tags, minLength: 1, allowNewTags: true, maxTags: 10, triggerKeys:['enter', 'space', 'tab']});
-
-    // Reset button
-
-    $('#main_search_reset').click(function(){
-        var $search = $main_serch
-        if ($search.tagit("tags").length) $search.tagit('reset');
-    });
-
-    $('.tag_search').on('click', 'a.tags', function(e){
-        e.preventDefault();
-        $main_serch.tagit("add", { label: $(this).text() });
-    });
-
-    $('.search_block a.find').click(function(e){
-        e.preventDefault();
-        var data = $('.tag_search').get_tags();
-        if (data) window.location.href = "/search?" + $.param({query:data});
-    });
-
-
-
 });
