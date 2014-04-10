@@ -110,7 +110,7 @@ class Fun < ActiveRecord::Base
   end
 
   def in_sandbox?
-    !published_at.nil?
+    published_at.nil?
   end
 
   # get related funs without funs liked by user
