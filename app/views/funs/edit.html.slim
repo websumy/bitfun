@@ -8,8 +8,12 @@
         = simple_form_for @fun, url: fun_path(@fun),  wrapper: :none, remote: true, html: {:'data-type' => 'json', id: 'edit_fun'}, validate: true do |form|
           div.tab_pane.active= render "funs/#{@fun.content_type.downcase.pluralize}/edit", fun: @fun, form: form
   .modal_footer
-    a.cancel[href="#"] Отменить
-    a.add[href="#" rel='submit' data-form='#edit_fun']:span Сохранить
+    .inner_wrapper
+      - if can? :destroy, @fun
+        = link_to t('global.delete'), @fun, class: 'cancel pull-left', method: :delete, confirm: t('funs.confirm.delete')
+
+      a.cancel[href="#"] Отменить
+      a.add[href="#" rel='submit' data-form='#edit_fun']:span Сохранить
 
 javascript:
   $('#edit_fun').enableClientSideValidations();

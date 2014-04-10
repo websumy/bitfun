@@ -872,7 +872,7 @@ html, body {
 	}
 	&:hover {
 		a.btn-fun-delete {
-			background: asset_url("btn-fun-delete.png", image) no-repeat -21px 0;
+			background: asset_url("btn-fun-icons.png", image) no-repeat -22px 0;
 			height: 21px;
 			width: 21px;
 			position: absolute;
@@ -880,7 +880,7 @@ html, body {
 			right: -8px;
 			z-index: 1001;
 			&:hover {
-				background: asset_url("btn-fun-delete.png", image) no-repeat 0 0;
+				background: asset_url("btn-fun-icons.png", image) no-repeat 0 0;
 				cursor: pointer;
 			}
 		}
@@ -2188,7 +2188,7 @@ html, body {
   &:hover{
     a {
       &.btn-fun-delete{
-        background: asset_url("btn-fun-delete.png", image) no-repeat -21px 0;
+        background: asset_url("btn-fun-icons.png", image) no-repeat -22px 0;
         height: 21px;
         width: 21px;
         position: absolute;
@@ -2196,7 +2196,20 @@ html, body {
         right: -8px;
         z-index: 1001;
         &:hover{
-          background: asset_url("btn-fun-delete.png", image) no-repeat 0 0;
+          background: asset_url("btn-fun-icons.png", image) no-repeat 0 0;
+          cursor: pointer;
+        }
+      }
+      &.btn-fun-edit{
+        background: asset_url("btn-fun-icons.png", image) no-repeat -22px -22px;
+        height: 21px;
+        width: 21px;
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        z-index: 1001;
+        &:hover{
+          background: asset_url("btn-fun-icons.png", image) no-repeat 0 -22px;
           cursor: pointer;
         }
       }

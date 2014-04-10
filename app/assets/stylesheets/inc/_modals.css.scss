@@ -254,6 +254,15 @@
                     }
                 }
 			}
+          .inner_wrapper {
+            padding: 0 15px;
+            a {
+              margin-right: 0;
+              & + a {
+                margin-left: 15px;
+              }
+            }
+          }
 		}
 		.error-block {
 			margin-bottom: 0;
