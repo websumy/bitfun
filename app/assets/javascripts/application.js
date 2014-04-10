@@ -140,8 +140,14 @@ $(function(){
             ]
         });
         return false
-    }
+    };
 
+    // Initialize fancybox for add box
+
+    $('.fancybox_ajax').not('[data-auth]').fancybox({
+        type: 'ajax',
+        padding : 0
+    });
 });
 
 function show_notice(text, type, options) {

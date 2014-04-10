@@ -46,6 +46,8 @@ class FunsController < ApplicationController
   # GET /funs/1/edit
   def edit
     @fun = Fun.find(params[:id])
+
+    render layout: false if request.xhr?
   end
 
   # POST /funs
@@ -65,10 +67,14 @@ class FunsController < ApplicationController
 
   # PUT /funs/1
   def update
-    if @fun.content.update_attributes(params[:fun][:content_attributes])
-      redirect_to @fun, notice: t('funs.updated')
-    else
-      render 'edit'
+    respond_to do |format|
+      if @fun.content.update_attributes(params[:fun][:content_attributes])
+        format.html { redirect_to @fun, notice: t('funs.updated') }
+        format.json { render json: { success: true, path: fun_path(@fun) } }
+      else
+        format.html { render 'edit' }
+        format.json { render json: { success: false, notice: t('funs.update_error') } }
+      end
     end
   end
 

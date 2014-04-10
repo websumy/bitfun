@@ -245,6 +245,14 @@
 			}
 			.add {
 				@include btn-upload(44px);
+                &._ajax {
+                    background: #FFD491;
+                    border-color: #F7BB5F;
+                    @include text-shadow(0 0px 1px rgba(0, 0, 0, 0.6));
+                    span {
+                        background: asset_url("btn-loading.gif", image) no-repeat right 0;;
+                    }
+                }
 			}
 		}
 		.error-block {
@@ -256,8 +264,11 @@
 		#upload_image_botton {
 			float: right;
 		}
-	}
-	&.add_fun_form {
+        .column2 {
+          width: 230px;
+          margin-bottom: 5px;
+          #upload_image_botton { float: none; }
+        }
 		.__ajax {
 			position: absolute;
 			top: 0;
@@ -267,19 +278,6 @@
 			background: rgba(255, 255, 255, .45);
 			z-index: 1000;
 			background: url('/assets/__loading.gif') no-repeat center rgba(255, 255, 255, .45);
-		}
-		.modal_footer {
-			.add {
-				@include btn-upload(44px);
-				&._ajax {
-					background: #FFD491;
-					border-color: #F7BB5F;
-					@include text-shadow(0 0px 1px rgba(0, 0, 0, 0.6));
-					span {
-						background: asset_url("btn-loading.gif", image) no-repeat right 0;;
-					}
-				}
-			}
 		}
 	}
 }
@@ -395,6 +393,18 @@
 					width: 112px;
 					padding: 3px 18px;
 				}
+                .column2 {
+                    .url { width: 228px; }
+                    input {
+                        width: 228px;
+                        &.url { width: 188px; }
+                    }
+                    .btn-file { width: 192px; }
+                }
+                .full-width {
+                    width: 100%;
+                    input.url { width: 430px }
+                }
 			}
 			#add_video {
 				.url {

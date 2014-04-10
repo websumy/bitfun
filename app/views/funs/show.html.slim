@@ -14,6 +14,7 @@
             span.date_block
               = time_ago_in_words @fun.created_at
               |  назад
+            = link_to 'edit', edit_fun_path(@fun), class: 'fancybox_ajax'
           - if @fun.content.title?
             h1.title
               = title @fun.content.title
