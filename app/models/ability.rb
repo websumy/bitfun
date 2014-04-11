@@ -9,7 +9,7 @@ class Ability
       can [:create, :feed, :autocomplete_tags], Fun
       can :destroy, Fun do |fun|
         fun.user_id == user.id && (
-          fun.repost? || (fun.repost_counter == 0 && ! fun.in_sandbox?)
+          fun.repost? || (fun.repost_counter == 0 && fun.in_sandbox?)
         )
       end
       can :create, :repost
