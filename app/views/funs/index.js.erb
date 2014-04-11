@@ -9,4 +9,9 @@ elsif ! params[:page]
     content << render('funs/empty')
 end
 %>
+<%if @tags%>
+    <%= javascript_tag do %>
+        $('#bitfun_cloud_wrapper').html('<%= render 'tag_cloud', tags: @tags%>');
+    <%end%>
+<%end%>
 <%= content.html_safe %>

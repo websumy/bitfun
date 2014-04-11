@@ -13,7 +13,7 @@ class FunsController < ApplicationController
     if params[:query]
       funs_ids = Fun.search_fun_ids(params[:query], type)
       @funs = @funs.where(id: funs_ids)
-      @tags = Fun.create_tag_cloud type
+      @tags = Fun.create_tag_cloud type if (params[:page].nil? || !request.xhr?)
     end
 
     cookies_store.set params.select { |k,v| k.in? %w(type view interval sort) }
