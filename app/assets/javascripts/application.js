@@ -146,7 +146,12 @@ $(function(){
 
     $('.fancybox_ajax').not('[data-auth]').fancybox({
         type: 'ajax',
-        padding : 0
+        padding : 0,
+        helpers:  {
+            overlay: {
+                locked: false
+            }
+        }
     });
 });
 
