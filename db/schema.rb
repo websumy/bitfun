@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130906075059) do
+ActiveRecord::Schema.define(:version => 20140411085401) do
 
   create_table "funs", :force => true do |t|
     t.integer  "user_id"
@@ -46,6 +46,18 @@ ActiveRecord::Schema.define(:version => 20130906075059) do
     t.string "url"
     t.string "cached_tag_list"
   end
+
+  create_table "notifications", :force => true do |t|
+    t.string   "action"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.integer  "user_id"
+    t.integer  "receiver_id"
+    t.datetime "created_at"
+  end
+
+  add_index "notifications", ["target_id", "target_type"], :name => "index_notifications_on_target_id_and_target_type"
+  add_index "notifications", ["user_id"], :name => "index_notifications_on_user_id"
 
   create_table "posts", :force => true do |t|
     t.string "title"
