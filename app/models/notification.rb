@@ -1,7 +1,7 @@
 class Notification < ActiveRecord::Base
   attr_accessible :target_id, :target_type,
                   :target, :action,
-                  :user_id
+                  :user_id, :receiver_id
 
   belongs_to :target, polymorphic: true
   belongs_to :user
