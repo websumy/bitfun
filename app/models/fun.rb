@@ -21,7 +21,7 @@ class Fun < ActiveRecord::Base
   belongs_to :content, polymorphic: true
   accepts_nested_attributes_for :content, allow_destroy: true
   has_many :reports, dependent: :destroy
-  has_many :notifications, as: :target, dependent: :destroy
+  has_many :notifications, as: :subject, dependent: :destroy
 
   # Reposts
   has_many :reposts, class_name: 'Fun', foreign_key: 'parent_id'

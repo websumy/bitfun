@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(:version => 20140411085401) do
 
   create_table "notifications", :force => true do |t|
     t.string   "action"
+    t.integer  "subject_id"
+    t.string   "subject_type"
     t.integer  "target_id"
     t.string   "target_type"
     t.integer  "user_id"
@@ -56,7 +58,7 @@ ActiveRecord::Schema.define(:version => 20140411085401) do
     t.datetime "created_at"
   end
 
-  add_index "notifications", ["target_id", "target_type"], :name => "index_notifications_on_target_id_and_target_type"
+  add_index "notifications", ["subject_id", "subject_type"], :name => "index_notifications_on_subject_id_and_subject_type"
   add_index "notifications", ["user_id"], :name => "index_notifications_on_user_id"
 
   create_table "posts", :force => true do |t|

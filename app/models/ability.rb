@@ -19,6 +19,7 @@ class Ability
       can :create, Report
       can :read, :all
       cannot [:destroy, :read], Report
+      cannot :show, Notification
     else
       can :read, :all
     end

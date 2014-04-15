@@ -2,6 +2,8 @@ Bitfun::Application.routes.draw do
 
   root to: 'funs#index'
 
+  resources :notifications, only: :index
+
   get 'reports', to: 'reports#index'
   resources :funs do
     resources :reports, except: :index

@@ -1,0 +1,8 @@
+.container.rating_layout
+  .topics_block
+    .title_page
+      h1 Notification list
+  .rating_layout
+    ul
+      - @notifications.each do |n|
+        li #{link_to(n.user.login, n.user)} #{n.action} #{n.subject.class.name} #{link_to n.target.class.name, n.target if n.target}  #{n.created_at}
