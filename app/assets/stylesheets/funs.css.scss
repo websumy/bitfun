@@ -10,6 +10,7 @@
 @import 'inc/_tooltips.css.scss';
 @import 'inc/_modals.css.scss';
 @import 'inc/_tagit.css.scss';
+@import 'inc/photo_frames.css.scss';
 
 html, body {
 	font-family: $baseFontFamily;
@@ -884,93 +885,6 @@ html, body {
 				cursor: pointer;
 			}
 		}
-	}
-}
-
-.photo_frame {
-	@include inline-block;
-	position: relative;
-	height: 70px;
-	width: 70px;
-	.photo_box {
-		border: 5px solid #5b5985;
-		display: block;
-		&, img {
-			height: 60px;
-			width: 60px;
-			border-radius: 50%;
-		}
-	}
-	.arrow {
-		border: {
-			top: 8px solid transparent;
-			left: 8px solid #5b5985;
-			bottom: 8px solid transparent;
-		}
-		position: absolute;
-		right: -5px;
-		top: 50%;
-		margin-top: -8px;
-	}
-	.circle_content_obj {
-		background: #5b5985;
-		border: 1px solid #363453;
-		height: 28px;
-		width: 28px;
-		position: absolute;
-		border-radius: 50%;
-		right: 0;
-		bottom: -5px;
-		> div {
-			height: 16px;
-			width: 16px;
-			margin: 6px 0 0 6px;
-		}
-		.image {
-			background: asset_url("content-obj-icons.png", image) no-repeat left -42px;
-		}
-		.video {
-			background: asset_url("content-obj-icons.png", image) no-repeat -21px -42px;
-		}
-		.post {
-			background: asset_url("content-obj-icons.png", image) no-repeat -42px -42px;
-		}
-		&:hover{cursor: default;}
-	}
-	.circle_follow_status {
-		position: absolute;
-		left: -15px;
-		top: 50%;
-		margin-top: -15px;
-		line-height: 24px;
-		text-align: center;
-		a {
-			display: block;
-			height: 32px;
-			width: 32px;
-			background: {
-				image: asset_url("follow-icons.png", image);
-				repeat: no-repeat;
-			}
-			&.follow {
-				background-position: -35px -35px;
-				&:hover {
-					background-position: -35px 0;
-				}
-			}
-			&.unfollow {
-				background-position: -70px -105px;
-				&:hover {
-					background-position: -70px -70px;
-				}
-			}
-			&.settings {
-				background-position: -106px 0;
-			}
-		}
-	}
-	&:hover {
-		cursor: pointer;
 	}
 }
 

@@ -5,4 +5,11 @@
   .rating_layout
     ul
       - @notifications.each do |n|
-        li #{link_to(n.user.login, n.user)} #{n.action} #{n.subject.class.name} #{link_to n.target.class.name, n.target if n.target}  #{n.created_at}
+        li
+          .photo_frame
+            = link_to show_avatar(n.user), n.user, class: 'photo_box'
+          = link_to n.user.login, n.user
+          = n.action
+          = n.subject.class.name
+          = link_to n.target.class.name, n.target if n.target
+          = n.created_at
