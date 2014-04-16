@@ -18,6 +18,8 @@ class Ability
       can :update, User, id: user.id
       can :create, Report
       can :read, :all
+      can :create, Comment
+      can :destroy, Comment, user_id: user.id, leaf?: true
       cannot [:destroy, :read], Report
       cannot :show, Notification
     else
