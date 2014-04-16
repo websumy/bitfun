@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
     if @comment.save
 
       unless params[:comment][:parent_id].blank?
-        parent = @obj.comment_threads.find_by(id: params[:comment][:parent_id])
+        parent = @obj.comment_threads.find(params[:comment][:parent_id]) rescue nil
 
         @comment.move_to_child_of parent if parent
       end
