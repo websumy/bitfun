@@ -1,5 +1,5 @@
 class Fun < ActiveRecord::Base
-  attr_accessible :content_attributes, :content_type, :comments_count
+  attr_accessible :content_attributes, :content_type
   attr_accessible :content_id, :content_type, :user_id, :owner_id, as: :admin
   after_destroy :delete_content
   before_destroy :delete_likes
@@ -219,6 +219,10 @@ class Fun < ActiveRecord::Base
   end
   def delete_content
     content.destroy unless repost?
+  end
+
+  def update_comments_count
+    update_attribute :comments_counter, comment_threads.count
   end
 
   private

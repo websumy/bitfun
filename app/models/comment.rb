@@ -1,4 +1,7 @@
 class Comment < ActiveRecord::Base
+  after_create :update_commentable_counter
+  after_destroy :update_commentable_counter
+
   attr_accessible :commentable, :body, :user_id
   acts_as_nested_set scope: [:commentable_id, :commentable_type]
 
@@ -38,5 +41,11 @@ class Comment < ActiveRecord::Base
     def find_commentable(commentable_str, commentable_id)
       commentable_str.constantize.find(commentable_id)
     end
+  end
+
+  private
+
+  def update_commentable_counter
+    commentable.update_comments_count if commentable.respond_to? :update_comments_count
   end
 end
