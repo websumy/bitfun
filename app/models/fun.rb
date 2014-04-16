@@ -29,6 +29,7 @@ class Fun < ActiveRecord::Base
 
   # Initialize "acts_as_votable" gem for "likes"
   acts_as_votable
+  acts_as_commentable
 
   def attributes=(attributes = {})
     self.content_type = attributes[:content_type]

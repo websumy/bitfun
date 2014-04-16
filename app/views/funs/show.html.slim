@@ -36,6 +36,7 @@
           .tags
             = show_cached_tags @fun
         a[name='comments']
+        = render partial: 'comments/list', locals: { new_comment: @new_comment, tree: @tree }
         .comments_block#vk_comments
           javascript:
             VK.Widgets.Like("vk_like", {type: "mini", height: 20, pageTitle: "#{@fun.content.title}", pageUrl: "#{fun_url(@fun)}", pageImage: "#{fun_image_url(@fun, :small)}"});

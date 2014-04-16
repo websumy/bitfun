@@ -11,7 +11,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140411085401) do
+ActiveRecord::Schema.define(:version => 20140416070220) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "commentable_id",     :default => 0
+    t.string   "commentable_type"
+    t.string   "title"
+    t.text     "body"
+    t.string   "subject"
+    t.integer  "user_id",            :default => 0, :null => false
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.integer  "cached_votes_score", :default => 0
+    t.integer  "cached_votes_up",    :default => 0
+    t.integer  "cached_votes_down",  :default => 0
+  end
+
+  add_index "comments", ["cached_votes_down"], :name => "index_comments_on_cached_votes_down"
+  add_index "comments", ["cached_votes_score"], :name => "index_comments_on_cached_votes_score"
+  add_index "comments", ["cached_votes_up"], :name => "index_comments_on_cached_votes_up"
+  add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "funs", :force => true do |t|
     t.integer  "user_id"

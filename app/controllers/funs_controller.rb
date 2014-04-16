@@ -34,6 +34,9 @@ class FunsController < ApplicationController
 
   # GET /funs/1
   def show
+    @tree = AwesomeNestedTree.new @fun.comment_threads.includes(:user)
+    @new_comment = Comment.build_from(@fun)
+
     @funs = @fun.get_month_trends(current_user, cookies_store[:type]).includes(:user, :content).limit 9
     respond_to :html, :js
   end

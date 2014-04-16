@@ -1,0 +1,11 @@
+.comment-list
+  = render partial: 'comments/comment', collection: tree.root, as: :comment, locals: { tree: tree }
+  - if can? :create, Comment
+    = form_for new_comment, remote: true do |f|
+      = f.text_area :body, rows: 3, class: 'input-block-level'
+      = f.hidden_field :parent_id
+      = f.hidden_field :commentable_id
+      = f.hidden_field :commentable_type
+      = f.button :submit, class: 'btn btn-primary', disable_with: 'Submitting…'
+
+    = link_to 'Add comment', 'javascript:;', class: 'comment_for', style: 'display:none'
