@@ -6,7 +6,7 @@
       span.total_comments= tree.all.length
       | )
   = render partial: 'comments/comment', collection: tree.root, as: :comment, locals: { tree: tree }
-  .info_element
+  .info_element.form_wrapper.hidden
     - if can? :create, Comment
       .photo_frame.pull-left
         = link_to show_avatar(current_user), current_user, class: 'photo_box'
@@ -19,4 +19,5 @@
 
         =link_to :submit, 'javascript:;', class: 'btn-orange'
 
-    = link_to 'Add comment', 'javascript:;', class: 'comment_for', style: 'display:none'
+  = link_to t('comment.button.new'), 'javascript:;', class: 'comment_for info_action answer pull-right'
+  .clearfix
