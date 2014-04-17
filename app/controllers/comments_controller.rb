@@ -36,7 +36,7 @@ class CommentsController < ApplicationController
   end
 
   def unvote
-    @comment.unliked_by current_user
+    current_user.unvote_for @comment
     render json: likes_data
   end
 
