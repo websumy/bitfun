@@ -1292,7 +1292,7 @@ html, body {
 			.like_box, .repost_box, .complain_box { padding: 0 1px; margin-right: 0; }
 
 			.item_adds {
-				background: url(/assets/post-navbar-bg.png) repeat-x 0 -50px;
+              background: asset_url("post-navbar-bg.png", image) repeat-x 0 -50px;
 				padding-bottom: 0;
 				float: left;
 				overflow: hidden;
