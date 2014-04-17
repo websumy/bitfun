@@ -84,4 +84,22 @@ module UsersHelper
     end
   end
 
+  def auth_link_to(*args, &block)
+    if block_given?
+      name         = capture(&block)
+      options      = args.first || {}
+      html_options = args.second
+    else
+      name         = args[0]
+      options      = args[1] || {}
+      html_options = args[2]
+    end
+
+    unless user_signed_in?
+      html_options[:data] ||= {}
+      html_options[:data][:auth] = true
+    end
+
+    link_to(name, options, html_options)
+  end
 end

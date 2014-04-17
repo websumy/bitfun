@@ -6,8 +6,8 @@
       span.total_comments= tree.all.length
       | )
   = render partial: 'comments/comment', collection: tree.root, as: :comment, locals: { tree: tree }
-  .info_element.form_wrapper.hidden
-    - if can? :create, Comment
+  - if can? :create, Comment
+    .info_element.form_wrapper
       .photo_frame.pull-left
         = link_to show_avatar(current_user), current_user, class: 'photo_box'
         .arrow
@@ -17,7 +17,7 @@
         = f.input :commentable_id, as: :hidden
         = f.input :commentable_type, as: :hidden
 
-        =link_to :submit, 'javascript:;', class: 'btn-orange'
+        =link_to t('comment.button.create'), 'javascript:;', class: 'btn-orange', rel: :submit
 
-  = link_to t('comment.button.new'), 'javascript:;', class: 'comment_for info_action answer pull-right'
+  = auth_link_to t('comment.button.new'), 'javascript:;', class: ('comment_for info_action answer pull-right' + (can?(:create, Comment) ? ' hidden' : ''))
   .clearfix

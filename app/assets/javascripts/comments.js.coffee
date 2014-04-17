@@ -5,32 +5,52 @@
 
 jQuery ->
   # Create a comment
-  $list = $('.comment-list')
-  $form = $list.find('.new_comment')
+
+  checkVotingScore = ($voting) ->
+    if parseInt($voting.find('.vote_result').text()) < 0
+      $voting.addClass 'red'
+    else
+      $voting.removeClass 'red'
+
+  $list = $ '.comment-list'
+
+  $list.find('.voting').each ->
+    checkVotingScore $(this)
+
+  $form = $list.find('.form_wrapper')
   .on 'ajax:beforeSend', (e, xhr, settings) ->
-    $(this).find('textarea').addClass('uneditable-input').attr('disabled', 'disabled')
+    $(this).find('textarea').attr('disabled', 'disabled')
   .on 'ajax:success', (e, response, status, xhr) ->
     $this = $(this)
-    $this.find('textarea').removeClass('uneditable-input').removeAttr('disabled', 'disabled').val('');
+    $this.find('textarea').removeAttr('disabled', 'disabled').val('');
 
     if xhr.getResponseHeader('Content-Type').indexOf('javascript') == -1
-      $(response).hide().appendTo($this.prev()).show('slow')
+      $form.before($(response).hide())
 
   $list
-  .on 'ajax:beforeSend', '.close', ->
+  .on 'ajax:beforeSend', '.btn-close-sm', ->
     $(this).closest('.comment').fadeTo('fast', 0.5)
-  .on 'ajax:success', '.close', ->
+  .on 'ajax:success', '.btn-close-sm', (e, response) ->
     $(this).closest('.comment').hide('fast')
-  .on 'ajax:error', '.close', ->
+  .on 'ajax:error', '.btn-close-sm', ->
     $(this).closest('.comment').fadeTo('fast', 1)
 
   .on 'click', '.comment_for', (e) ->
     e.preventDefault()
     $this = $(this)
-    return false unless $form.length
-    $form.next(':hidden').show()
-    $this.hide().before($form)
-    $form.find('input[name*=parent_id]').val($this.data('id') || '')
+    return true unless $form.length
+    $this.addClass('hidden')
+
+    $into = $this.siblings('.info_list').last()
+    $into = $this.closest('.info_list') unless $into.length
+
+    return true unless $into.length
+
+    $form.addClass('hidden').find('input[name*=parent_id]').val($this.data('id') || '')
+    $into.append $form
+    $list.find('.comment_for.hidden').not($this).removeClass('hidden')
+
+    $form.removeClass 'hidden'
 
   .on 'ajax:before', '.voting', ->
     $this = $(this)
@@ -39,14 +59,15 @@ jQuery ->
 
   .on 'ajax:success', '.voting', (e, response) ->
     $this = $(this)
-    $this.find('.count-likes').val(response.like)
-    $this.find('.count-dislikes').val(response.dislike)
-    $this.find('.btn').removeClass('disabled').data('method', false)
+    $this.find('.vote_result').text(parseInt(response.score) || 0)
+    $this.find('.btn-action').removeClass('orange').data('method', false)
+
+    checkVotingScore $this
 
     if response.vote
-      $this.find('.btn').first().addClass('disabled').data('method', 'delete')
+      $this.find('.btn-action').first().addClass('orange').data('method', 'delete')
     else if response.vote == false
-      $this.find('.btn').last().addClass('disabled').data('method', 'delete')
+      $this.find('.btn-action').last().addClass('orange').data('method', 'delete')
 
   .on 'ajax:complete', '.voting', ->
     $(this).data('sending', false)

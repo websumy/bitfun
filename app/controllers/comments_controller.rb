@@ -50,8 +50,7 @@ class CommentsController < ApplicationController
 
   def likes_data
     {
-        like: @comment.count_votes_up,
-        dislike: @comment.cached_votes_down,
+        score: @comment.cached_votes_score,
         vote: current_user.voted_as_when_voted_for(@comment)
     }
   end

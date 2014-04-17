@@ -226,7 +226,7 @@ module FunsHelper
       options[:class] << :orange
       options[:method] = :delete
     end
-    link_to '', url, options
+    auth_link_to '', url, options
   end
 
 end

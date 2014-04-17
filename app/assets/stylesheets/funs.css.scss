@@ -2401,7 +2401,9 @@ and (orientation:landscape) {
       > .btn-close-sm { display: block}
     }
   }
-
+  .info_list{
+    margin-left: -60px;
+  }
 }
 
 .btn-action{
@@ -2431,7 +2433,10 @@ and (orientation:landscape) {
 
 .voting{
   color: #5b5985;
-  font-size: 16px;
+  font: {
+    size: 16px;
+    weight: bold;
+  }
   line-height: 30px;
   position: relative;
   min-width: 40px;
