@@ -6,6 +6,18 @@
 jQuery ->
   # Create a comment
 
+  scrollToElement = ($target) ->
+    $window = $(window)
+    wb = $window.scrollTop() + $window.height()
+    tb = $target.offset().top + $target.outerHeight()
+
+    if tb + 10 > wb
+
+      $('html, body').animate(
+        scrollTop: tb - $window.height() + 10
+        500
+      );
+
   checkVotingScore = ($voting) ->
     if parseInt($voting.find('.vote_result').text()) < 0
       $voting.addClass 'red'
@@ -51,6 +63,7 @@ jQuery ->
     $list.find('.comment_for.hidden').not($this).removeClass('hidden')
 
     $form.removeClass 'hidden'
+    scrollToElement $form
 
   .on 'ajax:before', '.voting', ->
     $this = $(this)
