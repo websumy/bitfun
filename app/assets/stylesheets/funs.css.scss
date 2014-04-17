@@ -22,6 +22,16 @@ html, body {
     @include btn-orange(35px);
 }
 
+.btn-close-sm {
+  background: asset_url('btn-fun-icons.png', image) no-repeat -22px 0;
+  height: 21px;
+  width: 21px;
+  &:hover {
+    background-position: 0 0;
+    cursor: pointer;
+  }
+}
+
 .page {
 	margin: $page_margin_top auto 0;
 	width: $page_width;
@@ -2339,7 +2349,7 @@ and (orientation:landscape) {
 .info_list{
   color: #474747;
   font-size: 13px;
-  .list_title{
+  .info_list_title{
     color: #000000;
     font: {
       weight: bold;
@@ -2354,6 +2364,7 @@ and (orientation:landscape) {
     border-top: 1px solid #e2e2e2;
     padding-top: 20px;
     margin-top: 20px;
+    position: relative;
     .info_body{
       margin-left: 90px;
     }
@@ -2381,6 +2392,16 @@ and (orientation:landscape) {
         }
       }
       &:hover{ text-decoration: underline; }
+    }
+    .btn-close-sm {
+      display: none;
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      z-index: 1001;
+    }
+    &:hover {
+      > .btn-close-sm { display: block}
     }
   }
 }

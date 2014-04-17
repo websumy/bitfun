@@ -1,6 +1,6 @@
 .comment.info_element
-  /- if can? :destroy, Comment
-  /  = link_to '×', comment_path(comment), method: :delete, remote: true, confirm: 'Are you sure you want to remove this comment?', disable_with: '×', class: 'close'
+  - if can? :destroy, Comment
+    = link_to '', comment_path(comment), method: :delete, remote: true, confirm: t('comment.confirm.delete'), class: 'btn-close-sm'
 
   .photo_frame.pull-left
     = link_to show_avatar(comment.user), comment.user, class: 'photo_box'
