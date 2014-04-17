@@ -220,13 +220,13 @@ module FunsHelper
     end
   end
 
-  def vote_link(text, url, voted)
-    options = { class: [:btn], remote: true }
+  def vote_link(class_name, url, voted)
+    options = { class: [:'btn-action', :hoverable, class_name], remote: true }
     if voted
-      options[:class] << :disabled
+      options[:class] << :orange
       options[:method] = :delete
     end
-    link_to text, url, options
+    link_to '', url, options
   end
 
 end

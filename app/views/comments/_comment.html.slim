@@ -1,22 +1,28 @@
-.comment
-  - if can? :destroy, Comment
-    = link_to '×', comment_path(comment), method: :delete, remote: true, confirm: 'Are you sure you want to remove this comment?', disable_with: '×', class: 'close'
-  span.muted= l comment.created_at
-  strong= comment.user.login
+.comment.info_element
+  /- if can? :destroy, Comment
+  /  = link_to '×', comment_path(comment), method: :delete, remote: true, confirm: 'Are you sure you want to remove this comment?', disable_with: '×', class: 'close'
 
-  - vote = current_user ? current_user.voted_as_when_voted_for(comment) : nil
-  .input-prepend.input-append.voting
-    = vote_link '+', vote_comment_path(comment), vote
-    input.span1.text-center.text-success.count-likes disabled=true value=comment.count_votes_up type=:text
-    input.span1.text-center.text-error.count-dislikes disabled=true value=comment.count_votes_down type=:text
-    = vote_link '-', vote_comment_path(comment, :dislike), vote === false
+  .photo_frame.pull-left
+    = link_to show_avatar(comment.user), comment.user, class: 'photo_box'
+    .arrow
 
-  div= comment.body
+  .info_body
+    - vote = current_user ? current_user.voted_as_when_voted_for(comment) : nil
+    .voting.pull-right
+      = vote_link :plus, vote_comment_path(comment), vote
+      span.vote_result= comment.cached_votes_score
+      = vote_link :minus, vote_comment_path(comment, :dislike), vote === false
 
-  blockquote
-    - unless comment.leaf?
-      = render partial: 'comments/comment', collection: tree.children(comment.id), as: :comment, locals: { tree: tree }
-  - if can? :create, Comment
-    = link_to 'answer', 'javascript:;', class: 'comment_for', data: { id: comment.id }
+    = link_to comment.user.login, comment.user.login, class: 'info_title'
+    .info_muted
+      ' добавил
+      span.date_block= comment.created_at
 
-  hr
+
+    .info_content= comment.body
+
+    blockquote.info_list
+      - unless comment.leaf?
+        = render partial: 'comments/comment', collection: tree.children(comment.id), as: :comment, locals: { tree: tree }
+    - if can? :create, Comment
+      = link_to 'answer', 'javascript:;', class: 'comment_for info_action answer', data: { id: comment.id }

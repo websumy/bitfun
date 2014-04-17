@@ -1,11 +1,22 @@
-.comment-list
+.comment-list.info_list
+  .list_title
+    ' Комментарии
+    span.gray
+      | (
+      span.total_comments= tree.all.length
+      | )
   = render partial: 'comments/comment', collection: tree.root, as: :comment, locals: { tree: tree }
-  - if can? :create, Comment
-    = form_for new_comment, remote: true do |f|
-      = f.text_area :body, rows: 3, class: 'input-block-level'
-      = f.hidden_field :parent_id
-      = f.hidden_field :commentable_id
-      = f.hidden_field :commentable_type
-      = f.button :submit, class: 'btn btn-primary', disable_with: 'Submitting…'
+  .info_element
+    - if can? :create, Comment
+      .photo_frame.pull-left
+        = link_to show_avatar(current_user), current_user, class: 'photo_box'
+        .arrow
+      = simple_form_for new_comment, wrapper: :none, remote: true, html: { class: 'info_body' } do |f|
+        = f.input :body, input_html: { class: 'input-block-level' }
+        = f.input :parent_id, as: :hidden
+        = f.input :commentable_id, as: :hidden
+        = f.input :commentable_type, as: :hidden
+
+        =link_to :submit, 'javascript:;', class: 'btn-orange'
 
     = link_to 'Add comment', 'javascript:;', class: 'comment_for', style: 'display:none'

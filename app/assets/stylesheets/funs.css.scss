@@ -18,6 +18,10 @@ html, body {
 	width: 100%;
 }
 
+.btn-orange, .btn-orange:focus {
+    @include btn-orange(35px);
+}
+
 .page {
 	margin: $page_margin_top auto 0;
 	width: $page_width;
@@ -460,6 +464,11 @@ html, body {
 	li {@include inline-block; padding-right: 10px;}
 }
 
+.date_block {
+  background: asset_url("timer-icon.png", image) no-repeat top left;
+  padding-left: 15px;
+}
+
 .post_frame {
 	@include inline-block;
 	margin-bottom: 20px;
@@ -534,10 +543,6 @@ html, body {
 			img {display: block;}
 		}
 
-	}
-	.date_block {
-		background: asset_url("timer-icon.png", image) no-repeat top left;
-		padding-left: 15px;
 	}
 	.tags_block {
 		color: #aaaaaa;
@@ -2329,4 +2334,96 @@ and (orientation:landscape) {
 .biggest{
   color: darkred;
   font-size: 26px;
+}
+
+.info_list{
+  color: #474747;
+  font-size: 13px;
+  .list_title{
+    color: #000000;
+    font: {
+      weight: bold;
+      size: 18px;
+    }
+
+    .gray{
+      color: #cacaca;
+    }
+  }
+  .info_element{
+    border-top: 1px solid #e2e2e2;
+    padding-top: 20px;
+    margin-top: 20px;
+    .info_body{
+      margin-left: 90px;
+    }
+    .info_title{
+      color: #6d6b93;
+      &:hover{ text-decoration: underline; }
+    }
+    .info_muted{
+      color: #aaaaaa;
+      margin-top: 5px;
+    }
+    .info_content{
+      margin-top: 15px;
+    }
+    .info_action{
+      color: #8e8da9;
+      display: inline-block;
+      margin-top: 7px;
+      &.answer{
+        padding-left: 20px;
+        background: {
+          image: asset_url('chat.png', image);
+          repeat: no-repeat;
+          position: 0 50%;
+        }
+      }
+      &:hover{ text-decoration: underline; }
+    }
+  }
+}
+
+.btn-action{
+  height: 32px;
+  width: 32px;
+  background: {
+    image: asset_url('follow-icons.png', image);
+    repeat: no-repeat;
+  }
+  &.hoverable{
+    opacity: .3;
+    &:hover { opacity: 1 }
+  }
+  &.plus{
+    background-position: -35px 0;
+    &.orange{
+      background-position: -35px -70px;
+    }
+  }
+  &.minus{
+    background-position: -70px 0;
+    &.orange{
+      background-position: -70px -70px;
+    }
+  }
+}
+
+.voting{
+  color: #5b5985;
+  font-size: 16px;
+  line-height: 30px;
+  position: relative;
+  min-width: 40px;
+  padding: 0 35px;
+  text-align: center;
+  &.red{
+    color: #d2573a;
+  }
+  .btn-action {
+    position: absolute;
+    &.plus { left: 0 }
+    &.minus { right: 0 }
+  }
 }
