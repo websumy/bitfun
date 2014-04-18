@@ -114,6 +114,8 @@ gem 'jquery-ui-rails'
 
 gem 'acts_as_commentable_with_threading'
 
+gem 'momentjs-rails'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
