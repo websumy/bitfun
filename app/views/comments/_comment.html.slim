@@ -16,7 +16,7 @@
     = link_to comment.user.login, comment.user.login, class: 'info_title'
     .info_muted
       ' добавил
-      span.date_block= comment.created_at
+      = time_ago_format comment.created_at
 
     .info_content= comment.body
     - if comment.allowed_to_answer?

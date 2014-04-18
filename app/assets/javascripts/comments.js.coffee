@@ -39,7 +39,7 @@ jQuery ->
     $(this).find('textarea').attr('disabled', 'disabled')
   .on 'ajax:success', (e, response) ->
     $(this).find('textarea').val('')
-    $(response).hide().insertBefore($form).show 'slow'
+    $(response).hide().insertBefore($form).show('slow').findAndFormatDateTime();
     changeTotal 1
   .on 'ajax:complete', ->
     $(this).find('textarea').removeAttr('disabled');
