@@ -111,6 +111,7 @@ $(function(){
                                 $newElems.imagesLoaded(function(){
                                     $newElems.animate({ opacity: 1 }).initButtonTooltips();
                                     $newElems.initTooltips();
+                                    $newElems.findAndFormatDateTime();
                                     if ($wall.data('masonry')) $wall.masonry( 'appended', $newElems, true );
                                     $wall.append($newElems);
                                 });

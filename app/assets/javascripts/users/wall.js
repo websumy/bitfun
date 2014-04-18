@@ -31,6 +31,7 @@ $(function(){
                         wall.html(data.responseText);
                         wall.initButtonTooltips();
                         wall.initTooltips();
+                        wall.findAndFormatDateTime();
                         $(window).data('endelessscroll').resetFiring();
 
                         if (currentState == 'box'){
@@ -65,6 +66,7 @@ $(function(){
                         wall.html(data.responseText);
                         wall.initButtonTooltips();
                         wall.initTooltips();
+                        wall.findAndFormatDateTime();
                         $(window).data('endelessscroll').resetFiring();
                         if (currentState == 'box'){
                             if (wall.data('masonry')) wall.masonry('reload');
