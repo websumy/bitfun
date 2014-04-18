@@ -11,6 +11,8 @@
 //= require source/bootstrap-tab
 //= require rails.validations
 //= require hogan.js
+//= require moment
+//= require moment/ru
 //= require_tree .
 
 $(function(){
@@ -163,6 +165,20 @@ $(function(){
             }
         }
     });
+
+    $.fn.findAndFormatDateTime = function(){
+        $(this).find('.date-time-format').datetimeformat({
+            onComplete: function(element, object){
+                element.tooltipster({
+                    theme: 'tooltips_theme',
+                    offsetY: -5,
+                    content: object.moment.format('YYYY-MM-DD HH:mm')
+                });
+            }
+        });
+    };
+
+    $(document).findAndFormatDateTime();
 });
 
 function show_notice(text, type, options) {
