@@ -9,13 +9,13 @@ class CommentsController < ApplicationController
       unless params[:comment][:parent_id].blank?
         parent = @obj.comment_threads.find(params[:comment][:parent_id]) rescue nil
 
-        @comment.move_to_child_of parent if parent
+        @comment.move_to_child_of parent if parent && parent.allowed_to_answer?
       end
 
       render partial: 'comments/comment', locals: { comment: @comment },
              layout: false, status: :created
     else
-      render js: "alert('error saving');"
+      render nothing: true, status: 400
     end
   end
 
@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
     if @comment.destroy
       render json: @comment, status: :ok
     else
-      render js: "alert('error deleting comment');"
+      render nothing: true, status: 400
     end
   end
 

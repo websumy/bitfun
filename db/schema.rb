@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20140416070220) do
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
+    t.integer  "depth"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.integer  "cached_votes_score", :default => 0

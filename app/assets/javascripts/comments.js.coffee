@@ -4,7 +4,7 @@
 
 
 jQuery ->
-  # Create a comment
+  $list = $ '.comment-list'
 
   scrollToElement = ($target) ->
     $window = $(window)
@@ -18,34 +18,41 @@ jQuery ->
         500
       );
 
+  changeTotal = (diff) ->
+    $list.find('.total_comments').each ->
+      $this = $(this)
+      $this.text(Math.max(0, parseInt($this.text()) + diff))
+
   checkVotingScore = ($voting) ->
     if parseInt($voting.find('.vote_result').text()) < 0
       $voting.addClass 'red'
     else
       $voting.removeClass 'red'
 
-  $list = $ '.comment-list'
-
   $list.find('.voting').each ->
     checkVotingScore $(this)
 
   $form = $list.find('.form_wrapper')
-  .on 'ajax:beforeSend', (e, xhr, settings) ->
+  .on 'ajax:beforeSend', ->
+    return false unless $.trim($(this).find('textarea').val()).length
+  .on 'ajax:beforeSend', ->
     $(this).find('textarea').attr('disabled', 'disabled')
-  .on 'ajax:success', (e, response, status, xhr) ->
-    $this = $(this)
-    $this.find('textarea').removeAttr('disabled', 'disabled').val('');
-
-    if xhr.getResponseHeader('Content-Type').indexOf('javascript') == -1
-      $form.before($(response).hide())
+  .on 'ajax:success', (e, response) ->
+    $(this).find('textarea').val('')
+    $(response).hide().insertBefore($form).show 'slow'
+    changeTotal 1
+  .on 'ajax:complete', ->
+    $(this).find('textarea').removeAttr('disabled');
 
   $list
   .on 'ajax:beforeSend', '.btn-close-sm', ->
-    $(this).closest('.comment').fadeTo('fast', 0.5)
-  .on 'ajax:success', '.btn-close-sm', (e, response) ->
-    $(this).closest('.comment').hide('fast')
+    $(this).closest('.comment').fadeTo 'fast', 0.5
+  .on 'ajax:success', '.btn-close-sm', ->
+    $(this).closest('.comment').hide 'fast', ->
+      changeTotal -1 - $(this).find('.comment').length
+      $(this).remove()
   .on 'ajax:error', '.btn-close-sm', ->
-    $(this).closest('.comment').fadeTo('fast', 1)
+    $(this).closest('.comment').fadeTo 'fast', 1
 
   .on 'click', '.comment_for', (e) ->
     e.preventDefault()

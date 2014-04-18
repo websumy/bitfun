@@ -5,6 +5,8 @@ class Comment < ActiveRecord::Base
   attr_accessible :commentable, :body, :user_id
   acts_as_nested_set scope: [:commentable_id, :commentable_type]
 
+  ANSWER_DEPTH = 7
+
   validates :body, :user, presence: true
 
   # NOTE: install the acts_as_votable plugin if you
@@ -27,6 +29,10 @@ class Comment < ActiveRecord::Base
   scope :find_comments_for_commentable, lambda { |commentable_str, commentable_id|
     where(commentable_type: commentable_str.to_s, commentable_id: commentable_id).order('created_at DESC')
   }
+
+  def allowed_to_answer?
+    depth.to_i < ANSWER_DEPTH
+  end
 
   class << self
     # Helper class method that allows you to build a comment

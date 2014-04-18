@@ -19,8 +19,8 @@
       span.date_block= comment.created_at
 
     .info_content= comment.body
-
-    = auth_link_to t('comment.button.answer'), 'javascript:;', class: 'comment_for info_action answer', data: { id: comment.id }
+    - if comment.allowed_to_answer?
+      = auth_link_to t('comment.button.answer'), 'javascript:;', class: 'comment_for info_action answer', data: { id: comment.id }
     blockquote.info_list
       - unless comment.leaf?
         = render partial: 'comments/comment', collection: tree.children(comment.id), as: :comment, locals: { tree: tree }
