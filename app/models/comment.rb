@@ -1,6 +1,7 @@
 class Comment < ActiveRecord::Base
   after_create :update_commentable_counter
   after_destroy :update_commentable_counter
+  after_create :create_notification
 
   attr_accessible :commentable, :body, :user_id
   acts_as_nested_set scope: [:commentable_id, :commentable_type]
@@ -17,6 +18,8 @@ class Comment < ActiveRecord::Base
 
   # NOTE: Comments belong to a user
   belongs_to :user
+
+  has_many :notifications, as: :subject, dependent: :destroy
 
   # Helper class method to lookup all comments assigned
   # to all commentable types for a given user.
@@ -53,5 +56,9 @@ class Comment < ActiveRecord::Base
 
   def update_commentable_counter
     commentable.update_comments_count if commentable.respond_to? :update_comments_count
+  end
+
+  def create_notification
+    self.notifications.create(user_id: user_id, action: :create)
   end
 end
