@@ -18,7 +18,7 @@ class Ability
       can :update, User, id: user.id
       can :create, Report
       can :read, :all
-      can :create, Comment
+      can [:create, :vote, :unvote], Comment
       cannot [:destroy, :read], Report
       cannot :show, Notification
     else
