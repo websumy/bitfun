@@ -7,11 +7,10 @@
     .arrow
 
   .info_body
-    - vote = current_user ? current_user.voted_as_when_voted_for(comment) : nil
     .voting.pull-right
-      = vote_link :plus, vote_comment_path(comment), vote
+      = vote_link :plus, vote_comment_path(comment), current_user.voted?(comment)
       span.vote_result= comment.cached_votes_score
-      = vote_link :minus, vote_comment_path(comment, :dislike), vote === false
+      = vote_link :minus, vote_comment_path(comment, :dislike), current_user.voted?(comment) === false
 
     = link_to comment.user.login, comment.user.login, class: 'info_title'
     .info_muted
