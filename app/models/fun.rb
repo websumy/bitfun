@@ -129,6 +129,10 @@ class Fun < ActiveRecord::Base
     Fun.exclude_funs(exclude).where(published_at: month_range).filter_by_type(type).order('cached_votes_total DESC')
   end
 
+  def notification_fun
+    self
+  end
+
   class << self
 
     def reposters

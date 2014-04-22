@@ -52,6 +52,10 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  def notification_fun
+    commentable
+  end
+
   private
 
   def update_commentable_counter
@@ -59,6 +63,9 @@ class Comment < ActiveRecord::Base
   end
 
   def create_notification
-    self.notifications.create(user_id: user_id, action: :create)
+    return if user_id == commentable.user_id
+
+    notifications.create(user_id: user_id, action: :create,
+                         receiver_id: commentable.user_id, fun: commentable )
   end
 end
