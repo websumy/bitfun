@@ -63,9 +63,14 @@ class Comment < ActiveRecord::Base
   end
 
   def create_notification
-    return if user_id == commentable.user_id
+    data = { user_id: user_id, action: :create, fun: commentable }
 
-    notifications.create(user_id: user_id, action: :create,
-                         receiver_id: commentable.user_id, fun: commentable )
+    if user_id != commentable.user_id
+      notifications.create(data.merge(receiver_id: commentable.user_id))
+    end
+
+    if parent && user_id != parent.user_id && commentable.user_id != parent.user_id
+      notifications.create(data.merge(receiver_id: parent.user_id, target: parent))
+    end
   end
 end
