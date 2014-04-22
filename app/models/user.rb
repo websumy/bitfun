@@ -154,14 +154,20 @@ class User < ActiveRecord::Base
     fun.id.in? reposted_ids
   end
 
-  # Get funs ids which user voted
-  def voted_ids
-    @voted_ids ||= votes.where(votable_type: Fun).pluck(:votable_id)
+  def my_votes
+    @votes_cache ||= {}.tap do |h|
+      votes.each do |v|
+        ts = v.votable_type.to_sym
+        h[ts] ||= {}
+        h[ts][v.votable_id] = v.vote_flag
+      end
+    end
   end
 
   # Check if user already voted
-  def voted?(fun)
-    fun.id.in? voted_ids
+  def voted?(votable)
+    ts = votable.class.name.to_sym
+    my_votes.key?(ts) ? my_votes[ts][votable.id] : nil
   end
 
   # User feeds
