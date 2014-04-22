@@ -164,6 +164,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def votes_count_for(type)
+    my_votes.key?(type) ? my_votes[type].length : 0
+  end
+
   # Check if user already voted
   def voted?(votable)
     ts = votable.class.name.to_sym
