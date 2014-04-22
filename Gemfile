@@ -63,7 +63,6 @@ gem 'thin'
 # Show error in better format
 gem 'better_errors'
 gem 'binding_of_caller'
-gem 'meta_request'
 
 # use this gem only for testing VK widgets
 gem 'localtunnel'
@@ -90,6 +89,10 @@ gem 'bourbon'
 # in production environments by default.
 
 gem 'sass-rails',   '~> 3.2.3'
+
+group :development do
+  gem 'meta_request'
+end
 
 group :assets do
   # Toolkit from Twitter designed to kickstart development of webapps and sites
