@@ -4,7 +4,6 @@ class Fun < ActiveRecord::Base
   after_destroy :delete_content
   before_destroy :delete_likes
   before_destroy :delete_reposts
-  after_create :create_notification
 
   # Kaminari pagination config
   paginates_per 10
@@ -21,7 +20,6 @@ class Fun < ActiveRecord::Base
   belongs_to :content, polymorphic: true
   accepts_nested_attributes_for :content, allow_destroy: true
   has_many :reports, dependent: :destroy
-  has_many :notifications, as: :subject, dependent: :destroy
 
   # Reposts
   has_many :reposts, class_name: 'Fun', foreign_key: 'parent_id'
@@ -223,11 +221,5 @@ class Fun < ActiveRecord::Base
 
   def update_comments_count
     update_attribute :comments_counter, comment_threads.count
-  end
-
-  private
-
-  def create_notification
-    self.notifications.create(user_id: user_id, action: :create)
   end
 end
