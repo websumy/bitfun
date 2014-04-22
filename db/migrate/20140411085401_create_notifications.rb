@@ -7,6 +7,7 @@ class CreateNotifications < ActiveRecord::Migration
       t.references :target, polymorphic: true
       t.integer :user_id
       t.integer :receiver_id
+      t.integer :fun_id
 
       t.timestamp :created_at
     end

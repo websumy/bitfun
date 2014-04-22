@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20140416070220) do
     t.string   "target_type"
     t.integer  "user_id"
     t.integer  "receiver_id"
+    t.integer  "fun_id"
     t.datetime "created_at"
   end
 
