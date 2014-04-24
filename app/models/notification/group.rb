@@ -15,7 +15,7 @@ class Notification::Group
     notification.group_param(field) == value && time < notification.created_at
   end
 
-  def user
-    notifications.first.user
+  def first
+    notifications.first
   end
 end

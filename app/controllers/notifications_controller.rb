@@ -3,7 +3,10 @@ class NotificationsController < ApplicationController
 
   def index
     @notifications = Fun.unscoped do
-      Notification.includes(:user, :target, :subject).where(receiver_id: current_user.id)
+      Notification.includes(:fun, :user, :target, :subject)
+      .where(receiver_id: current_user.id).order('created_at DESC').all
     end
+
+    @list = Notification::List.new(@notifications)
   end
 end

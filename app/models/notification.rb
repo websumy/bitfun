@@ -11,4 +11,13 @@ class Notification < ActiveRecord::Base
   validates_presence_of :subject_id
   validates_presence_of :user_id
   validates_presence_of :action
+
+  def group_param(key)
+    case key
+      when :subject then "#{subject_type}_#{subject_id}"
+      when :user then user_id
+      when :target  then target_id ? "#{target_type}_#{target_id}" :fun_id
+      else nil
+    end
+  end
 end

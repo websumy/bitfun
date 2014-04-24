@@ -23,6 +23,7 @@ class Ability
       cannot :show, Notification
     else
       can :read, :all
+      cannot :read, Notification
     end
   end
 end

@@ -1,15 +1,11 @@
 .container.rating_layout
-  .topics_block
-    .title_page
-      h1 Notification list
   .rating_layout
-    ul
-      - @notifications.each do |n|
-        li
-          .photo_frame
-            = link_to show_avatar(n.user), n.user, class: 'photo_box'
-          = link_to n.user.login, n.user
-          = n.action
-          = n.subject.class.name
-          = link_to n.target.class.name, n.target if n.target
-          = n.created_at
+    .info_list.notification_list
+      .info_list_title
+        ' Notifications list
+
+      - @list.each do |group|
+        - if group.notifications.length > 1
+          = render 'notifications/group', group: group
+        - else
+          = render 'notifications/record', notification: group.first

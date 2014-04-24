@@ -1,0 +1,15 @@
+.info_element class="#{(defined? add_class) ? add_class : ''}"
+  .arrow_expand.expanded
+  .photo_frame.pull-left
+    = link_to show_avatar(notification.user), notification.user, class: 'photo_box'
+    .arrow
+
+  .info_body
+    = link_to notification.user.login, notification.user, class: 'info_title'
+    .info_muted
+      = time_ago_format notification.created_at
+
+    .info_content
+      ' #{notification.action} #{notification.subject.class.name}
+      = link_to notification.target.class.name, notification.target if notification.target
+  .clearfix
