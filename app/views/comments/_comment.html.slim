@@ -12,7 +12,7 @@
       span.vote_result= comment.cached_votes_score
       = vote_link :minus, vote_comment_path(comment, :dislike), current_user.voted?(comment) === false
 
-    = link_to comment.user.login, comment.user, class: 'info_title'
+    = link_to comment.user.login, comment.user, class: 'info_link'
     .info_muted
       ' добавил
       = time_ago_format comment.created_at

@@ -10,6 +10,9 @@
         = time_ago_format group.first.created_at
       .info_content
         = notification_group_actions(group)
+        - if group.field == :target
+          '
+          = notification_fun_link(group.first)
     .clearfix
   .group_details.hidden.hidden_mark
     - group.notifications.each_with_index do |notification, index|

@@ -75,6 +75,9 @@ ru:
       social_likes: "Проголосовать в соц сетях"
       edit: "Редактировать фан"
     update_error: "Произошла ошибка при сохранении фана :( Проверьте данные и повторите попытку"
+    forms:
+      w1: фан
+      w2: фанy
   reposts:
     created: "Фан успешно скопирован вам на стену."
     button: "Репостить"
@@ -240,9 +243,9 @@ ru:
             other: оставил <strong>%{count}</strong> ответов к Вашим комментариям
       target:
         comment:
-          fun: откомментировали Ваш фан
+          fun: откомментировали
         actsasvotablevote:
-          fun: оценили Ваш фан
+          fun: оценили
 
     actsasvotablevote:
       fun: понравился

@@ -2397,10 +2397,10 @@ and (orientation:landscape) {
     &:hover {
       > .btn-close-sm { display: block}
     }
-    a{
-      color: #6d6b93;
-      &:hover{ text-decoration: underline; }
-    }
+  }
+  .info_link{
+    color: #6d6b93;
+    &:hover{ text-decoration: underline; }
   }
   .info_list{
     margin-left: -60px;

@@ -1,4 +1,4 @@
-= link_to notification.user.login, notification.user
+= link_to notification.user.login, notification.user, class: 'info_link'
 '
 span.info_muted
   = time_ago_format notification.created_at
@@ -6,4 +6,4 @@ span.info_muted
 .info_content
   = t(notification.msg_key)
   '
-  = link_to(notification.fun.content.title.empty? ? 'фан' : notification.fun.content.title , notification.fun)
+  = notification_fun_link(notification)
