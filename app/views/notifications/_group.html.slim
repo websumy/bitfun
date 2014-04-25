@@ -6,10 +6,11 @@
       .arrow
 
     .info_body
-      | #{group.field} #{group.value}
+      = notification_group_users(group)
       .info_muted
         = time_ago_format group.first.created_at
-      .info_content= group.notifications.length
+      .info_content
+        = notification_group_actions(group)
     .clearfix
   .group_details.hidden.hidden_mark
     - group.notifications.each_with_index do |notification, index|

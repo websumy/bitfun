@@ -11,6 +11,7 @@ class Notification::List
       end
     end
 
+    remove_illogical
     clear_repeats
   end
 
@@ -32,12 +33,16 @@ class Notification::List
   def clear_repeats
     used = {}
     weights = []
-    @groups.each_with_index{ |g, i| weights << [i, g.notifications.length] }
+    @groups.each_with_index{ |g, i| weights << [i, g.weight] }
     weights.sort{ |a, b| b[1] <=> a[1] }.each do |w|
       @groups[w[0]].notifications.delete_if do |notification|
         used[notification.id].tap { used[notification.id] = true }
       end
     end
     @groups.delete_if{ |group| group.notifications.empty? }
+  end
+
+  def remove_illogical
+    @groups.delete_if{ |group| group.field == :target && group.users_count < 2 }
   end
 end

@@ -1,0 +1,9 @@
+= link_to notification.user.login, notification.user
+.info_muted
+  = time_ago_format notification.created_at
+  '
+  = t(notification.msg_key)
+  '
+  = link_to(notification.fun.content.title ? notification.fun.content.title : 'фану', notification.fun)
+.info_content
+  = notification.subject.body

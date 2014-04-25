@@ -212,3 +212,41 @@ ru:
       new: Добавить комментарий
       create: Сохранить комментарий
       answer: Ответить
+  notification:
+    group:
+      also_users:
+        zero:
+        one: и еще <strong>%{count}</strong> пользователь
+        few: и еще <strong>%{count}</strong> пользователя
+        other: и еще <strong>%{count}</strong> пользователей
+      user:
+        actsasvotablevote:
+          fun:
+            one: оценил Ваш фан
+            few: оценил <strong>%{count}</strong> Ваших фана
+            other: оценил <strong>%{count}</strong> Ваших фанов
+          comment:
+            one: оценил Ваш комментарий
+            few: оценил <strong>%{count}</strong> Ваш комментария
+            other: оценил <strong>%{count}</strong> Ваш комментариев
+        comment:
+          fun:
+            one: откомментировал Ваш фан
+            few: добавил <strong>%{count}</strong> комментария к Вашим фанам
+            other: добавил <strong>%{count}</strong> комментариев к Вашим фанам
+          comment:
+            one: ответил на Ваш коментарий
+            few: оставил <strong>%{count}</strong> ответа к Вашим комментариям
+            other: оставил <strong>%{count}</strong> ответов к Вашим комментариям
+      target:
+        comment:
+          fun: откомментировали Ваш фан
+        actsasvotablevote:
+          fun: оценили Ваш фан
+
+    actsasvotablevote:
+      fun: понравился
+      comment: понравился комментарий к
+    comment:
+      comment: в ответах на комментарий к
+      fun: в комментариях к

@@ -2384,10 +2384,6 @@ and (orientation:landscape) {
     margin-top: 15px;
     position: relative;
     .info_body{ margin-left: 90px; }
-    .info_title{
-      color: #6d6b93;
-      &:hover{ text-decoration: underline; }
-    }
     .info_muted{ margin-top: 5px; }
     .info_content{ margin-top: 15px; }
     .info_action{ display: inline-block; margin-top: 7px; }
@@ -2400,6 +2396,10 @@ and (orientation:landscape) {
     }
     &:hover {
       > .btn-close-sm { display: block}
+    }
+    a{
+      color: #6d6b93;
+      &:hover{ text-decoration: underline; }
     }
   }
   .info_list{
