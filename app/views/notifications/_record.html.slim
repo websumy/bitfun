@@ -1,8 +1,7 @@
 .info_element class="#{(defined? add_class) ? add_class : ''}"
   .arrow_expand.expanded
-  .photo_frame.pull-left
+  .photo_frame.pull-left.photo_frame_sm
     = link_to show_avatar(notification.user), notification.user, class: 'photo_box'
-    .arrow
 
   .info_body
     = notification_partial(notification)

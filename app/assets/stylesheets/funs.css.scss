@@ -2460,6 +2460,11 @@ and (orientation:landscape) {
   .info_element{
     margin-top: 0;
     padding-bottom: 15px;
+    .info_body{
+      margin-left: 50px;
+      margin-right: 40px;
+    }
+    .info_content{ margin-top: 5px}
   }
   .click_handler:hover{
     cursor: pointer;

@@ -228,7 +228,7 @@ ru:
           comment:
             one: оценил Ваш комментарий
             few: оценил <strong>%{count}</strong> Ваш комментария
-            other: оценил <strong>%{count}</strong> Ваш комментариев
+            other: оценил <strong>%{count}</strong> Ваших комментариев
         comment:
           fun:
             one: откомментировал Ваш фан
