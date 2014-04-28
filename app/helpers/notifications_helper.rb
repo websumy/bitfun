@@ -37,4 +37,10 @@ module NotificationsHelper
     end
   end
 
+  def notification_fun_preview(notification)
+    unless notification.fun.content_type == 'Post'
+      link_to fun_image(notification.fun, version: :small), notification.fun, class: 'preview'
+    end
+  end
+
 end

@@ -4,5 +4,7 @@
     = link_to show_avatar(notification.user), notification.user, class: 'photo_box'
 
   .info_body
+    = notification_fun_preview(notification)
+
     = notification_partial(notification)
   .clearfix
