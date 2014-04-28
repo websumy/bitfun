@@ -12,6 +12,8 @@ class Notification < ActiveRecord::Base
   validates_presence_of :user_id
   validates_presence_of :action
 
+  scope :limited, limit(30)
+
   def group_param(key)
     case key
       when :user then "#{user_id}_#{subject_type}_#{target_type}"

@@ -4,8 +4,4 @@
       .info_list_title
         ' Notifications list
 
-      - @list.each do |group|
-        - if group.notifications.length > 1
-          = render 'notifications/group', group: group
-        - else
-          = render 'notifications/record', notification: group.first
+      = render 'list', list: @list, notifications: @notifications

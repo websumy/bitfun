@@ -47,6 +47,8 @@ class User < ActiveRecord::Base
   # Authorization services (FB, VK, TW)
   has_many :identities
 
+  has_many :notifications, foreign_key: :receiver_id
+
   # Validation rules
 
   validates :email, uniqueness: true, format: { with: email_regexp }, if: :email_required?
@@ -218,6 +220,16 @@ class User < ActiveRecord::Base
 
   def send_welcome_email
     UserMailer.welcome_email(self).deliver if email.present?
+  end
+
+  def notifications_before(date = null)
+    Fun.unscoped do
+      query = notifications.includes({ fun: :content }, :user, :target, :subject)
+
+      query = query.where('created_at < ?', date) if date
+
+      query.order('created_at DESC').limited.all
+    end
   end
 
   class << self
