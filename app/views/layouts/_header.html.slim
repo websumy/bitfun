@@ -28,6 +28,7 @@ header.main_panel[role="banner"]
               ul.top
                 li = link_to 'Моя страница', user_path(current_user)
                 li = link_to 'Мои подписки', feed_path
+                li = link_to 'Мои уведомления', notifications_path
                 - if can? :read, Report
                   li = link_to "Жалобы (#{Report.count})", reports_path
               ul.down
