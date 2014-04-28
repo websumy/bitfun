@@ -100,8 +100,7 @@ $(function(){
                         url: url,
                         dataType: 'script',
                         complete: function(data) {
-                            if (data.status == 200)
-                            {
+                            if (data.status == 200){
                                 $('#next_url').data('url', url.replace('page=' + (i + 1), 'page=' + (i + 2)));
 
                                 if (data.responseText.length == 0) $(window).data('endelessscroll').stopFiring();
@@ -114,8 +113,8 @@ $(function(){
                                     $newElems.findAndFormatDateTime();
                                     if ($wall.data('masonry')) $wall.masonry( 'appended', $newElems, true );
                                     $wall.append($newElems);
+                                    $('#loading').remove();
                                 });
-                                $('#loading').remove();
                             }
                         }
                     });
