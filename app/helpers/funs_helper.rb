@@ -166,10 +166,10 @@ module FunsHelper
   def fun_image_path(fun, versions = {})
     type = fun.content.class.to_s
     column = type == 'Image' ? :file : :image # fun.content.class.uploaders
-    unless type == 'Post'
-      fun.content.try(column).url(*versions)
-    else
+    if type == 'Post'
       asset_path('social_logo.png')
+    else
+      fun.content.try(column).url(*versions)
     end
   end
 
