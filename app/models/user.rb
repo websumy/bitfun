@@ -47,6 +47,8 @@ class User < ActiveRecord::Base
   # Authorization services (FB, VK, TW)
   has_many :identities
 
+  has_many :notifications, foreign_key: :receiver_id
+
   # Validation rules
 
   validates :email, uniqueness: true, format: { with: email_regexp }, if: :email_required?
@@ -154,14 +156,24 @@ class User < ActiveRecord::Base
     fun.id.in? reposted_ids
   end
 
-  # Get funs ids which user voted
-  def voted_ids
-    @voted_ids ||= votes.where(votable_type: Fun).pluck(:votable_id)
+  def my_votes
+    @votes_cache ||= {}.tap do |h|
+      votes.each do |v|
+        ts = v.votable_type.to_sym
+        h[ts] ||= {}
+        h[ts][v.votable_id] = v.vote_flag
+      end
+    end
+  end
+
+  def votes_count_for(type)
+    my_votes.key?(type) ? my_votes[type].length : 0
   end
 
   # Check if user already voted
-  def voted?(fun)
-    fun.id.in? voted_ids
+  def voted?(votable)
+    ts = votable.class.name.to_sym
+    my_votes.key?(ts) ? my_votes[ts][votable.id] : nil
   end
 
   # User feeds
@@ -208,6 +220,16 @@ class User < ActiveRecord::Base
 
   def send_welcome_email
     UserMailer.welcome_email(self).deliver if email.present?
+  end
+
+  def notifications_before(date = null)
+    Fun.unscoped do
+      query = notifications.includes({ fun: :content }, :user, :target, :subject)
+
+      query = query.where('created_at < ?', date) if date
+
+      query.order('created_at DESC').limited.all
+    end
   end
 
   class << self

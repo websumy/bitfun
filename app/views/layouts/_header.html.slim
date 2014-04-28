@@ -8,7 +8,7 @@ header.main_panel[role="banner"]
         .item_outer
           - data = user_signed_in? ? {} : {:'data-auth' => 'true'}
           .item.add_fun
-            a.item_link.link_new_fun *data href="#{new_fun_path}"
+            a.item_link.fancybox_ajax *data href="#{new_fun_path}"
               span.span_cell Добавить фан
         .item_outer
           = link_to_users
@@ -28,6 +28,7 @@ header.main_panel[role="banner"]
               ul.top
                 li = link_to 'Моя страница', user_path(current_user)
                 li = link_to 'Мои подписки', feed_path
+                li = link_to 'Мои уведомления', notifications_path
                 - if can? :read, Report
                   li = link_to "Жалобы (#{Report.count})", reports_path
               ul.down

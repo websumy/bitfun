@@ -38,6 +38,7 @@ $(function(){
                     wall.html(data.responseText);
                     wall.initButtonTooltips();
                     wall.initTooltips();
+                    wall.findAndFormatDateTime();
                     $(window).data('endelessscroll').resetFiring();
 
                     if (postData.view == 'box'){

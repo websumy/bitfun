@@ -1,0 +1,25 @@
+.comment.info_element
+  - if can? :destroy, Comment
+    = link_to '', comment_path(comment), method: :delete, remote: true, confirm: t('comment.confirm.delete'), class: 'btn-close-sm'
+
+  .photo_frame.pull-left
+    = link_to show_avatar(comment.user), comment.user, class: 'photo_box'
+    .arrow
+
+  .info_body
+    .voting.pull-right
+      = vote_link :plus, vote_comment_path(comment), current_user.voted?(comment)
+      span.vote_result= comment.cached_votes_score
+      = vote_link :minus, vote_comment_path(comment, :dislike), current_user.voted?(comment) === false
+
+    = link_to comment.user.login, comment.user, class: 'info_link'
+    .info_muted
+      ' добавил
+      = time_ago_format comment.created_at
+
+    .info_content= comment.body
+    - if comment.allowed_to_answer?
+      = auth_link_to t('comment.button.answer'), 'javascript:;', class: 'comment_for info_action answer', data: { id: comment.id }
+    blockquote.info_list
+      - unless comment.leaf?
+        = render partial: 'comments/comment', collection: tree.children(comment.id), as: :comment, locals: { tree: tree }

@@ -1,0 +1,19 @@
+.notification_group
+  .info_element.click_handler.hidden_mark
+    .arrow_expand
+    .photo_frame.pull-left.photo_frame_sm
+      = link_to show_avatar(group.first.user), group.first.user, class: 'photo_box'
+
+    .info_body
+      = notification_group_users(group)
+      .info_muted
+        = time_ago_format group.first.created_at
+      .info_content
+        = notification_group_actions(group)
+        - if group.field == :target
+          '
+          = notification_fun_link(group.first)
+    .clearfix
+  .group_details.hidden.hidden_mark
+    - group.notifications.each_with_index do |notification, index|
+      = render 'notifications/record', notification: notification, add_class: (index.zero? ? 'click_handler' : '')

@@ -140,9 +140,18 @@ module FunsHelper
     end
   end
 
+  def edit_fun_link(fun, options = nil, text = '')
+    if can? :update, fun
+      data = { class: 'btn-fun-edit fancybox_ajax', rel: 'tooltip', title: t('funs.titles.edit') }
+      data.merge! options if options.is_a? Hash
+
+      link_to text, edit_fun_path(fun), data
+    end
+  end
+
   def remove_fun_link(fun)
     if can? :destroy, fun
-      link_to '', url_for(action: 'show', controller: 'funs', id: fun), class: 'btn-fun-delete', method: :delete, remote: true, data: { type: :json }, confirm: t('funs.confirm.delete') , rel: 'tooltip', title: t('funs.titles.delete')
+      link_to '', fun, class: 'btn-fun-delete', method: :delete, remote: true, data: { type: :json }, confirm: t('funs.confirm.delete') , rel: 'tooltip', title: t('funs.titles.delete')
     end
   end
 
@@ -157,10 +166,10 @@ module FunsHelper
   def fun_image_path(fun, versions = {})
     type = fun.content.class.to_s
     column = type == 'Image' ? :file : :image # fun.content.class.uploaders
-    unless type == 'Post'
-      fun.content.try(column).url(*versions)
-    else
+    if type == 'Post'
       asset_path('social_logo.png')
+    else
+      fun.content.try(column).url(*versions)
     end
   end
 
@@ -209,6 +218,15 @@ module FunsHelper
         link_to fun.content.title, fun
       end
     end
+  end
+
+  def vote_link(class_name, url, voted)
+    options = { class: [:'btn-action', :hoverable, class_name], remote: true }
+    if voted
+      options[:class] << :orange
+      options[:method] = :delete
+    end
+    auth_link_to '', url, options
   end
 
 end

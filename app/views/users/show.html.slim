@@ -50,7 +50,7 @@ div[class="container feed_layout#{view_partial == 'box' ? ' grid' : ''}"]
           a.switch.hold_right[href="#{likes_user_path @user}" rel='tooltip' title="#{t('funs.titles.profile.likes')}"]
             span.toggle_slider
             span.toggle_name
-              = t('user.likes', count: @user.voted_ids.count)
+              = t('user.likes', count: @user.votes_count_for(:Fun))
 
       .tumbler_switch.toggle_view#user_switch_view
         .toggle_track

@@ -10,9 +10,7 @@ article.post_frame
         = link_to fun.user.login, fun.user
         = fun_add_line(fun, true) || ' добавил '
         | &bull;
-        span.date_block
-          = time_ago_in_words fun.created_at
-          |  назад
+        = time_ago_format fun.created_at
       - if fun.content.title?
         .title
           h2 = link_to fun.content.title, fun

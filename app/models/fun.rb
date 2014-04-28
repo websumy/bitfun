@@ -1,5 +1,5 @@
 class Fun < ActiveRecord::Base
-  attr_accessible :content_attributes, :content_type, :comments_count
+  attr_accessible :content_attributes, :content_type
   attr_accessible :content_id, :content_type, :user_id, :owner_id, as: :admin
   after_destroy :delete_content
   before_destroy :delete_likes
@@ -27,6 +27,7 @@ class Fun < ActiveRecord::Base
 
   # Initialize "acts_as_votable" gem for "likes"
   acts_as_votable
+  acts_as_commentable
 
   def attributes=(attributes = {})
     self.content_type = attributes[:content_type]
@@ -110,7 +111,7 @@ class Fun < ActiveRecord::Base
   end
 
   def in_sandbox?
-    !published_at.nil?
+    published_at.nil?
   end
 
   # get related funs without funs liked by user
@@ -126,6 +127,10 @@ class Fun < ActiveRecord::Base
     exclude = [id]
     exclude.concat user.get_voted_ids(month_range) unless user.blank?
     Fun.exclude_funs(exclude).where(published_at: month_range).filter_by_type(type).order('cached_votes_total DESC')
+  end
+
+  def notification_fun
+    self
   end
 
   class << self
@@ -176,7 +181,7 @@ class Fun < ActiveRecord::Base
       type_index = []
       unless types.nil?
         DEF_TYPES.each{|t| type_index << DEF_TYPES.index(t) if t.in? types }
-        Fun.search_for_ids(query, with: {type: type_index}, max_matches: 100, per_page: 10)
+        Fun.search_for_ids(query, with: {type: type_index}, max_matches: 100, per_page: 100)
       end
     end
 
@@ -187,7 +192,7 @@ class Fun < ActiveRecord::Base
         type.each do |t|
           tags.concat t.capitalize.constantize.tag_counts_on(:tags)
         end
-      elsif type != 'unknown'
+      elsif type
         tags = type.capitalize.constantize.tag_counts_on(:tags)
       end
       tags.uniq.shuffle
@@ -216,5 +221,9 @@ class Fun < ActiveRecord::Base
   end
   def delete_content
     content.destroy unless repost?
+  end
+
+  def update_comments_count
+    update_attribute :comments_counter, comment_threads.count
   end
 end

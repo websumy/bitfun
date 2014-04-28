@@ -11,7 +11,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130906075059) do
+ActiveRecord::Schema.define(:version => 20140416070220) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "commentable_id",     :default => 0
+    t.string   "commentable_type"
+    t.string   "title"
+    t.text     "body"
+    t.string   "subject"
+    t.integer  "user_id",            :default => 0, :null => false
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.integer  "cached_votes_score", :default => 0
+    t.integer  "cached_votes_up",    :default => 0
+    t.integer  "cached_votes_down",  :default => 0
+  end
+
+  add_index "comments", ["cached_votes_down"], :name => "index_comments_on_cached_votes_down"
+  add_index "comments", ["cached_votes_score"], :name => "index_comments_on_cached_votes_score"
+  add_index "comments", ["cached_votes_up"], :name => "index_comments_on_cached_votes_up"
+  add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "funs", :force => true do |t|
     t.integer  "user_id"
@@ -46,6 +70,21 @@ ActiveRecord::Schema.define(:version => 20130906075059) do
     t.string "url"
     t.string "cached_tag_list"
   end
+
+  create_table "notifications", :force => true do |t|
+    t.string   "action"
+    t.integer  "subject_id"
+    t.string   "subject_type"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.integer  "user_id"
+    t.integer  "receiver_id"
+    t.integer  "fun_id"
+    t.datetime "created_at"
+  end
+
+  add_index "notifications", ["subject_id", "subject_type"], :name => "index_notifications_on_subject_id_and_subject_type"
+  add_index "notifications", ["user_id"], :name => "index_notifications_on_user_id"
 
   create_table "posts", :force => true do |t|
     t.string "title"

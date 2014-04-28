@@ -13,7 +13,7 @@ class FunsController < ApplicationController
     if params[:query]
       funs_ids = Fun.search_fun_ids(params[:query], type)
       @funs = @funs.where(id: funs_ids)
-      @tags = Fun.create_tag_cloud type
+      @tags = Fun.create_tag_cloud type if (params[:page].nil? || !request.xhr?)
     end
 
     cookies_store.set params.select { |k,v| k.in? %w(type view interval sort) }
@@ -34,6 +34,9 @@ class FunsController < ApplicationController
 
   # GET /funs/1
   def show
+    @tree = AwesomeNestedTree.new @fun.comment_threads.includes(:user)
+    @new_comment = Comment.build_from(@fun)
+
     @funs = @fun.get_month_trends(current_user, cookies_store[:type]).includes(:user, :content).limit 9
     respond_to :html, :js
   end
@@ -46,6 +49,8 @@ class FunsController < ApplicationController
   # GET /funs/1/edit
   def edit
     @fun = Fun.find(params[:id])
+
+    render layout: false if request.xhr?
   end
 
   # POST /funs
@@ -65,10 +70,14 @@ class FunsController < ApplicationController
 
   # PUT /funs/1
   def update
-    if @fun.content.update_attributes(params[:fun][:content_attributes])
-      redirect_to @fun, notice: t('funs.updated')
-    else
-      render 'edit'
+    respond_to do |format|
+      if @fun.content.update_attributes(params[:fun][:content_attributes])
+        format.html { redirect_to @fun, notice: t('funs.updated') }
+        format.json { render json: { success: true, path: fun_path(@fun) } }
+      else
+        format.html { render 'edit' }
+        format.json { render json: { success: false, notice: t('funs.update_error') } }
+      end
     end
   end
 

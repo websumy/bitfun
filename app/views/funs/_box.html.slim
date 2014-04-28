@@ -12,11 +12,8 @@ article.post_frame.post_card
           = link_to fun.content.title, fun
       - else
         = fun_add_line fun
-      span.date_block
-        = time_ago_in_words fun.created_at
-        |  назад
+      = time_ago_format fun.created_at
   .post_object
-    .arrow
     = render_fun_partial fun, :box
   .post_nav
     = small_like_button fun

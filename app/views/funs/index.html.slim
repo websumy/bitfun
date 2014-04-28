@@ -13,7 +13,8 @@
           .icon-search
         a.find.btn[href="#"] Искать
         .clearfix
-    = render 'tag_cloud'
+    - if @tags
+      #bitfun_cloud_wrapper= render 'tag_cloud', tags: @tags
 
 div *data class="container main_layout#{view_partial == 'box' ? ' grid' : ''}"
   section.content[role="main"]

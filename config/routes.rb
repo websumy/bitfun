@@ -2,6 +2,13 @@ Bitfun::Application.routes.draw do
 
   root to: 'funs#index'
 
+  resources :comments, only: [:create, :destroy] do
+    get 'vote(/:type)', action: :vote, on: :member, as: :vote
+    delete 'vote(/:type)', action: :unvote, on: :member
+  end
+
+  resources :notifications, only: :index
+
   get 'reports', to: 'reports#index'
   resources :funs do
     resources :reports, except: :index

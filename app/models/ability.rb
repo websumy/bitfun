@@ -8,11 +8,9 @@ class Ability
     elsif user.role? :user
       can [:create, :feed, :autocomplete_tags], Fun
       can :destroy, Fun do |fun|
-        fun.user_id == user.id && if fun.repost?
-                                    true
-                                  else
-                                    fun.repost_counter == 0 && ! fun.published_at
-                                  end
+        fun.user_id == user.id && (
+          fun.repost? || (fun.repost_counter == 0 && fun.in_sandbox?)
+        )
       end
       can :create, :repost
       can [:create, :destroy], [UserRelationship, :like]
@@ -20,9 +18,12 @@ class Ability
       can :update, User, id: user.id
       can :create, Report
       can :read, :all
+      can [:create, :vote, :unvote], Comment
       cannot [:destroy, :read], Report
+      cannot :show, Notification
     else
       can :read, :all
+      cannot :read, Notification
     end
   end
 end

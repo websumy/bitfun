@@ -1,0 +1,8 @@
+- list.each do |group|
+  - if group.notifications.length > 1
+    = render 'notifications/group', group: group
+  - else
+    = render 'notifications/record', notification: group.first
+
+- unless notifications.length.zero?
+  input type='hidden' name='next' value=url_for(format: :js, date: notifications.last.created_at)

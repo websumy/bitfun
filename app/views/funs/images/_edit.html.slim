@@ -1,19 +1,21 @@
-= f.input :title, :validate => { :presence => true }
-.control-row
-  = f.input :remote_file_url
-  .help-inline или
-  span.fileupload-new#upload_image_botton
-    span.btn-file
-      span.fileupload-preview
-      span.fileupload-new Загрузить
-      = f.file_field :file, accept: 'image/jpeg,image/png,image/gif', validate: false, wrapper: :none
+= form.simple_fields_for :content_attributes, fun.content do |f|
+  = f.input :title
+  .column2.pull-right.control-row
+    span.fileupload-new#upload_image_botton
+      span.btn-file
+        span.fileupload-preview
+        span.fileupload-new Загрузить
+        = f.file_field :file, accept: 'image/jpeg,image/png,image/gif', validate: false, wrapper: :none
+    .text-center.vertical-space-sm или
+    = f.input :remote_file_url
+  .column2= fun_image(@fun, version: :small)
 
-= f.input :tag_list
+  = f.input :tag_list
 
 javascript:
   $('#upload_image_botton').inputfileupload({
     maxFileSize: 15000000,
     onFailMaxSize: function(){
-      $('#upload_image_botton').closest('.control-row').append($('<div class="error-block">Размер файла больше допустимого, попробуйте загрузить меньшего размера.</div>'))
+      $('#upload_image_botton').closest('.column2').append($('<div class="error-block">Размер файла больше допустимого, попробуйте загрузить меньшего размера.</div>'))
     }
   });

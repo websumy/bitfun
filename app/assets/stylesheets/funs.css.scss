@@ -10,11 +10,26 @@
 @import 'inc/_tooltips.css.scss';
 @import 'inc/_modals.css.scss';
 @import 'inc/_tagit.css.scss';
+@import 'inc/photo_frames.css.scss';
 
 html, body {
 	font-family: $baseFontFamily;
 	background: asset_url("page-bg.png", image) left top;
 	width: 100%;
+}
+
+.btn-orange, .btn-orange:focus {
+    @include btn-orange(35px);
+}
+
+.btn-close-sm {
+  background: asset_url('btn-fun-icons.png', image) no-repeat -22px 0;
+  height: 21px;
+  width: 21px;
+  &:hover {
+    background-position: 0 0;
+    cursor: pointer;
+  }
 }
 
 .page {
@@ -459,6 +474,11 @@ html, body {
 	li {@include inline-block; padding-right: 10px;}
 }
 
+.date_block {
+  background: asset_url("timer-icon.png", image) no-repeat top left;
+  padding-left: 15px;
+}
+
 .post_frame {
 	@include inline-block;
 	margin-bottom: 20px;
@@ -533,10 +553,6 @@ html, body {
 			img {display: block;}
 		}
 
-	}
-	.date_block {
-		background: asset_url("timer-icon.png", image) no-repeat top left;
-		padding-left: 15px;
 	}
 	.tags_block {
 		color: #aaaaaa;
@@ -872,7 +888,7 @@ html, body {
 	}
 	&:hover {
 		a.btn-fun-delete {
-			background: asset_url("btn-fun-delete.png", image) no-repeat -21px 0;
+			background: asset_url("btn-fun-icons.png", image) no-repeat -22px 0;
 			height: 21px;
 			width: 21px;
 			position: absolute;
@@ -880,97 +896,10 @@ html, body {
 			right: -8px;
 			z-index: 1001;
 			&:hover {
-				background: asset_url("btn-fun-delete.png", image) no-repeat 0 0;
+				background: asset_url("btn-fun-icons.png", image) no-repeat 0 0;
 				cursor: pointer;
 			}
 		}
-	}
-}
-
-.photo_frame {
-	@include inline-block;
-	position: relative;
-	height: 70px;
-	width: 70px;
-	.photo_box {
-		border: 5px solid #5b5985;
-		display: block;
-		&, img {
-			height: 60px;
-			width: 60px;
-			border-radius: 50%;
-		}
-	}
-	.arrow {
-		border: {
-			top: 8px solid transparent;
-			left: 8px solid #5b5985;
-			bottom: 8px solid transparent;
-		}
-		position: absolute;
-		right: -5px;
-		top: 50%;
-		margin-top: -8px;
-	}
-	.circle_content_obj {
-		background: #5b5985;
-		border: 1px solid #363453;
-		height: 28px;
-		width: 28px;
-		position: absolute;
-		border-radius: 50%;
-		right: 0;
-		bottom: -5px;
-		> div {
-			height: 16px;
-			width: 16px;
-			margin: 6px 0 0 6px;
-		}
-		.image {
-			background: asset_url("content-obj-icons.png", image) no-repeat left -42px;
-		}
-		.video {
-			background: asset_url("content-obj-icons.png", image) no-repeat -21px -42px;
-		}
-		.post {
-			background: asset_url("content-obj-icons.png", image) no-repeat -42px -42px;
-		}
-		&:hover{cursor: default;}
-	}
-	.circle_follow_status {
-		position: absolute;
-		left: -15px;
-		top: 50%;
-		margin-top: -15px;
-		line-height: 24px;
-		text-align: center;
-		a {
-			display: block;
-			height: 32px;
-			width: 32px;
-			background: {
-				image: asset_url("follow-icons.png", image);
-				repeat: no-repeat;
-			}
-			&.follow {
-				background-position: -35px -35px;
-				&:hover {
-					background-position: -35px 0;
-				}
-			}
-			&.unfollow {
-				background-position: -70px -105px;
-				&:hover {
-					background-position: -70px -70px;
-				}
-			}
-			&.settings {
-				background-position: -106px 0;
-			}
-		}
-	}
-	&:hover {
-		cursor: pointer;
 	}
 }
 
@@ -1373,7 +1302,7 @@ html, body {
 			.like_box, .repost_box, .complain_box { padding: 0 1px; margin-right: 0; }
 
 			.item_adds {
-				background: url(/assets/post-navbar-bg.png) repeat-x 0 -50px;
+              background: asset_url("post-navbar-bg.png", image) repeat-x 0 -50px;
 				padding-bottom: 0;
 				float: left;
 				overflow: hidden;
@@ -2188,7 +2117,7 @@ html, body {
   &:hover{
     a {
       &.btn-fun-delete{
-        background: asset_url("btn-fun-delete.png", image) no-repeat -21px 0;
+        background: asset_url("btn-fun-icons.png", image) no-repeat -22px 0;
         height: 21px;
         width: 21px;
         position: absolute;
@@ -2196,7 +2125,20 @@ html, body {
         right: -8px;
         z-index: 1001;
         &:hover{
-          background: asset_url("btn-fun-delete.png", image) no-repeat 0 0;
+          background: asset_url("btn-fun-icons.png", image) no-repeat 0 0;
+          cursor: pointer;
+        }
+      }
+      &.btn-fun-edit{
+        background: asset_url("btn-fun-icons.png", image) no-repeat -22px -22px;
+        height: 21px;
+        width: 21px;
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        z-index: 1001;
+        &:hover{
+          background: asset_url("btn-fun-icons.png", image) no-repeat 0 -22px;
           cursor: pointer;
         }
       }
@@ -2402,4 +2344,154 @@ and (orientation:landscape) {
 .biggest{
   color: darkred;
   font-size: 26px;
+}
+
+.info_list{
+  color: #474747;
+  font-size: 13px;
+  .info_list_title{
+    color: #000000;
+    margin-bottom: 15px;
+    font: {
+      weight: bold;
+      size: 18px;
+    }
+
+    .gray{
+      color: #cacaca;
+    }
+  }
+  .info_action{
+    color: #8e8da9;
+    display: inline-block;
+    margin-top: 7px;
+    &.answer{
+      padding-left: 20px;
+      background: {
+        image: asset_url('chat.png', image);
+        repeat: no-repeat;
+        position: 0 50%;
+      }
+    }
+    &:hover{ text-decoration: underline; }
+  }
+  .info_muted{
+    color: #aaaaaa;
+  }
+  .info_element{
+    border-top: 1px solid #e2e2e2;
+    padding: 15px 0 0 10px;
+    margin-top: 15px;
+    position: relative;
+    .info_body{
+      margin-left: 90px;
+      word-wrap: break-word;
+    }
+    .info_muted{ margin-top: 5px; }
+    .info_content{ margin-top: 15px; }
+    .info_action{ display: inline-block; margin-top: 7px; }
+    .btn-close-sm {
+      display: none;
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      z-index: 1001;
+    }
+    &:hover {
+      > .btn-close-sm { display: block}
+    }
+  }
+  .info_link{
+    color: #6d6b93;
+    &:hover{ text-decoration: underline; }
+  }
+  .info_list{
+    margin-left: -60px;
+    .info_element{
+      padding-left: 0;
+    }
+  }
+}
+
+.btn-action{
+  height: 32px;
+  width: 32px;
+  background: {
+    image: asset_url('follow-icons.png', image);
+    repeat: no-repeat;
+  }
+  &.hoverable{
+    opacity: .3;
+    &:hover { opacity: 1 }
+  }
+  &.plus{
+    background-position: -35px 0;
+    &.orange{
+      background-position: -35px -70px;
+    }
+  }
+  &.minus{
+    background-position: -70px 0;
+    &.orange{
+      background-position: -70px -70px;
+    }
+  }
+}
+
+.voting{
+  color: #5b5985;
+  font: {
+    size: 16px;
+    weight: bold;
+  }
+  line-height: 30px;
+  position: relative;
+  min-width: 40px;
+  padding: 0 35px;
+  text-align: center;
+  &.red{
+    color: #d2573a;
+  }
+  .btn-action {
+    position: absolute;
+    &.plus { left: 0 }
+    &.minus { right: 0 }
+  }
+}
+
+.notification_list{
+  .info_element{
+    margin-top: 0;
+    padding-bottom: 15px;
+    .info_body{
+      margin-left: 50px;
+      margin-right: 40px;
+    }
+    .info_content{ margin-top: 5px }
+    .preview{
+      float: right;
+      width: 50px;
+      max-height: 50px;
+      overflow: hidden;
+      img{ width: 100%; }
+    }
+  }
+  .click_handler:hover{
+    cursor: pointer;
+    background-color: #f2f2f2;
+
+    .arrow_expand{
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #5b5985;
+
+      &.expanded{
+        border-top: 0px solid transparent;
+        border-bottom: 6px solid #5b5985;
+      }
+    }
+  }
 }

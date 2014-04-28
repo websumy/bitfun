@@ -63,7 +63,6 @@ gem 'thin'
 # Show error in better format
 gem 'better_errors'
 gem 'binding_of_caller'
-gem 'meta_request'
 
 # use this gem only for testing VK widgets
 gem 'localtunnel'
@@ -91,6 +90,10 @@ gem 'bourbon'
 
 gem 'sass-rails',   '~> 3.2.3'
 
+group :development do
+  gem 'meta_request'
+end
+
 group :assets do
   # Toolkit from Twitter designed to kickstart development of webapps and sites
   # gem "bootstrap-sass"
@@ -111,6 +114,10 @@ gem 'jquery-fileupload-rails'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+
+gem 'acts_as_commentable_with_threading'
+
+gem 'momentjs-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

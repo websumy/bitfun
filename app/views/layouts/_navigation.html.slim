@@ -5,10 +5,7 @@ section.nav_bar
       = link_to_type 'video'
       = link_to_type 'post'
     nav.menu[role="navigation"]
-      - if request.path == '/'
-        = link_to_menu "Новое", request.path, {class: 'new_funs', rel: 'tooltip', title: t('funs.titles.new')}
-      - else
-        = link_to_menu "Новое", new_path, { class: 'new_funs' , rel: 'tooltip', title: t('funs.titles.new') }
+      = link_to_menu "Новое", (request.path == '/' ? request.path : new_path), { class: 'new_funs' , rel: 'tooltip', title: t('funs.titles.new') }
       = link_to_menu "Популярное", hot_path, {class: 'popular_funs' , rel: 'tooltip', title: t('funs.titles.popular')}
       = link_to_menu "Обсуждаемое", discuss_path, { class: 'discussed_funs', rel: 'tooltip', title: t('funs.titles.discussed')}
       = link_to_menu "Песочница", sandbox_path, { class: 'sandbox_funs', rel: 'tooltip', title: t('funs.titles.sandbox')}

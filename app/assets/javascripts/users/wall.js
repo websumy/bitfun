@@ -24,19 +24,21 @@ $(function(){
                 data: { view: currentState },
                 dataType: 'script',
                 complete: function(data) {
-                    if (data.status == 200)
-                    {
+                    if (data.status == 200){
                         var wall = $('.post_wall');
 
                         wall.html(data.responseText);
                         wall.initButtonTooltips();
                         wall.initTooltips();
+                        wall.findAndFormatDateTime();
                         $(window).data('endelessscroll').resetFiring();
 
                         if (currentState == 'box'){
                             layout.addClass('grid');
-                            if (wall.data('masonry')) wall.masonry('reload');
-                            else wall.masonry({ itemSelector : '.post_card', gutterWidth: 20 })
+                            wall.imagesLoaded(function(){
+                                if (wall.data('masonry')) wall.masonry('reload');
+                                else wall.masonry({ itemSelector : '.post_card', gutterWidth: 20 })
+                            });
                         }
                         else{
                             if (wall.data('masonry')) wall.masonry('destroy');
@@ -59,15 +61,18 @@ $(function(){
                 url: url,
                 dataType: 'script',
                 complete: function(data) {
-                    if (data.status == 200)
-                    {
+                    if (data.status == 200){
                         var wall = $('.post_wall');
                         wall.html(data.responseText);
                         wall.initButtonTooltips();
                         wall.initTooltips();
+                        wall.findAndFormatDateTime();
                         $(window).data('endelessscroll').resetFiring();
                         if (currentState == 'box'){
-                            if (wall.data('masonry')) wall.masonry('reload');
+                            wall.imagesLoaded(function(){
+                                if (wall.data('masonry')) wall.masonry('reload');
+                                else wall.masonry({ itemSelector : '.post_card', gutterWidth: 20 })
+                            });
                         }
                     }
                     $('#ajax_loading').remove();

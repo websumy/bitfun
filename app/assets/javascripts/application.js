@@ -11,6 +11,8 @@
 //= require source/bootstrap-tab
 //= require rails.validations
 //= require hogan.js
+//= require moment
+//= require moment/ru
 //= require_tree .
 
 $(function(){
@@ -116,13 +118,23 @@ $(function(){
         $.fancybox.close()
     });
 
+    var showAuthRequire = function(){
+        show_notice('<a href="/users/sign_in" class="sign_pop_up">Авторизируйтесь</a> или <a href="/users/sign_up" class="sign_pop_up">зарегистрируйтесь</a>, чтобы можно было выполнять это действие.', 'error');
+    };
+
     $(document).on('click', 'a[data-auth]', function(e){
         e.preventDefault();
-        show_notice('<a href="/users/sign_in" class="sign_pop_up">Авторизируйтесь</a> или <a href="/users/sign_up" class="sign_pop_up">зарегистрируйтесь</a>, чтобы можно было выполнять это действие.', 'error');
+        showAuthRequire();
     });
 
+
+
     $.rails.allowAction = function(element){
-        if ( ! element.attr('data-confirm')) return true
+        if ( element.data('auth')){
+            showAuthRequire();
+            return false;
+        }
+        if ( ! element.attr('data-confirm')) return true;
 
         show_notice(element.data('confirm'), 'confirm', {
             buttons: [
@@ -140,8 +152,33 @@ $(function(){
             ]
         });
         return false
-    }
+    };
 
+    // Initialize fancybox for add box
+
+    $('.fancybox_ajax').not('[data-auth]').fancybox({
+        type: 'ajax',
+        padding : 0,
+        helpers:  {
+            overlay: {
+                locked: false
+            }
+        }
+    });
+
+    $.fn.findAndFormatDateTime = function(){
+        $(this).find('.date-time-format').datetimeformat({
+            onComplete: function(element, object){
+                element.tooltipster({
+                    theme: 'tooltips_theme',
+                    offsetY: -5,
+                    content: object.moment.format('YYYY-MM-DD HH:mm')
+                });
+            }
+        });
+    };
+
+    $(document).findAndFormatDateTime();
 });
 
 function show_notice(text, type, options) {

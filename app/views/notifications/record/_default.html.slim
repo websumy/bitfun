@@ -1,0 +1,9 @@
+= link_to notification.user.login, notification.user, class: 'info_link'
+'
+span.info_muted
+  = time_ago_format notification.created_at
+
+.info_content
+  = t(notification.msg_key)
+  '
+  = notification_fun_link(notification)
